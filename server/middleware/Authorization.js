@@ -65,6 +65,11 @@ export default {
     };
     next();
   },
+  /** Validates users login information
+   * @param  {Object} req - request
+   * @param  {Object} res - response
+   * @param  {Object} next - calls the next method
+   */
   validateLogin(req, res, next) {
     if (!req.body.username || !req.body.password) {
       return res.status(400)
@@ -90,6 +95,10 @@ export default {
         }
       });
   },
+  /** Get all users in the database
+   * @param  {Object} request 
+   * @param  {Object} response
+   */
   getUsers(req, res) {
     // winston.info(req.decoded)
     return User
@@ -97,6 +106,10 @@ export default {
       .then(users => res.status(201).send(users))
       .catch(error => res.status(404).send(error));
   },
+  /** Checks if logged in user has valid AUTH token
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   isLoggedIn(req, res, next) {
     const token = req.headers['x-access-token'];
     if (token) {
@@ -119,6 +132,10 @@ export default {
         });
     }
   },
+  /**Checks if currently logged in user is an admin
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   isAdmin(req, res, next) {
     const decodedToken = req.decoded;
     if (typeof decodedToken.currentUser.isAdmin === 'undefined') {
@@ -135,6 +152,10 @@ export default {
         });
     }
   },
+  /** Checks is a valid user ID was supplied
+   * @param  {Object} req - request
+   * @param  {object} res - response
+   */
   validUser(req, res, next) {
     const querier = req.params.userId;
     if (!querier || querier.match(/[\D]/)) {
@@ -159,6 +180,10 @@ export default {
         });
     }
   },
+  /** Checks if a valid book ID was supplied
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || querier.match(/[\D]/)) {
@@ -183,6 +208,10 @@ export default {
         });
     }
   },
+  /** Checks if user has rented a book before
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   hasRentedBefore(req, res, next) {
     RentedBook
       .findOne({

@@ -16,6 +16,12 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
+    
+  /** User rent book
+   * @param  {object} req - request
+   * @param  {object} res - response
+   * ROUTE: POST: /users/:userId/books
+   */
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
@@ -105,7 +111,11 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
-
+  /** User get a specific book
+   * @param  {Object} req - request
+   * @param  {Object} res - response
+   * Route: GET: /books/:bookId 
+   */
   getOneBook(req, res) {
     return Book
       .findAll({
@@ -118,7 +128,11 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
-
+  /** Admin delete a book
+   * @param  {} req - request
+   * @param  {} res - reponse
+   * ROute: DELETE: /books/delete/:bookId
+   */
   deleteBook(req, res) {
     return Book
       .destroy({
@@ -133,7 +147,11 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
-
+  /** Get rented books by a specific user
+   * @param  {Object} req - request
+   * @param  {object} res - response
+   * Route: GET: /books/logs/:userId
+   */
   rentedBookByUser(req, res) {
     return RentedBook
       .findAll({
@@ -152,7 +170,11 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
-
+  /** User return rented book
+   * @param  {object} req - request
+   * @param  {object} res - response
+   * Route: PUT: /users/:userId/books
+   */
   returnBook(req, res) {
     return RentedBook
       .update({
