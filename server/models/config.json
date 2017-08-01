@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "dealwap",
+    "password": "dealwap123",
+    "database": "hello-books",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "dealwap",
+    "password": null,
+    "database": "hello-books",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
