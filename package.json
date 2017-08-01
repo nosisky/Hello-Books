@@ -1,0 +1,19 @@
+{
+  "name": "hello-books",
+  "version": "1.0.0",
+  "description": "Hello book is a simple library management system built with reactJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nosisky/Hello-Books.git"
+  },
+  "author": "Abdulrasaq Nasirudeen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nosisky/Hello-Books/issues"
+  },
+  "homepage": "https://github.com/nosisky/Hello-Books#readme"
+}
