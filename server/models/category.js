@@ -1,9 +1,8 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var History = sequelize.define('History', {
-    Type: DataTypes.STRING,
-    UserId: DataTypes.INTEGER,
-    Description: DataTypes.TEXT
+  var Category = sequelize.define('Category', {
+    name: DataTypes.STRING,
+    description: DataTypes.TEXT
   }, {
     classMethods: {
       associate: function(models) {
@@ -11,5 +10,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return History;
+  return Category;
 };

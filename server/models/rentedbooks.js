@@ -1,22 +1,16 @@
 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const RentedBooks = sequelize.define('RentedBooks', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-      unique: true
-    },
+module.exports = function(sequelize, DataTypes) {
+  var RentedBooks = sequelize.define('RentedBooks', {
+    BookId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
-    BookId: {
-      type: DataTypes.INTEGER,
-      required: true,
-      unique: true
-    },
-    ToRentedDate: DataTypes.DATE,
-    ReTurnDate: DataTypes.DATE
+    toReturnDate: DataTypes.DATE,
+    ReturnDate: DataTypes.DATE
   }, {
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
+      }
+    }
   });
   return RentedBooks;
 };
