@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard | Hello Books</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+</head>
+<body>
+
+	<div class="container-fluid">
+	<div class="row">
+		<div class="navbar navbar-inverse nav">
+   		 <div class="navbar-inner">
+			<div class="pull-right">
+                <ul class="nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Bisola <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                            <li><a href="#"><i class="icon-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+            </div>
+    	</div>
+    </div>
+    </div>
+
+	<div class="nav-side-menu">
+    <div class="brand"><h2>Hello Books</h2></div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  </a>
+                </li>
+
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#add-book-modal"><i class="fa fa-gift fa-lg"></i> Rented Books</a>
+                </li>
+                <li class="collapsed">
+                  <a href="history.html"><i class="fa fa-globe fa-lg"></i> History </a>
+                </li>  
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#all-book-modal"><i class="fa fa-book fa-lg"></i> Rent a Book </a>
+                </li>
+                 <li>
+                  <a href="#" data-toggle="modal" data-target="#all-book-modal">
+                  <i class="fa fa-book fa-lg"></i> All Books
+                  </a>
+                  </li>
+
+                 <li>
+                  <a href="profile.html">
+                  <i class="fa fa-users fa-lg"></i> Edit Profile
+                  </a>
+                </li>
+            </ul>
+     </div>
+</div>
+
+<div class="user-container">
+   <div class="container-fluid">
+   		<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Abdulrasaq Nasirudeen</strong></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png" class="img-circle img-responsive"> </div>
+                
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Hobby:</td>
+                        <td>Programming</td>
+                      </tr>
+                      <tr>
+                        <td>Hire date:</td>
+                        <td>06/23/2013</td>
+                      </tr>
+                      <tr>
+                        <td>Date of Birth</td>
+                        <td>01/24/1988</td>
+                      </tr>
+                   
+                         <tr>
+                             <tr>
+                        <td>Gender</td>
+                        <td>Male</td>
+                      </tr>
+                        <tr>
+                        <td>Home Address</td>
+                        <td>Nigeria, Lagos</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:nosisky@gmail.com">nosisky@gmail.com</a></td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                        </td>
+                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  
+                  <a href="#" class="btn btn-primary">My Rented Books</a>
+                  <a href="#" class="btn btn-primary">Browsing History</a>
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope"></i></a>
+                        <span class="pull-right">
+                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </span>
+                    </div>
+            
+          </div>
+        </div>
+</div>
+</div>
+</div>
+<!-- Category Lists -->
+
+                <div class="modal fade" id="all-book-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+                <div class="add-itemsmodal-container">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1>Select a Category</h1><br>
+                  <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Psychology and Philosophy</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Social & Religion</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+                </div>
+            </div>
+          </div>
+<!-- End Category lists -->
+
+	<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+</body>
+</html>

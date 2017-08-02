@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Users | Hello Books</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+</head>
+<body>
+
+	<div class="container-fluid">
+	<div class="row">
+		<div class="navbar navbar-inverse nav">
+   		 <div class="navbar-inner">
+			<div class="pull-right">
+                <ul class="nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Admin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+            </div>
+    	</div>
+    </div>
+    </div>
+
+	<div class="nav-side-menu">
+    <div class="brand"><h2>Admin</h2></div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  </a>
+                </li>
+
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#add-book-modal"><i class="fa fa-gift fa-lg"></i> Add a Book</a>
+                </li>
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#add-cat-modal"><i class="fa fa-globe fa-lg"></i> Add New Category </a>
+                </li>  
+                <li class="collapsed">
+                  <a href="#"><i class="fa fa-book fa-lg"></i> Edit Books </a>
+                </li>
+                 <li>
+                  <a href="#" data-toggle="modal" data-target="#all-book-modal">
+                  <i class="fa fa-book fa-lg"></i> All Books
+                  </a>
+                  </li>
+
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-users fa-lg"></i> Manage Users
+                  </a>
+                </li>
+            </ul>
+     </div>
+</div>
+
+         <div style="background-color: rgba(0, 0, 0, 0.28); text-align: center; padding: 5px; margin: 0px;"><h2 style="color: #fff;">All Users</h2></div><br>
+<div class="container">
+ <div class="well col-xs-8 col-sm-8 col-md-8 col-lg-10 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+        <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                <img class="img-circle img-responsive"
+                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Silver</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user1">
+                <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+        <div class="row user-infos user1">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+                <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+               <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Registered</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user2">
+                <i class="fa fa-caret-down text-muted"></i>
+            </div>
+        </div>
+        <div class="row user-infos user2">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeenx</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Silver</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user3">
+                <i class="fa fa-caret-down text-muted"></i>
+            </div>
+        </div>
+        <div class="row user-infos user3">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+              <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Silver</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user4">
+                <i class="fa fa-caret-down text-muted"></i>
+            </div>
+        </div>
+        <div class="row user-infos user4">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                  <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Silver</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user5">
+                <i class="fa fa-caret-down text-muted"></i>
+            </div>
+        </div>
+        <div class="row user-infos user5">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                  <div class="row user-row">
+            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                <strong>Abdulrasaq Nasirudeen</strong><br>
+                <span class="text-muted">User level: Silver</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".user6">
+                <i class="fa fa-caret-down text-muted"></i>
+            </div>
+        </div>
+        <div class="row user-infos user6">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                <img class="img-circle img-responsive"
+                                     src="https://images.vexels.com/media/users/3/129519/isolated/preview/856b9d7ccae7ce0980187016c6d7c4bf-boy-cartoon-head-4-by-vexels.png"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <dl>
+                                    <dt>User level:</dt>
+                                    <dd>Silver</dd>
+                                    <dt>Registered since:</dt>
+                                    <dd>11/12/2017</dd>
+                                    <dt>Topics</dt>
+                                    <dd>15</dd>
+                                    <dt>Warnings</dt>
+                                    <dd>0</dd>
+                                </dl>
+                            </div>
+                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                <strong>Abdulrasaq Nasirudeen</strong><br>
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>User level:</td>
+                                        <td>Silver</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered since:</td>
+                                        <td>11/12/2017</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topics</td>
+                                        <td>15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-sm btn-primary" type="button"
+                                data-toggle="tooltip"
+                                data-original-title="Send message to user"><i class="fa fa-envelope"></i></button>
+                        <span class="pull-right">
+                            <button class="btn btn-sm btn-warning" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Edit this user"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" type="button"
+                                    data-toggle="tooltip"
+                                    data-original-title="Remove this user"><i class="fa fa-trash"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+<!--Add category -->
+<div class="modal fade" id="add-cat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="add-itemsmodal-container">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h1>Add a new category</h1><br>
+				  <form>
+					<input type="text" name="cat_name" placeholder="category name">
+					<textarea rows="4" cols="50" style="width: 100%;">
+					    
+					</textarea>
+					<input type="submit" name="submit" class="additems add-itemsmodal-submit" value="Add">
+				  </form>
+				
+				</div>
+			</div>
+		  </div>
+	<!--End Add category -->
+
+<!--Add Book -->
+		<div class="modal fade" id="add-book-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="add-itemsmodal-container">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h1>Add a new book</h1><br>
+				  <form>
+					<input type="text" name="cat_name" placeholder="Book Title">
+					<input type="text" name="cat_name" placeholder="Book Author">
+					<input type="text" name="cat_name" placeholder="Production Year">
+					<input type="text" name="cat_name" placeholder="ISBN">
+					<label>Book Description</label>
+					<textarea rows="4" cols="50" style="width: 100%;"></textarea>
+					
+					<div class="form-group">
+					 <label>Book Cover</label>
+					<input type="file" name="cover" class="form-control"></div>
+					<input type="submit" name="submit" class="additems add-itemsmodal-submit" value="Add Book">
+				  </form>
+				
+				</div>
+			</div>
+		  </div>
+          
+<!--End Add Book -->
+
+
+
+<!-- Category Lists -->
+
+                <div class="modal fade" id="all-book-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+                <div class="add-itemsmodal-container">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1>Select a Category</h1><br>
+                  <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Psychology and Philosophy</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Social & Religion</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+                </div>
+            </div>
+          </div>
+<!-- End Category lists -->
+	<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/scripts.js"></script>
+</body>
+</html>

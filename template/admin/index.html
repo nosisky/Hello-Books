@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Panel | Hello Books</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+</head>
+<body>
+
+	<div class="container-fluid">
+	<div class="row">
+		<div class="navbar navbar-inverse nav">
+   		 <div class="navbar-inner">
+			<div class="pull-right">
+                <ul class="nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Admin <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+            </div>
+    	</div>
+    </div>
+    </div>
+
+	<div class="nav-side-menu">
+    <div class="brand"><h2>Hello Books</h2></div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="#">
+                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  </a>
+                </li>
+
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#add-book-modal"><i class="fa fa-gift fa-lg"></i> Add a Book</a>
+                </li>
+                <li class="collapsed">
+                  <a href="#" data-toggle="modal" data-target="#add-cat-modal"><i class="fa fa-globe fa-lg"></i> Add New Category </a>
+                </li>  
+                <li class="collapsed">
+                  <a href="#"><i class="fa fa-book fa-lg"></i> Edit Books </a>
+                </li>
+                 <li>
+                  <a href="#">
+                  <i class="fa fa-book fa-lg"></i> All Books
+                  </a>
+                  </li>
+
+                 <li>
+                  <a href="users.html">
+                  <i class="fa fa-users fa-lg"></i> Manage Users
+                  </a>
+                </li>
+            </ul>
+     </div>
+</div>
+
+<div style="width: 80%; float: right;">
+<div class="container-fluid">
+    <div class="row">
+		<div class="well">
+        <h1 class="text-center">Recently Added Books</h1>
+        <div class="list-group">
+          <a href="#" class="list-group-item">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive"  src="https://image-store.slidesharecdn.com/3dec784d-8c86-45fb-b431-2cf7b09b2a7c-large.png" alt="" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading"> The Merchant Crew </h4>
+                    <p class="list-group-item-text"> Qui diam libris ei, vidisse incorrupte at mel. His euismod salutandi dissentiunt eu. Habeo offendit ea mea. Nostro blandit sea ea, viris timeam molestiae an has. At nisl platonem eum. 
+                        Vel et nonumy gubergren, ad has tota facilis probatus. Ea legere legimus tibique cum, sale tantas vim ea, eu vivendo expetendis vim. Voluptua vituperatoribus et mel, ius no elitr deserunt mediocrem. Mea facilisi torquatos ad.
+                    </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h2> 14240 <small> rents </small></h2>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit </button>
+                    <div class="stars">
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <p> Average 4.5 <small> / </small> 5 </p>
+                </div>
+          </a>
+          <a href="#" class="list-group-item">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive" src="https://image-store.slidesharecdn.com/3dec784d-8c86-45fb-b431-2cf7b09b2a7c-large.png" alt="" >
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading"> Think Rich To Get Rich </h4>
+                    <p class="list-group-item-text"> Eu eum corpora torquatos, ne postea constituto mea, quo tale lorem facer no. Ut sed odio appetere partiendo, quo meliore salutandi ex. Vix an sanctus vivendo, sed vocibus accumsan petentium ea. 
+                        Sed integre saperet at, no nec debet erant, quo dico incorrupte comprehensam ut. Et minimum consulatu ius, an dolores iracundia est, oportere vituperata interpretaris sea an. Sed id error quando indoctum, mel suas saperet at.                         
+                    </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h2> 12424 <small> rents </small></h2>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
+                    <div class="stars">
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <p> Average 3.9 <small> / </small> 5 </p>
+                </div>
+          </a>
+          <a href="#" class="list-group-item">
+                <div class="media col-md-3">
+                    <figure class="pull-left">
+                        <img class="media-object img-rounded img-responsive" src="https://image-store.slidesharecdn.com/3dec784d-8c86-45fb-b431-2cf7b09b2a7c-large.png" alt="">
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading"> Timeine of investment </h4>
+                    <p class="list-group-item-text"> Ut mea viris eripuit theophrastus, cu ponderum accusata consequuntur cum. Suas quaestio cotidieque pro ea. Nam nihil persecuti philosophia id, nam quot populo ea. 
+                        Falli urbanitas ei pri, eu est enim volumus, mei no volutpat periculis. Est errem iudicabit cu. At usu vocibus officiis, ad ius eros tibique appellantur.                         
+                    </p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h2> 13540 <small> rents </small></h2>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
+                    <div class="stars">
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <p> Average 4.1 <small> / </small> 5 </p>
+                </div>
+          </a>
+        </div>
+        </div>
+	</div>
+</div>
+</div>
+
+<!--Add category -->
+<div class="modal fade" id="add-cat-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="add-itemsmodal-container">
+					<h1>Add a new category</h1><br>
+				  <form>
+					<input type="text" name="cat_name" placeholder="category name">
+					<textarea rows="4" cols="50" style="width: 100%;">
+					    
+					</textarea>
+					<input type="submit" name="submit" class="additems add-itemsmodal-submit" value="Add">
+				  </form>
+				
+				</div>
+			</div>
+		  </div>
+	<!--End Add category -->
+
+<!--Add Book -->
+		<div class="modal fade" id="add-book-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="add-itemsmodal-container">
+					<h1>Add a new book</h1><br>
+				  <form>
+					<input type="text" name="cat_name" placeholder="Book Title">
+					<input type="text" name="cat_name" placeholder="Book Author">
+					<input type="text" name="cat_name" placeholder="Production Year">
+					<input type="text" name="cat_name" placeholder="ISBN">
+					<label>Book Description</label>
+					<textarea rows="4" cols="50" style="width: 100%;"></textarea>
+					
+					<div class="form-group">
+					 <label>Book Cover</label>
+					<input type="file" name="cover" class="form-control"></div>
+					<input type="submit" name="submit" class="additems add-itemsmodal-submit" value="Add Book">
+				  </form>
+				
+				</div>
+			</div>
+		  </div>
+<!--End Add Book -->
+
+
+<!-- Category Lists -->
+
+                <div class="modal fade" id="all-book-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+                <div class="add-itemsmodal-container">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h1>Select a Category</h1><br>
+                  <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>              <div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Science & Arts</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Psychology and Philosophy</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-lg-4">
+            <div class="box">                           
+                <div class="icon">
+                    <div class="image"><i class="fa fa-soundcloud"></i></div>
+                    <div class="info">
+                        <h3 class="title">Social & Religion</h3>
+
+    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> View Books</h4></a>
+</div>
+</div>
+</div>
+</div>
+                </div>
+            </div>
+          </div>
+<!-- End Category lists -->
+
+	<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+</body>
+</html>
