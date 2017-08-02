@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-
 import Sequelize from 'sequelize';
 
 const basename = path.basename(module.filename);

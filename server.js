@@ -17,6 +17,10 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get('/', (req, res) => {
+  res.send('<b>Hello World</b>');
+});
+
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 const port = 8000;
 
