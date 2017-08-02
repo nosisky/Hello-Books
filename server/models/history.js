@@ -1,13 +1,16 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var History = sequelize.define('History', {
-    Type: DataTypes.STRING,
-    UserId: DataTypes.INTEGER,
-    Description: DataTypes.TEXT
+module.exports = (sequelize, DataTypes) => {
+  const History = sequelize.define('History', {
+    type: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    description: DataTypes.TEXT
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         // associations can be defined here
+        History.BelongsTo(models.User, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
+        });
       }
     }
   });

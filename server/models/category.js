@@ -1,12 +1,15 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Category = sequelize.define('Category', {
+module.exports = (sequelize, DataTypes) => {
+  const Category = sequelize.define('Category', {
     name: DataTypes.STRING,
     description: DataTypes.TEXT
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         // associations can be defined here
+        Category.BelongsTo(models.Book, {
+          foreignKey: 'catId',
+          onDelete: 'CASCADE'
+        });
       }
     }
   });

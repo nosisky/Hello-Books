@@ -1,22 +1,16 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('RentedBooks', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Notifications', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    bookId: {
-      type: Sequelize.INTEGER
-    },
     userId: {
       type: Sequelize.INTEGER
     },
-    toReturnDate: {
-      type: Sequelize.DATE
-    },
-    returnDate: {
-      type: Sequelize.DATE
+    message: {
+      type: Sequelize.TEXT
     },
     createdAt: {
       allowNull: false,
@@ -27,5 +21,5 @@ module.exports = {
       type: Sequelize.DATE
     }
   }),
-  down: queryInterface => queryInterface.dropTable('RentedBooks')
+  down: queryInterface => queryInterface.dropTable('Notifications')
 };

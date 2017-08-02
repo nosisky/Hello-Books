@@ -1,28 +1,31 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
-    FullName: {
+  const User = sequelize.define('User', {
+    fullName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    Username: {
+    username: {
       type: DataTypes.STRING,
       unique: true
     },
-    Password: DataTypes.STRING,
-    Email: {
+    password: DataTypes.STRING,
+    email: {
       type: DataTypes.STRING,
       unique: true
     },
-    Plan: DataTypes.STRING
+    isBanned: {
+      type: DataTypes.INTEGER
+    },
+    plan: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
-        Users.hasMany(models.RentedBooks, {
-          foreignKey: 'UserId'
+        User.hasMany(models.RentedBooks, {
+          foreignKey: 'userId'
         });
       }
     }
   });
-  return Users;
+  return User;
 };
