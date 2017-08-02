@@ -2,6 +2,7 @@ import express from 'express';
 
 import logger from 'morgan';
 
+import db from './server/models';
 import bodyParser from 'body-parser';
 
 import winston from 'winston';
@@ -28,4 +29,13 @@ app.listen(port, () => {
   winston.info(`Connected to port: ${port}`);
 });
 
-module.exports = app;
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+export default app;
