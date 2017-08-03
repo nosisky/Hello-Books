@@ -45,8 +45,9 @@ export default {
             success: false,
             message: 'No rented unreturned books'
           });
+        } else {
+          res.status(201).send(books);
         }
-        res.status(201).send(books);
       })
       .catch(error => res.status(404).send(error));
   },
