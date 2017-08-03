@@ -1,19 +1,16 @@
-import omit from 'lodash/omit';
 import db from '../models';
 
-const { User } = db;
+const { Book } = db;
 export default {
   create(req, res) {
-    return User
+    return Book
       .create(req.userInput)
-      .then((user) => {
-        const data = omit(user.dataValues, [
-          'password'
-        ]);
+      .then(() => {
         return res.status(201).send({
-          message: 'Book Uploaded Successfully!',
-          data
-        })    
+          success: true,
+          message: 'Book uploaded successfully',
+        });
+      })
       .catch(error => res.status(400).send(error));
   },
 };
