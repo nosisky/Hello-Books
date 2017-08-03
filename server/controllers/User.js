@@ -1,4 +1,3 @@
-import omit from 'lodash/omit';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import db from '../models';
@@ -13,7 +12,8 @@ export default {
       .create(req.userInput)
       .then((user) => {
         const token = jwt.sign(
-          { user
+          { userId: user.id,
+            username: user.username
           }, secret
         );
         return res.status(201).send({
