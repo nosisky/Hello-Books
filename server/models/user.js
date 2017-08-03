@@ -14,9 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     isBanned: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING,
+      defaultValue: 0
     },
-    plan: DataTypes.STRING
+    plan: {
+      type: DataTypes.STRING,
+      defaultValue: 'silver'
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {
     classMethods: {
       associate: (models) => {

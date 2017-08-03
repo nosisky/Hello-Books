@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true
       },
+      active: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       isBanned: {
         type: Sequelize.INTEGER,
       },
