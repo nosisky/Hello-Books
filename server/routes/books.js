@@ -1,5 +1,5 @@
 import express from 'express';
-
+import Authorization from '../middleware/Authorization'
 import BookController from '../controllers/Book';
 import Validation from '../middleware/Validation';
 
@@ -7,10 +7,10 @@ const app = express.Router();
 
 app.route('/')
   .post(Validation.checkUserInput, BookController.create)
-  .get(BookController.getBooks);
+  .get(Authorization.isLoggedIn, BookController.getBooks);
 app.route('/:id')
-  .put(BookController.modifyBook);
+  .put(Authorization.isLoggedIn, BookController.modifyBook);
 app.route('/books/:bookId')
-  .post(BookController.rentBook);
+  .post(Authorization.isLoggedIn, BookController.rentBook);
 
 export default app;

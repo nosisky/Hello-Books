@@ -31,6 +31,17 @@ export default {
       .then(books => res.status(201).send(books))
       .catch(error => res.status(404).send(error));
   },
+  rentedBooks(req, res) {
+    return RentedBook
+      .findAll({
+        where: {
+          bookId: req.params.bookId,
+          returned: false
+        }
+      })
+      .then(books => res.status(201).send(books))
+      .catch(error => res.status(404).send(error));
+  },
   modifyBook(req, res) {
     return Book
       .update({
@@ -48,6 +59,23 @@ export default {
         }
       })
       .then(book => res.status(200).send(book))
+      .catch(error => res.status(400).send(error));
+  },
+  returnBook(req, res) {
+    return RentedBook
+      .update({
+        returnDate: Date.now()
+      },
+      {
+        where: {
+          bookId: req.params.bookId
+        }
+      })
+      .then(() => res.status(200).send(
+        {
+          message: 'Book returned successfully!'
+        }
+      ))
       .catch(error => res.status(400).send(error));
   },
 };

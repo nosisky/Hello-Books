@@ -11,7 +11,11 @@ app.route('/signup')
 app.route('/signin')
   .post(Authorization.validateLogin, UserController.login);
 app.route('/all')
-  .get(Authorization.getUsers);
+  .get(Authorization.isLoggedIn, Authorization.getUsers);
 app.route('/:userId/books/:bookId')
-  .post(BookController.rentBook);
+  .post(Authorization.isLoggedIn, BookController.rentBook);
+app.route('/:userId/books/:bookId')
+  .put(Authorization.isLoggedIn, BookController.returnBook);
+app.route('/:bookId/books?returned=false')
+  .get(Authorization.isLoggedIn, BookController.rentedBooks);
 export default app;

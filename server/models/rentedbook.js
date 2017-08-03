@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     bookId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     toReturnDate: DataTypes.DATE,
-    returnDate: DataTypes.DATE
+    returnDate: DataTypes.DATE,
+    returned: DataTypes.BOOLEAN
   }, {
     classMethods: {
       associate: (models) => {
