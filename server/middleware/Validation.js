@@ -13,9 +13,6 @@ export default {
         },
         isbn: {
           notEmpty: true,
-          isEmail: {
-            errorMessage: 'Provide a valid ISBN for the book'
-          },
           errorMessage: 'ISBN is required'
         },
         prodYear: {

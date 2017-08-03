@@ -8,7 +8,7 @@ const app = express.Router();
 app.route('/')
   .post(Validation.checkUserInput, BookController.create)
   .get(Validation.checkUserInput, BookController.create);
-app.route('/:id')
-  .put(Validation.validateLogin, BookController.login);
+// app.route('/:id')
+//   .put(Validation.validateLogin, BookController.login);
 
 export default app;
