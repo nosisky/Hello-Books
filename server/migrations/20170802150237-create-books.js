@@ -14,6 +14,10 @@ module.exports = {
       type: Sequelize.TEXT,
       required: true
     },
+    catId: {
+      type: Sequelize.INTEGER,
+      required: true
+    },
     prodYear: {
       type: Sequelize.STRING
     },

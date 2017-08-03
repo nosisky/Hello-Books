@@ -13,9 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use('/api/users', UserRouter);
 app.use('/api/books', BookRouter);
-app.get('*', (req, res) => {
-  res.send('<b>Hello World</b>');
-});
 
 const port = 8000;
 

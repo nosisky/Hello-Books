@@ -116,4 +116,10 @@ export default {
         }
       });
   },
+  getUsers(req, res) {
+    return User
+      .findAll({})
+      .then(users => res.status(201).send(users))
+      .catch(error => res.status(404).send(error));
+  }
 };

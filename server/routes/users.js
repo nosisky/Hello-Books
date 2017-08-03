@@ -9,5 +9,7 @@ app.route('/signup')
   .post(Authorization.checkUserInput, UserController.create);
 app.route('/signin')
   .post(Authorization.validateLogin, UserController.login);
+app.route('/all')
+  .get(Authorization.getUsers);
 
 export default app;
