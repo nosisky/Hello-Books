@@ -25,9 +25,6 @@ export default {
         },
         fullName: {
           notEmpty: true,
-          isAlpha: {
-            errorMessage: 'fullname should contain chararcters only'
-          },
           errorMessage: 'Your Fullname is required'
         },
         password: {
