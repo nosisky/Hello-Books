@@ -28,7 +28,16 @@ export default {
   getBooks(req, res) {
     return Book
       .findAll({})
-      .then(books => res.status(201).send(books))
+      .then((books) => {
+        if (books.length < 1) {
+          res.status(201).send({
+            success: false,
+            message: 'There is no book in the database'
+          });
+        } else {
+          res.status(201).send(books);
+        }
+      })
       .catch(error => res.status(404).send(error));
   },
   rentedBooks(req, res) {

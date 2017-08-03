@@ -34,6 +34,7 @@ export default {
           .update(
             {
               active: true,
+
             }).then((result) => {
             const token = jwt.sign(
               { result

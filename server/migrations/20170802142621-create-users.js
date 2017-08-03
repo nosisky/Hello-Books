@@ -28,9 +28,14 @@ module.exports = {
       },
       isBanned: {
         type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       plan: {
         type: Sequelize.STRING
+      },
+      isAdmin: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

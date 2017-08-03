@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     isBanned: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       defaultValue: 0
     },
     plan: {
@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    isAdmin: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     classMethods: {
