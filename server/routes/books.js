@@ -1,5 +1,5 @@
 import express from 'express';
-import Authorization from '../middleware/Authorization'
+import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/Book';
 import Validation from '../middleware/Validation';
 

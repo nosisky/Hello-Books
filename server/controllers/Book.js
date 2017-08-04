@@ -30,7 +30,7 @@ export default {
       .findAll({})
       .then((books) => {
         if (books.length < 1) {
-          res.status(201).send({
+          res.status(400).send({
             success: false,
             message: 'There is no book in the database'
           });

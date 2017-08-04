@@ -117,6 +117,7 @@ export default {
       });
   },
   getUsers(req, res) {
+    console.log(req.decoded);
     return User
       .findAll({})
       .then(users => res.status(201).send(users))
