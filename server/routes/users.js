@@ -16,7 +16,7 @@ app.route('/signin')
 
 // Get all users
 app.route('/all')
-  .get(Authorization.isLoggedIn, Authorization.getUsers);
+  .get(Authorization.isLoggedIn, Authorization.isAdmin, Authorization.getUsers);
 
 // Rent a book
 app.route('/:userId/books/:bookId')
