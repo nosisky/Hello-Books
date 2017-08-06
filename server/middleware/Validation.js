@@ -45,14 +45,14 @@ export default {
           message: allErrors[0]
         });
     }
-
     req.userInput = {
       title: req.body.title,
       isbn: req.body.isbn,
       prodYear: req.body.prodYear,
       cover: req.body.cover,
       author: req.body.author,
-      description: req.body.description
+      description: req.body.description,
+      catId: req.body.catId
     };
     next();
   },

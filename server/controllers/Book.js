@@ -3,28 +3,44 @@ import db from '../models';
 const { RentedBook } = db;
 const { Book } = db;
 export default {
+  /** Admin add new book
+   * @param  {object} req request
+   * @param  {object} res response
+   * Route: POST: /books  
+   */ 
   create(req, res) {
     return Book
       .create(req.userInput)
       .then(() => res.status(201).send({
-        success: true,
         message: 'Book uploaded successfully',
       }))
       .catch(error => res.status(400).send(error));
   },
+  /** User can rent a book
+   * @param  {object} req request
+   * @param  {object} res response
+   * Route: POST: /api/users/:Userid/books/:bookId
+   */
   rentBook(req, res) {
+    const cur = new Date(),
+      after30days = cur.setDate(cur.getDate() + 30);
     return RentedBook
       .create({
         bookId: req.params.bookId,
         userId: req.params.userId,
-        toReturnDate: Date.now()
+        toReturnDate: after30days
       })
       .then(() => res.status(201).send({
-        success: true,
         message: 'You have successfully rented the book',
       }))
       .catch(error => res.status(400).send(error));
   },
+
+  /** displays all books
+   * @param  {object} req request
+   * @param  {object} res response
+   *  Route: GET: /api/books
+   */
   getBooks(req, res) {
     return Book
       .findAll({})
@@ -40,12 +56,17 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
+  /** Dislay users rented books
+   * @param  {object} req request
+   * @param  {0bject} res response
+   * Route: GET: //api/users/:UserId/books?returned=false
+   */
   rentedBooks(req, res) {
     return RentedBook
       .findAll({
         where: {
-          bookId: req.params.bookId,
-          returned: req.query.returned
+          returned: req.query.returned,
+          userId: req.params.userId
         }
       })
       .then((books) => {
@@ -60,29 +81,37 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
+
+  /** Admin modify book details
+   * @param  {object} request
+   * @param  {object} resonse
+   * Route: GET: /
+   */
   modifyBook(req, res) {
     return Book
       .update({
-        title: req.body.title[1] || Book.title,
-        isbn: req.body.isbn[1] || Book.isbn,
-        catId: req.body.catId[1] || Book.catId,
-        prodYear: req.body.prodYear[1] || Book.prodYear,
-        cover: req.body.title[1] || Book.title,
-        author: req.body.author[1] || Book.author,
-        description: req.body.description[1] || Book.description
+        title: req.body.title || Book.title,
+        catId: req.body.catId || Book.catId,
+        prodYear: req.body.prodYear || Book.prodYear,
+        cover: req.body.cover || Book.title,
+        author: req.body.author || Book.author,
+        description: req.body.description || Book.description
       },
       {
         where: {
           id: req.params.id
         }
       })
-      .then(book => res.status(200).send(book))
+      .then(() => res.status(200).send({
+        message: 'Book updated successfully!'
+      }))
       .catch(error => res.status(400).send(error));
   },
   returnBook(req, res) {
     return RentedBook
       .update({
-        returnDate: Date.now()
+        returnDate: Date.now(),
+        returned: true
       },
       {
         where: {

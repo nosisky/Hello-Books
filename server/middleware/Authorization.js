@@ -58,42 +58,14 @@ export default {
       fullName: req.body.fullName,
       email: req.body.email,
       password,
+      plan: req.body.plan
     };
-    // check if username already exist
-    User.findOne(
-      {
-        where: {
-          username: req.body.username
-        }
-      }
-    ).then((user) => {
-      if (user) {
-        return res.status(409).send({
-          message: 'Username already exist'
-        });
-      }
-    });
-    // check if email address already exist
-    User.findOne(
-      {
-        where: {
-          email: req.body.email
-        }
-      }
-    ).then((user) => {
-      if (user) {
-        return res.status(409).send({
-          message: 'Email Address already exist'
-        });
-      }
-    });
     next();
   },
   validateLogin(req, res, next) {
     if (!req.body.username || !req.body.password) {
       return res.status(400)
         .json({
-          success: false,
           message: 'Please provide your username or password to login'
         });
     }
@@ -110,14 +82,13 @@ export default {
         } else {
           return res.status(401)
             .json({
-              success: false,
               message: 'Invalid Credentials.'
             });
         }
       });
   },
   getUsers(req, res) {
-    console.log(req.decoded);
+    //winston.info(req.decoded)
     return User
       .findAll({})
       .then(users => res.status(201).send(users))
@@ -130,7 +101,6 @@ export default {
         if (error) {
           res.status(401)
             .send({
-              success: false,
               message: 'Failed to Authenticate Token',
               error
             });
@@ -142,9 +112,19 @@ export default {
     } else {
       return res.status(401)
         .send({
-          success: false,
           message: 'Access denied, Authentication token does not exist'
         });
     }
   },
+  isAdmin(req, res, next) {
+    const decodedToken = req.decoded;
+    if (decodedToken.currentUser.isAdmin === 1) {
+      next();
+    } else {
+      return res.status(401)
+        .send({
+          message: 'You do not have permission to perform that operation'
+        });
+    }
+  }
 };

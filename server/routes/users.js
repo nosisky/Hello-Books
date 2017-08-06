@@ -14,7 +14,7 @@ app.route('/signup')
 app.route('/signin')
   .post(Authorization.validateLogin, UserController.login);
 
-// Get all users route
+// Get all users
 app.route('/all')
   .get(Authorization.isLoggedIn, Authorization.getUsers);
 
@@ -26,6 +26,7 @@ app.route('/:userId/books/:bookId')
 app.route('/:userId/books/:bookId')
   .put(Authorization.isLoggedIn, BookController.returnBook);
 
-app.route('/:bookId/books')
+// Get rented books
+app.route('/:userId/books')
   .get(Authorization.isLoggedIn, BookController.rentedBooks);
 export default app;
