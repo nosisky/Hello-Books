@@ -17,7 +17,7 @@ app.use('/api/v1/users', UserRouter);
 
 app.use('/api/v1/books', BookRouter);
 
-const port = process.env.PORT 8000;
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   winston.info(`Connected on port: ${port}`);
