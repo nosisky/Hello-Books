@@ -5,7 +5,7 @@ dotenv.load();
 
 export default {
   development: {
-    use_env_variable: 'DATABASE_URL'
+    use_env_variable: process.env.DATABASE_URL
   },
   test: {
     use_env_variable: 'DATABASE_URL',
