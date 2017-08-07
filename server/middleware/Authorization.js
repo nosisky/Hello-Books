@@ -88,7 +88,7 @@ export default {
       });
   },
   getUsers(req, res) {
-    //winston.info(req.decoded)
+    // winston.info(req.decoded)
     return User
       .findAll({})
       .then(users => res.status(201).send(users))
@@ -118,7 +118,12 @@ export default {
   },
   isAdmin(req, res, next) {
     const decodedToken = req.decoded;
-    if (decodedToken.currentUser.isAdmin === 1) {
+    if (typeof decodedToken.currentUser.isAdmin === 'undefined') {
+      return res.status(401)
+        .send({
+          message: 'You do not have permission to perform that operation'
+        });
+    } else if (decodedToken.currentUser.isAdmin === 1) {
       next();
     } else {
       return res.status(401)

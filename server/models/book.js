@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Books = sequelize.define('Book', {
     title: {
       type: DataTypes.STRING,

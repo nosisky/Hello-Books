@@ -5,26 +5,13 @@ dotenv.load();
 
 export default {
   development: {
-    username: process.env.dbUser,
-    password: process.env.dbPassword,
-    database: process.env.database,
-    host: '127.0.0.1',
-    dialect: 'postgres',
-    port: '1337'
+    use_env_variable: 'DATABASE_URL'
   },
   test: {
-    username: process.env.dbUser,
-    password: process.env.dbPassword,
-    database: process.env.database,
-    host: '127.0.0.1',
+    use_env_variable: 'DATABASE_URL',
     dialect: 'postgres'
   },
   production: {
-    username: process.env.dbUser,
-    password: process.env.dbPassword,
-    database: process.env.database,
-    host: '127.0.0.1',
-    dialect: 'postgres',
-    port: '5432'
+    use_env_variable: 'DATABASE_URL'
   }
 };

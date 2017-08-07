@@ -16,11 +16,6 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
-  /** User can rent a book
-   * @param  {object} req request
-   * @param  {object} res response
-   * Route: POST: /api/users/:Userid/books/:bookId
-   */
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
