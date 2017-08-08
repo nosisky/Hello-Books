@@ -6,6 +6,8 @@ import db from '../models/';
 dotenv.load();
 const key = process.env.secretKey;
 const { User } = db;
+const { Book } = db;
+
 export default {
   checkUserInput(req, res, next) {
     const userNameError = 'Please provide a username with atleast 5 characters.';
@@ -131,5 +133,39 @@ export default {
           message: 'You do not have permission to perform that operation'
         });
     }
+  },
+  validUser(req, res, next) {
+    User
+      .findOne({
+        where: {
+          id: req.params.userId
+        }
+      })
+      .then((user) => {
+        if (!user) {
+          res.status(404).send({
+            message: 'Invalid user id supplied'
+          });
+        } else {
+          next();
+        }
+      });
+  },
+  validBook(req, res, next) {
+    Book
+      .findOne({
+        where: {
+          id: req.params.bookId
+        }
+      })
+      .then((book) => {
+        if (!book) {
+          res.status(404).send({
+            message: 'Book id is not valid'
+          });
+        } else {
+          next();
+        }
+      });
   }
 };

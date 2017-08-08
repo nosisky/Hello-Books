@@ -31,6 +31,10 @@ export default {
           notEmpty: true,
           errorMessage: 'Please add book description'
         },
+        catId: {
+          notEmpty: true,
+          errorMessage: 'Please add book category'
+        },
       }
     );
     const errors = req.validationErrors();

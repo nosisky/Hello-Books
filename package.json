@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js",
-    "test": "mocha",
+    "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },

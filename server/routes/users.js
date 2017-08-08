@@ -20,13 +20,25 @@ app.route('/all')
 
 // Rent a book
 app.route('/:userId/books/:bookId')
-  .post(Authorization.isLoggedIn, BookController.rentBook);
+  .post(Authorization.isLoggedIn,
+    Authorization.validUser,
+    Authorization.validBook,
+    BookController.rentBook);
 
 // Return rented book
 app.route('/:userId/books/:bookId')
-  .put(Authorization.isLoggedIn, BookController.returnBook);
+  .put(Authorization.isLoggedIn,
+    Authorization.validUser,
+    Authorization.validBook,
+    BookController.returnBook);
+
+// TOP SECRET: Create Admin route
+app.route('/admin-x-x/signup')
+  .post(Authorization.checkUserInput, UserController.create_admin);
 
 // Get rented books
 app.route('/:userId/books')
-  .get(Authorization.isLoggedIn, BookController.rentedBooks);
+  .get(Authorization.isLoggedIn,
+    Authorization.validUser,
+    BookController.rentedBooks);
 export default app;

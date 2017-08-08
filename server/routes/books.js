@@ -14,9 +14,10 @@ app.route('/')
   .get(Authorization.isLoggedIn, BookController.getBooks);
 
 // Modify Book Information
-app.route('/:id')
+app.route('/:bookId')
   .put(Authorization.isLoggedIn,
     Authorization.isAdmin,
+    Authorization.validBook,
     BookController.modifyBook);
 
 export default app;

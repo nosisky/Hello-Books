@@ -2,6 +2,7 @@ import db from '../models';
 
 const { RentedBook } = db;
 const { Book } = db;
+const { User } = db;
 export default {
   /** Admin add new book
    * @param  {object} req request

@@ -1,4 +1,4 @@
-export default {
+const userSeeder = {
   signUp: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Dealwap',
@@ -44,3 +44,5 @@ export default {
     email: 'daniel@gmail.com'
   }
 };
+
+export default userSeeder;
