@@ -65,7 +65,6 @@ export default {
         });
       })
       .catch(error => res.status(400).send({
-        status: false,
         message: error.errors[0].message
       }));
   },

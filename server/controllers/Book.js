@@ -56,7 +56,6 @@ export default {
       .then((books) => {
         if (books.length < 1) {
           res.status(400).send({
-            success: false,
             message: 'There is no book in the database'
           });
         } else {
@@ -81,7 +80,6 @@ export default {
       .then((books) => {
         if (books.length < 1) {
           res.status(201).send({
-            success: false,
             message: 'No rented unreturned books'
           });
         } else {
