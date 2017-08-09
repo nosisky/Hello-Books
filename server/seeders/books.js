@@ -18,11 +18,13 @@ const bookSeeder = {
     catId: 1,
     author: 'Albert Einstein',
     description: 'The book is based on education',
-    cover: 'albert-think.jpg'
+    cover: 'albert-think.jpg',
+    total: 20
   },
 
   noBookTitle: {
     isbn: '123-456-5858',
+    total: 20,
     prodYear: 2018,
     author: 'Albert Einstein',
     catId: 1,
@@ -33,6 +35,7 @@ const bookSeeder = {
   noIsbn: {
     title: 'Think rich to grow rich',
     prodYear: 2018,
+    total: 20,
     catId: 1,
     author: 'Albert Einstein',
     description: 'The book is based on education',
@@ -42,6 +45,7 @@ const bookSeeder = {
   noProdYear: {
     title: 'Think rich to grow rich',
     author: 'Albert Einstein',
+    total: 20,
     isbn: '123-565-h474',
     catId: 1,
     description: 'The book is based on education',
@@ -51,6 +55,7 @@ const bookSeeder = {
   noCover: {
     title: 'Think rich to grow rich',
     isbn: '123-fgg-383v',
+    total: 20,
     prodYear: 2018,
     catId: 1,
     author: 'Albert Einstein',
@@ -61,6 +66,7 @@ const bookSeeder = {
     title: 'Think rich to grow rich',
     prodYear: 2018,
     cover: 'think-man.png',
+    total: 20,
     catId: 1,
     isbn: '123-838h-hdh',
     description: 'The book is based on education'
@@ -72,7 +78,8 @@ const bookSeeder = {
     cover: 'think-man.png',
     author: 'Albert james',
     isbn: '123-838h-hdh',
-    description: 'The book is based on education'
+    description: 'The book is based on education',
+    total: 20
   }
 
 };

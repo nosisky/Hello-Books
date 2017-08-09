@@ -104,6 +104,7 @@ export default {
         prodYear: req.body.prodYear || Book.prodYear,
         cover: req.body.cover || Book.title,
         author: req.body.author || Book.author,
+        total: req.body.total || Book.total,
         description: req.body.description || Book.description
       },
       {
