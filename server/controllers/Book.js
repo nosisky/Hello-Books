@@ -28,16 +28,14 @@ export default {
       .then(() => {
         return Book
           .findOne({ where: { id: req.params.bookId } })
-          .then((books) => {
-            return Book
-              .update({
-                total: books.total - 1
-              }, {
-                where: {
-                  id: req.params.bookId
-                }
-              });
-          });
+          .then((books) => Book
+            .update({
+              total: books.total - 1
+            }, {
+              where: {
+                id: req.params.bookId
+              }
+            }));
       })
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',
@@ -107,7 +105,7 @@ export default {
       },
       {
         where: {
-          id: req.params.id
+          id: req.params.bookId
         }
       })
       .then(() => res.status(200).send({
@@ -125,6 +123,18 @@ export default {
         where: {
           bookId: req.params.bookId
         }
+      })
+      .then(() => {
+        return Book
+          .findOne({ where: { id: req.params.bookId } })
+          .then((books) => Book
+            .update({
+              total: books.total + 1
+            }, {
+              where: {
+                id: req.params.bookId
+              }
+            }));
       })
       .then(() => res.status(200).send(
         {
