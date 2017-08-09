@@ -8,6 +8,8 @@ import bookSeeder from '../server/seeders/books';
 const server = supertest.agent(app);
 let token;
 
+console.log(process.env.NODE_ENV);
+
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
     done(null);
