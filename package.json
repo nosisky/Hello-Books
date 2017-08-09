@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node server.js",
     "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
-    "tests": "NODE_ENV=test mocha --timeout 40000 --compilers js:babel-core/register test ",
+    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "coverage": "./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },

@@ -27,7 +27,7 @@ app.route('/:userId/books/:bookId')
     Validation.checkTotalBook,
     BookController.rentBook);
 
-// Return rented book
+// Return rented bookS
 app.route('/:userId/books/:bookId')
   .put(Authorization.isLoggedIn,
     Authorization.validUser,
