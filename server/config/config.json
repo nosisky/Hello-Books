@@ -1,11 +1,7 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "dealwap",
-    "database": "hellobooks",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
-    "port": "1337"
+"use_env_variable": "DATABASE_URL",
+"dialect": "postgres"
   },
   "test": {
 "use_env_variable": "DATABASE_TEST_URL",
