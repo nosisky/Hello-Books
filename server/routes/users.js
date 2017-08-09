@@ -1,5 +1,6 @@
 import express from 'express';
 
+import Validation from '../middleware/Validation';
 import UserController from '../controllers/User';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/Book';
@@ -23,6 +24,7 @@ app.route('/:userId/books/:bookId')
   .post(Authorization.isLoggedIn,
     Authorization.validUser,
     Authorization.validBook,
+    Validation.checkTotalBook,
     BookController.rentBook);
 
 // Return rented book

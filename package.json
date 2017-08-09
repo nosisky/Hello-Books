@@ -7,8 +7,8 @@
     "start": "nodemon --exec babel-node server.js",
     "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "tests": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
-    "cover": "istanbul cover _mocha",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "coverage": "./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "engines": {
     "node": "6.11.0"
@@ -54,6 +54,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.1.0",
     "should": "^11.2.1",
     "supertest": "^3.0.0"
   }

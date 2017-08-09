@@ -10,6 +10,10 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
+    total: {
+      type: Sequelize.INTEGER,
+      required: true
+    },
     isbn: {
       type: Sequelize.TEXT,
       required: true

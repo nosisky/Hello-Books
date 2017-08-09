@@ -1,3 +1,7 @@
+import db from '../models/index';
+
+const { Book } = db;
+
 export default {
   checkUserInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
@@ -31,6 +35,10 @@ export default {
           notEmpty: true,
           errorMessage: 'Please add book description'
         },
+        total: {
+          notEmpty: true,
+          errorMessage: 'Please add total book'
+        },
         catId: {
           notEmpty: true,
           errorMessage: 'Please add book category'
@@ -56,8 +64,26 @@ export default {
       cover: req.body.cover,
       author: req.body.author,
       description: req.body.description,
-      catId: req.body.catId
+      catId: req.body.catId,
+      total: req.body.total
     };
     next();
   },
+  checkTotalBook(req, res, next) {
+    Book
+      .findOne({
+        where: {
+          id: req.params.bookId
+        }
+      })
+      .then((book) => {
+        if (book.total === 0) {
+          res.status(200).send({
+            message: 'This book is not available for rent!'
+          });
+        } else {
+          next();
+        }
+      });
+  }
 };

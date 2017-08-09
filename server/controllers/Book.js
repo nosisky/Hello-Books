@@ -2,7 +2,6 @@ import db from '../models';
 
 const { RentedBook } = db;
 const { Book } = db;
-const { User } = db;
 export default {
   /** Admin add new book
    * @param  {object} req request
@@ -25,6 +24,20 @@ export default {
         bookId: req.params.bookId,
         userId: req.params.userId,
         toReturnDate: after30days
+      })
+      .then(() => {
+        return Book
+          .findOne({ where: { id: req.params.bookId } })
+          .then((books) => {
+            return Book
+              .update({
+                total: books.total - 1
+              }, {
+                where: {
+                  id: req.params.bookId
+                }
+              });
+          });
       })
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',

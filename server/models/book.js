@@ -9,6 +9,10 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       required: true
     },
+    total: {
+      type: DataTypes.INTEGER,
+      required: true
+    },
     prodYear: DataTypes.STRING,
     catId: DataTypes.INTEGER,
     cover: DataTypes.STRING,
