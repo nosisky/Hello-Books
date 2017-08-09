@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">59.26% </span>
+        <span class="strong">62.07% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>16/27</span>
+        <span class='fraction'>18/29</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">77.78% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>12/16</span>
+        <span class='fraction'>14/18</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>12/20</span>
+        <span class='fraction'>14/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">59.26% </span>
+        <span class="strong">62.07% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/27</span>
+        <span class='fraction'>18/29</span>
       </div>
     </div>
   </div>
@@ -180,7 +180,16 @@
 135
 136
 137
-138</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -210,7 +219,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,7 +228,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,7 +245,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,7 +272,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,6 +298,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,6 +307,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,16 +365,14 @@ export default <span class="fstat-no" title="function not covered" >{</span>
       .then(() =&gt; {
         return Book
           .findOne({ where: { id: req.params.bookId } })
-          .then((books) =&gt; {
-            return Book
-              .update({
-                total: books.total - 1
-              }, {
-                where: {
-                  id: req.params.bookId
-                }
-              });
-          });
+          .then((books) =&gt; Book
+            .update({
+              total: books.total - 1
+            }, {
+              where: {
+                id: req.params.bookId
+              }
+            }));
       })
       .then(() =&gt; res.status(201).send({
         message: 'You have successfully rented the book',
@@ -375,7 +391,6 @@ export default <span class="fstat-no" title="function not covered" >{</span>
       .then(<span class="fstat-no" title="function not covered" >(</span>books) =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (books.length &lt; 1) {</span>
 <span class="cstat-no" title="statement not covered" >          res.status(400).send({</span>
-            success: false,
             message: 'There is no book in the database'
           });
         } else {
@@ -400,7 +415,6 @@ export default <span class="fstat-no" title="function not covered" >{</span>
       .then((books) =&gt; {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (books.length &lt; 1) {
           res.status(201).send({
-            success: false,
             message: 'No rented unreturned books'
           });
         } else {
@@ -423,11 +437,12 @@ export default <span class="fstat-no" title="function not covered" >{</span>
         prodYear: req.body.prodYear || Book.prodYear,
         cover: req.body.cover || Book.title,
         author: req.body.author || Book.author,
+        total: req.body.total || Book.total,
         description: req.body.description || Book.description
       },
       {
         where: {
-          id: req.params.id
+          id: req.params.bookId
         }
       })
       .then(() =&gt; res.status(200).send({
@@ -446,6 +461,18 @@ export default <span class="fstat-no" title="function not covered" >{</span>
           bookId: req.params.bookId
         }
       })
+      .then(() =&gt; {
+        return Book
+          .findOne({ where: { id: req.params.bookId } })
+          .then((books) =&gt; Book
+            .update({
+              total: books.total + 1
+            }, {
+              where: {
+                id: req.params.bookId
+              }
+            }));
+      })
       .then(() =&gt; res.status(200).send(
         {
           message: 'Book returned successfully!'
@@ -460,7 +487,7 @@ export default <span class="fstat-no" title="function not covered" >{</span>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Aug 09 2017 16:52:46 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Aug 09 2017 17:55:30 GMT+0100 (W. Central Africa Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>
