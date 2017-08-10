@@ -47,6 +47,7 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+
   it('adds a new book', (done) => {
     server
       .post('/api/v1/books')
