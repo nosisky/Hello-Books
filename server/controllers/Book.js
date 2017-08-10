@@ -113,6 +113,54 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
+
+  getOneBook(req, res) {
+    return Book
+      .findAll({
+        where: {
+          id: req.params.bookId
+        }
+      })
+      .then((books) => {
+        res.status(200).send(books);
+      })
+      .catch(error => res.status(404).send(error));
+  },
+
+  deleteBook(req, res) {
+    return Book
+      .destroy({
+        where: {
+          id: req.params.bookId
+        }
+      })
+      .then(() => {
+        res.status(200).send({
+          message: 'Book deleted successfully!'
+        });
+      })
+      .catch(error => res.status(404).send(error));
+  },
+
+  rentedBookByUser(req, res) {
+    return RentedBook
+      .findAll({
+        where: {
+          userId: req.params.userId
+        }
+      })
+      .then((books) => {
+        if (books.length < 1) {
+          res.status(200).send({
+            message: 'No rented books by this user'
+          });
+        } else {
+          res.status(200).send(books);
+        }
+      })
+      .catch(error => res.status(404).send(error));
+  },
+
   returnBook(req, res) {
     return RentedBook
       .update({

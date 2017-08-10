@@ -43,4 +43,5 @@ app.route('/:userId/books')
   .get(Authorization.isLoggedIn,
     Authorization.validUser,
     BookController.rentedBooks);
+
 export default app;

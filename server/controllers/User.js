@@ -20,16 +20,14 @@ export default {
           .update({
             active: true
           });
-        const currentUser = { userId: user.id,
+        const currentUser = { 
+          userId: user.id,
           username: user.username,
           fullname: user.fullName,
           isAdmin: user.isAdmin,
           plan: user.plan,
           active: user.active };
-        const token = jwt.sign(
-          { currentUser,
-          }, secret
-        );
+        const token = jwt.sign({ currentUser }, secret);
         return res.status(201).send({
           message: 'Signed up successfully',
           Token: token

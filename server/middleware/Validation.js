@@ -77,7 +77,7 @@ export default {
         }
       })
       .then((book) => {
-        if (book.total === 0) {
+        if (book.total < 1) {
           res.status(200).send({
             message: 'This book is not available for rent!'
           });

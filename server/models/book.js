@@ -3,11 +3,11 @@ export default (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       allowNull: DataTypes.FALSE,
-      unique: false
     },
     isbn: {
       type: DataTypes.TEXT,
-      required: true
+      required: true,
+      unique: true
     },
     total: {
       type: DataTypes.INTEGER,

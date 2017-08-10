@@ -20,4 +20,24 @@ app.route('/:bookId')
     Authorization.validBook,
     BookController.modifyBook);
 
+// Get a specific book
+app.route('/:bookId')
+  .get(Authorization.isLoggedIn,
+    Authorization.isAdmin,
+    Authorization.validBook,
+    BookController.getOneBook);
+
+// Delete a book
+app.route('/delete/:bookId')
+  .put(Authorization.isLoggedIn,
+    Authorization.isAdmin,
+    Authorization.validBook,
+    BookController.deleteBook);
+
+// Get rented books by a user
+app.route('/logs/:userId')
+  .get(Authorization.isLoggedIn,
+    Authorization.validUser,
+    BookController.rentedBookByUser);
+
 export default app;
