@@ -39,34 +39,6 @@ export default {
       }));
   },
 
-  create_admin(req, res) {
-    return User
-      .create(req.userInput)
-      .then((user) => {
-        user
-          .update({
-            active: true
-          });
-        const currentUser = { userId: user.id,
-          username: user.username,
-          fullname: user.fullName,
-          isAdmin: 1,
-          plan: user.plan,
-          active: user.active };
-        const token = jwt.sign(
-          { currentUser,
-          }, secret
-        );
-        return res.status(201).send({
-          message: 'Signed up successfully',
-          Token: token
-        });
-      })
-      .catch(error => res.status(400).send({
-        message: error.errors[0].message
-      }));
-  },
-
   /** Authenticates user login information
    * @param  {object} req
    * @param  {object} res

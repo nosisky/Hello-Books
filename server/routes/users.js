@@ -35,10 +35,6 @@ app.route('/:userId/books')
     Authorization.validBook,
     BookController.returnBook);
 
-// TOP SECRET: Create Admin route
-app.route('/admin-x-x/signup')
-  .post(Authorization.checkUserInput, UserController.create_admin);
-
 // Get rented books
 app.route('/:userId/books')
   .get(Authorization.isLoggedIn,

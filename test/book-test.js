@@ -6,8 +6,8 @@ import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
-let token;
-
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
+const not_admin = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoiYmFyYmllIiwiZnVsbG5hbWUiOiJCYXJiaWUgU2xheSIsImlzQWRtaW4iOjAsInBsYW4iOiJzaWx2ZXIiLCJhY3RpdmUiOnRydWV9LCJpYXQiOjE1MDI0MDQyMDJ9.5KO0Qb0HjTSOL36ea1-qP7CCky9BwLUZaVlp96jSyQg';
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
     done(null);
@@ -17,18 +17,19 @@ before((done) => {
 });
 
 describe('Adds a new book to the database', () => {
-  it('allows a new user with admin priviledge to register', (done) => {
+
+  it('tests that only admin can add book', (done) => {
     server
-      .post('/api/v1/users/admin-x-x/signup')
+      .post('/api/v1/books')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
+      .set('x-access-token', not_admin)
       .type('form')
-      .send(bookSeeder.signUp)
-      .expect(201)
+      .send(bookSeeder.validBook)
+      .expect(403)
       .end((err, res) => {
-        token = res.body.Token;
-        res.status.should.equal(201);
-        res.body.message.should.equal('Signed up successfully');
+        res.status.should.equal(403);
+        res.body.message.should.equal('You do not have permission to perform that operation');
         done();
       });
   });

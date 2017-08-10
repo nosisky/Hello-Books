@@ -6,7 +6,7 @@ import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
-let token;
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
 
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
@@ -17,22 +17,6 @@ before((done) => {
 });
 
 describe('Adds a new book to the database', () => {
-  it('allows a new user with admin priviledge to register', (done) => {
-    server
-      .post('/api/v1/users/admin-x-x/signup')
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send(bookSeeder.adminSignup)
-      .expect(201)
-      .end((err, res) => {
-        token = res.body.Token;
-        res.status.should.equal(201);
-        res.body.message.should.equal('Signed up successfully');
-        done();
-      });
-  });
-
   it('adds a new book', (done) => {
     server
       .post('/api/v1/books')
