@@ -4,4 +4,4 @@ node_js:
 script:
   - npm install
   - npm run tests
-  - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls --verbose
+  - cat ./coverage/lcov.info | coveralls
