@@ -8,7 +8,7 @@
     "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "coverage": "./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "engines": {
     "node": "6.11.0"
@@ -50,6 +50,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "babel-plugin-istanbul": "^4.1.4",
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",

@@ -8,7 +8,6 @@ const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 const db = {};
-console.log(config);
 dotenv.config();
 let sequelize;
 if (config.use_env_variable) {
