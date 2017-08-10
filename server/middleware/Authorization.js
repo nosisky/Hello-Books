@@ -136,45 +136,60 @@ export default {
     }
   },
   validUser(req, res, next) {
-    User
-      .findOne({
-        where: {
-          id: req.params.userId
-        }
-      })
-      .then((user) => {
-        if (!user) {
-          res.status(404).send({
-            message: 'Invalid user id supplied'
-          });
-        } else {
-          next();
-        }
+    const querier = req.params.userId;
+    if (querier.match(/[\D]/)) {
+      res.status(404).send({
+        message: 'Invalid user id supplied!!!'
       });
+    } else {
+      User
+        .findOne({
+          where: {
+            id: req.params.userId
+          }
+        })
+        .then((user) => {
+          if (!user) {
+            res.status(404).send({
+              message: 'Invalid user id supplied'
+            });
+          } else {
+            next();
+          }
+        });
+    }
   },
   validBook(req, res, next) {
-    Book
-      .findOne({
-        where: {
-          id: req.params.bookId || req.body.bookId
-        }
-      })
-      .then((book) => {
-        if (!book) {
-          res.status(404).send({
-            message: 'Book id is not valid'
-          });
-        } else {
-          next();
-        }
+    const querier = req.body.bookId || req.params.bookId;
+    if (querier.match(/[\D]/)) {
+      res.status(404).send({
+        message: 'Invalid book id supplied!!!'
       });
+    } else {
+      Book
+        .findOne({
+          where: {
+            id: req.params.bookId || req.body.bookId
+          }
+        })
+        .then((book) => {
+          if (!book) {
+            res.status(404).send({
+              message: 'Book id is not valid'
+            });
+          } else {
+            next();
+          }
+        });
+    }
   },
   hasRentedBefore(req, res, next) {
     RentedBook
       .findOne({
         where: {
           bookId: req.body.bookId,
-          userId: req.params.userId
+          userId: req.params.userId,
+          returned: false
         }
       })
       .then((books) => {
