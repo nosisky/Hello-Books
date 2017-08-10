@@ -111,14 +111,15 @@ describe('Adds a new book to the database', () => {
 
   it('test if book is truly returned', (done) => {
     server
-      .put('/api/v1/users/1/books?returned=false')
+      .get('/api/v1/users/1/books?returned=false')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .expect(404)
+      .expect(201)
       .end((err, res) => {
-        res.status.should.equal(404);
+        res.status.should.equal(201);
+        res.body.message.should.equal('No rented unreturned books');
         done();
       });
   });

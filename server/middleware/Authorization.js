@@ -61,7 +61,8 @@ export default {
       fullName: req.body.fullName,
       email: req.body.email,
       password,
-      plan: req.body.plan
+      plan: req.body.plan,
+      isAdmin: 1
     };
     next();
   },
@@ -161,7 +162,7 @@ export default {
   },
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
-    if (querier.match(/[\D]/)) {
+    if (!querier || querier.match(/[\D]/)) {
       res.status(404).send({
         message: 'Invalid book id supplied!!!'
       });

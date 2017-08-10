@@ -33,7 +33,7 @@ app.route('/delete/:bookId')
     Authorization.isAdmin,
     Authorization.validBook,
     BookController.deleteBook);
-
+ 
 // Get rented books by a user
 app.route('/logs/:userId')
   .get(Authorization.isLoggedIn,
