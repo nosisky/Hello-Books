@@ -51,11 +51,11 @@ describe('Adds a new book to the database', () => {
 
   it('tests if user can rent book without logging in', (done) => {
     server
-      .post('/api/v1/users/1/books/1')
+      .post('/api/v1/users/1/books')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send()
+      .send({ bookId: 1 })
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
@@ -66,12 +66,12 @@ describe('Adds a new book to the database', () => {
 
   it('tests for book renting', (done) => {
     server
-      .post('/api/v1/users/1/books/1')
+      .post('/api/v1/users/1/books')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send()
+      .send({ bookId: 1 })
       .expect(201)
       .end((err, res) => {
         res.status.should.equal(201);
@@ -95,11 +95,12 @@ describe('Adds a new book to the database', () => {
   });
   it('test for returns rented books', (done) => {
     server
-      .put('/api/v1/users/1/books/1')
+      .put('/api/v1/users/1/books')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
+      .send({ bookId: 1 })
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);

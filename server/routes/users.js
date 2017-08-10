@@ -20,15 +20,16 @@ app.route('/all')
   .get(Authorization.isLoggedIn, Authorization.isAdmin, Authorization.getUsers);
 
 // Rent a book
-app.route('/:userId/books/:bookId')
+app.route('/:userId/books')
   .post(Authorization.isLoggedIn,
     Authorization.validUser,
     Authorization.validBook,
     Validation.checkTotalBook,
+    Authorization.hasRentedBefore,
     BookController.rentBook);
 
 // Return rented bookS
-app.route('/:userId/books/:bookId')
+app.route('/:userId/books')
   .put(Authorization.isLoggedIn,
     Authorization.validUser,
     Authorization.validBook,

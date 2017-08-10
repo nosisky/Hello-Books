@@ -7,6 +7,7 @@ dotenv.load();
 const key = process.env.secretKey;
 const { User } = db;
 const { Book } = db;
+const { RentedBook } = db;
 
 export default {
   checkUserInput(req, res, next) {
@@ -155,13 +156,31 @@ export default {
     Book
       .findOne({
         where: {
-          id: req.params.bookId
+          id: req.params.bookId || req.body.bookId
         }
       })
       .then((book) => {
         if (!book) {
           res.status(404).send({
             message: 'Book id is not valid'
+          });
+        } else {
+          next();
+        }
+      });
+  },
+  hasRentedBefore(req, res, next) {
+    RentedBook
+      .findOne({
+        where: {
+          bookId: req.body.bookId,
+          userId: req.params.userId
+        }
+      })
+      .then((books) => {
+        if (books) {
+          res.status(401).send({
+            message: 'You have rented that book before'
           });
         } else {
           next();

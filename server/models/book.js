@@ -7,7 +7,6 @@ export default (sequelize, DataTypes) => {
     isbn: {
       type: DataTypes.TEXT,
       required: true,
-      unique: true
     },
     total: {
       type: DataTypes.INTEGER,

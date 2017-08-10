@@ -4,7 +4,10 @@ export default (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     toReturnDate: DataTypes.DATE,
     returnDate: DataTypes.DATE,
-    returned: DataTypes.BOOLEAN
+    returned: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {
     classMethods: {
       associate: (models) => {

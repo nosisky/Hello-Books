@@ -21,19 +21,19 @@ export default {
       after30days = cur.setDate(cur.getDate() + 30);
     return RentedBook
       .create({
-        bookId: req.params.bookId,
+        bookId: req.body.bookId,
         userId: req.params.userId,
         toReturnDate: after30days
       })
       .then(() => {
         return Book
-          .findOne({ where: { id: req.params.bookId } })
+          .findOne({ where: { id: req.body.bookId } })
           .then((books) => Book
             .update({
               total: books.total - 1
             }, {
               where: {
-                id: req.params.bookId
+                id: req.body.bookId
               }
             }));
       })
@@ -169,18 +169,18 @@ export default {
       },
       {
         where: {
-          bookId: req.params.bookId
+          bookId: req.body.bookId
         }
       })
       .then(() => {
         return Book
-          .findOne({ where: { id: req.params.bookId } })
+          .findOne({ where: { id: req.body.bookId } })
           .then((books) => Book
             .update({
               total: books.total + 1
             }, {
               where: {
-                id: req.params.bookId
+                id: req.body.bookId
               }
             }));
       })
