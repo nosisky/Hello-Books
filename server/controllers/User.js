@@ -20,7 +20,7 @@ export default {
           .update({
             active: true
           });
-        const currentUser = { 
+        const currentUser = {
           userId: user.id,
           username: user.username,
           fullname: user.fullName,

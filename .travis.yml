@@ -4,3 +4,5 @@ node_js:
 script:
   - npm install
   - npm run tests
+after_success:
+  - npm run coveralls

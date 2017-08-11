@@ -94,20 +94,12 @@ export default {
    */
   modifyBook(req, res) {
     return Book
-      .update({
-        title: req.body.title || Book.title,
-        catId: req.body.catId || Book.catId,
-        prodYear: req.body.prodYear || Book.prodYear,
-        cover: req.body.cover || Book.title,
-        author: req.body.author || Book.author,
-        total: req.body.total || Book.total,
-        description: req.body.description || Book.description
-      },
-      {
-        where: {
-          id: req.params.bookId
-        }
-      })
+      .update(req.body,
+        {
+          where: {
+            id: req.params.bookId
+          }
+        })
       .then(() => res.status(200).send({
         message: 'Book updated successfully!'
       }))

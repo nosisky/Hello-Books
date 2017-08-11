@@ -29,11 +29,11 @@ app.route('/:bookId')
 
 // Delete a book
 app.route('/delete/:bookId')
-  .put(Authorization.isLoggedIn,
+  .delete(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Authorization.validBook,
     BookController.deleteBook);
- 
+
 // Get rented books by a user
 app.route('/logs/:userId')
   .get(Authorization.isLoggedIn,

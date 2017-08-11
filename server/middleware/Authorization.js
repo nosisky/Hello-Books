@@ -137,7 +137,7 @@ export default {
   },
   validUser(req, res, next) {
     const querier = req.params.userId;
-    if (querier.match(/[\D]/)) {
+    if (!querier || querier.match(/[\D]/)) {
       res.status(404).send({
         message: 'Invalid user id supplied!!!'
       });

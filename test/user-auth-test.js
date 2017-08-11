@@ -6,7 +6,7 @@ import models from '../server/models/';
 import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
-
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
 
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
@@ -16,7 +16,7 @@ before((done) => {
   });
 });
 
-describe('User Registration', () => {
+describe('User Api', () => {
   it('checks that username exceeds 5 characters', (done) => {
     server
       .post('/api/v1/users/signup')
