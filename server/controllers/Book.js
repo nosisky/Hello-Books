@@ -2,12 +2,14 @@ import db from '../models';
 
 const { RentedBook } = db;
 const { Book } = db;
+
 export default {
   /** Admin add new book
    * @param  {object} req request
    * @param  {object} res response
    * Route: POST: /books  
    */ 
+
   create(req, res) {
     return Book
       .create(req.userInput)
