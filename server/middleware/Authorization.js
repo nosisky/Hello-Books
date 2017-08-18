@@ -100,7 +100,6 @@ export default {
    * @param  {Object} response
    */
   getUsers(req, res) {
-    // winston.info(req.decoded)
     return User
       .findAll({})
       .then(users => res.status(201).send(users))
