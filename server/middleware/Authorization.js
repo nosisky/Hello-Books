@@ -44,16 +44,19 @@ export default {
       }
     );
     const errors = req.validationErrors();
+    console.log(errors);
     if (errors) {
       const allErrors = [];
       errors.forEach((error) => {
-        const errorMessage = error.msg;
-        allErrors.push(errorMessage);
+        allErrors.push({
+          error: error.msg,
+          field: error.param
+        });
       });
       return res.status(409)
-        .json({
-          message: allErrors[0]
-        });
+        .json(
+          allErrors
+        );
     }
     const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
     req.userInput = {
@@ -105,6 +108,18 @@ export default {
       .then(users => res.status(201).send(users))
       .catch(error => res.status(404).send(error));
   },
+  UserExist(req, res) {
+    return User
+      .findOne({ where: {
+        username: req.body.username
+      } })
+      .then((user) => {
+        if (user) {
+          res.status(200).send(true);
+        }
+        res.status(404).send(false);
+      });
+  },
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
    * @param  {object} res - response
@@ -131,7 +146,7 @@ export default {
         });
     }
   },
-  /**Checks if currently logged in user is an admin
+  /** Checks if currently logged in user is an admin
    * @param  {object} req - request
    * @param  {object} res - response
    */
@@ -231,3 +246,4 @@ export default {
       });
   }
 };
+

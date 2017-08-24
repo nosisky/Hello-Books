@@ -2,7 +2,8 @@ import React, { Component  } from 'react';
 import ReactDOM from 'react-dom';
 import Login from '../auth/login';
 import Register from '../auth/register';
-import { registerUser } from '../../actions/auth_reducer';
+import registerUser from '../../actions/auth_reducer';
+
 
 export default class AuthForm extends Component {
     render(){

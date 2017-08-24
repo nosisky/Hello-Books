@@ -10,7 +10,7 @@ import RequireAuth from '../components/auth/require-auth';
 export const Main = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
-    <Route path="dashboard" component={Dashboard} />
+    <Route exact path="/dashboard" component={Dashboard} />
     <Route path="*" component={NotFoundPage} />
   </Switch>
 );
