@@ -6,11 +6,9 @@ import NavBar from './includes/navbar';
 export default class App extends Component {  
   render() {
     return (
-      <div>
         <Router>
           <Main />
         </Router>
-      </div>
     );
   }
 }

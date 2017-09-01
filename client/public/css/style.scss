@@ -1,12 +1,15 @@
-$color: #0D47A1;
+$color: #25758c;
+
 body
 {
-		background: linear-gradient(to bottom, rgb(45, 60, 113), 
-		rgba(6, 7, 47, 0.65)), 
-		url(/img/body-bg.jpg);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    height: 700px;
+    height: 800px;
+}
+
+.header-side {
+	background-color: #25758C;
 }
 
 h5
@@ -14,13 +17,13 @@ h5
 	font-weight: 400;
 }
 .teal {
-  background-color: #0D47A1 !important;
+  background-color: $color !important;
 }
 .container-auth
 {
 	margin-top: 60px;
 	width: 500px;
-	float: right;
+	align-self: center;
 	margin-bottom: 60px;
 	margin-right: 60px;
 }
@@ -33,17 +36,28 @@ h5
  }
 }
 
+.nav-bar{
+	background-color: #25758C;
+}
 
-.tabs .indicator
-{
-	background-color: #e0f2f1;
-	height: 60px;
-	opacity: 0.3;
+.main-auth{
+	width: 50%;
+	margin-top: 40px;
+}
+
+.tab {
+	width: 50% !important;
+}
+
+.tabs .indicator {
+    background-color: #000;
+    height: 60px;
+    opacity: 0.3;
 }
 
 .form-container
 {
-	padding: 40px;
+	padding: 20px;
 	padding-top: 10px;
 }
 
@@ -55,7 +69,8 @@ h5
   font-size: 50px;
 }
 .main-navigation li a {
-  color:#fff !important;
+	color:#fff !important;
+	font-size: large;
 }
 
 .reg {

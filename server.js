@@ -20,7 +20,6 @@ app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
-app.use(express.static('./client/public/')); // configure static files folder
 
 app.use('/api/v1/users', UserRouter);
 

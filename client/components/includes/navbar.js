@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 export default class NavBar extends Component {
   render() {
-    return (<nav className="navbar-fixed blue darken-4 main-navigation" role="navigation">
+    return (<nav className="navbar-fixed nav-bar main-navigation" role="navigation">
         <div className="nav-wrapper container">
           <a id="logo-container" href="#" className="brand-logo  white-text">
           <i className="large material-icons">library_books</i>HelloBooks</a>

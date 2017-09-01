@@ -1,146 +1,202 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import userExist from '../../actions/auth_reducer';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router-dom';
 
-export default class Register extends Component {
-    constructor(props){
+class Register extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             fullName: "",
             username: "",
             password: "",
             email: "",
-            error: {}
+            usernameError: "",
+            passwordError: "",
+            passwordConfirm: "",
+            emailError: "",
+            userExist: "",
+            emailExist: "",
+            isLoading: ""
         }
         this.onChange = this.onChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onBlur = this.onBlur.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+
+    }
+    onChange(event) {
+        const name = event.target.name,
+            value = event.target.value;
+        // re = /\S+@\S+\.\S+/,
+        // emailValidate = re.test(value);
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+    handleSubmit(formData) {
+        this.setState({ isLoading: true })
+        formData.preventDefault();
+        this.props.onSubmit(this.state)
+            .then((data) => {
+                Materialize.toast('Sign Up Successfully', 5000, 'blue',
+                    () => {
+                        this.setState({ isLoading: false })
+                        window.location.href = "/dashboard";
+                    });
+            })
     }
 
-    onChange(event){
-        this.setState({ 
-            [event.target.name]: event.target.value
-         })
-    }
-     handleSubmit(formData) {
-         formData.preventDefault();
-            this.props.onSubmit(this.state)
-}
-    onBlur(e){
-        const name = e.target.name,
-        value = e.target.value,
-        passwordField = document.getElementById('password').value;
-        switch(name){
-            case "fullName":
-            if(value.length < 5 || !value){
-                this.setState({ error: {fullName: "Full name should be a minimum of 5 length"} });
-              return false;
-            } else {
-                this.setState({ error: { }});
-              return true;
-            }
-            case "password":
-            if(value.length < 8 || !value){
-                this.setState({ error: { password: "Password must be a minimum of 8 characters"} });
-                return false;
-            } else {
-                this.setState({ error: { }});
-              return true;
-            }
-            case "password-confirm":
-            if(value !== passwordField){
-                this.setState({ error: { passwordConfirm: "Confirm password must be equal to password"} });
-                return false;
-            } else {
-                this.setState({ error: { }});
-              return true;
-            }
+    onFocus(e) {
+        const name = e.target.name;
+        switch (name) {
+            case "cpassword":
+                this.setState({ passwordConfirm: "" })
+                break;
             case "username":
-            console.log(value)
-            if (!userExist(value)){
-                this.setState({ error: {userExist: "Username already exist"} })
-            }
-            if(value.length < 5 || !value){
-                this.setState({ error: {username: "Username must be a minimum of 5 characters"} });
-                return false;
-            } else {
-                this.setState({ error: { }});
-              return true;
-            }
+                this.setState({ usernameError: "", userExist: "" })
+                break;
+            case "password":
+                this.setState({ passwordError: "" })
+                break;
+            case "cpassword":
+                this.setState({ passwordConfirm: "" })
+                break;
+            case "email":
+                this.setState({ emailError: "", emailExist: "" })
         }
     }
 
-    render(){
-        return(
-            <div id="register" className="col s12">
-        <form className="col s12" onSubmit={this.handleSubmit}>
-            <div className="form-container">
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input name = "fullName" 
-                        type="text" 
-                        value = {this.state.fullName}
-                        onChange={ this.onChange } 
-                        onBlur={ this.onBlur }  
-                        className="validate" />
-                        <label htmlFor="fullName">Full Name</label>
-                        <div style={ {color: "red"} }>{ this.state.error.fullName } </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input name = "username" 
-                        type="text" 
-                        value={this.state.username}
-                        onBlur={ this.onBlur }  
-                        onChange={ this.onChange }  
-                        className="validate" />
-                        <label htmlFor="username">Username</label>
-                        <div style={ {color: "red"} }>{ this.state.error.userExist} </div>
-                        <div style={ {color: "red"} }>{ this.state.error.username } </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input name = "email"
-                         type="email" 
-                         onChange={ this.onChange }
-                         value = {this.state.email}
-                         className="validate" />
-                        <label htmlFor="email">Email</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input name = "password" 
-                        type="password" 
-                        id="password"
-                        onChange={ this.onChange }
-                        onBlur={ this.onBlur }  
-                        value={this.state.password}
-                        className="validate" />
-                        <label htmlFor="password">Password</label>
-                        <div style={{color: "red"}}>{ this.state.error.password} </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input name = "password-confirm" 
-                        onChange={ this.onChange }
-                        onBlur={ this.onBlur }
-                        type="password" className="validate" />
-                        <label htmlFor="password-confirm">Password Confirmation</label>
-                        <div style={ {color: "red"} }>{ this.state.error.passwordConfirm } </div>
-                    </div>
-                </div>
-                <center>
-                    <button className="btn waves-effect waves-light teal" type="submit" name="action">Submit</button>
-                </center>
-            </div>
+    onBlur(e) {
+        const name = e.target.name,
+            value = e.target.value,
+            passwordField = document.getElementById('password').value;
+        switch (name) {
+            case "password":
+                if (value.length < 5 || !value) {
+                    this.setState({ passwordError: "Password must be a minimum of 8 characters" });
+                    return false;
+                } else {
+                    this.setState({ passwordError: "" });
+                    return true;
+                }
+            case "email":
+                this.props.EmailExist({ email: value })
+                    .then((data) => {
+                        if (data.length > 1) {
+                            this.setState({ emailExist: data })
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    });
+                break;
+            case "cpassword":
+                if (value !== passwordField) {
+                    this.setState({ passwordConfirm: "Confirm password must be equal to password" });
+                    return false;
+                } else {
+                    this.setState({ passwordConfirm: "" });
+                    return true;
+                }
+            case "username":
+                this.props.UserExist({ username: value })
+                    .then((data) => {
+                        if (data.length > 1) {
+                            this.setState({ userExist: data })
+                        } else {
+                            this.setState({ userExist: '' })
+                        }
+                    })
+                if (value.length < 5 || !value) {
+                    this.setState({ usernameError: "Username must be a minimum of 5 characters" });
+                    return false;
+                } else {
+                    this.setState({ usernameError: "" });
+                    return true;
+                }
 
-        </form>
-    </div>
+        }
+    }
+
+    render() {
+        const { userExist } = this.props;
+        return (
+            <div id="register" className="col s12">
+                <form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
+                    <div className="form-container">
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input name="fullName"
+                                    type="text"
+                                    onChange={this.onChange}
+                                    className="validate" required />
+                                <label htmlFor="fullName">Full Name</label>
+                                <div style={{ color: "red" }}>{this.state.fullNameError} </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input name="username"
+                                    type="text"
+                                    onBlur={this.onBlur}
+                                    onChange={this.onChange}
+                                    onFocus={this.onFocus}
+                                    className="validate" required />
+                                <label htmlFor="username">Username</label>
+                                <div style={{ color: "red" }}>{this.state.userExist} </div>
+                                <div style={{ color: "red" }}>{this.state.usernameError} </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input name="email"
+                                    type="email"
+                                    onChange={this.onChange}
+                                    onBlur={this.onBlur}
+                                    onFocus={this.onFocus}
+                                    className="validate" required />
+                                <label htmlFor="email">Email</label>
+                                <div style={{ color: "red" }}>{this.state.emailError} </div>
+                                <div style={{ color: "red" }}>{this.state.emailExist} </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input name="password"
+                                    type="password"
+                                    id="password"
+                                    onChange={this.onChange}
+                                    onBlur={this.onBlur}
+                                    onFocus={this.onFocus}
+                                    className="validate" required />
+                                <label htmlFor="password">Password</label>
+                                <div style={{ color: "red" }}>{this.state.passwordError} </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input name="cpassword"
+                                    onChange={this.onChange}
+                                    onBlur={this.onBlur}
+                                    onFocus={this.onFocus}
+                                    type="password" className="validate" />
+                                <label htmlFor="password-confirm">Password Confirmation</label>
+                                <div style={{ color: "red" }}>{this.state.passwordConfirm} </div>
+                            </div>
+                        </div>
+                        <center>
+                            <button className="btn waves-effect waves-light teal" type="submit" name="submit" disabled={this.state.isLoading}>Submit</button>
+                        </center>
+                    </div>
+
+                </form>
+            </div>
         )
     }
 }
 
+function mapStateToProps(state) {
+    return { userExist: state.userExist }
+}
+export default connect(mapStateToProps)(Register)

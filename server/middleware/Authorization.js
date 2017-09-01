@@ -44,13 +44,11 @@ export default {
       }
     );
     const errors = req.validationErrors();
-    console.log(errors);
     if (errors) {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
           error: error.msg,
-          field: error.param
         });
       });
       return res.status(409)
@@ -108,17 +106,59 @@ export default {
       .then(users => res.status(201).send(users))
       .catch(error => res.status(404).send(error));
   },
+
+  /** Ad
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   UserExist(req, res) {
     return User
       .findOne({ where: {
         username: req.body.username
-      } })
+      }
+      })
       .then((user) => {
         if (user) {
-          res.status(200).send(true);
+          res.status(200).send({ message: 'username already exist' });
         }
-        res.status(404).send(false);
-      });
+      })
+      .catch(() => res.status(404).send({ message: '' }));
+  },
+  /** Validates Email address
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
+  emailExist(req, res) {
+    const re = /\S+@\S+\.\S+/,
+      emailValidate = re.test(req.body.email);
+    if (!emailValidate) {
+      res.send({ message: 'Invalid email supplied' });
+      return;
+    }
+    return User
+      .findOne({ where: {
+        email: req.body.email
+      }
+      })
+      .then((user) => {
+        if (user) {
+          res.status(200).send({ message: 'Email already exist',
+            user: {
+              id: user.id,
+              fullname: user.fullName,
+              username: user.username,
+              email: user.email,
+              active: user.acative,
+              isBanned: user.isBanned,
+              isAdmin: user.isAdmin,
+              plan: user.plan
+            }
+          });
+        } else {
+          res.status(200).res.send({});
+        }
+      })
+      .catch(() => res.status(404).send({ }));
   },
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
