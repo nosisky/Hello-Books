@@ -20,7 +20,7 @@ API routes for users to create accounts and login to the application
 > POST : ```/api/v1/users/signin (username, password)```
 An API route that allow users add new book:
 
-> POST : ```/api/v1/books```
+> GET : ```/api/v1/books```
 An API route that allow users to get all books in the library
 
 > PUT : /api/v1/books/<bookId>
