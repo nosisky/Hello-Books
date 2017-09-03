@@ -19,6 +19,15 @@ app.route('/signin')
 app.route('/all')
   .get(Authorization.isLoggedIn, Authorization.isAdmin, Authorization.getUsers);
 
+// User Exist
+app.route('/get')
+  .post(Authorization.UserExist);
+
+// Email Exist
+app.route('/getemail')
+  .post(Authorization.emailExist);
+
+
 // Rent a book
 app.route('/:userId/books')
   .post(Authorization.isLoggedIn,

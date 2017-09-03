@@ -1,0 +1,78 @@
+$color: #25758c;
+
+body
+{
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 800px;
+}
+
+.header-side {
+	background-color: #25758C;
+}
+
+h5
+{
+	font-weight: 400;
+}
+.teal {
+  background-color: $color !important;
+}
+.container-auth
+{
+	margin-top: 60px;
+	width: 500px;
+	align-self: center;
+	margin-bottom: 60px;
+	margin-right: 60px;
+}
+
+@media screen and (max-width: 900px) and (min-width: 520px) {
+.container-auth {
+	margin-top: 60px;
+	margin-bottom: 60px;
+	margin-right: 60px;
+ }
+}
+
+.nav-bar{
+	background-color: #25758C;
+}
+
+.main-auth{
+	width: 50%;
+	margin-top: 40px;
+}
+
+.tab {
+	width: 50% !important;
+}
+
+.tabs .indicator {
+    background-color: #000;
+    height: 60px;
+    opacity: 0.3;
+}
+
+.form-container
+{
+	padding: 20px;
+	padding-top: 10px;
+}
+
+.confirmation-tabs-btn
+{
+	position: absolute;
+}
+.logo {
+  font-size: 50px;
+}
+.main-navigation li a {
+	color:#fff !important;
+	font-size: large;
+}
+
+.reg {
+	float: right !important;
+}

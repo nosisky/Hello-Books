@@ -3,6 +3,10 @@ import db from '../models/index';
 const { Book } = db;
 
 export default {
+  /** A middleware that checks user input for valid book details
+   * @param  {object} req - request
+   * @param  {object} res - response
+   */
   checkUserInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
     req.checkBody(
@@ -69,6 +73,11 @@ export default {
     };
     next();
   },
+  
+  /** Check quantity of book in the DB
+   * @param  {Object} req - request
+   * @param  {object} res - response
+   */
   checkTotalBook(req, res, next) {
     Book
       .findOne({
