@@ -1,9 +1,9 @@
 {
   "development": {
- "username": "postgres",
- "password": "dealwap",
+ "username": "andeladeveloper",
+ "password": "",
  "database": "hellobooks",
- "port": 1337,
+ "port": 5432,
  "dialect": "postgres"
   },
   "test": {

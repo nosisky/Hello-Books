@@ -13,9 +13,13 @@ class Dashboard extends Component {
     }
 
     logout(event) {
+
         event.preventDefault();
+
         this.props.actions.logout();
+
         this.context.router.push('/');
+        
     }
     render() {
         const { username } = this.props.user;
