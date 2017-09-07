@@ -9,7 +9,7 @@ import { SET_CURRENT_USER, UNAUTH_USER } from './types';
 const API_URL = 'http://localhost:8000/api/v1/users';
 
 export function registerUser(userDetails) {
-  return (dispatch) => axios.post(`${API_URL}/signup`, userDetails).then((res) => {
+  return dispatch => axios.post(`${API_URL}/signup`, userDetails).then((res) => {
     console.log(res.data);
     const token = res.data.Token;
     localStorage.setItem('token', token);

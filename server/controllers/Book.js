@@ -18,7 +18,7 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
-    
+
   /** User rent book
    * @param  {object} req - request
    * @param  {object} res - response
@@ -33,18 +33,16 @@ export default {
         userId: req.params.userId,
         toReturnDate: after30days
       })
-      .then(() => {
-        return Book
-          .findOne({ where: { id: req.body.bookId } })
-          .then((books) => Book
-            .update({
-              total: books.total - 1
-            }, {
-              where: {
-                id: req.body.bookId
-              }
-            }));
-      })
+      .then(() => Book
+        .findOne({ where: { id: req.body.bookId } })
+        .then(books => Book
+          .update({
+            total: books.total - 1
+          }, {
+            where: {
+              id: req.body.bookId
+            }
+          })))
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',
       }))
@@ -188,18 +186,16 @@ export default {
           bookId: req.body.bookId
         }
       })
-      .then(() => {
-        return Book
-          .findOne({ where: { id: req.body.bookId } })
-          .then((books) => Book
-            .update({
-              total: books.total + 1
-            }, {
-              where: {
-                id: req.body.bookId
-              }
-            }));
-      })
+      .then(() => Book
+        .findOne({ where: { id: req.body.bookId } })
+        .then(books => Book
+          .update({
+            total: books.total + 1
+          }, {
+            where: {
+              id: req.body.bookId
+            }
+          })))
       .then(() => res.status(200).send(
         {
           message: 'Book returned successfully!'
