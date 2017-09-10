@@ -7,6 +7,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   checkUserInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
     req.checkBody(
@@ -78,6 +79,7 @@ export default {
    * @param  {Object} req - request
    * @param  {object} res - response
    */
+  
   checkTotalBook(req, res, next) {
     Book
       .findOne({

@@ -51,10 +51,7 @@ body
 }
 
 .header-side {
-	background-color: #25758c;
-	height: 60px;
 	margin-top: 0px;
-	padding: 5px;
 }
 
 .admin-header-side {
@@ -102,7 +99,7 @@ h5
 }
 
 .tabs .indicator {
-    background-color: #000;
+    background-color: #00bfea;
     height: 60px;
     opacity: 0.3;
 }
@@ -178,3 +175,8 @@ h5
 .card .card-image .card-title {
 	background-color: rgba(37, 96, 185, 0.92) !important;
 }
+
+.nav-wrapper {
+	background-color: #25758c !important;
+}
+

@@ -24,6 +24,7 @@ export default {
    * @param  {object} res - response
    * ROUTE: POST: /users/:userId/books
    */
+
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
@@ -54,6 +55,7 @@ export default {
    * @param  {object} res response
    *  Route: GET: /api/books
    */
+
   getBooks(req, res) {
     return Book
       .findAll({})
@@ -73,6 +75,7 @@ export default {
    * @param  {0bject} res response
    * Route: GET: //api/users/:UserId/books?returned=false
    */
+
   rentedBooks(req, res) {
     return RentedBook
       .findAll({
@@ -98,6 +101,7 @@ export default {
    * @param  {object} resonse
    * Route: GET: /
    */
+
   modifyBook(req, res) {
     return Book
       .update(req.body,
@@ -116,6 +120,7 @@ export default {
    * @param  {Object} res - response
    * Route: GET: /books/:bookId 
    */
+
   getOneBook(req, res) {
     return Book
       .findAll({
@@ -133,6 +138,7 @@ export default {
    * @param  {} res - reponse
    * ROute: DELETE: /books/delete/:bookId
    */
+
   deleteBook(req, res) {
     return Book
       .destroy({
@@ -152,6 +158,7 @@ export default {
    * @param  {object} res - response
    * Route: GET: /books/logs/:userId
    */
+
   rentedBookByUser(req, res) {
     return RentedBook
       .findAll({
@@ -175,6 +182,7 @@ export default {
    * @param  {object} res - response
    * Route: PUT: /users/:userId/books
    */
+  
   returnBook(req, res) {
     return RentedBook
       .update({

@@ -56,6 +56,27 @@ export default {
           allErrors
         );
     }
+    User
+      .findOne({
+        where: {
+          username: req.body.username,
+          $or: {
+            email: req.body.email
+          }
+        }
+      })
+      .then((user) => {
+        if (user.email === req.body.email) {
+          return res.status(409).send({
+            message: 'Email already exist'
+          });
+        } else if (user.username === req.body.email) {
+          return res.status(409).send({
+            message: 'Username already exist'
+          });
+        }
+      });
+
     const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
     req.userInput = {
       username: req.body.username,
@@ -71,6 +92,7 @@ export default {
    * @param  {Object} res - response
    * @param  {Object} next - calls the next method
    */
+
   validateLogin(req, res, next) {
     if (!req.body.username || !req.body.password) {
       return res.status(400)
@@ -100,6 +122,7 @@ export default {
    * @param  {Object} request 
    * @param  {Object} response
    */
+
   getUsers(req, res) {
     return User
       .findAll({})
@@ -111,6 +134,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   UserExist(req, res) {
     return User
       .findOne({ where: {
@@ -128,6 +152,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   emailExist(req, res) {
     const re = /\S+@\S+\.\S+/,
       emailValidate = re.test(req.body.email);
@@ -164,8 +189,16 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   isLoggedIn(req, res, next) {
-    const token = req.headers['x-access-token'];
+    let token;
+    const tokenAvailable = req.headers.authorization ||
+    req.headers['x-access-token'];
+    if (req.headers.authorization) {
+      token = req.headers.authorization.split(' ')[1];
+    } else {
+      token = tokenAvailable;
+    }
     if (token) {
       jwt.verify(token, key, (error, decoded) => {
         if (error) {
@@ -190,6 +223,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   isAdmin(req, res, next) {
     const decodedToken = req.decoded;
     if (typeof decodedToken.currentUser.isAdmin === 'undefined') {
@@ -210,6 +244,7 @@ export default {
    * @param  {Object} req - request
    * @param  {object} res - response
    */
+
   validUser(req, res, next) {
     const querier = req.params.userId;
     if (!querier || querier.match(/[\D]/)) {
@@ -238,6 +273,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || querier.match(/[\D]/)) {
@@ -266,6 +302,7 @@ export default {
    * @param  {object} req - request
    * @param  {object} res - response
    */
+
   hasRentedBefore(req, res, next) {
     RentedBook
       .findOne({

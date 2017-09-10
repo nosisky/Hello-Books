@@ -1,15 +1,29 @@
 import axios from 'axios';
 
-import { ADD_BOOK } from './types';
+import { ADD_BOOK, GET_ALL_BOOKS } from './types';
 
 const API_URL = 'http://localhost:8000/api/v1/books';
 
-export default function addNewBook(bookDetails) {
-  return dispatch => axios.post(`${API_URL}`).then((res) => {
-    console.log(res.data);
-    dispatch({
-      type: ADD_BOOK,
-      books: res.data.message
-    });
-  });
+export function addNewBook(bookDetails) {
+  return dispatch => axios.post(`${API_URL}`, bookDetails)
+    .then((res) => {
+      dispatch({
+        type: ADD_BOOK,
+        message: res.data.message
+      });
+    })
+    .catch(error => error);
 }
+
+export function getAllBooks() {
+  return dispatch => axios.get(`${API_URL}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ALL_BOOKS,
+        data: res.data
+      });
+      return res.data;
+    })
+    .catch(error => error);
+}
+

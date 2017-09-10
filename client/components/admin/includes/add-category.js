@@ -5,7 +5,6 @@ export default class AddBook extends Component {
     render() {
         return (
             <div>
-                Add a new book
                 <div className="row">
                     <form className="col s12">
                         <div className="row">

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 
 export default class HeaderSideBar extends Component {
   render() {
@@ -31,7 +32,7 @@ export default class HeaderSideBar extends Component {
               </div><br />
             </div>
             <li className="divider"></li>
-            <li id="menu-list"><a className="modal-trigger" href="#modal1">Add a book <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><Link to="/add-book">Add a book <i className="material-icons">chevron_right</i></Link></li>
             <li id="menu-list"><a href="#!">Add Category<i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>

@@ -6,8 +6,8 @@ import path from 'path';
 import webpack from 'webpack';
 import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
-import webpackConfig from './webpack.config.dev';
 import validator from 'express-validator';
+import webpackConfig from './webpack.config.dev';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
 
