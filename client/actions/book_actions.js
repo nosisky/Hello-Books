@@ -27,3 +27,9 @@ export function getAllBooks() {
     .catch(error => error);
 }
 
+export function deleteBook(bookId) {
+  return axios.delete(`${API_URL}/delete/${bookId}`)
+    .then(res => res.data.message)
+    .catch(error => error);
+}
+

@@ -74,6 +74,7 @@ export default class AddBook extends Component {
             case 'prodYear':
             if(value.length < 4 || !value){
                 this.setState({ prodYearError: 'Production year is not valid' })
+                return false;
                 break;
             }
             case 'description':
@@ -105,7 +106,7 @@ export default class AddBook extends Component {
     render() {
         return (
             <div style={{ marginTop: 20, backgroundColor: '#fff', width: '70%', float: 'right', marginRight: 100 }}>
-                <div className="row">
+                 <div className="row">
                     <form name="add_book" className="col s12" onSubmit={this.handleSubmit}>
                         <div className="add-book">
                             <div className="row">
@@ -118,7 +119,7 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
-                                    />
+                                    required/>
                                     <label htmlFor="isbn">Title</label>
                                     <div style={{color: 'red'}}>{this.state.titleError}</div>
                                 </div>
@@ -133,7 +134,7 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
-                                    />
+                                    required/>
                                     <label htmlFor="isbn">Author</label>
                                     <div style={{color: 'red'}}>{this.state.authorError}</div>
                                 </div>
@@ -148,7 +149,7 @@ export default class AddBook extends Component {
                                         value="1"
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
-                                    />
+                                    required/>
                                     <label htmlFor="isbn">Total</label>
                                 </div>
                                 <div className="input-field col s6">
@@ -160,7 +161,7 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onBlur = {this.onBlur}
                                         onFocus={this.onFocus}
-                                    />
+                                    required/>
                                     <label htmlFor="prodYear">Production Year</label>
                                     <div style={{color: 'red'}}>{this.state.prodYearError}</div>
                                 </div>
@@ -175,7 +176,7 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onBlur={this.onBlur}
                                         onFocus={this.onFocus}
-                                    />
+                                    required/>
                                     <label htmlFor="isbn">ISBN</label>
                                     <div style={{color: 'red'}}>{this.state.isbnError}</div>
                                 </div>

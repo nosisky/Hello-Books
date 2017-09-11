@@ -17,12 +17,31 @@ class AdminHome extends Component {
     componentDidMount() {
         this.props.actions.getAllBooks();
     }
-
+    handleClick(bookId){
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover it back!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              deleteBook(bookId)
+              .then((res) => {
+                swal(res, {
+                    icon: "success", 
+                  });
+              })
+            } else {
+              swal("Book not deleted!"); 
+            }
+          });
+    }
     renderBooks() {
         const allbooks = this.props.books;
         if (!allbooks) {
-            console.log(allbooks)
-            return '...loading';
+            return <div style={{backgroundColor: '#fff', float: 'right', marginLeft: '-100px', marginRight: '-50px'}}><h2>There is no book in the database</h2></div>;
         }
         return (<div className="admin-book-list">
             <div className="card-panel teal book-header"><center>Recently Added Books</center></div>
@@ -30,6 +49,12 @@ class AdminHome extends Component {
             {allbooks.map((book) => {
                 return (
                     <AllBooks
+                        prodYear={book.prodYear}
+                        total={book.total}
+                        isbn={book.isbn}
+                        author={book.author}
+                        description={book.description}
+                        id={book.id}
                         key={book.id}
                         title={book.title}
                         description={book.description}
@@ -49,8 +74,6 @@ class AdminHome extends Component {
             <div >
                 <HeaderSidebar />
                 {this.renderBooks()}
-                })}
-                })}
             </div >
         )
     }
