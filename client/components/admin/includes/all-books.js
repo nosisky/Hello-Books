@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
 import $ from 'jquery'
-import { deleteBook } from '../../../actions/book_actions';
+import { deleteBook, modifyBook } from '../../../actions/book_actions';
 
 export default class AllBooks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            title: this.props.title,
+            description: this.props.description,
+            isbn: this.props.isbn,
+            author: this.props.author,
+            prodYear: this.prodYear,
+            total: this.props.total,
+            cover: 'hello.jpg'
         }
         this.handleClick = this.handleClick.bind(this);
-
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     handleClick() {
@@ -37,15 +44,31 @@ export default class AllBooks extends Component {
             });
     }
 
+    handleFormSubmit(e){
+        e.preventDefault();
+        modifyBook(this.state, this.props.id)
+        .then((res) => {
+            Materialize.toast(res, 2000, 'blue',
+            () => {
+                window.location.href = "/admin";
+            });
+        })
+    }
+
+    onChange(e){
+        this.setState({[e.target.name]: e.target.value});
+    }
+
     render() {
         return (
             <div className="col s12 m3 l3">
 
                 <div id="modal1" className="modal">
                     <div className="modal-content">
-                        <h4>Modal Header</h4>
+                        <h4 style={{alignContent: 'center'}}>Edit Book</h4>
                     <div className="row">
-                    <form name="edit_book" className="col s12">
+                    <form name="edit_book" className="col s12" 
+                    onSubmit={this.handleFormSubmit}>
                         <div className="add-book">
                             <div className="row">
                                 <div className="input-field col s12">
@@ -53,6 +76,7 @@ export default class AllBooks extends Component {
                                         id="title"
                                         type="text"
                                         name="title"
+                                        onChange={this.onChange}
                                         defaultValue={this.props.title}
                                         className="validate"
                                     required/>
@@ -66,6 +90,7 @@ export default class AllBooks extends Component {
                                         type="text"
                                         name="author"
                                         className="validate"
+                                        onChange={this.onChange}
                                         defaultValue={this.props.author}
                                     required/>
                                     <label htmlFor="isbn">Author</label>
@@ -78,6 +103,7 @@ export default class AllBooks extends Component {
                                         name="total"
                                         type="number"
                                         className="validate"
+                                        onChange={this.onChange}
                                         defaultValue={this.props.total}
                                     required/>
                                     <label htmlFor="isbn">Total</label>
@@ -88,6 +114,7 @@ export default class AllBooks extends Component {
                                         name="prodYear"
                                         type="number"
                                         defaultValue={this.props.prodYear}
+                                        onChange={this.onChange}
                                         className="validate"
                                     required/>
                                     <label htmlFor="prodYear">Production Year</label>
@@ -99,6 +126,7 @@ export default class AllBooks extends Component {
                                         id="isbn"
                                         name="isbn"
                                         type="text"
+                                        onChange={this.onChange}
                                         defaultValue={this.props.isbn}
                                         className="validate"
                                     required/>
@@ -111,6 +139,7 @@ export default class AllBooks extends Component {
                                         id="description"
                                         className="materialize-textarea"
                                         name="description"
+                                        onChange={this.onChange}
                                         defaultValue={this.props.description}
                                     ></textarea>
                                     <label htmlFor="description">Description</label>
@@ -135,9 +164,6 @@ export default class AllBooks extends Component {
                         </button>
                     </form>
                 </div>
-                    </div>
-                    <div className="modal-footer">
-                        <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
                     </div>
                 </div>
                 <div className="card">

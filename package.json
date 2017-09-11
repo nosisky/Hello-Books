@@ -4,7 +4,7 @@
   "description": "Hello book is a simple library management system built with reactJS",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js",
+    "start": "nodemon --watch server --exec babel-node server.js",
     "build": "webpack",
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
     "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",

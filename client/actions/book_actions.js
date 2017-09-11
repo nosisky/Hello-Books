@@ -33,3 +33,9 @@ export function deleteBook(bookId) {
     .catch(error => error);
 }
 
+export function modifyBook(bookData, bookId) {
+  return axios.put(`${API_URL}/${bookId}`, bookData)
+    .then(res => res.data.message)
+    .catch(error => error);
+}
+
