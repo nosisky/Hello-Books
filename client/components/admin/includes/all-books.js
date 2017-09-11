@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import swal from 'sweetalert';
-import $ from 'jquery'
 import { deleteBook, modifyBook } from '../../../actions/book_actions';
 
 export default class AllBooks extends Component {
