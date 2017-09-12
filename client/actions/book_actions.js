@@ -48,6 +48,8 @@ export function addCategory(data) {
 
 export function rentBook(userId, bookId) {
   return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
-    .then(res => res.data.message)
-    .catch(error => error);
+    .then((res) => {
+      return res.data.message;
+    })
+    .catch(error => error.response.data.message);
 }

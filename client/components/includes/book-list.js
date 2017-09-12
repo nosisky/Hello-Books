@@ -24,16 +24,25 @@ export default class AllBooks extends Component {
                         if (willBorrow) {
                               rentBook(this.props.userId, { bookId: this.props.id })
                                     .then((res) => {
+                                          if (res === "You have successfully rented the book") {
+                                                {
+                                                      swal(res, {
+                                                            icon: "success",
+                                                      });
+                                                }
+                                          } else {
                                                 swal(res, {
-                                                      icon: "success",
+                                                      icon: "warning",
                                                 });
+                                          }
                                     })
-                        .then((res) =>  {
-                              if(res){
-                              window.location.href = '/dashboard'
-                              }
-                        })
-                             
+                                    .then((res) => {
+                                          if (res) {
+                                                window.location.href = '/dashboard'
+                                          }
+                                    })
+                                    .catch((error) => console.log("hello"))
+
                         }
                   });
       }
