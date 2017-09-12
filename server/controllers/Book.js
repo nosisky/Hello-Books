@@ -1,7 +1,7 @@
 import db from '../models';
 
 const { RentedBook } = db;
-const { Book } = db;
+const { Book, Category } = db;
 
 export default {
   /** Admin add new book
@@ -69,6 +69,26 @@ export default {
         }
       })
       .catch(error => res.status(404).send(error));
+  },
+
+  /** Adds a new category
+   * @param  {object} req request
+   * @param  {0bject} res response
+   */
+
+  addCategory(req, res) {
+    return Category
+      .create(req.body)
+      .then((cat) => {
+        if (cat) {
+          return res.status(201).send({
+            message: 'Category added successfully'
+          });
+        }
+      })
+      .catch(error => res.status(401).send({
+        error
+      }));
   },
   /** Dislay users rented books
    * @param  {object} req request
@@ -182,7 +202,7 @@ export default {
    * @param  {object} res - response
    * Route: PUT: /users/:userId/books
    */
-  
+
   returnBook(req, res) {
     return RentedBook
       .update({

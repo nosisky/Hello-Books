@@ -20,6 +20,12 @@ app.route('/:bookId')
     Authorization.validBook,
     BookController.modifyBook);
 
+// Adds a new category to the database
+app.route('/cat')
+  .post(Authorization.isLoggedIn,
+    Authorization.isAdmin,
+    BookController.addCategory);
+
 // Get a specific book
 app.route('/:bookId')
   .get(Authorization.isLoggedIn,

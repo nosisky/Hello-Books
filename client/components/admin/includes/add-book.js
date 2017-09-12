@@ -33,11 +33,11 @@ export default class AddBook extends Component {
         });
     }
 
-    onFocus(e){
+    onFocus(e) {
         const value = e.target.value,
-        name = e.target.name;
+            name = e.target.name;
 
-        switch(name){
+        switch (name) {
             case 'title':
                 this.setState({ titleError: '' })
                 break;
@@ -50,42 +50,42 @@ export default class AddBook extends Component {
             case 'description':
                 this.setState({ descError: '' })
                 break;
-            case 'isbn': 
+            case 'isbn':
                 this.setState({ isbnError: '' })
                 break;
         }
     }
 
-    onBlur(e){
+    onBlur(e) {
         const value = e.target.value,
-        name = e.target.name;
+            name = e.target.name;
 
-        switch(name){
+        switch (name) {
             case 'title':
-            if(value.length < 2 || !value){
-                this.setState({ titleError: 'Book title must be greater than 2 characters' })
-                break;
-            } 
+                if (value.length < 2 || !value) {
+                    this.setState({ titleError: 'Book title must be greater than 2 characters' })
+                    break;
+                }
             case 'author':
-            if(value.length < 2 || !value){
-                this.setState({ authorError: 'Book author name must be greater than 2 characters' })
-                break;
-            }
+                if (value.length < 2 || !value) {
+                    this.setState({ authorError: 'Book author name must be greater than 2 characters' })
+                    break;
+                }
             case 'prodYear':
-            if(value.length < 4 || !value){
-                this.setState({ prodYearError: 'Production year is not valid' })
-                return false;
-                break;
-            }
+                if (value.length < 4 || !value) {
+                    this.setState({ prodYearError: 'Production year is not valid' })
+                    return false;
+                    break;
+                }
             case 'description':
-            if(value.length < 5 || !value){
-                this.setState({ descError: 'Book description is required' })
-                break;
-            }
+                if (value.length < 5 || !value) {
+                    this.setState({ descError: 'Book description is required' })
+                    break;
+                }
             case 'isbn':
-            if(value.length < 5 || !value){
-                this.setState({ isbnError: 'Book ISBN must be a minimum of 5 characters' })
-            }
+                if (value.length < 5 || !value) {
+                    this.setState({ isbnError: 'Book ISBN must be a minimum of 5 characters' })
+                }
         }
     }
 
@@ -98,7 +98,7 @@ export default class AddBook extends Component {
                     () => {
                         this.setState({ isLoading: false })
                     });
-                    window.location.href='/admin';
+                window.location.href = '/admin';
             })
             .catch((err) => err)
     }
@@ -106,7 +106,7 @@ export default class AddBook extends Component {
     render() {
         return (
             <div style={{ marginTop: 20, backgroundColor: '#fff', width: '70%', float: 'right', marginRight: 100 }}>
-                 <div className="row">
+                <div className="row">
                     <form name="add_book" className="col s12" onSubmit={this.handleSubmit}>
                         <div className="add-book">
                             <div className="row">
@@ -119,9 +119,9 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
-                                    required/>
+                                        required />
                                     <label htmlFor="isbn">Title</label>
-                                    <div style={{color: 'red'}}>{this.state.titleError}</div>
+                                    <div style={{ color: 'red' }}>{this.state.titleError}</div>
                                 </div>
                             </div>
                             <div className="row">
@@ -134,11 +134,12 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
-                                    required/>
+                                        required />
                                     <label htmlFor="isbn">Author</label>
-                                    <div style={{color: 'red'}}>{this.state.authorError}</div>
+                                    <div style={{ color: 'red' }}>{this.state.authorError}</div>
                                 </div>
                             </div>
+                           
                             <div className="row">
                                 <div className="input-field col s6">
                                     <input
@@ -149,9 +150,10 @@ export default class AddBook extends Component {
                                         value="1"
                                         onChange={this.onChange}
                                         onFocus={this.onFocus}
-                                    required/>
+                                        required />
                                     <label htmlFor="isbn">Total</label>
                                 </div>
+ 
                                 <div className="input-field col s6">
                                     <input
                                         id="prodYear"
@@ -159,11 +161,11 @@ export default class AddBook extends Component {
                                         type="number"
                                         className="validate"
                                         onChange={this.onChange}
-                                        onBlur = {this.onBlur}
+                                        onBlur={this.onBlur}
                                         onFocus={this.onFocus}
-                                    required/>
+                                        required />
                                     <label htmlFor="prodYear">Production Year</label>
-                                    <div style={{color: 'red'}}>{this.state.prodYearError}</div>
+                                    <div style={{ color: 'red' }}>{this.state.prodYearError}</div>
                                 </div>
                             </div>
                             <div className="row">
@@ -176,9 +178,9 @@ export default class AddBook extends Component {
                                         onChange={this.onChange}
                                         onBlur={this.onBlur}
                                         onFocus={this.onFocus}
-                                    required/>
+                                        required />
                                     <label htmlFor="isbn">ISBN</label>
-                                    <div style={{color: 'red'}}>{this.state.isbnError}</div>
+                                    <div style={{ color: 'red' }}>{this.state.isbnError}</div>
                                 </div>
                             </div>
                             <div className="row">
@@ -192,7 +194,7 @@ export default class AddBook extends Component {
                                         onFocus={this.onFocus}
                                     ></textarea>
                                     <label htmlFor="description">Description</label>
-                                    <div style={{color: 'red'}}>{this.state.descError}</div>
+                                    <div style={{ color: 'red' }}>{this.state.descError}</div>
                                 </div>
                             </div>
                             <div className="file-field input-field">

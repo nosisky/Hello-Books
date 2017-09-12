@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { ADD_BOOK, GET_ALL_BOOKS } from './types';
 
-const API_URL = 'http://localhost:8000/api/v1/books';
+const API_URL = 'http://localhost:8000/api/v1/books',
+  USER_API_URL = 'http://localhost:8000/api/v1/users';
 
 export function addNewBook(bookDetails) {
   return dispatch => axios.post(`${API_URL}`, bookDetails)
@@ -39,3 +40,14 @@ export function modifyBook(bookData, bookId) {
     .catch(error => error);
 }
 
+export function addCategory(data) {
+  return axios.post(`${API_URL}/cat`, data)
+    .then(res => res.data.message)
+    .catch(error => error);
+}
+
+export function rentBook(userId, bookId) {
+  return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
+    .then(res => res.data.message)
+    .catch(error => error);
+}
