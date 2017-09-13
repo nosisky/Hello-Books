@@ -23,25 +23,25 @@ export default class AllBooks extends Component {
                   .then((willBorrow) => {
                         if (willBorrow) {
                               rentBook(this.props.userId, { bookId: this.props.id })
-                                    .then((res) => {
-                                          if (res === "You have successfully rented the book") {
-                                                {
-                                                      swal(res, {
-                                                            icon: "success",
-                                                      });
-                                                }
-                                          } else {
-                                                swal(res, {
-                                                      icon: "warning",
-                                                });
-                                          }
-                                    })
-                                    .then((res) => {
-                                          if (res) {
-                                                window.location.href = '/dashboard'
-                                          }
-                                    })
-                                    .catch((error) => console.log("hello"))
+                  .then((res) => {
+                        if (res === "You have successfully rented the book") {
+                              {
+                                    swal(res, {
+                                          icon: "success",
+                                    });
+                              }
+                        } else {
+                              swal(res, {
+                                    icon: "warning",
+                              });
+                        }
+                  })
+                  .then((res) => {
+                        if (res) {
+                              window.location.href = '/dashboard'
+                        }
+                  })
+                  .catch((error) => error)
 
                         }
                   });

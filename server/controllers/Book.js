@@ -28,11 +28,16 @@ export default {
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
-    return RentedBook
-      .create({
-        bookId: req.body.bookId,
-        userId: req.params.userId,
-        toReturnDate: after30days
+    Book.findById(req.body.bookId)
+      .then((book) => {
+        return RentedBook
+          .create({
+            bookId: req.body.bookId,
+            description: book.description,
+            title: book.title,
+            userId: req.params.userId,
+            toReturnDate: after30days
+          });
       })
       .then(() => Book
         .findOne({ where: { id: req.body.bookId } })

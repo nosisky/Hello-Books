@@ -29,7 +29,6 @@ app.route('/cat')
 // Get a specific book
 app.route('/:bookId')
   .get(Authorization.isLoggedIn,
-    Authorization.isAdmin,
     Authorization.validBook,
     BookController.getOneBook);
 

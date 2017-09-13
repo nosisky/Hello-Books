@@ -41,8 +41,7 @@ export default class HeaderSideBar extends Component {
               </div><br />
             </div>
             <li className="divider"></li>
-            <li id="menu-list"><Link to='rent'>Rent Book <i className="material-icons">chevron_right</i> </Link></li>
-            <li id="menu-list"><a href="#!">Rent History <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><Link to='rented-books'>Rent History <i className="material-icons">chevron_right</i></Link></li>
             <li id="menu-list"><a href="#!">Rent a Book <i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Rented Books <i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Rent History <i className="material-icons">chevron_right</i></a></li>
