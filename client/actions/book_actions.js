@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { ADD_BOOK, GET_ALL_BOOKS, GET_RENTED_BOOKS } from './types';
 
-const API_URL = 'http://localhost:8000/api/v1/books',
-  USER_API_URL = 'http://localhost:8000/api/v1/users';
+const API_URL = 'https://andela-hellobooks.herokuapp.com/api/v1/books',
+  USER_API_URL = 'https://andela-hellobooks.herokuapp.com/api/v1/users';
 
 export function addNewBook(bookDetails) {
   return dispatch => axios.post(`${API_URL}`, bookDetails)
