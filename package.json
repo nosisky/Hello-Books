@@ -7,7 +7,7 @@
     "start": "nodemon --watch server --exec babel-node server.js",
     "build": "webpack",
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
-    "test": "SET NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
+    "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
