@@ -36,6 +36,7 @@ export default {
             description: book.description,
             title: book.title,
             userId: req.params.userId,
+            cover: 'hello.jpg',
             toReturnDate: after30days
           });
       })
@@ -188,7 +189,8 @@ export default {
     return RentedBook
       .findAll({
         where: {
-          userId: req.params.userId
+          userId: req.params.userId,
+          returned: false
         }
       })
       .then((books) => {
@@ -200,7 +202,7 @@ export default {
           res.status(200).send(books);
         }
       })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).send({ message: error }));
   },
   /** User return rented book
    * @param  {object} req - request

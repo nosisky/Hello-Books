@@ -65,7 +65,7 @@ export function getRentedBooks(userId) {
 }
 
 export function returnBook(userId, bookId) {
-  return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
+  return axios.put(`${USER_API_URL}/${userId}/books`, bookId)
     .then(res => res.data)
     .catch(error => error);
 }

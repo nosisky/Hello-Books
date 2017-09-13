@@ -19,23 +19,20 @@ class RentedBooksPage extends Component {
     renderRentedBooks() {
         let rentedBooks = this.props.rentedBooks.data;
         if (rentedBooks.length < 1) {
-            return '...loading()'
+            return (
+              <h1 style={{color: '#fff', float: 'right'}}>Hello You have not rented any book </h1>)
         } else {
                 return (<div className="admin-book-list">
                     <div className="card-panel teal user-book-header"><center>My Rented Books</center></div>
                     <div className="row">
-                        {rentedBooks.map((books) => {
+                        {rentedBooks.map((book) => {
                            return   (<RentedBooks
-                                  prodYear={book.prodYear}
-                                  total={book.total}
-                                  isbn={book.isbn}
-                                  author={book.author}
                                   description={book.description}
-                                  id={book.id}
+                                  id={book.bookId}
                                   userId={this.props.user.userId}
                                   key={book.id}
                                   title={book.title}
-                                  description={book.description}
+                                  userId = {book.userId}
                               />)
 
 

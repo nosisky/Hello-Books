@@ -11,7 +11,7 @@ export default class RentedBooks extends Component {
     handleClick() {
         swal({
             title: "Are you sure?",
-            text: `Do you really want to return the book?)}`,
+            text: `Do you really want to return the book?`,
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -19,25 +19,22 @@ export default class RentedBooks extends Component {
             .then((willReturn) => {
                 if (willReturn) {
                     returnBook(this.props.userId, { bookId: this.props.id })
-                        .then((res) => {
-                            if (res === "You have successfully rented the book") {
-                                {
-                                    swal(res, {
-                                        icon: "success",
-                                    });
-                                }
-                            } else {
-                                swal(res, {
-                                    icon: "warning",
-                                });
+                    .then((res) => {
+                        if (res) {
+                            {
+                                swal(res.message, {
+                                    icon: "success",
+                                })
+                                window.location.href = '/rented-books'
                             }
-                        })
-                        .then((res) => {
-                            if (res) {
-                                window.location.href = '/dashboard'
-                            }
-                        })
-                        .catch((error) => error)
+
+                        } else {
+                            swal(res, {
+                                icon: "warning",
+                            });
+                        }
+                    })
+                    .catch((error) => error)
 
                 }
             });
