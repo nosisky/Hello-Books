@@ -3,7 +3,7 @@ import { ADD_BOOK,
   GET_RENTED_BOOKS
 } from '../actions/types';
 
-const INITIAL_STATE = { userExist: '', error: '', message: '', user: '', content: '', authenticated: false, data: '' };
+const INITIAL_STATE = {};
 
 function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
