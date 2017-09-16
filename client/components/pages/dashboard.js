@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth_actions';
 import { bindActionCreators } from 'redux';
 import HeaderSideBar from '../includes/header-side-bar';
+import HistoryList from '../includes/history-list';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -17,11 +18,12 @@ class Dashboard extends Component {
         this.context.router.push('/');
     }
     render() {
-        const { fullname } = this.props.user;
+        const { username } = this.props.user;
 
-        return (
-            <HeaderSideBar onClick={this.logout} fullname={fullname} />
-        )
+        return (<div>
+            <HeaderSideBar onClick={this.logout} username={username} />
+            <HistoryList />
+       </div> )
     }
 }
 
