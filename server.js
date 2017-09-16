@@ -10,6 +10,7 @@ import validator from 'express-validator';
 import webpackConfig from './webpack.config.dev';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
+import CategoryRouter from './server/routes/category';
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(webpackMiddleware(webpack(webpackConfig)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
+
+app.use('/api/v1/category', CategoryRouter);
 
 app.use('/api/v1/users', UserRouter);
 

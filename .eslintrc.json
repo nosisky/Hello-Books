@@ -2,10 +2,13 @@
   "root": true,
   "extends": "airbnb-base",
   "env": {
+    "browser": true,
     "node": true,
     "es6": true,
+    "jquery": true,
     "mocha": true
   },
+
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,

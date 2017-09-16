@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { ADD_BOOK, GET_ALL_BOOKS, GET_RENTED_BOOKS } from './types';
+import { ADD_BOOK, GET_ALL_BOOKS, GET_RENTED_BOOKS, GET_CATEGORY } from './types';
 
 const API_URL = 'http://localhost:8000/api/v1/books',
   USER_API_URL = 'http://localhost:8000/api/v1/users';
 
 export function addNewBook(bookDetails) {
-  return dispatch => axios.post(`${API_URL}`, bookDetails)
+  return dispatch => axios.post(API_URL, bookDetails)
     .then((res) => {
       dispatch({
         type: ADD_BOOK,
@@ -17,7 +17,7 @@ export function addNewBook(bookDetails) {
 }
 
 export function getAllBooks() {
-  return dispatch => axios.get(`${API_URL}`)
+  return dispatch => axios.get(API_URL)
     .then((res) => {
       dispatch({
         type: GET_ALL_BOOKS,
@@ -73,5 +73,16 @@ export function returnBook(userId, bookId) {
 export function getSpecificBook(userId) {
   return axios.get(`${API_URL}/${userId}`)
     .then(res => res.data)
+    .catch(error => error);
+}
+
+export function getCategory() {
+  return dispatch => axios.get('/api/v1/category')
+    .then((res) => {
+      dispatch({
+        type: GET_CATEGORY,
+        data: res.data
+      });
+    })
     .catch(error => error);
 }

@@ -13,7 +13,7 @@ class Dashboard extends Component {
         this.logout = this.logout.bind(this);
         this.renderBooks = this.renderBooks.bind(this);
     }
-    componentDidMount(){
+    componentDidMount() {
         this.props.actions.getAllBooks()
     }
 
@@ -29,42 +29,42 @@ class Dashboard extends Component {
     renderBooks() {
         const allbooks = this.props.books;
         if (!allbooks) {
-            return <div style={{backgroundColor: '#fff', float: 'right', marginLeft: '-100px', marginRight: '-50px'}}><h2>There is no book in the database</h2></div>;
+            return <div style={{ backgroundColor: '#fff', float: 'right', marginLeft: '-100px', marginRight: '-50px' }}><h2>There is no book in the database</h2></div>;
         }
         return (<div className="admin-book-list">
             <div className="card-panel teal user-book-header"><center>Recently Added Books</center></div>
             <div className="row">
-            {allbooks.map((book) => {
-                return (
-                    <AllBooks
-                        prodYear={book.prodYear}
-                        total={book.total}
-                        isbn={book.isbn}
-                        author={book.author}
-                        description={book.description}
-                        id={book.id}
-                        userId={this.props.user.userId}
-                        key={book.id}
-                        title={book.title}
-                        description={book.description}
-                    />
+                {allbooks.map((book) => {
+                    return (
+                        <AllBooks
+                            prodYear={book.prodYear}
+                            total={book.total}
+                            isbn={book.isbn}
+                            author={book.author}
+                            description={book.description}
+                            id={book.id}
+                            userId={this.props.user.userId}
+                            key={book.id}
+                            title={book.title}
+                            description={book.description}
+                        />
+                    )
+                }
+
                 )
-            }
+                }
+            </div>
+        </div>
 
         )
     }
-        </div>
-    </div>
-    
-)
-}
 
-    render() {     
-        const { username, fullname, id} = this.props.user;
+    render() {
+        const { username, fullname, id } = this.props.user;
         return (<div>
             <HeaderSideBar onClick={this.logout} fullName={fullname} username={username} />
             {this.renderBooks()}
-       </div> )
+        </div>)
     }
 }
 

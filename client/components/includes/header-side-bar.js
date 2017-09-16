@@ -8,12 +8,6 @@ export default class HeaderSideBar extends Component {
 
   render() {
     return (<div className="header-side" id="container">
-      <ul id='dropdown1' className='dropdown-content'>
-        <li><a href="#!"> {this.props.username}</a></li>
-        <li className="divider"></li>
-        <li><a onClick={this.props.onClick} href="#"><i className="material-icons">exit_to_app</i> Logout</a></li>
-        <li><a href="#!"><i className="material-icons">account_circle</i> Profile</a></li>
-      </ul>
       
 
       <div id="menu">
@@ -23,9 +17,14 @@ export default class HeaderSideBar extends Component {
               <li><a href="#!"><i className="material-icons">search</i></a></li>
               <li><a href="#!"><i className="material-icons">view_module</i></a></li>
               <li><a href="#!"><i className="material-icons">refresh</i></a></li>
-              <li><a href="#!"><i className="material-icons">more_vert</i></a></li>
+              <li><a className="dropdown-button" href="#!" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
             </ul>
+            <ul id="dropdown2" className="dropdown-content">
+            <li><Link to="/profile">Profile</Link></li>
+           <li><a onClick={this.props.onClick} href="#!">Logout</a></li>
+         </ul>
           </div>
+
         </nav>
         <div className="col s3">
           <ul id="slide-out" className="side-nav fixed show-on-large-only">

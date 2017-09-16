@@ -55,7 +55,7 @@ body
 }
 
 .admin-header-side {
-	background-color: #0000ff;
+	background-color: #15b39d;
 	height: 60px;
 	margin-top: 0px;
 	padding: 5px;
@@ -150,13 +150,14 @@ h5
 }
 
 .book-header{
-	background-color: rgba(37, 96, 185, 0.92) !important;
+	background-color: rgb(21, 179, 157) !important;
 	color: #fff;
 	height: 60px;
 	padding-top: -10px;
 	font-size: 30px;
 	font-family: cursive;
 	padding: 5px !important;
+	margin: 1px;
 }
 
 .user-book-header{
@@ -165,7 +166,7 @@ h5
 	height: 60px;
 	padding-top: -10px;
 	font-size: 30px;
-	margin-top: -5px;
+	margin-top: -12px;
 	font-family: Arial, Helvetica, sans-serif;
 	padding: 5px !important;
 }
@@ -179,15 +180,118 @@ h5
 	width: 300px;
 }
 
+.card.horizontal {
+	margin-top: -20px;
+}
+
 .pagination li.active {
     background-color: rgba(37, 96, 185, 0.92) !important;
 }
 
 .card .card-image .card-title {
-	background-color: rgba(37, 96, 185, 0.92) !important;
+	background-color: rgb(21, 179, 157) !important;
 }
 
 .nav-wrapper {
 	background-color: #25758c !important;
 }
 
+.profile-cover {
+	width: 80%;
+	float: right;
+}
+
+.p-img{
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	background-color: rgba(255, 255, 255, 0.43);
+}
+
+
+
+.profile {
+	background-color: #f4f4f4;
+	width: 300px;
+	margin: 10px 50px;
+	box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+  }
+  
+  .profile-header {
+	overflow: hidden;
+	width: 100%;
+	max-height: 300px;
+  }
+  
+  .profile-header img{
+	width: 100%;
+	border-radius: 50%;
+  }
+  
+  .profile-content {
+	width: 85%;
+	margin: 35px auto;
+  }
+  
+  .profile-content h3 {
+	font-size: 25px;
+	margin-bottom: 0;
+	color: #000;
+	font-family: 'Montserrat', sans-serif;
+  }
+  
+  .profile-content h4 {
+	font-size: 14px;
+	margin-top: 0;
+	color: #000;
+	font-family: 'Montserrat', sans-serif;
+  }
+  
+  .profile-content p {
+	color: #727272;
+	font-size: 12px;
+	font-family: 'Open Sans', sans-serif;
+	
+  }
+  
+  .profile-footer {
+	border-top: solid 1px #B6B6B6;
+	padding: 5px;
+  }
+  
+  .profile-footer ul {
+	padding: 0;
+	width: 90%;
+	margin: auto;
+	text-align: center;
+  }
+  
+  .profile-footer ul li{
+	display: inline-block;
+	list-style: none;
+	margin: 5px;
+  }
+  
+  .profile-footer ul li i {
+	font-size: 2em;
+	color: #3F51B5;
+  }
+
+  .collection .collection-item {
+	  font-weight: bold;
+	  margin: 33px !important;
+  }
+
+  .tag-name {
+	  float: right;
+	  font-weight: initial;
+  }
+
+  .circular-img {
+	border: 3px solid #25758c;
+    border-radius: 50%;
+  }
+
+  .card .card-content .card-title {
+	width: max-content;
+  }

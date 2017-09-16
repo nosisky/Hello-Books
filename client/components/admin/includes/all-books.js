@@ -19,7 +19,7 @@ export default class AllBooks extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
-
+    
     handleClick() {
         swal({
             title: "Are you sure?",

@@ -61,6 +61,7 @@ export default {
               fullname: result.fullName,
               active: result.active,
               isAdmin: result.isAdmin,
+              email: result.email,
               plan: result.plan };
             const token = jwt.sign(
               { currentUser

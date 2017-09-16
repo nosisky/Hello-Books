@@ -39,13 +39,13 @@ export default class HeaderSideBar extends Component {
       </ul>
       <div id="menu">
         <div style={{ float: 'right', color: '#fff', padding: 5 }}>
-          <a style={{ float: 'right', marginLeft: 5, backgroundColor: '#2962ff' }}
+          <a style={{ float: 'right', marginLeft: 5, backgroundColor: 'rgb(37, 76, 71)' }}
             className='dropdown-button btn' href='#' data-activates='dropdown1'>Account</a>
         </div>
         <div className="col s3">
           <ul id="slide-out" className="side-nav fixed show-on-large-only">
-            <div style={{ textAlign: 'center', color: '#fff', backgroundColor: 'blue', marginTop: -16 }}>
-              <div className="row style={{backgroundColor: '#25758c'}}">
+            <div style={{ textAlign: 'center', color: '#fff', backgroundColor: '#15b39d', marginTop: -16 }}>
+              <div className="row style={{backgroundColor: '#15b39d'}}">
                 <span className="card-title"><h4><i className="material-icons">library_books</i> Admin</h4></span>
                 <li className="divider"></li>
                 <p></p>
@@ -98,7 +98,7 @@ export default class HeaderSideBar extends Component {
                     </div>
                   </div>
                   <button style={{
-                    backgroundColor: '#0000ff',
+                    backgroundColor: 'rgb(37, 76, 71)',
                     color: '#fff', float: 'right'
                   }}
                     className="btn waves-effect waves-light"

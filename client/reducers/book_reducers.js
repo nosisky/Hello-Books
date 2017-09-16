@@ -1,9 +1,10 @@
 import { ADD_BOOK,
   GET_ALL_BOOKS,
-  GET_RENTED_BOOKS
+  GET_RENTED_BOOKS,
+  GET_CATEGORY
 } from '../actions/types';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = { userExist: '', error: '', message: '', user: '', content: '', authenticated: false, data: '' };
 
 function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -12,6 +13,8 @@ function bookReducer(state = INITIAL_STATE, action) {
     case GET_ALL_BOOKS:
       return { ...state, data: action.data };
     case GET_RENTED_BOOKS:
+      return { ...state, data: action.data };
+    case GET_CATEGORY:
       return { ...state, data: action.data };
     default:
       return state;
