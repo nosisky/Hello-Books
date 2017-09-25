@@ -51,7 +51,11 @@ body
 }
 
 .header-side {
-	background-color: #25758C;
+	margin-top: 0px;
+}
+
+.admin-header-side {
+	background-color: #0000ff;
 	height: 60px;
 	margin-top: 0px;
 	padding: 5px;
@@ -82,7 +86,7 @@ h5
 }
 
 .nav-bar{
-	background-color: #25758C;
+	background-color:#1a5262;
 }
 
 .main-auth{
@@ -95,7 +99,7 @@ h5
 }
 
 .tabs .indicator {
-    background-color: #000;
+    background-color: #00bfea;
     height: 60px;
     opacity: 0.3;
 }
@@ -139,3 +143,40 @@ h5
 	float: right;
 	width: 75%;
 }
+
+.admin-book-list{
+	float: right;
+	width: 79%;
+}
+
+.book-header{
+	background-color: rgba(37, 96, 185, 0.92) !important;
+	color: #fff;
+	height: 60px;
+	padding-top: -10px;
+	font-size: 30px;
+	font-family: cursive;
+	padding: 5px !important;
+}
+
+.card-action {
+	padding: 23px 24px !important;
+	height: 80px !important;
+}
+.pagination {
+	background-color: #fff !important;
+	width: 300px;
+}
+
+.pagination li.active {
+    background-color: rgba(37, 96, 185, 0.92) !important;
+}
+
+.card .card-image .card-title {
+	background-color: rgba(37, 96, 185, 0.92) !important;
+}
+
+.nav-wrapper {
+	background-color: #25758c !important;
+}
+

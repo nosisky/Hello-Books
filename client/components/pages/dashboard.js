@@ -13,15 +13,19 @@ class Dashboard extends Component {
     }
 
     logout(event) {
+
         event.preventDefault();
+
         this.props.actions.logout();
+
         this.context.router.push('/');
+
     }
     render() {
-        const { username } = this.props.user;
-
+        const { username, fullname } = this.props.user;
+        console.log(this.props.user)
         return (<div>
-            <HeaderSideBar onClick={this.logout} username={username} />
+            <HeaderSideBar onClick={this.logout} fullName={fullname} username={username} />
             <HistoryList />
        </div> )
     }

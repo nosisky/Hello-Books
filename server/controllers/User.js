@@ -7,11 +7,13 @@ const secret = process.env.secretKey;
 
 const { User } = db;
 export default {
+
   /** Adds a new use to the database
    * @param  {object} req request object
    * @param  {object} res response object
    * Route: POST: /users/signup
    */
+
   create(req, res) {
     return User
       .create(req.userInput)
@@ -33,10 +35,7 @@ export default {
           Token: token
         });
       })
-      .catch(error => res.status(400).send({
-        status: false,
-        message: error.errors[0].message
-      }));
+      .catch(error => res.status(400).send(error));
   },
 
   /** Authenticates user login information
@@ -44,6 +43,7 @@ export default {
    * @param  {object} res
    * Route: POST: /users/signin
    */
+
   login(req, res) {
     User
       .findOne({

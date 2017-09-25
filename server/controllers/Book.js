@@ -18,12 +18,13 @@ export default {
       }))
       .catch(error => res.status(400).send(error));
   },
-    
+
   /** User rent book
    * @param  {object} req - request
    * @param  {object} res - response
    * ROUTE: POST: /users/:userId/books
    */
+
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
@@ -33,18 +34,16 @@ export default {
         userId: req.params.userId,
         toReturnDate: after30days
       })
-      .then(() => {
-        return Book
-          .findOne({ where: { id: req.body.bookId } })
-          .then((books) => Book
-            .update({
-              total: books.total - 1
-            }, {
-              where: {
-                id: req.body.bookId
-              }
-            }));
-      })
+      .then(() => Book
+        .findOne({ where: { id: req.body.bookId } })
+        .then(books => Book
+          .update({
+            total: books.total - 1
+          }, {
+            where: {
+              id: req.body.bookId
+            }
+          })))
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',
       }))
@@ -56,6 +55,7 @@ export default {
    * @param  {object} res response
    *  Route: GET: /api/books
    */
+
   getBooks(req, res) {
     return Book
       .findAll({})
@@ -75,6 +75,7 @@ export default {
    * @param  {0bject} res response
    * Route: GET: //api/users/:UserId/books?returned=false
    */
+
   rentedBooks(req, res) {
     return RentedBook
       .findAll({
@@ -100,6 +101,7 @@ export default {
    * @param  {object} resonse
    * Route: GET: /
    */
+
   modifyBook(req, res) {
     return Book
       .update(req.body,
@@ -118,6 +120,7 @@ export default {
    * @param  {Object} res - response
    * Route: GET: /books/:bookId 
    */
+
   getOneBook(req, res) {
     return Book
       .findAll({
@@ -135,6 +138,7 @@ export default {
    * @param  {} res - reponse
    * ROute: DELETE: /books/delete/:bookId
    */
+
   deleteBook(req, res) {
     return Book
       .destroy({
@@ -154,6 +158,7 @@ export default {
    * @param  {object} res - response
    * Route: GET: /books/logs/:userId
    */
+
   rentedBookByUser(req, res) {
     return RentedBook
       .findAll({
@@ -177,6 +182,7 @@ export default {
    * @param  {object} res - response
    * Route: PUT: /users/:userId/books
    */
+  
   returnBook(req, res) {
     return RentedBook
       .update({
@@ -188,18 +194,16 @@ export default {
           bookId: req.body.bookId
         }
       })
-      .then(() => {
-        return Book
-          .findOne({ where: { id: req.body.bookId } })
-          .then((books) => Book
-            .update({
-              total: books.total + 1
-            }, {
-              where: {
-                id: req.body.bookId
-              }
-            }));
-      })
+      .then(() => Book
+        .findOne({ where: { id: req.body.bookId } })
+        .then(books => Book
+          .update({
+            total: books.total + 1
+          }, {
+            where: {
+              id: req.body.bookId
+            }
+          })))
       .then(() => res.status(200).send(
         {
           message: 'Book returned successfully!'
