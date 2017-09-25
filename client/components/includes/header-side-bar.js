@@ -2,13 +2,30 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/add-new-book';
+import { logout, editProfile } from '../../actions/auth_actions';
 
-export default class HeaderSideBar extends Component {
 
+class HeaderSideBar extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+
+  }
+  logout(event) {
+
+    event.preventDefault();
+
+    this.props.actions.logout();
+
+    this.context.router.push('/');
+
+  }
   render() {
     return (<div className="header-side" id="container">
-      
+
 
       <div id="menu">
         <nav>
@@ -17,12 +34,12 @@ export default class HeaderSideBar extends Component {
               <li><a href="#!"><i className="material-icons">search</i></a></li>
               <li><a href="#!"><i className="material-icons">view_module</i></a></li>
               <li><a href="#!"><i className="material-icons">refresh</i></a></li>
-              <li><a className="dropdown-button" href="#!" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
+              <li><a className="dropdown-button" href="#" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
             </ul>
             <ul id="dropdown2" className="dropdown-content">
-            <li><Link to="/profile">Profile</Link></li>
-           <li><a onClick={this.props.onClick} href="#!">Logout</a></li>
-         </ul>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><a onClick={this.props.actions.logout} href="#!">Logout</a></li>
+            </ul>
           </div>
 
         </nav>
@@ -38,14 +55,14 @@ export default class HeaderSideBar extends Component {
                   height="100px"
                   src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
                   alt="HelloBooks" /><br />
-                <i className="material-icons">account_circle</i> <b>{this.props.fullName}</b>
+                <i className="material-icons">account_circle</i> <b>{this.props.user.fullname}</b>
               </div><br />
             </div>
             <li className="divider"></li>
             <li id="menu-list"><a href='rented-books'>Rent History <i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="/dashboard">Rent a Book <i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Rented Books <i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Rent History <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href="rented-books">Rented Books <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href="profile">My Profile <i className="material-icons">chevron_right</i></a></li>
           </ul>
         </div></div>
       <div id="content">
@@ -60,3 +77,20 @@ HeaderSideBar.PropTypes = {
   fullName: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user.currentUser
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      logout,
+      editProfile
+    }, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderSideBar)

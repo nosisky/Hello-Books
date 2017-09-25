@@ -61,7 +61,7 @@ export function getRentedBooks(userId) {
       });
       return res.data;
     })
-    .catch(error => error.response.data.message);
+    .catch(error => error);
 }
 
 export function returnBook(userId, bookId) {

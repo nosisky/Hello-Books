@@ -1,5 +1,9 @@
 $color: #25758c;
-
+$mainUserColor: rgb(21, 179, 157);
+$adminHeader: #15b39d;
+$navbar: #1a5262;
+$navWrapper: #25758c;
+$circular: #25758c;
 body
 {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
@@ -55,7 +59,7 @@ body
 }
 
 .admin-header-side {
-	background-color: #15b39d;
+	background-color: $adminHeader;
 	height: 60px;
 	margin-top: 0px;
 	padding: 5px;
@@ -86,7 +90,7 @@ h5
 }
 
 .nav-bar{
-	background-color:#1a5262;
+	background-color: $navbar;
 }
 
 .main-auth{
@@ -150,7 +154,7 @@ h5
 }
 
 .book-header{
-	background-color: rgb(21, 179, 157) !important;
+	background-color: $mainUserColor !important;
 	color: #fff;
 	height: 60px;
 	padding-top: -10px;
@@ -189,11 +193,11 @@ h5
 }
 
 .card .card-image .card-title {
-	background-color: rgb(21, 179, 157) !important;
+	background-color: $mainUserColor !important;
 }
 
 .nav-wrapper {
-	background-color: #25758c !important;
+	background-color: $navWrapper !important;
 }
 
 .profile-cover {
@@ -288,10 +292,25 @@ h5
   }
 
   .circular-img {
-	border: 3px solid #25758c;
+	border: 3px solid $circular;
     border-radius: 50%;
   }
 
   .card .card-content .card-title {
 	width: max-content;
-  }
+	}
+	
+	.empty-notifier{
+    color: rgb(255, 255, 255);
+    float: right;
+    margin-right: 50px;
+    background: $circular;
+    padding: 40px;
+}
+
+.notfound{
+	color: rgb(255, 255, 255);
+	margin-right: 50px;
+	background: #8C2526;
+	padding: 80px;
+}

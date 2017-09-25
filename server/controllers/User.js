@@ -75,4 +75,18 @@ export default {
           });
       });
   },
+  editProfile(req, res) {
+    return User
+      .update(
+        req.body,
+        {
+          where: {
+            id: req.params.userId
+          }
+        })
+      .then(() => res.status(201).send({
+        message: 'Profile updated successfully'
+      }))
+      .catch(error => res.status(400).send(error));
+  }
 };

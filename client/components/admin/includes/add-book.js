@@ -99,6 +99,7 @@ class AddBook extends Component {
         }
     }
   }
+
   renderCategory(){
     let allCat = [];
     const category = this.props.category;
@@ -111,6 +112,7 @@ class AddBook extends Component {
     return allCat;
 
   }
+  
   handleSubmit(e) {
     e.preventDefault();
     this.props.onSubmit(this.state)

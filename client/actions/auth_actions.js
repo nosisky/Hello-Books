@@ -44,3 +44,9 @@ export function logout() {
     window.location.href = '/';
   };
 }
+
+export function editProfile(userId, userData) {
+  return axios.post(`${API_URL}/edit/${userId}`, userData)
+    .then(res => res.data.message)
+    .catch(error => error.data.response);
+}
