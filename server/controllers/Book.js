@@ -258,5 +258,21 @@ export default {
         res.status(200).send(category);
       })
       .catch(error => res.status(500).send(error));
+  },
+
+  search(req, res) {
+    return Book.findAll({
+      where: {
+        $or: [
+          { title: {
+            $iLike: `%${req.body.search}%` }
+          }
+        ]
+      }
+    })
+      .then((book) => {
+        res.status(200).send(book);
+      })
+      .catch(error => res.status(500).send(error));
   }
 };

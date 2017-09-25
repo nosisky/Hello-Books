@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { addCategory } from '../../../actions/book_actions';
+import { logout } from '../../../actions/auth_actions';
 
 
-export default class HeaderSideBar extends Component {
+class HeaderSideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +48,9 @@ export default class HeaderSideBar extends Component {
     }
     return (<div className="admin-header-side" id="container">
       <ul id='dropdown1' className='dropdown-content'>
-        <li><a href="#!"> {this.props.username}</a></li>
+        <li><a href="#!"> {this.props.user.username}</a></li>
         <li className="divider"></li>
-        <li><a onClick={this.props.onClick} href="#"><i className="material-icons">exit_to_app</i> Logout</a></li>
+        <li><a onClick={this.props.actions.logout} href="#"><i className="material-icons">exit_to_app</i> Logout</a></li>
       </ul>
       <div id="menu">
         <div style={style.account}>
@@ -66,16 +69,14 @@ export default class HeaderSideBar extends Component {
                   height="100px"
                   src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
                   alt="HelloBooks" /><br />
-                <i className="material-icons">account_circle</i> <b>{this.props.fullName}</b>
+                <i className="material-icons">account_circle</i> <b>{this.props.user.fullname}</b>
               </div><br />
             </div>
             <li className="divider"></li>
             <li id="menu-list"><Link to="/add-book">Add a book <i className="material-icons">chevron_right</i></Link></li>
             <li id="menu-list"><a data-target="add_cat" className="modal-trigger" href="#add_cat">Add Category<i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Edit Books<i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href="/admin">Edit Books<i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href="/admin">Delete Books<i className="material-icons">chevron_right</i></a></li>
           </ul>
 
           <div id="add_cat" className="modal">
@@ -130,3 +131,20 @@ HeaderSideBar.PropTypes = {
   fullName: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+      actions: bindActionCreators({
+          logout
+      }, dispatch)
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+      user: state.auth.user.currentUser
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderSideBar);

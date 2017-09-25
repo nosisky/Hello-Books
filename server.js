@@ -11,6 +11,7 @@ import webpackConfig from './webpack.config.dev';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
 import CategoryRouter from './server/routes/category';
+import SearchRouter from './server/routes/search';
 
 const app = express();
 
@@ -27,6 +28,9 @@ app.use('/api/v1/category', CategoryRouter);
 app.use('/api/v1/users', UserRouter);
 
 app.use('/api/v1/books', BookRouter);
+
+app.use('/api/v1/search', SearchRouter);
+
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/index.html'));

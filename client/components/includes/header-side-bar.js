@@ -14,6 +14,10 @@ class HeaderSideBar extends Component {
     this.logout = this.logout.bind(this);
 
   }
+
+  handleFormSubmit(){
+
+  }
   logout(event) {
 
     event.preventDefault();
@@ -23,7 +27,16 @@ class HeaderSideBar extends Component {
     this.context.router.push('/');
 
   }
+  onClick(){
+    window.location.reload()
+  }
   render() {
+  const style = {
+    button: {
+      backgroundColor: 'rgb(37, 76, 71)',
+      color: '#fff', float: 'right'
+    }
+  }
     return (<div className="header-side" id="container">
 
 
@@ -31,9 +44,8 @@ class HeaderSideBar extends Component {
         <nav>
           <div className="nav-wrapper">
             <ul className="right hide-on-med-and-down">
-              <li><a href="#!"><i className="material-icons">search</i></a></li>
-              <li><a href="#!"><i className="material-icons">view_module</i></a></li>
-              <li><a href="#!"><i className="material-icons">refresh</i></a></li>
+              <li><a data-target="search_book" className="modal-trigger" href="#search_book"><i className="material-icons">search</i></a></li>
+              <li><a onClick={this.onClick} href="#!"><i className="material-icons">refresh</i></a></li>
               <li><a className="dropdown-button" href="#" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
             </ul>
             <ul id="dropdown2" className="dropdown-content">
@@ -43,6 +55,36 @@ class HeaderSideBar extends Component {
           </div>
 
         </nav>
+        {/* Search Modal */}
+        <div id="search_book" className="modal">
+            <div className="modal-content">
+              <h4 style={{ alignContent: 'center' }}>Search for a book</h4>
+              <div className="row">
+                <form name="search_book" action='/search' className="col s12"
+                  onSubmit={this.handleFormSubmit}>
+                  <div className="add-book">
+                    <div className="row">
+                      <div className="input-field col s12">
+                        <input
+                          id="name"
+                          type="text"
+                          name="text"
+                          onChange={this.onChange}
+                          className="validate"
+                          required />
+                        <label htmlFor="isbn">What do you want?</label>
+                      </div>
+                    </div>
+                    </div>
+                  <button style={style.button}
+                    className="btn waves-effect waves-light"
+                    type="submit" name="submit">Search
+                        </button>
+                </form>
+              </div>
+            </div>
+          </div>
+
         <div className="col s3">
           <ul id="slide-out" className="side-nav fixed show-on-large-only">
             <div style={{ textAlign: 'center', color: '#000', backgroundColor: '#25758c', marginTop: -16 }}>

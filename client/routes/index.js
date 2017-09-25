@@ -10,6 +10,7 @@ import AdminHome from '../components/admin/index';
 import AddNewBook from '../../client/components/admin/pages/add-new-book';
 import RentedBooksPage from  '../components/pages/rented-books-page';
 import Profile from '../components/pages/profile';
+import SearchPage from '../components/pages/search-page';
 
 export const Main = () => (
   <Switch>
@@ -19,6 +20,7 @@ export const Main = () => (
     <Route path="/add-book" component={AddNewBook} />
     <Route path="/rented-books" component={RentedBooksPage} />
     <Route path="/profile" component={Profile} />
+    <Route path="/search" component={SearchPage} />
     <Route path="*" component={NotFoundPage} />
   </Switch>
 );
