@@ -20,7 +20,7 @@ class AddBook extends Component {
       cover: 'hello.jpg',
       author: '',
       catId: '',
-      total: 1,
+      total: 5,
       prodYear: '',
       isLoading: ''
     };
@@ -30,11 +30,11 @@ class AddBook extends Component {
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
   }
+
   componentDidMount(){
-    $(this.refs.selectMe).on('change', function () {
-   }).material_select();
     this.props.actions.getCategory();
   }
+
   onChange(event) {
     const name = event.target.name,
       value = event.target.value;
@@ -168,7 +168,7 @@ class AddBook extends Component {
                     name="total"
                     type="number"
                     className="validate"
-                    value="1"
+                    defaultValue="1"
                     onChange={this.onChange}
                     onFocus={this.onFocus}
                     required />
@@ -190,11 +190,11 @@ class AddBook extends Component {
                 </div>
               </div>
               <div className="row">
-                  <div className="input-field col s6">
-                      <select id="cat" name='cat' onChange={this.onChange}>
+                  <div className="col s6">
+                      <select id="catId" name='catId' onChange={this.onChange} className="browser-default">
+                        <option value="">Select Category</option>
                         {this.renderCategory()}
                       </select>
-                      <label htmlFor="Category">Category</label>
                   </div>
                 <div className="input-field col s6">
                   <input

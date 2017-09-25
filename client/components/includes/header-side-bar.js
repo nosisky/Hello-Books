@@ -47,7 +47,7 @@ class HeaderSideBar extends Component {
           <ul id="slide-out" className="side-nav fixed show-on-large-only">
             <div style={{ textAlign: 'center', color: '#000', backgroundColor: '#25758c', marginTop: -16 }}>
               <div className="row style={{backgroundColor: '#25758c'}}">
-                <span className="card-title"><h4><i className="material-icons">library_books</i> HelloBooks</h4></span>
+                <span className="card-title"><h4><i className="material-icons">library_books</i> <a href="dashboard">Dashboard</a></h4></span>
                 <li className="divider"></li>
                 <p></p>
                 <img style={{ borderRadius: 50, border: '2px solid black' }}

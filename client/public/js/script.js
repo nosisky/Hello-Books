@@ -17,4 +17,6 @@ $(document).ready(() => {
   }
   );
   $('.modal').modal();
+
+  $('select').material_select();
 });

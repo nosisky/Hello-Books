@@ -11,13 +11,17 @@ export default class AllBooks extends Component {
       description: this.props.description,
       isbn: this.props.isbn,
       author: this.props.author,
-      prodYear: this.prodYear,
+      prodYear: this.props.prodYear,
       total: this.props.total,
-      cover: 'hello.jpg'
+      cover: 'hello.jpg',
+      currentBook : {},
+      edit: false,
+      displayBook: true
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   handleClick() {
@@ -41,6 +45,12 @@ export default class AllBooks extends Component {
           swal("Book was not deleted");
         }
       });
+  }
+  onClick(){
+    this.setState({
+      displayBook: false,
+      edit: true
+    })
   }
 
   handleFormSubmit(e) {
@@ -69,9 +79,8 @@ export default class AllBooks extends Component {
       editButton: { float: 'right', height: 28, color: '#fff', backgroundColor: 'green' }
     }
     return (
-      <div className="col s12 m3 l3">
-
-        <div id="modal1" className="modal">
+      <div className="col s12 m3 l3" style={{backgroundColor: '#fff'}}>
+        { this.state.edit &&
           <div className="modal-content">
             <h4 style={{ alignContent: 'center' }}>Edit Book</h4>
             <div className="row">
@@ -80,85 +89,77 @@ export default class AllBooks extends Component {
                 <div className="add-book">
                   <div className="row">
                     <div className="input-field col s12">
+                      <b>Title</b>
                       <input
                         id="title"
                         type="text"
                         name="title"
                         onChange={this.onChange}
-                        defaultValue={this.props.title}
+                        defaultValue={this.state.title}
                         className="validate"
                         required />
-                      <label htmlFor="isbn">Title</label>
                     </div>
                   </div>
                   <div className="row">
                     <div className="input-field col s12">
+                      <b>Author</b>
                       <input
                         id="author"
                         type="text"
                         name="author"
                         className="validate"
                         onChange={this.onChange}
-                        defaultValue={this.props.author}
+                        defaultValue={this.state.author}
                         required />
-                      <label htmlFor="isbn">Author</label>
                     </div>
                   </div>
                   <div className="row">
                     <div className="input-field col s6">
+                      <b>Total</b>
                       <input
                         id="total"
                         name="total"
                         type="number"
                         className="validate"
                         onChange={this.onChange}
+                        defaultValue={this.state.total}
                         required />
-                      <label htmlFor="isbn">Total</label>
                     </div>
                     <div className="input-field col s6">
+                      <b>Prod. Year</b>
                       <input
                         id="prodYear"
                         name="prodYear"
                         type="number"
-                        defaultValue={this.props.prodYear}
+                        defaultValue={this.state.prodYear}
                         onChange={this.onChange}
                         className="validate"
                         required />
-                      <label htmlFor="prodYear">Production Year</label>
                     </div>
                   </div>
                   <div className="row">
                     <div className="input-field col s12">
+                      <b>ISBN</b>
                       <input
                         id="isbn"
                         name="isbn"
                         type="text"
                         onChange={this.onChange}
-                        defaultValue={this.props.isbn}
+                        defaultValue={this.state.isbn}
                         className="validate"
                         required />
-                      <label htmlFor="isbn">ISBN</label>
                     </div>
                   </div>
                   <div className="row">
                     <div className="input-field col s12">
+                      <b>Description</b>
                       <textarea
                         id="description"
                         className="materialize-textarea"
                         name="description"
                         onChange={this.onChange}
-                        defaultValue={this.props.description}
+                        defaultValue={this.state.description}
                       ></textarea>
-                      <label htmlFor="description">Description</label>
-                    </div>
-                  </div>
-                  <div className="file-field input-field">
-                    <div style={style.file} className="btn">
-                      <span>Upload Cover</span>
-                      <input type="file" name="cover" />
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" />
                     </div>
                   </div>
                 </div>
@@ -169,7 +170,8 @@ export default class AllBooks extends Component {
               </form>
             </div>
           </div>
-        </div>
+        }
+       { this.state.displayBook &&
         <div className="card">
           <div className="card-image">
             <img src="http://www.bookcovercafe.com/wp-content/uploads/book-cover-cafe-self-publish-the-smart-way-8.png" />
@@ -181,9 +183,10 @@ export default class AllBooks extends Component {
           <div className="card-action">
             <button onClick={this.handleClick}
               className='btn' style={style.delete}>Delete</button>
-            <button data-target="modal1" className="btn modal-trigger" style={style.editButton}>Edit</button>
+            <button onClick={this.onClick}  className="btn" style={style.editButton}>Edit</button>
           </div>
         </div>
+       }
       </div>
     )
   }
