@@ -4,6 +4,9 @@ export default (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     toReturnDate: DataTypes.DATE,
     returnDate: DataTypes.DATE,
+    description: DataTypes.STRING,
+    title: DataTypes.STRING,
+    cover: DataTypes.STRING,
     returned: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

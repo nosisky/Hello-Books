@@ -28,11 +28,17 @@ export default {
   rentBook(req, res) {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
-    return RentedBook
-      .create({
-        bookId: req.body.bookId,
-        userId: req.params.userId,
-        toReturnDate: after30days
+    Book.findById(req.body.bookId)
+      .then((book) => {
+        return RentedBook
+          .create({
+            bookId: req.body.bookId,
+            description: book.description,
+            title: book.title,
+            userId: req.params.userId,
+            cover: 'hello.jpg',
+            toReturnDate: after30days
+          });
       })
       .then(() => Book
         .findOne({ where: { id: req.body.bookId } })
@@ -183,7 +189,8 @@ export default {
     return RentedBook
       .findAll({
         where: {
-          userId: req.params.userId
+          userId: req.params.userId,
+          returned: false
         }
       })
       .then((books) => {
@@ -195,7 +202,7 @@ export default {
           res.status(200).send(books);
         }
       })
-      .catch(error => res.status(404).send(error));
+      .catch(error => res.status(404).send({ message: error }));
   },
   /** User return rented book
    * @param  {object} req - request

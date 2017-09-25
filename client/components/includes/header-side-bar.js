@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import AddNewBook from '../admin/pages/add-new-book';
 
 export default class HeaderSideBar extends Component {
+
   render() {
     return (<div className="header-side" id="container">
       <ul id='dropdown1' className='dropdown-content'>
@@ -13,6 +14,7 @@ export default class HeaderSideBar extends Component {
         <li><a onClick={this.props.onClick} href="#"><i className="material-icons">exit_to_app</i> Logout</a></li>
         <li><a href="#!"><i className="material-icons">account_circle</i> Profile</a></li>
       </ul>
+      
 
       <div id="menu">
         <nav>
@@ -41,9 +43,8 @@ export default class HeaderSideBar extends Component {
               </div><br />
             </div>
             <li className="divider"></li>
-            <li id="menu-list"><Link to='rent'>Rent Book <i className="material-icons">chevron_right</i> </Link></li>
-            <li id="menu-list"><a href="#!">Rent History <i className="material-icons">chevron_right</i></a></li>
-            <li id="menu-list"><a href="#!">Rent a Book <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href='rented-books'>Rent History <i className="material-icons">chevron_right</i></a></li>
+            <li id="menu-list"><a href="/dashboard">Rent a Book <i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Rented Books <i className="material-icons">chevron_right</i></a></li>
             <li id="menu-list"><a href="#!">Rent History <i className="material-icons">chevron_right</i></a></li>
           </ul>

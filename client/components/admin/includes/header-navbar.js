@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import { addCategory } from '../../../actions/book_actions';
 
+
 export default class HeaderSideBar extends Component {
   constructor(props) {
     super(props);

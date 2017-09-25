@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ADD_BOOK, GET_ALL_BOOKS } from './types';
+import { ADD_BOOK, GET_ALL_BOOKS, GET_RENTED_BOOKS } from './types';
 
 const API_URL = 'http://localhost:8000/api/v1/books',
   USER_API_URL = 'http://localhost:8000/api/v1/users';
@@ -48,8 +48,30 @@ export function addCategory(data) {
 
 export function rentBook(userId, bookId) {
   return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
+    .then(res => res.data.message)
+    .catch(error => error.response.data.message);
+}
+
+export function getRentedBooks(userId) {
+  return dispatch => axios.get(`${API_URL}/logs/${userId}`)
     .then((res) => {
-      return res.data.message;
+      dispatch({
+        type: GET_RENTED_BOOKS,
+        data: res.data
+      });
+      return res.data;
     })
     .catch(error => error.response.data.message);
+}
+
+export function returnBook(userId, bookId) {
+  return axios.put(`${USER_API_URL}/${userId}/books`, bookId)
+    .then(res => res.data)
+    .catch(error => error);
+}
+
+export function getSpecificBook(userId) {
+  return axios.get(`${API_URL}/${userId}`)
+    .then(res => res.data)
+    .catch(error => error);
 }

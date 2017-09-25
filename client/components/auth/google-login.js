@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { getUserData, registerGoogleUser } from '../../utils/Authorization';
 
+dotenv.load()
+
 export default class GoogleLogIn extends React.Component {
   reMap(obj) {
     let mainObj = { currentUser: {} };
@@ -19,8 +21,10 @@ export default class GoogleLogIn extends React.Component {
   render() {
 
     const responseGoogle = (response) => {
+      const key = process.env.secretKey;
+      
       if (response) {
-        const decoded = jwt.decode(response.Zi.id_token);
+        const decoded = jwt.decode(response.Zi.id_token );
         const newUserObj = this.reMap(decoded);
 
         this.props.emailExist({ email: newUserObj.currentUser.email })
@@ -29,7 +33,6 @@ export default class GoogleLogIn extends React.Component {
               registerGoogleUser(newUserObj.currentUser)
                 .then((data) => {
                   if(data){
-                    console.log(data)                    
                     Materialize.toast('Signed Up Successfully', 2000, 'blue',
                     () => {
                       window.location.href = "/dashboard";
@@ -43,7 +46,8 @@ export default class GoogleLogIn extends React.Component {
 
               getUserData({ email: newUserObj.currentUser.email })
                 .then((currentUser) => {
-                  const token = jwt.sign({ currentUser }, 'hellobooksSecret');
+                  currentUser.userId = currentUser.id;
+                  const token = jwt.sign({ currentUser }, 'Andelahellobooks');
                   localStorage.setItem('token', token);
                   Materialize.toast('Login Successful', 2000, 'blue', () => {
                     window.location.href = "/dashboard";
