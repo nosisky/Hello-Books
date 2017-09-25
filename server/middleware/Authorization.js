@@ -276,7 +276,7 @@ export default {
 
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
-    if (!querier || querier.match(/[\D]/)) {
+    if (!querier || /[\D]/.test(querier)) {
       res.status(404).send({
         message: 'Invalid book id supplied!!!'
       });

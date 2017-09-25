@@ -38,7 +38,6 @@ class Login extends Component {
                     });
             },
             (data) => {
-                console.log(data.response.data.message)
                 this.setState({ loginError: data.response.data.message, isLoading: false });
             }
             )
