@@ -8,12 +8,15 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullName: '',
-      email: ''
+      fullName: this.props.user.fullname,
+      email: this.props.user.email,
+      edit: false,
+      profile: true,
     }
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.displayEdit = this.displayEdit.bind(this);
   }
 
   onChange(e) {
@@ -24,10 +27,18 @@ class Profile extends React.Component {
     })
   }
 
-  onSubmit() {
+  displayEdit(e){
+    this.setState({
+      edit: true,
+      profile: false
+    })
+  }
+
+  handleSubmit(e) {
     e.preventDefault();
-    this.props.editProfile(this.props.user.id, this.state)
+    editProfile(this.props.user.userId, this.state)
       .then((res) => {
+        localStorage.setItem('token', res)
         Materialize.toast('Profile edited Successfully', 2000, 'blue',
           () => {
             window.location.href = "/profile";
@@ -42,15 +53,16 @@ class Profile extends React.Component {
     return (<div>
       <HeaderSideBar />
 
-      <div id="edit" className="modal">
-        <div className="modal-content">
-          <h4 style={{ alignContent: 'center' }}>Edit Profile</h4>
-          <div className="row">
+     {this.state.edit && <div id="edit">
+          <div style={{backgroundColor: '#fff', float: 'right', width: '80%'}} className="row">
+          <h4 style={{ alignContent: 'center', marginLeft: '20px' }}>Edit Profile</h4>
             <form className="col s12"
-              onSubmit={this.onSubmit}>
+            name="edit_profile"
+              onSubmit={this.handleSubmit}>
               <div className="edit-profile">
                 <div className="row">
                   <div className="input-field col s12">
+                    <b>Username</b>
                     <input
                       id="email"
                       type="text"
@@ -58,11 +70,11 @@ class Profile extends React.Component {
                       className="validate"
                       defaultValue={username}
                       disabled />
-                    <label htmlFor="isbn">Username</label>
                   </div>
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
+                    <b>Full Name</b>
                     <input
                       id="fullName"
                       type="text"
@@ -71,11 +83,11 @@ class Profile extends React.Component {
                       defaultValue={fullname}
                       className="validate"
                       required />
-                    <label htmlFor="isbn">Full Name</label>
                   </div>
                 </div>
                 <div className="row">
                   <div className="input-field col s12">
+                    <b>Email Address</b>
                     <input
                       id="email"
                       type="text"
@@ -84,7 +96,6 @@ class Profile extends React.Component {
                       defaultValue={email}
                       onChange={this.onChange}
                       required />
-                    <label htmlFor="isbn">Email</label>
                   </div>
                 </div>
 
@@ -98,8 +109,8 @@ class Profile extends React.Component {
                         </button>
             </form>
           </div>
-        </div>
-      </div>
+      </div> }
+      { this.state.profile &&
       <div className="profile-cover">
         <div className="col s12 m7">
           <div className="card horizontal">
@@ -117,7 +128,7 @@ class Profile extends React.Component {
                 <div className="profile-footer">
                   <ul>
                     <li>
-                      <button data-target="edit" className="btn modal-trigger">Edit Profile</button>
+                      <button className="btn" onClick={this.displayEdit}>Edit Profile</button>
                     </li>
                     <li>
                       <a className="waves-effect waves-light btn" href="/rented-books">Rented Books</a>
@@ -141,8 +152,8 @@ class Profile extends React.Component {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> }
+    </div> 
     )
   }
 }

@@ -56,4 +56,10 @@ app.route('/edit/:userId')
     Authorization.validUser,
     UserController.editProfile);
 
+// Get a specific user
+app.route('/:userId')
+  .get(Authorization.isLoggedIn,
+    Authorization.validBook,
+    Authorization.getOneUser);
+
 export default app;

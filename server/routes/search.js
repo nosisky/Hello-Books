@@ -9,4 +9,10 @@ app.route('/')
   .post(Authorization.isLoggedIn,
     BookController.search);
 
+// Get a specific user
+app.route('/:userId')
+  .get(Authorization.isLoggedIn,
+    Authorization.getOneUser);
+
+
 export default app;

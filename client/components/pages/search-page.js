@@ -22,7 +22,7 @@ class SearchPage extends Component {
 
   renderBooks() {
     const allbooks = this.props.search;
-    if (!allbooks) {
+    if (!allbooks || allbooks.length < 1) {
       return <div className="empty-notifier"><h4>Your query did not match any book in our database</h4></div>;
     }
     return (<div className="admin-book-list">
