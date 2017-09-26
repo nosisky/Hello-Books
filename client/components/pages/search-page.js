@@ -68,7 +68,6 @@ SearchPage.PropTypes = {
 }
 
 function mapStateToProps(state) {
-    console.log(state.book.data)
   return {
     user: state.auth.user.currentUser,
     search: state.book.data
