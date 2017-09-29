@@ -14,5 +14,9 @@ app.route('/:userId')
   .get(Authorization.isLoggedIn,
     Authorization.getOneUser);
 
+// Get a specific user by email
+app.route('/email')
+  .post(Authorization.getUserByEmail);
+
 
 export default app;

@@ -25,6 +25,7 @@ class Register extends Component {
         this.onFocus = this.onFocus.bind(this);
 
     }
+
     onChange(event) {
         const name = event.target.name,
             value = event.target.value;
@@ -34,6 +35,7 @@ class Register extends Component {
             [event.target.name]: event.target.value
         });
     }
+
     handleSubmit(formData) {
         this.setState({ isLoading: true })
         formData.preventDefault();

@@ -343,4 +343,25 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
+  getUserByEmail(req, res) {
+    return User
+      .findOne({
+        where: {
+          email: req.body.email
+        }
+      })
+      .then((user) => {
+        const currentUser = { userId: user.id,
+          username: user.username };
+        const token = jwt.sign(
+          { currentUser
+          }, key
+        );
+        return res.status(201).send({
+          token
+        });
+      })
+      .catch(error => res.status(404).send(error));
+  },
 };
+

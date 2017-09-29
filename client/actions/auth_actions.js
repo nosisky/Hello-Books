@@ -53,3 +53,9 @@ export function editProfile(userId, userData) {
       .then(res => res.data.token))
     .catch(error => error.data.response);
 }
+
+export function getUserByEmail(email) {
+  return axios.post(`${SEARCH_API_URL}/email`, email)
+    .then(res => res.data.token)
+    .catch(error => error.data.response);
+}
