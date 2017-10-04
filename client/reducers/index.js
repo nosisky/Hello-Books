@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';  
+import { combineReducers } from 'redux';
 import authReducer from './auth_reducer';
 import bookReducer from './book_reducers';
 

@@ -10,15 +10,17 @@ const API_URL = 'http://localhost:8000/api/v1/users';
 const SEARCH_API_URL = 'http://localhost:8000/api/v1/search';
 
 export function registerUser(userDetails) {
-  return dispatch => axios.post(`${API_URL}/signup`, userDetails).then((res) => {
-    const token = res.data.Token;
-    localStorage.setItem('token', token);
-    setAuthorizationToken(token);
-    dispatch({
-      type: SET_CURRENT_USER,
-      user: jwt.decode(res.data.Token)
+  return dispatch => axios.post(`${API_URL}/signup`, userDetails)
+    .then((res) => {
+      const token = res.data.Token;
+      localStorage.setItem('token', token);
+      setAuthorizationToken(token);
+      dispatch({
+        type: SET_CURRENT_USER,
+        user: jwt.decode(res.data.Token),
+        authenticated: true
+      });
     });
-  });
 }
 
 export function login(userDetails) {
@@ -30,7 +32,8 @@ export function login(userDetails) {
       const decoded = jwt.decode(res.data.Token);
       dispatch({
         type: SET_CURRENT_USER,
-        user: decoded.currentUser
+        user: decoded.currentUser,
+        authenticated: true
       });
     });
 }
@@ -41,7 +44,8 @@ export function logout() {
     setAuthorizationToken(false);
     dispatch({
       type: UNAUTH_USER,
-      user: {}
+      user: {},
+      authenticated: false
     });
     window.location.href = '/';
   };

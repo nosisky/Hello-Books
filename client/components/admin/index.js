@@ -71,6 +71,7 @@ class AdminHome extends Component {
                             key={book.id}
                             title={book.title}
                             description={book.description}
+                            cover={book.cover}
                         />
                     )
                 }

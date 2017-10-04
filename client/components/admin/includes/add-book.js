@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { getCategory } from '../../../actions/book_actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import firebase from 'firebase';
+import ImageUploader from 'react-firebase-image-uploader';
+
 
 
 class AddBook extends Component {
@@ -17,19 +20,48 @@ class AddBook extends Component {
       title: '',
       isbn: '',
       description: '',
-      cover: 'hello.jpg',
+      cover: '',
       author: '',
       catId: '',
       total: 5,
       prodYear: '',
-      isLoading: ''
+      isLoading: '',
+      isUploading: '',
+      progress: 0
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderCategory = this.renderCategory.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.handleUploadSuccess = this.handleUploadSuccess.bind(this);
+    this.handleProgress = this.handleProgress.bind(this);
+    this.handleUploadStart = this.handleUploadStart.bind(this);
+    this.handleUploadError = this.handleUploadError.bind(this);
+
   }
+
+
+  handleUploadStart(){
+    this.setState({isUploading: true, progress: 0} )
+  }
+  handleProgress(progress){
+    this.setState({progress});
+  }
+  handleUploadError(error) {
+      this.setState({isUploading: false});
+      console.error(error);
+  }
+
+  handleUploadSuccess(filename) {
+    firebase.storage().ref('images')
+    .child(filename)
+    .getDownloadURL()
+    .then(url => {
+      this.setState({cover: url})
+      
+    });
+};
 
   componentDidMount(){
     this.props.actions.getCategory();
@@ -117,7 +149,7 @@ class AddBook extends Component {
     e.preventDefault();
     this.props.onSubmit(this.state)
       .then((message) => {
-        Materialize.toast('Book added Successfully', 2000, 'blue',
+        Materialize.toast('Book added Successfully', 2000, '#15b39d',
           () => {
             this.setState({ isLoading: false });
           });
@@ -224,16 +256,16 @@ class AddBook extends Component {
                   <div style={{ color: 'red' }}>{this.state.descError}</div>
                 </div>
               </div>
-              <div className="file-field input-field">
-                <div style={{ backgroundColor: 'rgb(37, 76, 71)' }} className="btn">
                   <span>Upload Cover</span>
-                  <input type="file" name="cover" />
-                </div>
-                <div className="file-path-wrapper">
-                  <input className="file-path validate" type="text" />
-                </div>
+                 { this.state.isUploading && <div> <img height="50px" width="50px" alt="check mark" src="http://www.iconsdb.com/icons/preview/green/check-mark-2-xxl.png" /><br /></div>  } 
+                  <ImageUploader
+                        name="cover"
+                        storageRef={firebase.storage().ref('images')}
+                        onProgress={this.handleProgress}
+                        onUploadSuccess={this.handleUploadSuccess}
+                        onUploadStart={this.handleUploadStart}
+                    />
               </div>
-            </div>
             <button style={{
               backgroundColor: 'rgb(37, 76, 71)',
               color: '#fff',

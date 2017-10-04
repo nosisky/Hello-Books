@@ -35,6 +35,7 @@ class Dashboard extends Component {
               userId={this.props.user.userId}
               key={book.id}
               title={book.title}
+              cover={book.cover}
               description={book.description}
             />
           )

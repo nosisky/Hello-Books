@@ -11,16 +11,19 @@ import AddNewBook from '../../client/components/admin/pages/add-new-book';
 import RentedBooksPage from  '../components/pages/rented-books-page';
 import Profile from '../components/pages/profile';
 import SearchPage from '../components/pages/search-page';
+import Authentication from '../components/auth/require-auth';
+import AdminAuthentication from '../components/auth/require-admin';
 
 export const Main = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
-    <Route exact path="/dashboard" component={Dashboard} />
-    <Route exact path="/admin" component={AdminHome} />
-    <Route path="/add-book" component={AddNewBook} />
-    <Route path="/rented-books" component={RentedBooksPage} />
-    <Route path="/profile" component={Profile} />
-    <Route path="/search" component={SearchPage} />
+    <Route exact path="/dashboard" component={Authentication(Dashboard)} />
+    <Route exact path="/admin" component={AdminAuthentication(AdminHome)} />
+    <Route path="/add-book" component={AdminAuthentication(AddNewBook)} />
+    <Route path="/rented-books" component={Authentication(RentedBooksPage)} />
+    <Route path="/profile" component={Authentication(Profile)} />
+    <Route path="/search" component={Authentication(SearchPage)} />
     <Route path="*" component={NotFoundPage} />
   </Switch>
 );
+

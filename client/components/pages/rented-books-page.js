@@ -32,9 +32,9 @@ class RentedBooksPage extends Component {
                             userId={this.props.user.userId}
                             key={book.id}
                             title={book.title}
+                            cover={book.cover}
                             userId={book.userId}
                         />)
-
 
                     })
                     }

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import rootReducers from '../reducers/index';
 
 /* eslint-disable no-underscore-dangle */
+
 export default function configureStore(initialState = {}) {
   return createStore(
     rootReducers,
@@ -11,5 +12,5 @@ export default function configureStore(initialState = {}) {
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 }
-/* eslint-enable */
 
+/* eslint-enable */

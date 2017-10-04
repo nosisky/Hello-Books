@@ -34,7 +34,7 @@ export default {
           description: book.description,
           title: book.title,
           userId: req.params.userId,
-          cover: 'hello.jpg',
+          cover: book.cover,
           toReturnDate: after30days
         }))
       .then(() => Book

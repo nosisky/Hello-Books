@@ -46,6 +46,7 @@ export default class AllBooks extends Component {
         }
       });
   }
+
   onClick(){
     this.setState({
       displayBook: false,
@@ -171,10 +172,11 @@ export default class AllBooks extends Component {
             </div>
           </div>
         }
+
        { this.state.displayBook &&
         <div className="card">
           <div className="card-image">
-            <img src="http://www.bookcovercafe.com/wp-content/uploads/book-cover-cafe-self-publish-the-smart-way-8.png" />
+            <img height="150px" src={this.props.cover} />
             <span className="card-title">{this.props.title}</span>
           </div>
           <div className="card-content">

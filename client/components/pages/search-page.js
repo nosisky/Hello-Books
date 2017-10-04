@@ -39,6 +39,7 @@ class SearchPage extends Component {
               id={book.id}
               userId={this.props.user.userId}
               key={book.id}
+              cover={book.cover}
               title={book.title}
               description={book.description}
             />
