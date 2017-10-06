@@ -63,6 +63,7 @@ class AddBook extends Component {
     });
 };
 
+
   componentDidMount(){
     this.props.actions.getCategory();
   }
