@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 
 class HomePage extends Component {  
   render() {
+    if(localStorage.getItem('token')){
+      window.location.href='/dashboard'
+    }
     return (
        <div>
        <NavBar />

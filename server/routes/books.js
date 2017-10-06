@@ -20,10 +20,15 @@ app.route('/:bookId')
     Authorization.validBook,
     BookController.modifyBook);
 
+// Adds a new category to the database
+app.route('/cat')
+  .post(Authorization.isLoggedIn,
+    Authorization.isAdmin,
+    BookController.addCategory);
+
 // Get a specific book
 app.route('/:bookId')
   .get(Authorization.isLoggedIn,
-    Authorization.isAdmin,
     Authorization.validBook,
     BookController.getOneBook);
 
@@ -36,6 +41,12 @@ app.route('/delete/:bookId')
 
 // Get rented books by a user
 app.route('/logs/:userId')
+  .get(Authorization.isLoggedIn,
+    Authorization.validUser,
+    BookController.rentedBookByUser);
+
+// Get All category
+app.route('/category')
   .get(Authorization.isLoggedIn,
     Authorization.validUser,
     BookController.rentedBookByUser);

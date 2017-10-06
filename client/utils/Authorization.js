@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/v1/users';
+const API_URL = '/api/v1/users';
 
 /**
  * setAuthorizationToken - set token to request headers
@@ -24,7 +24,7 @@ export function checkUserExist(detail) {
 export function checkEmailExist(detail) {
   return axios.post(`${API_URL}/getemail`, detail)
     .then(response => response.data.message)
-    .catch(() => {});
+    .catch(() => '');
 }
 
 export function getUserData(email) {
@@ -40,4 +40,11 @@ export function registerGoogleUser(userDetails) {
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
     });
+}
+
+export function editProfile(userId, userData) {
+  return axios.put(`${API_URL}/edit/${userId}`, userData)
+    .then(() => axios.get(`${SEARCH_API_URL}/userId`)
+      .then(res => res.data.token))
+    .catch(error => error.data.response);
 }

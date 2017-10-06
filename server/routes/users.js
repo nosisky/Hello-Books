@@ -50,4 +50,16 @@ app.route('/:userId/books')
     Authorization.validUser,
     BookController.rentedBooks);
 
+// Edit user profile
+app.route('/edit/:userId')
+  .put(Authorization.isLoggedIn,
+    Authorization.validUser,
+    UserController.editProfile);
+
+// Get a specific user
+app.route('/:userId')
+  .get(Authorization.isLoggedIn,
+    Authorization.validBook,
+    Authorization.getOneUser);
+
 export default app;

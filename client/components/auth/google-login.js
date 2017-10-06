@@ -4,58 +4,65 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { getUserData, registerGoogleUser } from '../../utils/Authorization';
 
+dotenv.load()
+
 export default class GoogleLogIn extends React.Component {
-    reMap(obj) {
-        let mainObj = { currentUser: {} };
-        const objKeys = Object.keys(obj);
-        const username = obj[objKeys[9]].toLowerCase().replace(/[\s]/, '_')
-            + Math.round(Math.random(1998) * 56);
-        mainObj.currentUser.username = username;
-        mainObj.currentUser.fullName = obj[objKeys[9]];
-        mainObj.currentUser.password = username;
-        mainObj.currentUser.email = obj[objKeys[3]];
-        return mainObj;
-    }
-    render() {
+  reMap(obj) {
+    let mainObj = { currentUser: {} };
+    const objKeys = Object.keys(obj);
+    const username = obj[objKeys[10]].toLowerCase().replace(/[\s]/, '_')
+      + Math.round(Math.random(1998) * 56);
+    mainObj.currentUser.username = username;
+    mainObj.currentUser.fullName = obj[objKeys[10]];
+    mainObj.currentUser.password = username;
+    mainObj.currentUser.email = obj[objKeys[3]];
+    return mainObj;
+  }
+  render() {
 
-        const responseGoogle = (response) => {
-            if (response) {
-                const decoded = jwt.decode(response.Zi.id_token);
-                const newUserObj = this.reMap(decoded);
+    const responseGoogle = (response) => {
+      const key = process.env.secretKey;
+      
+      if (response) {
+        const decoded = jwt.decode(response.Zi.id_token );
+        const newUserObj = this.reMap(decoded);
 
-                this.props.emailExist({ email: newUserObj.currentUser.email })
-                    .then((user) => {
-                        if (!user) {
-                            registerGoogleUser(newUserObj.currentUser)
-                                .then((data) => {
-                                    Materialize.toast('Signed Up Successfully', 2000, 'blue',
-                                        () => {
-                                            window.location.href = "/dashboard";
-                                        });
-                                })
-                                .catch((err) => console.log(err))
-                        } else {
+        this.props.emailExist({ email: newUserObj.currentUser.email })
+          .then((user) => {
+            if (!user) {
+              registerGoogleUser(newUserObj.currentUser)
+                .then((data) => {
+                  if(data){
+                    Materialize.toast('Signed Up Successfully', 2000, 'blue',
+                    () => {
+                      window.location.href = "/dashboard";
+                    });
+                  } 
+                })
+                .catch((err) => err)
+            } else {
 
-                            getUserData({ email: newUserObj.currentUser.email })
-                                .then((currentUser) => {
-                                    const token = jwt.sign({ currentUser }, 'hellobooksSecret');
-                                    localStorage.setItem('token', token);
-                                    Materialize.toast('Login Successful', 2000, 'blue', () => {
-                                        window.location.href = "/dashboard";
-                                    });
-                                })
+              getUserData({ email: newUserObj.currentUser.email })
+                .then((currentUser) => {
+                  currentUser.userId = currentUser.id;
+                  const token = jwt.sign({ currentUser }, 'Andelahellobooks');
+                  localStorage.setItem('token', token);
+                  Materialize.toast('Login Successful', 2000, 'blue', () => {
+                    window.location.href = "/dashboard";
+                  });
+                })
 
-                        }
-                    })
             }
-        }
-        return (
-            <GoogleLogin
-                clientId="993480706358-p6qn70ue8qucce00cpbfhsb52a87t451.apps.googleusercontent.com"
-                buttonText="Login with Google"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-            />
-        )
+          })
+      }
     }
+    return (
+      <GoogleLogin
+        clientId="993480706358-p6qn70ue8qucce00cpbfhsb52a87t451.apps.googleusercontent.com"
+        buttonText="Login with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+      />
+    )
+  }
 }

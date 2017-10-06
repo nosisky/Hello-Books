@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import GoogleLogin from '../auth/google-login';
 import { checkEmailExist, reMap } from '../../utils/Authorization';
-import { registerUser } from '../../actions/auth_actions';
+import { registerUser, getUserByEmail } from '../../actions/auth_actions';
 import { connect } from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 class Login extends Component {
     constructor(props) {
@@ -16,6 +16,7 @@ class Login extends Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
     }
 
@@ -25,6 +26,13 @@ class Login extends Component {
         this.setState({
             [name]: value
         });
+    }
+    handleFormSubmit(e){
+        e.preventDefault();
+        getUserByEmail({ email: e.target.value })
+        .then((res) => {
+            console.log(res)
+        })
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -44,8 +52,42 @@ class Login extends Component {
 
     }
     render() {
+        const style = {
+            button: {
+              backgroundColor: 'rgb(37, 76, 71)',
+              color: '#fff', float: 'right'
+            }
+          }
         return (
             <div id="login" className="col s12">
+                   <div id="forgot_password" className="modal">
+         <div className="modal-content">
+           <h4 style={{ alignContent: 'center' }}>Request For a new password</h4>
+           <div className="row">
+             <form name="forgot_pass" action='/search' className="col s12"
+               onSubmit={this.handleFormSubmit}>
+               <div className="add-book">
+                 <div className="row">
+                   <div className="input-field col s12">
+                     <input
+                       id="name"
+                       type="email"
+                       name="text"
+                       onChange={this.onChange}
+                       className="validate"
+                       required />
+                     <label htmlFor="isbn">Enter you Email</label>
+                   </div>
+                 </div>
+                 </div>
+               <button style={style.button}
+                 className="btn waves-effect waves-light"
+                 type="submit" name="submit">Search
+                     </button>
+             </form>
+           </div>
+         </div>
+       </div>
                 <div style={{ color: 'red', textAlign: 'center' }}>{this.state.loginError}</div>
                 <form className="col s12" onSubmit={this.handleSubmit}>
                     <div className="form-container">
@@ -69,8 +111,8 @@ class Login extends Component {
                             <button className="btn waves-effect waves-light teal" type="submit" name="action" disabled={this.state.isLoading}>Login</button>
                             <br />
                             <br />
-                            <GoogleLogin emailExist={checkEmailExist} /><br />
-                            <a href="">Forgotten password?</a>
+                          
+                            <a data-target="forgot_password" className="modal-trigger" href="#forgot_password">Forgotten password?</a>
                         </center>
                     </div>
                 </form>

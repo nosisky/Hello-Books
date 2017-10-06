@@ -11,7 +11,7 @@ class AuthForm extends Component {
         const { registerUser, login } = this.props;
         return(
             <div className="container main-auth white z-depth-2">
-            <div style={{color: 'green'}}> {this.props.message} </div>
+            <div style={{color: 'red', textAlign: 'center', fontWeight: 'bold'}}> {this.props.message} </div>
     <ul className="tabs teal">
         <li className="tab col s3"><a className="white-text active" href="#login">login</a></li>
         <li className="tab col s3"><a className="white-text reg" href="#register">register</a></li>

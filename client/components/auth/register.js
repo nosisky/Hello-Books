@@ -25,6 +25,7 @@ class Register extends Component {
         this.onFocus = this.onFocus.bind(this);
 
     }
+
     onChange(event) {
         const name = event.target.name,
             value = event.target.value;
@@ -34,12 +35,13 @@ class Register extends Component {
             [event.target.name]: event.target.value
         });
     }
+
     handleSubmit(formData) {
         this.setState({ isLoading: true })
         formData.preventDefault();
         this.props.onSubmit(this.state)
             .then((data) => {
-                Materialize.toast('Sign Up Successfully', 5000, 'blue',
+                Materialize.toast('Sign Up Successfully', 2000, 'blue',
                     () => {
                         this.setState({ isLoading: false })
                         window.location.href = "/dashboard";
@@ -50,9 +52,6 @@ class Register extends Component {
     onFocus(e) {
         const name = e.target.name;
         switch (name) {
-            case "cpassword":
-                this.setState({ passwordConfirm: "" })
-                break;
             case "username":
                 this.setState({ usernameError: "", userExist: "" })
                 break;
@@ -69,8 +68,8 @@ class Register extends Component {
 
     onBlur(e) {
         const name = e.target.name,
-            value = e.target.value,
-            passwordField = document.getElementById('password').value;
+            value = e.target.value;
+
         switch (name) {
             case "password":
                 if (value.length < 5 || !value) {
@@ -91,14 +90,7 @@ class Register extends Component {
                         }
                     });
                 break;
-            case "cpassword":
-                if (value !== passwordField) {
-                    this.setState({ passwordConfirm: "Confirm password must be equal to password" });
-                    return false;
-                } else {
-                    this.setState({ passwordConfirm: "" });
-                    return true;
-                }
+
             case "username":
                 this.props.UserExist({ username: value })
                     .then((data) => {
@@ -181,12 +173,12 @@ class Register extends Component {
                                     onBlur={this.onBlur}
                                     onFocus={this.onFocus}
                                     type="password" className="validate" />
-                                <label htmlFor="password-confirm">Password Confirmation</label>
+                                <label htmlFor="cpassword">Password Confirmation</label>
                                 <div style={{ color: "red" }}>{this.state.passwordConfirm} </div>
                             </div>
                         </div>
                         <center>
-                            <button className="btn waves-effect waves-light teal" type="submit" name="submit" disabled={this.state.isLoading}>Submit</button>
+                            <button className="btn waves-effect waves-light teal" type="submit" name="submit">Submit</button>
                         </center>
                     </div>
 

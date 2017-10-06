@@ -12,6 +12,15 @@ module.exports = {
     userId: {
       type: Sequelize.INTEGER
     },
+    description: {
+      type: Sequelize.STRING
+    },
+    title: {
+      type: Sequelize.STRING
+    },
+    cover: {
+      type: Sequelize.STRING
+    },
     toReturnDate: {
       type: Sequelize.DATE
     },
