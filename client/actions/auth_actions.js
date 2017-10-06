@@ -5,9 +5,9 @@ import { setAuthorizationToken } from '../utils/Authorization';
 
 import { SET_CURRENT_USER, UNAUTH_USER } from './types';
 
-const API_URL = 'https://andela-hellobooks.herokuapp.com/api/v1/users';
+const API_URL = '/api/v1/users';
 
-const SEARCH_API_URL = 'https://andela-hellobooks.herokuapp.com/api/v1/search';
+const SEARCH_API_URL = '/api/v1/search';
 
 export function registerUser(userDetails) {
   return dispatch => axios.post(`${API_URL}/signup`, userDetails)

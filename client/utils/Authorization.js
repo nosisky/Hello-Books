@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://andela-hellobooks.herokuapp.com/api/v1/users';
+const API_URL = '/api/v1/users';
 
 /**
  * setAuthorizationToken - set token to request headers

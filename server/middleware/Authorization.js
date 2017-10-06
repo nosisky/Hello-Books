@@ -17,7 +17,7 @@ export default {
         username: {
           notEmpty: true,
           isLength: {
-            options: [{ min: 5 }],
+            options: [{ min: 4 }],
             errorMessage: userNameError
           },
           errorMessage: 'Your Username is required'
@@ -36,7 +36,7 @@ export default {
         password: {
           notEmpty: true,
           isLength: {
-            options: [{ min: 8 }],
+            options: [{ min: 5 }],
             errorMessage: 'Provide a valid password with minimum of 8 characters'
           },
           errorMessage: 'Your Password is required'

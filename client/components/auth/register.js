@@ -178,7 +178,7 @@ class Register extends Component {
                             </div>
                         </div>
                         <center>
-                            <button className="btn waves-effect waves-light teal" type="submit" name="submit" disabled={this.state.isLoading}>Submit</button>
+                            <button className="btn waves-effect waves-light teal" type="submit" name="submit">Submit</button>
                         </center>
                     </div>
 
