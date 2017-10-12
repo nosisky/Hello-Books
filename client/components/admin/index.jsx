@@ -9,7 +9,6 @@ import AddBook from './includes/AddBook';
 import { getAllBooks } from '../../actions/book_actions';
 import { logout } from '../../actions/auth_actions';
 
-
 class AdminHome extends Component {
     constructor(props) {
         super(props);
