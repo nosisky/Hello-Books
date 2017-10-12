@@ -38,7 +38,7 @@ module.exports = {
             loader: 'babel-loader'
           }
         ],
-        include: path.join(__dirname, '/client'),
+        include: path.join(__dirname, './client'),
         exclude: /node_modules/,
       },
       { test: /(\.s?css)$/,
