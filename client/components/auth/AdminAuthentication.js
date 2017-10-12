@@ -20,22 +20,22 @@ export default function(ComposedComponent) {
           jwt.verify(token, key, (error) => {
             if (error) {
               this.props.actions.logout();
-              this.context.router.history.push('/');
+              this.props.history.push('/');
             }
           });
         }
         if (!this.props.authenticated) {
-            this.context.router.history.push('/');
+            this.props.history.push('/');
         }
 
       if(this.props.user.isAdmin !== 1) {
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       }
     }
 
     componentWillUpdate(nextProps) {
       if(nextProps.currentUser.isAdmin !== 1) {
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       }
     }
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import HeaderSidebar from './includes/HeaderSidebar';
+import HeaderSideBar from './includes/HeaderSideBar';
 import AllBooks from './includes/AllBooks';
 import AddBook from './includes/AddBook';
 import { getAllBooks } from '../../actions/book_actions';
@@ -87,7 +87,7 @@ class AdminHome extends Component {
         const { username, fullname, id} = this.props.user;        
         return (
             <div >
-                <HeaderSidebar onClick={this.logout} fullName={fullname} username={username} />
+                <HeaderSideBar onClick={this.logout} fullName={fullname} username={username} />
                 {this.renderBooks()}
             </div >
         )

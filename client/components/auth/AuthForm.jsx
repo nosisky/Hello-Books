@@ -1,8 +1,8 @@
 import React, { Component  } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import Login from '../auth/Login';
-import Register from '../auth/Register';
+import Login from './Login';
+import Register from './Register';
 import { registerUser, login } from '../../actions/auth_actions';
 import { checkUserExist, checkEmailExist, reMap } from '../../utils/Authorization';
 

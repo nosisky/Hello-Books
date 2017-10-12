@@ -4,7 +4,7 @@ import webpack from 'webpack';
 module.exports = {
   entry: [
     // 'webpack-hot-middleware',
-    './client/index.js'],
+    './client/index.jsx'],
   output: {
     path: path.join(__dirname, 'client/dist/'),
     publicPath: '/client/index.js',
