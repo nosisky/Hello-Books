@@ -187,6 +187,7 @@ export default {
       })
       .catch(error => res.status(404).send({ error }));
   },
+  
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
    * @param  {object} res - response
