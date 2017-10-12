@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from '../includes/navbar';
+import NavBar from '../includes/NavBar';
 import AuthForm from '../auth/AuthForm';
 import { connect } from 'react-redux';
 
