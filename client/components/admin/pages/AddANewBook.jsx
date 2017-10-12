@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import HeaderSideBar from '../includes/header-navbar';
-import AddBook from '../includes/add-book';
+import HeaderSideBar from '../includes/HeaderSideBar';
+import AddBook from '../includes/AddBook';
 import { addNewBook } from '../../../actions/book_actions';
 
 class AddANewBook extends Component {

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllBooks } from '../../actions/book_actions';
 import { bindActionCreators } from 'redux';
-import HeaderSideBar from '../includes/header-side-bar';
-import AllBooks from '../includes/book-list';
+import HeaderSideBar from '../includes/HeaderSideBar';
+import AllBooks from '../includes/AllBooks';
 
 class Dashboard extends Component {
   constructor(props) {

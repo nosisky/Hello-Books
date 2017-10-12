@@ -17,8 +17,6 @@ import './public/css/style.scss';
 
 import firebase from 'firebase';
 
-
-
 const store = configureStore();
 
 var config = {

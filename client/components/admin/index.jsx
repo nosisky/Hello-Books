@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import HeaderSidebar from './includes/header-navbar';
-import AllBooks from './includes/all-books';
-import AddBook from './includes/add-book';
+import HeaderSidebar from './includes/HeaderSidebar';
+import AllBooks from './includes/AllBooks';
+import AddBook from './includes/AddBook';
 import { getAllBooks } from '../../actions/book_actions';
 import { logout } from '../../actions/auth_actions';
 
