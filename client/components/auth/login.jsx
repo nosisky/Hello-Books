@@ -94,7 +94,7 @@ class Login extends Component {
                         <div className="row">
                             <div className="input-field col s12">
                                 <input id="username" type="text"
-                                    name="username" onChange={this.onChange} />
+                                    name="username" onChange={this.onChange} required/>
                                 <label htmlFor="username">Username</label>
                             </div>
                         </div>
@@ -102,13 +102,13 @@ class Login extends Component {
                             <div className="input-field col s12">
                                 <input id="password" type="password"
                                     name="password"
-                                    className="validate" onChange={this.onChange} />
+                                    className="validate" onChange={this.onChange} required/>
                                 <label htmlFor="password">Password</label>
                             </div>
                         </div>
                         <br />
                         <center>
-                            <button className="btn waves-effect waves-light teal" type="submit" name="action" disabled={this.state.isLoading}>Login</button>
+                            <button className="btn waves-effect waves-light teal" type="submit" name="action">Login</button>
                             <br />
                             <br />
 
