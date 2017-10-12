@@ -10,9 +10,6 @@ import { logout } from '../../actions/auth_actions';
 export default function(ComposedComponent) {  
 
   class AdminAuthentication extends Component {
-    static contextTypes = {
-      router: PropTypes.object
-    }
 
     componentWillMount() {
         
@@ -46,7 +43,10 @@ export default function(ComposedComponent) {
       return <ComposedComponent {...this.props} />
     }
   }
-
+  AdminAuthentication.PropTypes = {
+    router: PropTypes.object
+  }
+  
   function mapDispatchToProps(dispatch) {
     return {
       actions: bindActionCreators({

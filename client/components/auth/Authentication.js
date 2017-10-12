@@ -8,9 +8,6 @@ import { logout } from '../../actions/auth_actions';
 
 export default function(ComposedComponent) {  
   class Authentication extends Component {
-    static contextTypes = {
-      router: PropTypes.object
-    }
 
     componentWillMount() { 
       const key = 'Andelahellobooks';
@@ -48,6 +45,10 @@ export default function(ComposedComponent) {
         logout,
       }, dispatch)
     };
+  }
+
+  Authentication.PropTypes = {
+    router: PropTypes.object
   }
 
    function mapStateToProps(state) {
