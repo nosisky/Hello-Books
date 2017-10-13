@@ -31,7 +31,6 @@ class Login extends Component {
         e.preventDefault();
         getUserByEmail({ email: e.target.value })
             .then((res) => {
-                console.log(res)
             })
     }
     handleSubmit(e) {

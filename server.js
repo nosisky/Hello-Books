@@ -7,7 +7,7 @@ import webpack from 'webpack';
 import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
-import webpackConfig from './webpack.config.dev';
+import webpackConfig from './webpack.config';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
 import CategoryRouter from './server/routes/category';

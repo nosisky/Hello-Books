@@ -82,7 +82,6 @@ class Register extends Component {
       case "email":
         this.props.EmailExist({ email: value })
           .then((data) => {
-            console.log(data);
             if (data.length > 1) {
               this.setState({ emailExist: data })
               return false;
