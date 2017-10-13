@@ -2,17 +2,16 @@ import React from 'react';
 import { Route, Switch} from 'react-router-dom';
 
 import App from '../components/app';
-import NotFoundPage from '../components/pages/not-found-page';
-import HomePage from '../components/pages/home-page';
-import Dashboard from '../components/pages/dashboard';  
-import RequireAuth from '../components/auth/require-auth';
+import NotFoundPage from '../components/pages/NotFoundPage';
+import HomePage from '../components/pages/HomePage';
+import Dashboard from '../components/pages/Dashboard';  
 import AdminHome from '../components/admin/index';
-import AddNewBook from '../../client/components/admin/pages/add-new-book';
-import RentedBooksPage from  '../components/pages/rented-books-page';
-import Profile from '../components/pages/profile';
-import SearchPage from '../components/pages/search-page';
-import Authentication from '../components/auth/require-auth';
-import AdminAuthentication from '../components/auth/require-admin';
+import AddNewBook from '../../client/components/admin/pages/AddANewBook';
+import RentedBooksPage from  '../components/pages/RentedBooksPage';
+import Profile from '../components/pages/Profile';
+import SearchPage from '../components/pages/SearchPage';
+import Authentication from '../components/auth/Authentication';
+import AdminAuthentication from '../components/auth/AdminAuthentication';
 
 export const Main = () => (
   <Switch>

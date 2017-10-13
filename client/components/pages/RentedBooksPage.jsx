@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSpecificBook } from '../../actions/book_actions';
 import { bindActionCreators } from 'redux';
-import HeaderSideBar from '../includes/header-side-bar';
-import RentedBooks from '../includes/rented-books';
+import HeaderSideBar from '../includes/HeaderSideBar';
+import RentedBooks from '../includes/RentedBooks';
 import { getRentedBooks } from '../../actions/book_actions';
 
 class RentedBooksPage extends Component {

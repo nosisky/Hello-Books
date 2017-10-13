@@ -4,10 +4,10 @@ import webpack from 'webpack';
 module.exports = {
   entry: [
     // 'webpack-hot-middleware',
-    './client/index.js'],
+    './client/index.jsx'],
   output: {
     path: path.join(__dirname, 'client/dist/'),
-    publicPath: '/client/',
+    publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
   devServer: {
@@ -35,10 +35,13 @@ module.exports = {
         enforce: 'pre',
         use: [
           {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            query: {
+              presets: ['es2015', 'react']
+            }
           }
         ],
-        include: path.join(__dirname, '/client'),
+        include: path.join(__dirname, './client'),
         exclude: /node_modules/,
       },
       { test: /(\.s?css)$/,

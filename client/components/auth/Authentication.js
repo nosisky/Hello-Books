@@ -8,9 +8,6 @@ import { logout } from '../../actions/auth_actions';
 
 export default function(ComposedComponent) {  
   class Authentication extends Component {
-    static contextTypes = {
-      router: PropTypes.object
-    }
 
     componentWillMount() { 
       const key = 'Andelahellobooks';
@@ -19,21 +16,21 @@ export default function(ComposedComponent) {
         jwt.verify(token, key, (error) => {
           if (error) {
           this.props.actions.logout();
-          this.context.router.history.push('/');
+          this.props.history.push('/');
           }
         });
       }
       if (!this.props.authenticated) {
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       }
       if(!this.props.authenticated) {
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       }
     }
 
     componentWillUpdate(nextProps) {
       if(!nextProps.authenticated) {
-        this.context.router.history.push('/');
+        this.props.history.push('/');
       }
     }
 
@@ -48,6 +45,10 @@ export default function(ComposedComponent) {
         logout,
       }, dispatch)
     };
+  }
+
+  Authentication.PropTypes = {
+    router: PropTypes.object
   }
 
    function mapStateToProps(state) {

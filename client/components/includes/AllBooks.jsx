@@ -46,6 +46,7 @@ export default class AllBooks extends Component {
         }
       });
   }
+  
   render() {
     return (
       <div className="book col s12 m3 l3">

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import NavBar from '../includes/navbar';
-import AuthForm from '../auth/auth-forms';
+import NavBar from '../includes/NavBar';
+import AuthForm from '../auth/AuthForm';
 import { connect } from 'react-redux';
 
 class HomePage extends Component {  

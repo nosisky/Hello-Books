@@ -144,9 +144,11 @@ export default {
       .then((user) => {
         if (user) {
           res.status(200).send({ message: 'username already exist' });
+        } else {
+          res.status(200).send({ message: '' });
         }
       })
-      .catch(() => res.status(404).send({ message: '' }));
+      .catch(error => res.status(500).send({ error }));
   },
   /** Validates Email address
    * @param  {object} req - request
@@ -180,11 +182,12 @@ export default {
             }
           });
         } else {
-          res.status(200).res.send({});
+          res.status(200).send({ message: '' });
         }
       })
-      .catch(() => res.status(404).send({ }));
+      .catch(error => res.status(404).send({ error }));
   },
+  
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
    * @param  {object} res - response

@@ -24,7 +24,7 @@ export function checkUserExist(detail) {
 export function checkEmailExist(detail) {
   return axios.post(`${API_URL}/getemail`, detail)
     .then(response => response.data.message)
-    .catch(() => '');
+    .catch(() => false);
 }
 
 export function getUserData(email) {

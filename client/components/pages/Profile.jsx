@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import HeaderSideBar from '../includes/header-side-bar';
+import HeaderSideBar from '../includes/HeaderSideBar';
 import { bindActionCreators } from 'redux';
 import { editProfile } from '../../actions/auth_actions';
 

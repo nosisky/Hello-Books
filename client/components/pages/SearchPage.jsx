@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { search } from '../../actions/book_actions';
 import { bindActionCreators } from 'redux';
-import HeaderSideBar from '../includes/header-side-bar';
-import SearchResult from '../includes/search-result';
+import HeaderSideBar from '../includes/HeaderSideBar';
+import SearchResult from '../includes/SearchResult';
 
 class SearchPage extends Component {
   constructor(props) {
