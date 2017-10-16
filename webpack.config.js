@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   cache: true,
@@ -16,11 +18,16 @@ module.exports = {
     Materialize: 'Materialize'
   },
   plugins: [
+    new CleanWebpackPlugin(['client/dist']),
+    new HtmlWebpackPlugin({
+      title: 'Hello-Books',
+      template: 'client/index.html',
+      inject: 'body',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
