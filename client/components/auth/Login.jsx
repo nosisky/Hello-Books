@@ -110,8 +110,6 @@ class Login extends Component {
                             <button className="btn waves-effect waves-light teal" type="submit" name="action">Login</button>
                             <br />
                             <br />
-
-                            <a data-target="forgot_password" className="modal-trigger" href="#forgot_password">Forgotten password?</a>
                         </center>
                     </div>
                 </form>
