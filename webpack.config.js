@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
+  cache: true,
   entry: [
     // 'webpack-hot-middleware',
     './client/index.jsx'],
@@ -10,10 +11,7 @@ module.exports = {
     publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: './client/dist',
-    hot: true
-  },
+
   externals: {
     Materialize: 'Materialize'
   },
@@ -21,6 +19,7 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -47,6 +46,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             query: {
+              cacheDirectory: true,
               presets: ['es2015', 'react']
             }
           }

@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/AddANewBook';
 import { logout, editProfile } from '../../actions/auth_actions';
 
-
 class HeaderSideBar extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +45,7 @@ class HeaderSideBar extends Component {
             <ul className="right hide-on-med-and-down">
               <li><a data-target="search_book" className="modal-trigger" href="#search_book"><i className="material-icons">search</i></a></li>
               <li><a onClick={this.onClick} href="#!"><i className="material-icons">refresh</i></a></li>
-              <li><a className="dropdown-button" href="#" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
+              <li><a className="dropdown-button" data-activates="dropdown2"><i className="material-icons">more_vert</i></a></li>
             </ul>
             <ul id="dropdown2" className="dropdown-content">
               <li><Link to="/profile">Profile</Link></li>

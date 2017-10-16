@@ -256,7 +256,7 @@ class AddBook extends Component {
                 </div>
               </div>
                   <span>Upload Cover</span>
-                 { this.state.isUploading && <div> <img height="50px" width="50px" alt="check mark" src="http://www.iconsdb.com/icons/preview/green/check-mark-2-xxl.png" /><br /></div>  } 
+                 { this.state.isUploading && <div> <img height="50px" width="50px" alt="check mark" src="https://www.iconsdb.com/icons/preview/green/check-mark-2-xxl.png" /><br /></div>  } 
                   <ImageUploader
                         name="cover"
                         storageRef={firebase.storage().ref('images')}
