@@ -10,8 +10,11 @@ const config = dbConfig[env];
 const db = {};
 dotenv.config();
 let sequelize;
-if (config.use_env_variable) {
+
+if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL);
+} else if (process.env.DATABASE_TEST_URL) {
+  sequelize = new Sequelize(process.env.DATABASE_TEST_URL);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
