@@ -8,10 +8,13 @@ dotenv.load()
 
 export default class GoogleLogIn extends React.Component {
   reMap(obj) {
-    let mainObj = { currentUser: {} };
+    let mainObj = {
+      currentUser: {}
+    };
     const objKeys = Object.keys(obj);
-    const username = obj[objKeys[10]].toLowerCase().replace(/[\s]/, '_')
-      + Math.round(Math.random(1998) * 56);
+    const username = obj[objKeys[10]]
+      .toLowerCase()
+      .replace(/[\s]/, '_') + Math.round(Math.random(1998) * 56);
     mainObj.currentUser.username = username;
     mainObj.currentUser.fullName = obj[objKeys[10]];
     mainObj.currentUser.password = username;
@@ -22,47 +25,44 @@ export default class GoogleLogIn extends React.Component {
 
     const responseGoogle = (response) => {
       const key = process.env.secretKey;
-      
+
       if (response) {
-        const decoded = jwt.decode(response.Zi.id_token );
+        const decoded = jwt.decode(response.Zi.id_token);
         const newUserObj = this.reMap(decoded);
 
-        this.props.emailExist({ email: newUserObj.currentUser.email })
+        this
+          .props
+          .emailExist({email: newUserObj.currentUser.email})
           .then((user) => {
             if (!user) {
-              registerGoogleUser(newUserObj.currentUser)
-                .then((data) => {
-                  if(data){
-                    Materialize.toast('Signed Up Successfully', 2000, 'blue',
-                    () => {
-                      window.location.href = "/dashboard";
-                    });
-                  } 
-                })
-                .catch((err) => err)
-            } else {
-
-              getUserData({ email: newUserObj.currentUser.email })
-                .then((currentUser) => {
-                  currentUser.userId = currentUser.id;
-                  const token = jwt.sign({ currentUser }, 'Andelahellobooks');
-                  localStorage.setItem('token', token);
-                  Materialize.toast('Login Successful', 2000, 'blue', () => {
+              registerGoogleUser(newUserObj.currentUser).then((data) => {
+                if (data) {
+                  Materialize.toast('Signed Up Successfully', 2000, 'blue darken-4', () => {
                     window.location.href = "/dashboard";
                   });
-                })
+                }
+              }).catch((err) => err)
+            } else {
+
+              getUserData({email: newUserObj.currentUser.email}).then((currentUser) => {
+                currentUser.userId = currentUser.id;
+                const token = jwt.sign({
+                  currentUser
+                }, 'Andelahellobooks');
+                localStorage.setItem('token', token);
+                Materialize.toast('Login Successful', 2000, 'blue', () => {
+                  window.location.href = "/dashboard";
+                });
+              })
 
             }
           })
       }
     }
-    return (
-      <GoogleLogin
-        clientId="993480706358-p6qn70ue8qucce00cpbfhsb52a87t451.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-      />
-    )
+    return (<GoogleLogin
+      clientId="993480706358-p6qn70ue8qucce00cpbfhsb52a87t451.apps.googleusercontent.com"
+      buttonText="Login with Google"
+      onSuccess={responseGoogle}
+      onFailure={responseGoogle}/>)
   }
 }

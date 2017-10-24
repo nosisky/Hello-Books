@@ -179,7 +179,8 @@ export default {
       })
       .then(() => {
         res.status(200).send({
-          message: 'Book deleted successfully!'
+          message: 'Book deleted successfully!',
+          id: req.params.bookId
         });
       })
       .catch(error => res.status(404).send(error));
@@ -195,7 +196,6 @@ export default {
       .findAll({
         where: {
           userId: req.params.userId,
-          returned: false
         }
       })
       .then((books) => {

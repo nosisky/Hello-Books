@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { search } from '../../actions/book_actions';
+import { searchAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import HeaderSideBar from '../includes/HeaderSideBar';
 import SearchResult from '../includes/SearchResult';
@@ -9,28 +9,39 @@ import SearchResult from '../includes/SearchResult';
 class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.renderBooks = this.renderBooks.bind(this);
+    this.renderBooks = this
+      .renderBooks
+      .bind(this);
   }
   componentDidMount() {
-      if(!location.search){
-          window.location = '/dashboard'
-      }
-      const page = location.search.split('=')[1]
-      const result = page.split('&')[0]
-    this.props.actions.search({search: result})
+    if (!location.search) {
+      window.location = '/dashboard'
+    }
+    const page = location
+      .search
+      .split('=')[1]
+    const result = page.split('&')[0]
+    this
+      .props
+      .actions
+      .search({search: result})
   }
 
   renderBooks() {
     const allbooks = this.props.search;
     if (!allbooks || allbooks.length < 1) {
-      return <div className="empty-notifier"><h4>Your query did not match any book in our database</h4></div>;
+      return <div className="empty-notifier">
+        <h4>Your query did not match any book in our database</h4>
+      </div>;
     }
-    return (<div className="admin-book-list">
-      <div className="card-panel teal user-book-header"><center>Search Result</center></div>
-      <div className="row">
-        {allbooks.map((book) => {
-          return (
-            <SearchResult
+    return (
+      <div className="admin-book-list">
+        <div className="card-panel teal user-book-header">
+          <center>Search Result</center>
+        </div>
+        <div className="row">
+          {allbooks.map((book) => {
+            return (<SearchResult
               prodYear={book.prodYear}
               total={book.total}
               isbn={book.isbn}
@@ -41,24 +52,21 @@ class SearchPage extends Component {
               key={book.id}
               cover={book.cover}
               title={book.title}
-              description={book.description}
-            />
-          )
-        }
-
-        )
-        }
+              description={book.description}/>)
+          })
+}
+        </div>
       </div>
-    </div>
 
     )
   }
 
   render() {
-    return (<div>
-      <HeaderSideBar />
-      {this.renderBooks()}
-    </div>)
+    return (
+      <div>
+        <HeaderSideBar/> {this.renderBooks()}
+      </div>
+    )
   }
 }
 
@@ -69,16 +77,13 @@ SearchPage.PropTypes = {
 }
 
 function mapStateToProps(state) {
-  return {
-    user: state.auth.user.currentUser,
-    search: state.book.data
-  }
+  return { user: state.auth.user.currentUser, search: state.book.data }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      search
+      searchAction
     }, dispatch)
   };
 }

@@ -4,12 +4,17 @@ $adminHeader: #15b39d;
 $navbar: #1a5262;
 $navWrapper: #25758c;
 $circular: #25758c;
-body
-{
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 800px;
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 900px;
+  margin: 0 0 100px;
 }
 
 #container {
@@ -21,297 +26,310 @@ body
   padding-left: 5px;
 }
 
-.history{
-	background-color: #fff;
-	margin: 5px;
-	float: right;
+.history {
+  background-color: #fff;
+  margin: 5px;
+  float: right;
 }
 
 .main-history {
-	width: 80%;
-	float: right;
+  width: 80%;
+  float: right;
 }
-.dashboard-nav-wrapper{
-	padding-top: 40px !important;
-	background-color: $color;
-	color: #fff;
+
+.dashboard-nav-wrapper {
+  padding-top: 40px !important;
+  background-color: $color;
+  color: #fff;
 }
 
 @media screen and (max-width: 699px) and (min-width: 520px) {
-    .history {
-		width: 100%;
-		margin: 10px;
-
-    }
+  .history {
+    width: 100%;
+    margin: 10px;
+  }
 }
 
 #main-sec {
-	background-color: $color;
+  background-color: $color;
 }
-@media only screen and (max-width : 992px) {
+
+@media only screen and (max-width: 992px) {
   #container {
     padding-left: 0px;
   }
 }
 
 .header-side {
-	margin-top: 0px;
+  margin-top: 0px;
 }
 
 .admin-header-side {
-	background-color: $adminHeader;
-	height: 60px;
-	margin-top: 0px;
-	padding: 5px;
+  background-color: $adminHeader;
+  height: 60px;
+  margin-top: 0px;
+  padding: 5px;
 }
 
-h5
-{
-	font-weight: 400;
+h5 {
+  font-weight: 400;
 }
+
 .teal {
   background-color: $color !important;
 }
-.container-auth
-{
-	margin-top: 60px;
-	width: 500px;
-	align-self: center;
-	margin-bottom: 60px;
-	margin-right: 60px;
+
+.container-auth {
+  margin-top: 60px;
+  width: 500px;
+  align-self: center;
+  margin-bottom: 60px;
+  margin-right: 60px;
 }
 
 @media screen and (max-width: 900px) and (min-width: 520px) {
-.container-auth {
-	margin-top: 60px;
-	margin-bottom: 60px;
-	margin-right: 60px;
- }
+  .container-auth {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-right: 60px;
+  }
 }
 
-.nav-bar{
-	background-color: $navbar;
+.nav-bar {
+  background-color: $navbar;
 }
 
-.main-auth{
-	width: 50%;
-	margin-top: 40px;
+@media screen and (max-width: 800px) {
+  .main-auth {
+    width: 80% !important;
+    margin-top: 40px;
+  }
+}
+
+.main-auth {
+  width: 50%;
+  margin-top: 80px;
 }
 
 .tab {
-	width: 50% !important;
+  width: 50% !important;
 }
 
 .tabs .indicator {
-    background-color: #00bfea;
-    height: 60px;
-    opacity: 0.3;
+  background-color: #00bfea;
+  height: 60px;
+  opacity: 0.3;
 }
 
-.form-container
-{
-	padding: 20px;
-	padding-top: 10px;
+.form-container {
+  padding: 20px;
+  padding-top: 10px;
 }
 
-.confirmation-tabs-btn
-{
-	position: absolute;
+.confirmation-tabs-btn {
+  position: absolute;
 }
+
 .logo {
   font-size: 50px;
 }
+
 .main-navigation li a {
-	color:#fff !important;
-	font-size: large;
+  color: #fff !important;
+  font-size: large;
 }
 
 .reg {
-	float: right !important;
+  float: right !important;
 }
-
 
 #menu-list {
-	border-bottom: 1px solid $color;
-	background-color: #fff;
+  border-bottom: 1px solid $color;
+  background-color: #fff;
 }
+
 .container-fluid {
-	width: 80%;
-	margin: 20px;
-	float: right;
+  width: 80%;
+  margin: 20px;
+  float: right;
 }
+
 .book {
-	width: 100px;
+  width: 100px;
 }
+
 .history-container {
-	float: right;
-	width: 75%;
+  float: right;
+  width: 75%;
 }
 
-.admin-book-list{
-	float: right;
-	width: 79%;
+@media (max-width: 320px) {
+  .admin-book-list {
+    width: 100% !important;
+  }
 }
 
-.book-header{
-	background-color: $mainUserColor !important;
-	color: #fff;
-	height: 60px;
-	padding-top: -10px;
-	font-size: 30px;
-	font-family: cursive;
-	padding: 5px !important;
-	margin: 1px;
+.admin-book-list {
+  float: right;
+  width: 79%;
 }
 
-.user-book-header{
-	background-color: rgb(37, 117, 140) !important;	
-	color: #fff;
-	height: 60px;
-	padding-top: -10px;
-	font-size: 30px;
-	margin-top: -12px;
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 5px !important;
+.book-header {
+  background-color: $mainUserColor !important;
+  color: #fff;
+  height: 60px;
+  padding-top: -10px;
+  font-size: 30px;
+  font-family: cursive;
+  padding: 5px !important;
+  margin: 1px;
+}
+
+.user-book-header {
+  background-color: rgb(37, 117, 140) !important;
+  color: #fff;
+  height: 60px;
+  padding-top: -10px;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px !important;
 }
 
 .card-action {
-	padding: 23px 24px !important;
-	height: 80px !important;
+  padding: 23px 24px !important;
+  height: 80px !important;
 }
+
 .pagination {
-	background-color: #fff !important;
-	width: 300px;
+  background-color: #fff !important;
+  width: 300px;
 }
 
 .card.horizontal {
-	margin-top: -20px;
+  margin-top: -20px;
 }
 
 .pagination li.active {
-    background-color: rgba(37, 96, 185, 0.92) !important;
+  background-color: rgba(37, 96, 185, 0.92) !important;
 }
 
 .card .card-image .card-title {
-	background-color: $mainUserColor !important;
-	padding: 3px;
+  background-color: $mainUserColor !important;
+  padding: 3px;
 }
 
 .nav-wrapper {
-	background-color: $navWrapper !important;
+  background-color: $navWrapper !important;
 }
 
 .profile-cover {
-	width: 80%;
-	float: right;
+  width: 80%;
+  float: right;
 }
 
-.p-img{
-	border-radius: 50px;
-	width: 100px;
-	height: 100px;
-	background-color: rgba(255, 255, 255, 0.43);
+.p-img {
+  border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.43);
 }
-
-
 
 .profile {
-	background-color: #f4f4f4;
-	width: 300px;
-	margin: 10px 50px;
-	box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
-  }
-  
-  .profile-header {
-	overflow: hidden;
-	width: 100%;
-	max-height: 300px;
-  }
-  
-  .profile-header img{
-	width: 100%;
-	border-radius: 50%;
-  }
-  
-  .profile-content {
-	width: 85%;
-	margin: 35px auto;
-  }
-  
-  .profile-content h3 {
-	font-size: 25px;
-	margin-bottom: 0;
-	color: #000;
-	font-family: 'Montserrat', sans-serif;
-  }
-  
-  .profile-content h4 {
-	font-size: 14px;
-	margin-top: 0;
-	color: #000;
-	font-family: 'Montserrat', sans-serif;
-  }
-  
-  .profile-content p {
-	color: #727272;
-	font-size: 12px;
-	font-family: 'Open Sans', sans-serif;
-	
-  }
-  
-  .profile-footer {
-	border-top: solid 1px #B6B6B6;
-	padding: 5px;
-  }
-  
-  .profile-footer ul {
-	padding: 0;
-	width: 90%;
-	margin: auto;
-	text-align: center;
-  }
-  
-  .profile-footer ul li{
-	display: inline-block;
-	list-style: none;
-	margin: 5px;
-  }
-  
-  .profile-footer ul li i {
-	font-size: 2em;
-	color: #3F51B5;
-  }
-
-  .collection .collection-item {
-	  font-weight: bold;
-	  margin: 33px !important;
-  }
-
-  .tag-name {
-	  float: right;
-	  font-weight: initial;
-  }
-
-  .circular-img {
-	border: 3px solid $circular;
-    border-radius: 50%;
-  }
-
-  .card .card-content .card-title {
-	width: max-content;
-	}
-	
-	.empty-notifier{
-    color: rgb(255, 255, 255);
-    float: right;
-    margin-right: 50px;
-    background: $circular;
-    padding: 40px;
+  background-color: #f4f4f4;
+  width: 300px;
+  margin: 10px 50px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.7);
 }
 
-.notfound{
-	color: rgb(255, 255, 255);
-	margin-right: 50px;
-	background: #8C2526;
-	padding: 80px;
+.profile-header {
+  overflow: hidden;
+  width: 100%;
+  max-height: 300px;
+}
+
+.profile-header img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.profile-content {
+  width: 85%;
+  margin: 35px auto;
+}
+
+.profile-content h3 {
+  font-size: 25px;
+  margin-bottom: 0;
+  color: #000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-content h4 {
+  font-size: 14px;
+  margin-top: 0;
+  color: #000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.profile-content p {
+  color: #727272;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.profile-footer {
+  border-top: solid 1px #B6B6B6;
+  padding: 5px;
+}
+
+.profile-footer ul {
+  padding: 0;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.profile-footer ul li {
+  display: inline-block;
+  list-style: none;
+  margin: 5px;
+}
+
+.profile-footer ul li i {
+  font-size: 2em;
+  color: #3F51B5;
+}
+
+.collection .collection-item {
+  font-weight: bold;
+  margin: 33px !important;
+}
+
+.tag-name {
+  float: right;
+  font-weight: initial;
+}
+
+.circular-img {
+  border: 3px solid $circular;
+  border-radius: 50%;
+}
+
+.card .card-content .card-title {
+  width: max-content;
+}
+
+.empty-notifier {
+  color: rgb(255, 255, 255);
+  float: right;
+  margin-right: 50px;
+  background: $circular;
+  padding: 40px;
+}
+
+.notfound {
+  color: rgb(255, 255, 255);
+  margin-right: 50px;
+  background: #8C2526;
+  padding: 80px;
 }

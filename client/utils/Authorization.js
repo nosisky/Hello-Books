@@ -15,18 +15,6 @@ export function setAuthorizationToken(token) {
   }
 }
 
-export function checkUserExist(detail) {
-  return axios.post(`${API_URL}/get`, detail)
-    .then(response => response.data.message)
-    .catch(error => error);
-}
-
-export function checkEmailExist(detail) {
-  return axios.post(`${API_URL}/getemail`, detail)
-    .then(response => response.data.message)
-    .catch(() => false);
-}
-
 export function getUserData(email) {
   return axios.post(`${API_URL}/getemail`, email)
     .then(response => response.data.user)

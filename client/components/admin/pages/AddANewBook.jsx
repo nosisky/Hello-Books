@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import HeaderSideBar from '../includes/HeaderSideBar';
 import AddBook from '../includes/AddBook';
-import { addNewBook } from '../../../actions/book_actions';
+import { addBookAction } from '../../../actions/BookActions';
 
 class AddANewBook extends Component {
 
   render() {
-    const { addNewBook } = this.props;
-    return (<div>
-      <HeaderSideBar />
-      <AddBook onSubmit={this.props.addNewBook} />
-    </div>)
+    const { addNewBookAction } = this.props;
+    return (
+      <div>
+        <HeaderSideBar/>
+        <AddBook onSubmit={ this.props.addBookAction }/>
+      </div>
+    )
   }
 
 }
-export default connect(null, { addNewBook })(AddANewBook);
+export default connect(null, {addBookAction})(AddANewBook);
+

@@ -17,7 +17,7 @@ before((done) => {
 });
 
 describe('User Api', () => {
-  it('checks that username exceeds 5 characters', (done) => {
+  it('checks that username exceeds 4 characters', (done) => {
     server
       .post('/api/v1/users/signup')
       .set('Connection', 'keep alive')
@@ -27,7 +27,7 @@ describe('User Api', () => {
       .expect(409)
       .end((err, res) => {
         res.status.should.equal(409);
-        res.body.message.should.equal('Please provide a username with atleast 5 characters.');
+        res.body[0].error.should.equal('Please provide a username with atleast 4 characters.');
         done();
       });
   });
@@ -42,7 +42,7 @@ describe('User Api', () => {
       .expect(409)
       .end((err, res) => {
         res.status.should.equal(409);
-        res.body.message.should.equal('Your Fullname is required');
+        res.body[0].error.should.equal('Your Fullname is required');
         done();
       });
   });
@@ -64,15 +64,15 @@ describe('User Api', () => {
 
   it('Checks for existing username', (done) => {
     server
-      .post('/api/v1/users/signup')
+      .post('/api/v1/users/get')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.existingUsername)
-      .expect(400)
+      .send({ username: 'Dealwap' })
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(400);
-        res.body.message.should.equal('username must be unique');
+        res.status.should.equal(200);
+        res.body.message.should.equal('username already exist');
         done();
       });
   });
