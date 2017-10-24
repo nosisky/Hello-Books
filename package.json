@@ -10,7 +10,9 @@
     "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
+    "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed 20171016124637-users.js",
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test",
+    "heroku-postbuild": "NODE_ENV=production && npm run db:seed"
   },
   "engines": {
     "node": "6.11.0"
@@ -33,6 +35,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.5",
     "dotenv": "^4.0.0",
     "eslint": "^4.3.0",
@@ -70,6 +73,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "sequelize": "^4.4.2",
+    "sequelize-cli": "^3.0.0",
     "style-loader": "^0.18.2",
     "sweetalert": "^2.0.3",
     "url-loader": "^0.5.9",

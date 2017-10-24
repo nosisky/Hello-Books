@@ -6,7 +6,8 @@ import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
+
 let loggedInuser;
 
 describe('Adds a new book to the database', () => {
@@ -28,6 +29,7 @@ describe('Adds a new book to the database', () => {
       done(errors);
     });
   });
+
   it('adds a new book', (done) => {
     server
       .post('/api/v1/books')
@@ -59,7 +61,7 @@ describe('Adds a new book to the database', () => {
       });
   });
 
-  it('tests if invalid user is supplied', (done) => {
+  it('tests for invalid user', (done) => {
     server
       .post('/api/v1/users/dhdhs/books')
       .set('Connection', 'keep alive')
@@ -90,7 +92,7 @@ describe('Adds a new book to the database', () => {
       });
   });
 
-  it('tests if invalid user is supplied', (done) => {
+  it('tests for invalid book id', (done) => {
     server
       .post('/api/v1/users/1/books')
       .set('Connection', 'keep alive')
@@ -179,6 +181,19 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+  it('should rent a new book', (done) => {
+    server
+      .get('/api/v1/users/1/books?returned=false')
+      .set('x-access-token', token)
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
+        done();
+      });
+  });
   it('should display logs of rented books', (done) => {
     server
       .get('/api/v1/books/logs/1')
@@ -188,8 +203,6 @@ describe('Adds a new book to the database', () => {
       .type('form')
       .expect(201)
       .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.length.should.equal(1);
         res.body[0].should.have.property('toReturnDate');
         res.body[0].should.have.property('returnDate');
         res.body[0].should.have.property('bookId');

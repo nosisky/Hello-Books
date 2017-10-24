@@ -11,7 +11,7 @@ const { RentedBook } = db;
 
 export default {
   checkUserInput(req, res, next) {
-    const userNameError = 'Please provide a username with atleast 5 characters.';
+    const userNameError = 'Please provide a username with atleast 4 characters.';
     req.checkBody(
       {
         username: {
@@ -66,14 +66,16 @@ export default {
         }
       })
       .then((user) => {
-        if (user.email === req.body.email) {
-          return res.status(409).send({
-            message: 'Email already exist'
-          });
-        } else if (user.username === req.body.email) {
-          return res.status(409).send({
-            message: 'Username already exist'
-          });
+        if (user) {
+          if (user.email === req.body.email) {
+            return res.status(409).send({
+              message: 'Email already exist'
+            });
+          } else if (user.username === req.body.email) {
+            return res.status(409).send({
+              message: 'Username already exist'
+            });
+          }
         }
       });
 
@@ -187,7 +189,7 @@ export default {
       })
       .catch(error => res.status(404).send({ error }));
   },
-  
+
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
    * @param  {object} res - response

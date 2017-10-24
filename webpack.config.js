@@ -1,7 +1,10 @@
-import path from 'path';
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
+  cache: true,
   entry: [
     // 'webpack-hot-middleware',
     './client/index.jsx'],
@@ -10,17 +13,25 @@ module.exports = {
     publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: './client/dist',
-    hot: true
-  },
+
   externals: {
     Materialize: 'Materialize'
   },
   plugins: [
+    new CleanWebpackPlugin(['client/dist']),
+    new HtmlWebpackPlugin({
+      title: 'Hello-Books',
+      template: 'client/index.html',
+      inject: 'body',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -37,6 +48,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             query: {
+              cacheDirectory: true,
               presets: ['es2015', 'react']
             }
           }

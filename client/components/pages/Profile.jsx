@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import HeaderSideBar from '../includes/HeaderSideBar';
 import { bindActionCreators } from 'redux';
-import { editProfile } from '../../actions/auth_actions';
+import { editProfileAction } from '../../actions/AuthActions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class Profile extends React.Component {
     editProfile(this.props.user.userId, this.state)
       .then((res) => {
         localStorage.setItem('token', res)
-        Materialize.toast('Profile edited Successfully', 2000, 'blue',
+          Materialize.toast('Profile edited Successfully', 2000, 'blue darken-4',
           () => {
             window.location.href = "/profile";
           });
@@ -161,7 +161,7 @@ class Profile extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      editProfile
+      editProfileAction
     }, dispatch)
   };
 }

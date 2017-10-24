@@ -6,8 +6,8 @@ import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
-const notAdmin = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjUsInVzZXJuYW1lIjoiYmFyYmllIiwiZnVsbG5hbWUiOiJCYXJiaWUgU2xheSIsImlzQWRtaW4iOjAsInBsYW4iOiJzaWx2ZXIiLCJhY3RpdmUiOnRydWV9LCJpYXQiOjE1MDI0MDQyMDJ9.5KO0Qb0HjTSOL36ea1-qP7CCky9BwLUZaVlp96jSyQg';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
+const notAdmin = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoic2VydmVyIiwiZnVsbG5hbWUiOiJ0ZXN0IHNlcnZlciIsImFjdGl2ZSI6dHJ1ZSwiaXNBZG1pbiI6MCwiZW1haWwiOiJzZXJ2ZXJAeWFocG8uY3BvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4NjU5MDg2fQ.fyUymW7PzkMoxYVK-ErTPpshLZMUj_JNXS7fniLqlHQ';
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
     done(null);
@@ -17,7 +17,6 @@ before((done) => {
 });
 
 describe('Adds a new book to the database', () => {
-
   it('tests that only admin can add book', (done) => {
     server
       .post('/api/v1/books')

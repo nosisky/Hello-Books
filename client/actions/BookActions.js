@@ -1,12 +1,24 @@
 import axios from 'axios';
 
-import { ADD_BOOK, GET_ALL_BOOKS, GET_RENTED_BOOKS, GET_CATEGORY, SEARCH_BOOK } from './types';
+import { ADD_BOOK,
+  GET_ALL_BOOKS,
+  GET_RENTED_BOOKS,
+  GET_CATEGORY,
+  SEARCH_BOOK,
+  DELETE_BOOK
+} from './types';
 
 const API_URL = '/api/v1/books',
   SEARCH_API_URL = '/api/v1/search',
   USER_API_URL = '/api/v1/users';
 
-export function addNewBook(bookDetails) {
+/**
+ * Add new book action
+ * @param {Object} bookDetails 
+ * @returns { Object }
+ */
+
+export function addBookAction(bookDetails) {
   return dispatch => axios.post(API_URL, bookDetails)
     .then((res) => {
       dispatch({
@@ -17,7 +29,12 @@ export function addNewBook(bookDetails) {
     .catch(error => error);
 }
 
-export function getAllBooks() {
+/**
+ * Get all books action
+ * @returns { Object }
+ */
+
+export function getAllBooksAction() {
   return dispatch => axios.get(API_URL)
     .then((res) => {
       dispatch({
@@ -29,31 +46,67 @@ export function getAllBooks() {
     .catch(error => error);
 }
 
-export function deleteBook(bookId) {
-  return axios.delete(`${API_URL}/delete/${bookId}`)
-    .then(res => res.data.message)
+/**
+ * Delete book action
+ * @param {Number} bookId 
+ * @returns { String }
+ */
+
+export function deleteBookAction(bookId) {
+  return dispatch => axios.delete(`${API_URL}/delete/${bookId}`)
+    .then((res) => {
+      dispatch({
+        type: DELETE_BOOK,
+        data: Number(res.data.id)
+      });
+      return res.data.message;
+    })
     .catch(error => error);
 }
 
-export function modifyBook(bookData, bookId) {
+/**
+ * Modify book action
+ * @param {Object, Number} bookData BookId
+ * @returns { String }
+ */
+
+export function modifyBookAction(bookData, bookId) {
   return axios.put(`${API_URL}/${bookId}`, bookData)
     .then(res => res.data.message)
     .catch(error => error);
 }
 
-export function addCategory(data) {
+/**
+ * 
+ * @param { Object } data 
+ * @returns { String }
+ */
+
+export function addCategoryAction(data) {
   return axios.post(`${API_URL}/cat`, data)
     .then(res => res.data.message)
     .catch(error => error);
 }
 
-export function rentBook(userId, bookId) {
+/**
+ * Rent book action
+ * @param { Number } userId 
+ * @returns { String }
+ */
+
+export function rentBookAction(userId, bookId) {
   return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
     .then(res => res.data.message)
     .catch(error => error.response.data.message);
 }
 
-export function getRentedBooks(userId) {
+/**
+ * Get rented books action
+ * @param {  Number } userId 
+ * @returns { Object }
+ */
+
+export function getRentedBooksAction(userId) {
   return dispatch => axios.get(`${API_URL}/logs/${userId}`)
     .then((res) => {
       dispatch({
@@ -65,11 +118,23 @@ export function getRentedBooks(userId) {
     .catch(error => error);
 }
 
+/**
+ * Return rented book action
+ * @param {Number} userId 
+ * @returns { Object }
+ */
+
 export function returnBook(userId, bookId) {
   return axios.put(`${USER_API_URL}/${userId}/books`, bookId)
     .then(res => res.data)
     .catch(error => error);
 }
+
+/**
+ * Get specific book
+ * @param {Number} userId 
+ * @returns { Object }
+ */
 
 export function getSpecificBook(userId) {
   return axios.get(`${API_URL}/${userId}`)
@@ -77,7 +142,12 @@ export function getSpecificBook(userId) {
     .catch(error => error);
 }
 
-export function getCategory() {
+/**
+ * Get all category action
+ * @returns { Object }
+ */
+
+export function getCategoryAction() {
   return dispatch => axios.get('/api/v1/category')
     .then((res) => {
       dispatch({
@@ -88,7 +158,13 @@ export function getCategory() {
     .catch(error => error);
 }
 
-export function search(query) {
+/**
+ * Search for a book action
+ * @param {any} query 
+ * @returns { Object }
+ */
+
+export function searchAction(query) {
   return dispatch => axios.post(SEARCH_API_URL, query)
     .then((res) => {
       dispatch({
@@ -99,4 +175,3 @@ export function search(query) {
     })
     .catch(error => error);
 }
-

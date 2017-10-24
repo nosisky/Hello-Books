@@ -9,7 +9,13 @@ const API_URL = '/api/v1/users';
 
 const SEARCH_API_URL = '/api/v1/search';
 
-export function registerUser(userDetails) {
+/**
+ * Register User Action
+ * @param {Object} userDetails 
+ * @returns {Object}
+ */
+
+export function registerUserAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signup`, userDetails)
     .then((res) => {
       const token = res.data.Token;
@@ -23,7 +29,12 @@ export function registerUser(userDetails) {
     });
 }
 
-export function login(userDetails) {
+/** Login action 
+ * @param {Object} userDetails 
+ * @returns { Object }
+ */
+
+export function loginAction(userDetails) {
   return dispatch =>
     axios.post(`${API_URL}/signin`, userDetails).then((res) => {
       const token = res.data.Token;
@@ -38,7 +49,11 @@ export function login(userDetails) {
     });
 }
 
-export function logout() {
+/** Logout action
+ * @returns { Object }
+ */
+
+export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
     setAuthorizationToken(false);
@@ -51,14 +66,26 @@ export function logout() {
   };
 }
 
-export function editProfile(userId, userData) {
+
+/** Edit profile action
+ * @param {Object} userId userData
+ * @returns { String }
+ */
+
+export function editProfileAction(userId, userData) {
   return axios.put(`${API_URL}/edit/${userId}`, userData)
     .then(() => axios.get(`${SEARCH_API_URL}/${userId}`)
       .then(res => res.data.token))
     .catch(error => error.data.response);
 }
 
-export function getUserByEmail(email) {
+/**
+ *  Get users by email action
+ * @param { object } email 
+ * @returns { String }
+ */
+
+export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
     .then(res => res.data.token)
     .catch(error => error.data.response);
