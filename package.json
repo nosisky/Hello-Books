@@ -75,6 +75,8 @@
     "sequelize": "^4.4.2",
     "sequelize-cli": "^3.0.0",
     "style-loader": "^0.18.2",
+    "swagger-jsdoc": "^1.9.7",
+    "swagger-ui": "^3.4.1",
     "sweetalert": "^2.0.3",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
