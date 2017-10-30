@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.load();
 
-export default {
+module.exports = {
   development: {
     username: 'andeladeveloper',
     password: '',
