@@ -1,0 +1,20 @@
+{
+  "files.autoSave": "afterDelay",
+  "workbench.colorTheme": "One Dark Vivid",
+  "workbench.iconTheme": "material-icon-theme",
+  "typescript.check.npmIsInstalled": false,
+  "window.zoomLevel": 0,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "files.insertFinalNewline": true,
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+  "files.associations": {
+    "*.jsx": "javascriptreact"
+  },
+  "[javascriptreact]": {
+
+  },
+  "extensions.ignoreRecommendations": false
+}

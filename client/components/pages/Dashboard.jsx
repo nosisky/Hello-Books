@@ -28,7 +28,7 @@ class Dashboard extends Component {
       </div>;
     }
     return (
-      <div className="col l8 offset-l3 right">
+      <div className="col l6 offset-l3">
         <div className="admin-book-list">
           <div className="card-panel teal user-book-header">
             <center>Recently Added Books</center>

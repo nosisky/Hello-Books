@@ -163,7 +163,7 @@ h5 {
   width: 75%;
 }
 
-@media (max-width: 320px) {
+@media screen and (max-width: 699px) and (min-width: 520px) {  
   .admin-book-list {
     width: 100% !important;
   }
