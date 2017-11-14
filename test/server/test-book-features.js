@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../server';
-import models from '../server/models/';
-import bookSeeder from '../server/seeders/books';
+import app from '../../server';
+import models from '../../server/models/';
+import bookSeeder from '../../server/seeders/books';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
@@ -159,10 +159,10 @@ describe('Adds a new book to the database', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ bookId: 1 })
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.message.should.equal('Book returned successfully!');
+        res.status.should.equal(201);
+        res.body.message.should.equal('Book returned successfully');
         done();
       });
   });

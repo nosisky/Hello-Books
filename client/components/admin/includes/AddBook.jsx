@@ -75,7 +75,7 @@ class AddBook extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        this.setState({cover: url})
+        this.setState({cover: url, progress: 100})
 
       });
   };
@@ -148,6 +148,7 @@ class AddBook extends Component {
       case 'isbn':
         if (value.length < 5 || !value) {
           this.setState({isbnError: 'Book ISBN must be a minimum of 5 characters'});
+          break;
         }
     }
   }
@@ -168,6 +169,11 @@ class AddBook extends Component {
   }
 
   handleSubmit(event) {
+    if(this.state.cover.length < 5){
+      Materialize.toast('Please upload book cover', 4000, '#15b39d')
+      event.preventDefault();
+      return false;
+    }
     event.preventDefault();
     this
       .props
@@ -176,7 +182,7 @@ class AddBook extends Component {
         Materialize.toast('Book added Successfully', 2000, '#15b39d', () => {
           this.setState({isLoading: false});
         });
-        window.location.href = '/admin';
+       window.location.href = '/admin';
       })
       .catch(err => err);
   }
@@ -289,8 +295,22 @@ class AddBook extends Component {
                   <div className="red-text">{this.state.descError}</div>
                 </div>
               </div>
-              <span>Upload Cover</span>
-              {this.state.isUploading && <div>
+              <span>Upload Cover</span><br/><br/>
+                  { this.state.isUploading && 
+                  this.state.progress < 100 && 
+                 <div> <div className="preloader-wrapper big active">
+                  <div className="spinner-layer spinner-blue-only">
+                    <div className="circle-clipper left">
+                      <div className="circle"></div>
+                    </div><div className="gap-patch">
+                      <div className="circle"></div>
+                    </div><div className="circle-clipper right">
+                      <div className="circle"></div>
+                    </div>
+                  </div>
+                </div> <br/><br/> </div>}
+              {this.state.progress === 100 && 
+              <div>
                 <img
                   height="50px"
                   width="50px"

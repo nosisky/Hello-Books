@@ -235,20 +235,14 @@ export default {
             where: {
               id: req.body.bookId
             }
-          })))
-      .then((book) => {
-        History
-          .create({
-            userId: req.params.userId,
-            type: 'return',
-            description: `You returned ${book.title}`
-          });
-      })
-      .then(() => res.status(200).send(
-        {
-          message: 'Book returned successfully!'
-        }
-      ))
+          })
+          .then(() => {
+            res.status(201).send({
+              message: 'Book returned successfully',
+              book: books
+            });
+          })
+        ))
       .catch(error => res.status(400).send(error));
   },
 

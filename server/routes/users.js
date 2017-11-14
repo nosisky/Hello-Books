@@ -24,7 +24,9 @@ const app = express.Router();
  * definitions:
  *   Register:
  *     properties:
- *       identifier:
+ *       username:
+ *         type: string
+ *       fullName:
  *         type: string
  *       email:
  *         type: string
@@ -36,14 +38,14 @@ const app = express.Router();
  * definitions:
  *   Login:
  *     properties:
- *       identifier:
+ *       username:
  *         type: string
  *         default: dealwap
  *       password:
  *         type: string
  *         default: dealwap
  *     example: {
- *       "identifier": dealwap,
+ *       "username": dealwap,
  *       "password": dealwap
  *     }
  */

@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { getUserData, registerGoogleUser } from '../../utils/Authorization';
+import {getUserData, registerGoogleUser} from '../../utils/Authorization';
 
 dotenv.load()
 
@@ -11,14 +11,14 @@ export default class GoogleLogIn extends React.Component {
     let mainObj = {
       currentUser: {}
     };
-    const objKeys = Object.keys(obj);
-    const username = obj[objKeys[10]]
+    const username = obj
+      .name
       .toLowerCase()
       .replace(/[\s]/, '_') + Math.round(Math.random(1998) * 56);
     mainObj.currentUser.username = username;
-    mainObj.currentUser.fullName = obj[objKeys[10]];
+    mainObj.currentUser.fullName = obj.name;
     mainObj.currentUser.password = username;
-    mainObj.currentUser.email = obj[objKeys[3]];
+    mainObj.currentUser.email = obj.email;
     return mainObj;
   }
   render() {
@@ -29,7 +29,6 @@ export default class GoogleLogIn extends React.Component {
       if (response) {
         const decoded = jwt.decode(response.Zi.id_token);
         const newUserObj = this.reMap(decoded);
-
         this
           .props
           .emailExist({email: newUserObj.currentUser.email})
@@ -37,13 +36,10 @@ export default class GoogleLogIn extends React.Component {
             if (!user) {
               registerGoogleUser(newUserObj.currentUser).then((data) => {
                 if (data) {
-                  Materialize.toast('Signed Up Successfully', 2000, 'blue darken-4', () => {
-                    window.location.href = "/dashboard";
-                  });
+                  Materialize.toast('Signed Up Successfully', 2000, 'blue darken-4');
                 }
               }).catch((err) => err)
             } else {
-
               getUserData({email: newUserObj.currentUser.email}).then((currentUser) => {
                 currentUser.userId = currentUser.id;
                 const token = jwt.sign({
@@ -51,7 +47,7 @@ export default class GoogleLogIn extends React.Component {
                 }, 'Andelahellobooks');
                 localStorage.setItem('token', token);
                 Materialize.toast('Login Successful', 2000, 'blue', () => {
-                  window.location.href = "/dashboard";
+                  window.location.href = '/dashboard';
                 });
               })
 

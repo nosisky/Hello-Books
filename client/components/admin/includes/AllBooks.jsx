@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import swal from 'sweetalert';
-import { bindActionCreators } from 'redux';
-import { deleteBookAction, modifyBookAction } from '../../../actions/BookActions';
+import {bindActionCreators} from 'redux';
+import {deleteBookAction, modifyBookAction} from '../../../actions/BookActions';
 
 class AllBooks extends Component {
   constructor(props) {
@@ -39,9 +39,13 @@ class AllBooks extends Component {
   handleClick() {
     swal({title: "Are you sure?", text: "Once deleted, you will not be able to recover it back!", icon: "warning", buttons: true, dangerMode: true}).then((willDelete) => {
       if (willDelete) {
-        this.props.actions.deleteBookAction(this.props.id).then((res) => {
-          swal(res, {icon: "success"});
-        })
+        this
+          .props
+          .actions
+          .deleteBookAction(this.props.id)
+          .then((res) => {
+            swal(res, {icon: "success"});
+          })
       } else {
         swal("Book was not deleted");
       }
@@ -58,7 +62,7 @@ class AllBooks extends Component {
     e.preventDefault();
     modifyBookAction(this.state, this.props.id).then((res) => {
       Materialize.toast(res, 2000, 'blue', () => {
-        window.location.href = "/admin";
+        window.location.href ='/admin';
       });
     })
   }
@@ -72,32 +76,21 @@ class AllBooks extends Component {
   render() {
     const style = {
       file: {
-        backgroundColor: '#rgb(10, 89, 79)'
+        backgroundColor: 'white'
       },
       edit: {
         backgroundColor: 'rgb(10, 89, 79)',
         color: '#fff',
         float: 'right'
       },
-      delete: {
-        float: 'left',
-        height: 28,
+      cancel: {
+        backgroundColor: 'rgb(10, 89, 79)',
         color: '#fff',
-        backgroundColor: 'red'
-      },
-      editButton: {
-        float: 'right',
-        height: 28,
-        color: '#fff',
-        backgroundColor: 'green'
+        float: 'left'
       }
     }
     return (
-      <div
-        className="col s12 m3 l3"
-        style={{
-        backgroundColor: '#fff'
-      }}>
+      <div className="col s12 m3 l3" style={style.file}>
         {this.state.edit && <div className="modal-content">
           <h4 style={{
             alignContent: 'center'
@@ -182,36 +175,32 @@ class AllBooks extends Component {
               </div>
               <button
                 style={style.edit}
-                className="btn waves-effect waves-light"
+                className="btn"
                 type="submit"
                 name="submit">Edit Book
               </button>
               <br/>
-              <button
-                style={style.edit}
-                className="btn waves-effect waves-light"
-                onClick={this.changeView}
-                name="submit"> Cancel
-              </button>
+              <div className="card-action">
+              <a style={style.cancel} onClick={this.changeView} id="edit_button">Cancel</a>
+            </div>
             </form>
           </div>
         </div>
 }
 
-        {this.state.displayBook && <div className="card">
+        {this.state.displayBook && <div className="card" id="book_card">
           <div className="card-image">
-            <img height="150px" src={this.props.cover}/>
+            <img height="250px" src={this.props.cover} alt="loading image..."/>
             <span className="card-title">{this.props.title}</span>
           </div>
           <div className="card-content">
             <p>{this.props.description}</p>
           </div>
           <div className="card-action">
-            <button onClick={this.handleClick} className='btn' style={style.delete}>Delete</button>
-            <button onClick={this.onClick} className="btn" style={style.editButton}>Edit</button>
+            <a onClick={this.handleClick} id="delete_button">Delete</a>
+            <a onClick={this.onClick} id="edit_button">Edit</a>
           </div>
-        </div>
-}
+        </div>}
       </div>
     )
   }

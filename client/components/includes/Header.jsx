@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/AuthActions';
 
-class HeaderSideBar extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.logout = this
@@ -16,7 +16,27 @@ class HeaderSideBar extends Component {
 
   }
 
-  handleFormSubmit() {}
+  componentDidMount(){
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    });
+    $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+    );
+    $('.modal').modal();
+  }
+
   logout(event) {
 
     event.preventDefault();
@@ -46,12 +66,11 @@ class HeaderSideBar extends Component {
         float: 'right'
       }
     }
-    return (
-      <div className="header-side" id="container">
 
+    return (
         <div id="menu">
           <nav>
-            <div className="nav-wrapper">
+            <div className="nav-wrapper"> <div className="left" style={{fontSize: 'x-large'}}>HelloBooks</div>           
               <a
                 href="#"
                 data-activates="slide-out"
@@ -127,68 +146,12 @@ class HeaderSideBar extends Component {
               </div>
             </div>
           </div>
-
-          <div className="col s3">
-            <ul id="slide-out" className="side-nav fixed show-on-large-only">
-              <div
-                style={{
-                textAlign: 'center',
-                color: '#000',
-                backgroundColor: '#25758c',
-                marginTop: -16
-              }}>
-                <div className="row">
-                  <span className="card-title">
-                    <h4>
-                      <i className="material-icons">library_books</i>
-                      <a className="white-text" href="dashboard">Dashboard</a>
-                    </h4>
-                  </span>
-                  <li className="divider"></li>
-                  <p></p>
-                  <img
-                    style={{
-                    borderRadius: 50,
-                    border: '2px solid black'
-                  }}
-                    width="100px"
-                    height="100px"
-                    src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
-                    alt="HelloBooks"/><br/>
-                  <i className="material-icons">account_circle</i>
-                  <b>{this.props.user.fullname}</b>
-                </div><br/>
-              </div>
-              <li className="divider"></li>
-              <li id="menu-list">
-                <a href='rented-books'>Rent History
-                  <i className="material-icons">chevron_right</i>
-                </a>
-              </li>
-              <li id="menu-list">
-                <a href="/dashboard">Rent a Book
-                  <i className="material-icons">chevron_right</i>
-                </a>
-              </li>
-              <li id="menu-list">
-                <a href="rented-books">Rented Books
-                  <i className="material-icons">chevron_right</i>
-                </a>
-              </li>
-              <li id="menu-list">
-                <a href="profile">My Profile
-                  <i className="material-icons">chevron_right</i>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
     )
   }
 }
 
-HeaderSideBar.PropTypes = {
+Header.PropTypes = {
   fullName: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired
 }
@@ -206,4 +169,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderSideBar)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -1,6 +1,6 @@
 $color: #25758c;
 $mainUserColor: rgb(21, 179, 157);
-$adminHeader: #15b39d;
+$adminHeader: #2891dc;
 $navbar: #1a5262;
 $navWrapper: #25758c;
 $circular: #25758c;
@@ -25,6 +25,11 @@ body {
   padding-bottom: 15px;
   padding-left: 5px;
 }
+
+.row .col.s9 {
+  margin-top: 20px !important;
+}
+
 
 .history {
   background-color: #fff;
@@ -214,8 +219,36 @@ h5 {
 }
 
 .card .card-image .card-title {
-  background-color: $mainUserColor !important;
-  padding: 3px;
+  background-color: rgba(28, 31, 30, 0.66) !important;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+}
+
+.card .card-image {
+  height: 250px !important;  
+}
+#book_card {
+  box-shadow: 3px 3px 3px 3px;
+}
+
+
+#delete_button {
+  float: right;
+  height: 28px;
+  color: #fff;
+  color: #ef4a4a;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0;
+}
+#edit_button {
+  float: right;
+  height: 28px;
+  color: #59983b;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .nav-wrapper {
@@ -300,6 +333,81 @@ h5 {
   color: #3F51B5;
 }
 
+
+
+
+.title-pen span {
+  color: #55acee;
+}
+
+.user-profile {
+  margin: auto;
+  margin-top: 5px;
+  background: #fff;
+  border-radius: .3em;
+}
+
+.user-profile  .username {
+  margin: auto;
+  margin-top: -4.40em;
+  margin-left: 5.80em;
+  color: #658585;
+  font-size: 1.53em;
+  font-family: "Coda", sans-serif;
+  font-weight: bold;
+}
+.user-profile  .bio {
+  margin: auto;
+  display: inline-block;
+  margin-left: 10.43em;
+  color: #e76043; 
+  font-size: .87em;
+  font-family: "varela round", sans-serif;
+}
+.user-profile > .description {
+  margin: auto;
+  margin-top: 0.35em;
+  width: 14em;
+  color: #c0c5c5; 
+  font-size: .87em;
+  font-family: "varela round", sans-serif;
+}
+.user-profile > img.avatar {
+	padding: .7em;
+  margin-left: .3em;
+  margin-top: .3em;
+  height: 6.23em;
+  width: 6.23em;
+  border-radius: 18em;
+}
+.description  {
+  margin-top: 50px;
+}
+.user-profile ul.data {
+	margin: 2em auto;
+	height: 4.70em;
+  background: #4eb6b6;
+  text-align: center;
+  border-radius: 0 0 .3em .3em;
+}
+.user-profile li {
+	margin: 0 auto;
+  padding: 1.30em; 
+  width: 33.33334%;
+  display: table-cell;
+  text-align: center;
+}
+
+.user-profile span {
+	font-family: "varela round", sans-serif;
+	color: #e3eeee;
+  white-space: nowrap;
+  font-size: 1.27em;
+  font-weight: bold;
+}
+
+
+
 .collection .collection-item {
   font-weight: bold;
   margin: 33px !important;
@@ -317,6 +425,10 @@ h5 {
 
 .card .card-content .card-title {
   width: max-content;
+}
+
+.card{
+  max-height: 600px !important;
 }
 
 .empty-notifier {

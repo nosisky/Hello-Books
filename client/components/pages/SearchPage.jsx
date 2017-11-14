@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchAction } from '../../actions/BookActions';
-import { bindActionCreators } from 'redux';
-import HeaderSideBar from '../includes/HeaderSideBar';
+import {searchAction} from '../../actions/BookActions';
+import {bindActionCreators} from 'redux';
+import Header from '../includes/Header';
+import SideBar from '../includes/SideBar';
 import SearchResult from '../includes/SearchResult';
 
 class SearchPage extends Component {
@@ -24,22 +25,24 @@ class SearchPage extends Component {
     this
       .props
       .actions
-      .search({search: result})
+      .searchAction({search: result})
   }
 
   renderBooks() {
     const allbooks = this.props.search;
     if (!allbooks || allbooks.length < 1) {
-      return <div className="empty-notifier">
+      return <div>
+        <SideBar />
+      <div className="empty-notifier">
         <h4>Your query did not match any book in our database</h4>
+      </div>
       </div>;
     }
     return (
-      <div className="admin-book-list">
-        <div className="card-panel teal user-book-header">
-          <center>Search Result</center>
-        </div>
+      <div className="row">
+        <SideBar />
         <div className="row">
+        <div className="col s9">
           {allbooks.map((book) => {
             return (<SearchResult
               prodYear={book.prodYear}
@@ -57,14 +60,14 @@ class SearchPage extends Component {
 }
         </div>
       </div>
-
+    </div>
     )
   }
 
   render() {
     return (
       <div>
-        <HeaderSideBar/> {this.renderBooks()}
+        <Header/> {this.renderBooks()}
       </div>
     )
   }
@@ -77,7 +80,7 @@ SearchPage.PropTypes = {
 }
 
 function mapStateToProps(state) {
-  return { user: state.auth.user.currentUser, search: state.book.data }
+  return {user: state.auth.user.currentUser, search: state.book.data}
 }
 
 function mapDispatchToProps(dispatch) {

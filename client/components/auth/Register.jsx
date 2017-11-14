@@ -51,7 +51,7 @@ class Register extends Component {
       .then((data) => {
         Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4', () => {
           this.setState({isLoading: false})
-          window.location.href = "/dashboard";
+          window.location.href ='/dashboard';
         });
       })
   }

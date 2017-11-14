@@ -6,7 +6,7 @@ export default class NavBar extends Component {
     return (
       <nav className="nav-bar">
         <div className="navbar-wrapper container">
-          <a href="#" className="brand-logo left">Test Page</a>
+          <a href="#" className="brand-logo left">HelloBooks</a>
           <a href="#" data-activates="mobile-demo" className="button-collapse right">
             <i className="material-icons">menu</i>
           </a>

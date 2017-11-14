@@ -8,5 +8,6 @@ export const AUTH_USER = 'auth_user',
   GET_RENTED_BOOKS = 'get_rented_books',
   GET_CATEGORY = 'get_category',
   SEARCH_BOOK = 'search_book',
+  RETURN_RENTED_BOOK = 'return_rented_book',
   DELETE_BOOK = 'delete_book';
 
