@@ -175,13 +175,14 @@ class AllBooks extends Component {
               </div>
               <button
                 style={style.edit}
-                className="btn"
                 type="submit"
                 name="submit">Edit Book
               </button>
-              <br/>
-              <div className="card-action">
-              <a style={style.cancel} onClick={this.changeView} id="edit_button">Cancel</a>
+              <div>
+              <button
+              style={style.cancel} 
+              onClick={this.changeView} 
+              id="edit_button">Cancel</button>
             </div>
             </form>
           </div>
