@@ -13,7 +13,6 @@
     "migrate:undo": "sequelize db:seed:undo",
     "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed --seed server/seeders/20171016124637-users.js",
     "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test",
-    "heroku-postbuild": "NODE_ENV=production  && npm run migrate:undo && npm run db:seed"
   },
   "engines": {
     "node": "6.11.0"
