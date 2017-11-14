@@ -13,7 +13,6 @@ module.exports = {
     publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
-
   externals: {
     Materialize: 'Materialize'
   },
@@ -37,7 +36,13 @@ module.exports = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true, // enable source maps to map errors (stack traces) to modules
+      output: {
+        comments: false, // remove all comments
+      },
+    }),
   ],
   module: {
     rules: [

@@ -12,12 +12,11 @@ export default class AllBooks extends Component {
 
   handleClick() {
     const cur = new Date(),
-      after30days = cur.setDate(cur.getDate() + 30),
-      getDateNow = cur.getDate() + '/' + (cur.getMonth() + 1) + '/' + cur.getFullYear();
-
+      after30days = cur.setDate(cur.getDate() + 20),
+      finalDate = new Date(after30days);
     swal({
-      title: "Are you sure?",
-      text: `You will be mandated to return this book on or before ${new Date(getDateNow)}`,
+      title: "Are you sure?", 
+      text: `You will be mandated to return this book on or before ${finalDate}`,
       icon: "warning",
       buttons: true,
       dangerMode: true
