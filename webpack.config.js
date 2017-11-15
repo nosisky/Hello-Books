@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FastUglifyJsPlugin = require('fast-uglifyjs-plugin');
 
 module.exports = {
   cache: true,
@@ -37,12 +38,19 @@ module.exports = {
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true, // enable source maps to map errors (stack traces) to modules
-      output: {
-        comments: false, // remove all comments
+    new FastUglifyJsPlugin({
+      compress: {
+        warnings: false
       },
-    }),
+      // set debug as true to output detail cache information            
+      debug: false,
+      // enable cache by default to improve uglify performance. set false to turn it off 
+      cache: true,
+      // root directory is the default cache path. it can be configured by following setting 
+      cacheFolder: path.resolve(__dirname, 'client/cache'),
+      // num of worker process default ,os.cpus().length 
+      workerNum: 2
+    })
   ],
   module: {
     rules: [
