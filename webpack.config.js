@@ -49,7 +49,7 @@ module.exports = {
       // root directory is the default cache path. it can be configured by following setting 
       cacheFolder: path.resolve(__dirname, 'client/cache'),
       // num of worker process default ,os.cpus().length 
-      workerNum: 2
+      workerNum: 1
     })
   ],
   module: {
