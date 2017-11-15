@@ -38,20 +38,9 @@ module.exports = {
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
     }),
-    new FastUglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      // set debug as true to output detail cache information            
-      debug: false,
-      // enable cache by default to improve uglify performance. set false to turn it off 
-      cache: true,
-      // root directory is the default cache path. it can be configured by following setting 
-      cacheFolder: path.resolve(__dirname, 'client/cache'),
-      // num of worker process default ,os.cpus().length 
-      workerNum: 1
-    })
+    new webpack.optimize.UglifyJsPlugin(),
   ],
+  devtool: 'cheap-source-map',
   module: {
     rules: [
       {
