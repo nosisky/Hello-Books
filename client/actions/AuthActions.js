@@ -66,7 +66,6 @@ export function logoutAction() {
   };
 }
 
-
 /** Edit profile action
  * @param {Object} userId userData
  * @returns { String }

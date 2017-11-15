@@ -9,7 +9,7 @@ import {logout} from '../../actions/AuthActions';
 export default function (ComposedComponent) {
 
   class AdminAuthentication extends Component {
-
+    
     componentWillMount() {
 
       const key = 'Andelahellobooks';

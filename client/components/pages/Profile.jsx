@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import HeaderSideBar from '../includes/HeaderSideBar';
-import { bindActionCreators } from 'redux';
-import { editProfileAction } from '../../actions/AuthActions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
+import Header from '../includes/Header';
+import SideBar from '../includes/SideBar';
+import {bindActionCreators} from 'redux';
+import {editProfileAction} from '../../actions/AuthActions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -11,54 +13,60 @@ class Profile extends React.Component {
       fullName: this.props.user.fullname,
       email: this.props.user.email,
       edit: false,
-      profile: true,
+      profile: true
     }
 
-    this.onChange = this.onChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.displayEdit = this.displayEdit.bind(this);
+    this.onChange = this
+      .onChange
+      .bind(this);
+    this.handleSubmit = this
+      .handleSubmit
+      .bind(this);
+    this.displayEdit = this
+      .displayEdit
+      .bind(this);
   }
 
   onChange(e) {
     const name = e.target.name,
       value = e.target.value;
-    this.setState({
-      [name]: value
-    })
+    this.setState({[name]: value})
   }
 
-  displayEdit(e){
-    this.setState({
-      edit: true,
-      profile: false
-    })
+  displayEdit(e) {
+    this.setState({edit: true, profile: false})
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    editProfile(this.props.user.userId, this.state)
-      .then((res) => {
-        localStorage.setItem('token', res)
-          Materialize.toast('Profile edited Successfully', 2000, 'blue darken-4',
-          () => {
-            window.location.href = "/profile";
-          });
-      })
+    editProfileAction(this.props.user.userId, this.state).then((res) => {
+      localStorage.setItem('token', res)
+      Materialize.toast('Profile edited Successfully', 2000, 'blue darken-4', () => {
+        window.location.href = '/profile';
+      });
+    })
   }
 
-
   render() {
-    const { username, fullname, id, email, plan } = this.props.user;
+    const {username, fullname, id, email, plan} = this.props.user;
 
-    return (<div>
-      <HeaderSideBar />
-
-     {this.state.edit && <div id="edit">
-          <div style={{backgroundColor: '#fff', float: 'right', width: '80%'}} className="row">
-          <h4 style={{ alignContent: 'center', marginLeft: '20px' }}>Edit Profile</h4>
-            <form className="col s12"
-            name="edit_profile"
-              onSubmit={this.handleSubmit}>
+    return (
+      <div className="row">
+        <Header/>
+        <SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin}/> {this.state.edit && <div id="edit">
+          <div
+            style={{
+            backgroundColor: '#fff',
+            float: 'right',
+            width: '80%'
+          }}
+            className="row">
+            <h4
+              style={{
+              alignContent: 'center',
+              marginLeft: '20px'
+            }}>Edit Profile</h4>
+            <form className="col s12" name="edit_profile" onSubmit={this.handleSubmit}>
               <div className="edit-profile">
                 <div className="row">
                   <div className="input-field col s12">
@@ -69,7 +77,7 @@ class Profile extends React.Component {
                       name="email"
                       className="validate"
                       defaultValue={username}
-                      disabled />
+                      disabled/>
                   </div>
                 </div>
                 <div className="row">
@@ -82,7 +90,7 @@ class Profile extends React.Component {
                       onChange={this.onChange}
                       defaultValue={fullname}
                       className="validate"
-                      required />
+                      required/>
                   </div>
                 </div>
                 <div className="row">
@@ -95,65 +103,93 @@ class Profile extends React.Component {
                       className="validate"
                       defaultValue={email}
                       onChange={this.onChange}
-                      required />
+                      required/>
                   </div>
                 </div>
 
               </div>
-              <button style={{
+              <button
+                style={{
                 backgroundColor: 'rgb(21, 179, 157)',
-                color: '#fff', float: 'right'
+                color: '#fff',
+                float: 'right'
               }}
                 className="btn waves-effect waves-light"
-                type="submit" name="submit">Submit
-                        </button>
+                type="submit"
+                name="submit">Submit
+              </button>
             </form>
           </div>
-      </div> }
-      { this.state.profile &&
-      <div className="profile-cover">
-        <div className="col s12 m7">
-          <div className="card horizontal">
-            <div className="card-image">
-              <div className="profile">
-                <div className="profile-header">
-                  <img className="circular-img" src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png" />
+        </div>}
+        {this.state.profile && <div className="row">
+          <div className="col s12 m3 l9">
+            <div className="user-profile">
+              <img
+                className="avatar"
+                src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
+                alt="Ash"/>
+              <div className="username">{fullname}</div>
+              <div className="bio">
+                Library User
+              </div>
+              <div className="row">
+                <div className="col s12 m3 l6">
+                  <div className="description">
+                   My name is {fullname} I am a user of the Hello Books Application,
+                   I love the helloBooks app because it is a fast and simple library management system.
+                  When i am not reading, i love to skie, play football and also have fun with my friends.
+                  </div>
                 </div>
-                <div className="profile-content">
-                  <h3>{fullname}</h3>
-                  <div className="divider"></div>
-                  <p></p>
-                  <h4>I am a patron at Hello Books, i will always recommend this library wherever i go.</h4>
-                </div>
-                <div className="profile-footer">
-                  <ul>
-                    <li>
-                      <button className="btn" onClick={this.displayEdit}>Edit Profile</button>
-                    </li>
-                    <li>
-                      <a className="waves-effect waves-light btn" href="/rented-books">Rented Books</a>
-                    </li>
+                <div className="col s12 m3 l6">
+                  <div className="description">
+                    <div className="horizontal">
 
-                  </ul>
+                      <div className="card-stacked">
+                        <div className="card-content">
+                          <p>
+                            <b>Full name: &nbsp;
+                            </b> &nbsp;
+                            {fullname}</p>
+                          <div className="divider"></div>
+                          <p>
+                            <b>Username: &nbsp;
+                            </b>
+                            {username}
+                          </p>
+                          <div className="divider"></div>
+                          <p>
+                            <b>Email: &nbsp;
+                            </b>
+                            {email}
+                          </p>
+                          <div className="divider"></div>
+                          <p>
+                            <b>Last seen: &nbsp;
+                            </b>
+                            Now
+                          </p>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="card-stacked">
-              <div className="card-content">
-                <ul className="collection with-header">
-                  <li className="collection-header"><h4>My Profile</h4></li>
-                  <li className="collection-item">Full Name: <span className="tag-name">{fullname}</span></li>
-                  <li className="collection-item">Username: <span className="tag-name">{username}</span></li>
-                  <li className="collection-item">Plan: <span className="tag-name">{plan}</span></li>
-                  <li className="collection-item">Email: <span className="tag-name">{email}</span></li>
-                  <li className="collection-item">Last seen: <span className="tag-name"> Currently Online</span> </li>
-                </ul>
-              </div>
+
+              <ul className="data">
+                <li className="right-align">
+                  <button className="btn" onClick={this.displayEdit}>Edit Profile</button>
+                </li>
+                <li className="right-align">
+                  <Link className="waves-effect waves-light btn" to="/rented-books">Rented Books</Link>
+                </li>
+
+              </ul>
             </div>
           </div>
-        </div>
-      </div> }
-    </div> 
+
+        </div>}
+      </div>
     )
   }
 }
@@ -167,11 +203,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  return {
-    user: state.auth.user.currentUser
-  }
+  return {user: state.auth.user.currentUser}
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

@@ -1,34 +1,53 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { addCategoryAction } from '../../../actions/BookActions';
-import { logoutAction } from '../../../actions/AuthActions';
 
-class HeaderSideBar extends Component {
-  constructor(props) {
+class AdminSideBar extends Component {
+  constructor(props){
     super(props);
-    this.state = {
+      this.state = {
       name: '',
       description: ''
     }
-    this.onChange = this
-      .onChange
-      .bind(this);
     this.handleFormSubmit = this
       .handleFormSubmit
       .bind(this);
+
+    this.onChange = this
+      .onChange
+      .bind(this);
+
+  }
+  componentDidMount(){
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    });
+    $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+    );
+    $('.modal').modal();
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
-    addCategoryAction(this.state).then((message) => {
+    addCategoryAction(this.state)
+    .then((message) => {
       Materialize.toast(message, 2000, 'blue');
-      window.location.href = '/admin';
+      window.location.href ='/admin';      
     }).catch((err) => err)
   }
+
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -41,13 +60,16 @@ class HeaderSideBar extends Component {
         color: '#fff',
         padding: 5
       },
+      adminText: {
+        color: '#fff'
+      },
       main: {
         float: 'right',
         marginLeft: 5,
         backgroundColor: 'rgb(37, 76, 71)'
       },
       row: {
-        backgroundColor: '#15b39d'
+        backgroundColor: '#2891dc'
       },
       img: {
         borderRadius: 50,
@@ -56,7 +78,7 @@ class HeaderSideBar extends Component {
       side: {
         textAlign: 'center',
         color: '#fff',
-        backgroundColor: '#15b39d',
+        backgroundColor: '#2891dc',
         marginTop: -16
       },
       menuIcon: {
@@ -70,36 +92,15 @@ class HeaderSideBar extends Component {
       }
     }
     return (
-      <header>
-        <div className="admin-header-side" id="container">
-          <ul id='dropdown1' className='dropdown-content'>
-            <li>
-              <a href="#!">
-                {this.props.user.username}</a>
-            </li>
-            <li className="divider"></li>
-            <li>
-              <a onClick={this.props.actions.logoutAction} href="#">
-                <i className="material-icons">exit_to_app</i>
-                Logout</a>
-            </li>
-          </ul>
-          <div id="menu">
-            <div style={style.account}>
-              <a
-                style={style.main}
-                className='dropdown-button btn'
-                href='#'
-                data-activates='dropdown1'>Account</a>
-            </div>
-            <div className="col s3">
+      <div>
+           <div className="col s2 m3 l3">
               <ul id="slide-out" className="side-nav fixed show-on-large-only">
                 <div style={style.side}>
                   <div className="row" style={style.row}>
                     <span className="card-title">
                       <h4>
                         <i className="material-icons">library_books</i>
-                        <a href="admin">Admin</a>
+                        <Link to="/admin" style={style.adminText}>Admin</Link>
                       </h4>
                     </span>
                     <li className="divider"></li>
@@ -111,7 +112,7 @@ class HeaderSideBar extends Component {
                       src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
                       alt="HelloBooks"/><br/>
                     <i className="material-icons">account_circle</i>
-                    <b>{this.props.user.fullname}</b>
+                    <b>{this.props.fullname}</b>
                   </div><br/>
                 </div>
                 <li className="divider"></li>
@@ -125,15 +126,18 @@ class HeaderSideBar extends Component {
                   </a>
                 </li>
                 <li id="menu-list">
-                  <a href="/admin">Edit Books<i className="material-icons">chevron_right</i>
-                  </a>
+                  <Link to="/admin">Edit Books<i className="material-icons">chevron_right</i>
+                  </Link>
                 </li>
                 <li id="menu-list">
-                  <a href="/admin">Delete Books<i className="material-icons">chevron_right</i>
-                  </a>
+                  <Link to="/admin">Delete Books<i className="material-icons">chevron_right</i>
+                  </Link>
+                </li>
+                <li id="menu-list">
+                  <Link to="/dashboard">User Dashboard<i className="material-icons">chevron_right</i>
+                  </Link>
                 </li>
               </ul>
-
               <div id="add_cat" className="modal">
                 <div className="modal-content">
                   <h4 style={{
@@ -177,37 +181,9 @@ class HeaderSideBar extends Component {
                 </div>
               </div>
             </div>
-          </div>
-          <div id="content">
-            <a
-              href="#"
-              data-activates="slide-out"
-              className="button-collapse hide-on-large-only">
-              <i style={style.menuIcon} className="material-icons">menu</i>
-            </a>
-
-          </div>
-        </div>
-      </header>
-    )
+      </div>
+    );
   }
 }
 
-HeaderSideBar.PropTypes = {
-  fullName: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-      logoutAction
-    }, dispatch)
-  };
-}
-
-function mapStateToProps(state) {
-  return { user: state.auth.user.currentUser }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderSideBar);
+export default AdminSideBar;

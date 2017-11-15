@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import { rentBook } from '../../actions/BookActions';
+import { rentBookAction } from '../../actions/BookActions';
 
 export default class SearchResult extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class SearchResult extends Component {
       dangerMode: true
     }).then((willBorrow) => {
       if (willBorrow) {
-        rentBook(this.props.userId, {bookId: this.props.id}).then((res) => {
+        rentBookAction(this.props.userId, {bookId: this.props.id}).then((res) => {
           if (res === "You have successfully rented the book") {
             {
               swal(res, {icon: "success"});
@@ -33,7 +33,7 @@ export default class SearchResult extends Component {
           }
         }).then((res) => {
           if (res) {
-            window.location.href = '/rented-books'
+            window.location.href ='/rented-books';
           }
         }).catch((error) => error)
 

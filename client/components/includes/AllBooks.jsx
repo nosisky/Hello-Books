@@ -23,7 +23,7 @@ export default class AllBooks extends Component {
       dangerMode: true
     }).then((willBorrow) => {
       if (willBorrow) {
-        rentBook(this.props.userId, {bookId: this.props.id}).then((res) => {
+        rentBookAction(this.props.userId, {bookId: this.props.id}).then((res) => {
           if (res === "You have successfully rented the book") {
             {
               swal(res, {icon: "success"});
@@ -33,7 +33,7 @@ export default class AllBooks extends Component {
           }
         }).then((res) => {
           if (res) {
-            window.location.href = '/rented-books'
+            window.location.href ='/rented-books';
           }
         }).catch((error) => error)
 
@@ -46,10 +46,10 @@ export default class AllBooks extends Component {
       <div className="book col s12 m3 l3">
         <div className="card">
           <div className="card-image waves-effect waves-block waves-light">
-            <img className="activator" height="150px" src={this.props.cover}/>
+            <img className="activator" src={this.props.cover}/>
           </div>
           <div className="card-content">
-            <span className="card-title activator grey-text text-darken-4">{this.props.title}</span>
+          <span className="card-title">{this.props.title}</span>
             <span>{this.props.description}</span>
             <p>
               <a href="#" onClick={this.handleClick} className="btn">Borrow Now</a>

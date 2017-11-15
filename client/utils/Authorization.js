@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const API_URL = '/api/v1/users';
-
 /**
  * setAuthorizationToken - set token to request headers
  * @param  {string} token Authorization token
@@ -27,12 +26,13 @@ export function registerGoogleUser(userDetails) {
       const token = res.data.Token;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
+      window.location.href = '/dashboard';
     });
 }
 
 export function editProfile(userId, userData) {
   return axios.put(`${API_URL}/edit/${userId}`, userData)
-    .then(() => axios.get(`${SEARCH_API_URL}/userId`)
+    .then(() => axios.get(`${API_URL}/userId`)
       .then(res => res.data.token))
     .catch(error => error.data.response);
 }

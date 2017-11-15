@@ -5,6 +5,7 @@ import { ADD_BOOK,
   GET_RENTED_BOOKS,
   GET_CATEGORY,
   SEARCH_BOOK,
+  RETURN_RENTED_BOOK,
   DELETE_BOOK
 } from './types';
 

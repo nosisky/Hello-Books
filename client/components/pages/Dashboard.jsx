@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getAllBooksAction} from '../../actions/BookActions';
 import {bindActionCreators} from 'redux';
-import HeaderSideBar from '../includes/HeaderSideBar';
+import Header from '../includes/Header';
+import SideBar from '../includes/SideBar'
 import AllBooks from '../includes/AllBooks';
 
 class Dashboard extends Component {
@@ -28,12 +29,14 @@ class Dashboard extends Component {
       </div>;
     }
     return (
-      <div className="col l6 offset-l3">
-        <div className="admin-book-list">
-          <div className="card-panel teal user-book-header">
-            <center>Recently Added Books</center>
-          </div>
-          <div className="row">
+      <div className="row">
+        <div className="card-panel teal user-book-header">
+          <center>Recently Added Books</center></div>
+        <SideBar 
+        fullname={this.props.user.fullname}
+        isAdmin={this.props.user.isAdmin}/>
+        <div className="row">
+          <div className="col s9">
             {allbooks.map((book) => {
               return (<AllBooks
                 prodYear={book.prodYear}
@@ -59,7 +62,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <HeaderSideBar/> {this.renderBooks()}
+        <Header fullname={this.props.user.fullName}/> {this.renderBooks()}
       </div>
     )
   }
@@ -72,7 +75,8 @@ Dashboard.PropTypes = {
 }
 
 function mapStateToProps(state) {
-  return {user: state.auth.user.currentUser, books: state.book.data}
+  return {user: state.auth.user.currentUser,
+     books: state.book.data}
 }
 
 function mapDispatchToProps(dispatch) {

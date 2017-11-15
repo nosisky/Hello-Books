@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { checkEmailExist, reMap } from '../../utils/Authorization';
+import GoogleLogin from './GoogleLogin';
+import { checkEmailExist, reMap } from '../../utils/Validation';
 import { registerUserAction, getUserByEmailAction } from '../../actions/AuthActions';
 import { connect } from 'react-redux';
 import jwt from 'jsonwebtoken';
@@ -44,7 +45,7 @@ class Login extends Component {
       .then((data) => {
         this.setState({isLoading: false})
           Materialize.toast('Logged In Successfully', 2000, 'blue darken-4', () => {
-          window.location.href = "/dashboard";
+            window.location.href ='/admin';            
         });
       }, (data) => {
         this.setState({loginError: data.response.data.message, isLoading: false});
@@ -82,7 +83,7 @@ class Login extends Component {
                         onChange={this.onChange}
                         className="validate"
                         required/>
-                      <label htmlFor="isbn">Enter you Email</label>
+                      <label htmlFor="isbn">Enter your Email</label>
                     </div>
                   </div>
                 </div>
@@ -130,9 +131,11 @@ class Login extends Component {
                 name="action">Login</button>
               <br/>
               <br/>
+              <GoogleLogin emailExist={checkEmailExist}/>
             </center>
           </div>
         </form>
+       
       </div>
     )
   }

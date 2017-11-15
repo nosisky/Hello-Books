@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import HeaderSideBar from './includes/HeaderSideBar';
+import {bindActionCreators} from 'redux';
+import AdminHeader from './includes/AdminHeader';
 import AllBooks from './includes/AllBooks';
 import AddBook from './includes/AddBook';
-import { getAllBooksAction } from '../../actions/BookActions';
-import { logoutAction } from '../../actions/AuthActions';
+import {getAllBooksAction} from '../../actions/BookActions';
+import {logoutAction} from '../../actions/AuthActions';
+import AdminSideBar from './includes/AdminSideBar';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -53,7 +54,10 @@ class AdminHome extends Component {
             }
         });
     }
+
     renderBooks() {
+        const {fullname} = this.props.user;
+
         const allbooks = this.props.books;
         if (!allbooks) {
             return <div
@@ -66,12 +70,12 @@ class AdminHome extends Component {
                 <h2>There is no book in the database</h2>
             </div>;
         }
+
         return (
-            <div className="admin-book-list">
-                <div className="card-panel teal book-header">
-                    <center>Recently Added Books</center>
-                </div>
-                <div className="row">
+            <div className="row">
+                <AdminSideBar fullname={this.props.user.fullname}/>
+
+                <div className="col s9" id="list_boy">
                     {allbooks.map((book) => {
                         return (<AllBooks
                             prodYear={book.prodYear}
@@ -85,7 +89,7 @@ class AdminHome extends Component {
                             description={book.description}
                             cover={book.cover}/>)
                     })
-}
+                }
                 </div>
             </div>
 
@@ -94,17 +98,16 @@ class AdminHome extends Component {
     render() {
         const {username, fullname, id} = this.props.user;
         return (
-            <div >
-                <HeaderSideBar onClick={this.logout} fullName={fullname} username={username}/> {this.renderBooks()}
-            </div >
+            <div>
+                <AdminHeader onClick={this.logout} fullName={fullname} username={username}/> {this.renderBooks()}
+            </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    return { books: state.book.data, user: state.auth.user.currentUser }
+    return {books: state.book.data, user: state.auth.user.currentUser}
 }
-
 
 AdminHome.PropTypes = {
     books: PropTypes.object.isRequired,

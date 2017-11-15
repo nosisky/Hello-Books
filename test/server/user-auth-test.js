@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../server';
-import models from '../server/models/';
-import userSeeder from '../server/seeders/users';
+import app from '../../server';
+import models from '../../server/models/';
+import userSeeder from '../../server/seeders/users';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
