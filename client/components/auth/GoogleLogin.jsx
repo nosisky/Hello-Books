@@ -27,6 +27,7 @@ export default class GoogleLogIn extends React.Component {
       const key = process.env.secretKey;
 
       if (response) {
+        console.log(response, '==========')
         const decoded = jwt.decode(response.Zi.id_token);
         const newUserObj = this.reMap(decoded);
         this
