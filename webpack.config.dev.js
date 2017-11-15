@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const FastUglifyJsPlugin = require('fast-uglifyjs-plugin');
 
 module.exports = {
   cache: true,
@@ -27,20 +26,13 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
     }),
-    new webpack.optimize.UglifyJsPlugin(),
   ],
-  devtool: 'cheap-source-map',
   module: {
     rules: [
       {

@@ -5,14 +5,15 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server.js",
-    "build": "webpack -p",
-    "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.js",
+    "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.dev.js",
     "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test/server ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test/server ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "build": "webpack -p --progress --config ./webpack.config.dev.js",
+    "heroku-postbuild": "NODE_ENV=production &&npm run build",
     "migrate:undo": "sequelize db:seed:undo",
     "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed --seed server/seeders/20171016124637-users.js",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test",
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "engines": {
     "node": "6.11.0"
@@ -37,7 +38,9 @@
     "babel-preset-stage-0": "^6.24.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
     "clean-webpack-plugin": "^0.1.17",
+    "colors": "^1.1.2",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.5",
     "dotenv": "^4.0.0",
@@ -63,6 +66,7 @@
     "node-sass": "^4.5.3",
     "nodemailer": "^4.1.0",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^4.1.2",
     "pg": "^7.0.2",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.10",
