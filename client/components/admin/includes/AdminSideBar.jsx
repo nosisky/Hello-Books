@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 
 class AdminSideBar extends Component {
@@ -41,10 +43,10 @@ class AdminSideBar extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-    addCategoryAction(this.state)
+    this.props.actions.addCategoryAction(this.state)
     .then((message) => {
       Materialize.toast(message, 2000, 'blue');
-      window.location.href ='/admin';      
+      $('.modal').modal('close');
     }).catch((err) => err)
   }
 
@@ -186,4 +188,13 @@ class AdminSideBar extends Component {
   }
 }
 
-export default AdminSideBar;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      addCategoryAction,
+    }, dispatch)
+  };
+}
+
+
+export default connect(null, mapDispatchToProps)(AdminSideBar);

@@ -30,11 +30,7 @@ export default class AllBooks extends Component {
           } else {
             swal(res, {icon: "warning"});
           }
-        }).then((res) => {
-          if (res) {
-            window.location.href ='/rented-books';
-          }
-        }).catch((error) => error)
+        })
 
       }
     });

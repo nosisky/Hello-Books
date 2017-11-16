@@ -75,7 +75,7 @@ class AdminHome extends Component {
             <div className="row">
                 <AdminSideBar fullname={this.props.user.fullname}/>
 
-                <div className="col s9" id="list_boy">
+                <div className="col s12 l9" id="list_boy">
                     {allbooks.map((book) => {
                         return (<AllBooks
                             prodYear={book.prodYear}
@@ -106,7 +106,8 @@ class AdminHome extends Component {
 }
 
 function mapStateToProps(state) {
-    return {books: state.book.data, user: state.auth.user.currentUser}
+    return {books: state.book.data,
+         user: state.auth.user.currentUser}
 }
 
 AdminHome.PropTypes = {

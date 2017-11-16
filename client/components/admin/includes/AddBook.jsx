@@ -351,7 +351,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  return { category: state.book.data }
+  return { category: state.book.category }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBook);

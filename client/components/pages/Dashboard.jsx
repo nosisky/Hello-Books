@@ -36,7 +36,7 @@ class Dashboard extends Component {
         fullname={this.props.user.fullname}
         isAdmin={this.props.user.isAdmin}/>
         <div className="row">
-          <div className="col s9">
+          <div className="col s12 l9">
             {allbooks.map((book) => {
               return (<AllBooks
                 prodYear={book.prodYear}
@@ -82,7 +82,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getAllBooksAction
+      getAllBooksAction,
     }, dispatch)
   };
 }

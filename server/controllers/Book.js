@@ -90,10 +90,11 @@ export default {
   addCategory(req, res) {
     return Category
       .create(req.body)
-      .then((cat) => {
-        if (cat) {
+      .then((category) => {
+        if (category) {
           return res.status(201).send({
-            message: 'Category added successfully'
+            message: 'Category added successfully',
+            category
           });
         }
       })
@@ -141,9 +142,15 @@ export default {
             id: req.params.bookId
           }
         })
-      .then(() => res.status(200).send({
-        message: 'Book updated successfully!'
-      }))
+      .then(() => {
+        Book.findById(req.params.bookId)
+          .then((book) => {
+            res.status(200).send({
+              book,
+              message: 'Book updated successfully!'
+            });
+          });
+      })
       .catch(error => res.status(400).send(error));
   },
   /** User get a specific book

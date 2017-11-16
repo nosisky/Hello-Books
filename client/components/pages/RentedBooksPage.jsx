@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import loadJS from 'load-js';
 import PropTypes from 'prop-types';
-import {getSpecificBook} from '../../actions/BookActions';
+import {getSpecificBook, returnBook, getRentedBooksAction} from '../../actions/BookActions';
 import {bindActionCreators} from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import RentedBooks from '../includes/RentedBooks';
-import {getRentedBooksAction} from '../../actions/BookActions';
 
 class RentedBooksPage extends Component {
   constructor(props) {
@@ -54,6 +53,7 @@ class RentedBooksPage extends Component {
                   userId={this.props.user.userId}
                   key={book.id}
                   isReturned={book.returned}
+                  returnBook={this.props.actions.returnBook}
                   title={book.title}
                   cover={book.cover}
                   userId={book.userId}/>)
@@ -89,7 +89,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getRentedBooksAction
+      getRentedBooksAction,
+      returnBook
     }, dispatch)
   };
 }

@@ -64,9 +64,9 @@ class AllBooks extends Component {
   }
   handleFormSubmit(e) {
     e.preventDefault();
-    modifyBookAction(this.state, this.props.id).then((res) => {
-      Materialize.toast(res, 2000, 'blue', () => {
-        window.location.href ='/admin';
+    this.props.actions.modifyBookAction(this.state, this.props.id).then((res) => {
+      Materialize.toast(res, 1000, 'blue', () => {
+        this.setState({displayBook: true, edit: false})
       });
     })
   }
@@ -214,7 +214,8 @@ class AllBooks extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      deleteBookAction
+      deleteBookAction,
+      modifyBookAction
     }, dispatch)
   };
 }
