@@ -37,4 +37,9 @@ class AuthForm extends Component {
     }
 }
 
-export default connect(null, {registerUserAction, loginAction})(AuthForm);
+function mapStateToProps(state) {
+  return { message: state.auth.message }
+}
+
+
+export default connect(mapStateToProps, {registerUserAction, loginAction})(AuthForm);

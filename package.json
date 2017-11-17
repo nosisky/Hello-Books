@@ -5,10 +5,13 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server.js",
+    "client:coverage": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --compilers js:babel-register ./server/test/**/*.spec.js --timeout 400000 --exit",
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.dev.js",
     "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test/server ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test/server ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "client:test": "jest --coverage cli",
+    "test:watch": "npm run client:test -- --watch",
     "build": "webpack --progress --config ./webpack.config.prod.js",
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
     "migrate:undo": "sequelize db:seed:undo",
@@ -23,6 +26,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nosisky/Hello-Books/issues"
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "testPathIgnorePatterns": [
+      "client/test/__mocks__"
+    ]
   },
   "homepage": "https://github.com/nosisky/Hello-Books#readme",
   "dependencies": {
@@ -53,9 +63,11 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "expect": "^21.2.1",
     "express": "^4.15.3",
     "express-validator": "^3.2.1",
     "fast-uglifyjs-plugin": "^0.3.0",
+    "fetch-mock": "^5.13.1",
     "file-loader": "^0.11.2",
     "firebase": "^3.9.0",
     "html-webpack-plugin": "^2.30.1",
@@ -80,8 +92,9 @@
     "react-google-login": "^3.0.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.1.2",
-    "react-router-dom": "^4.1.2",
+    "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "redux-mock-store": "^1.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "sequelize": "^4.4.2",
@@ -98,12 +111,17 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
     "babel-plugin-istanbul": "^4.1.4",
+    "chai": "^4.1.2",
     "coveralls": "^2.13.1",
+    "enzyme-adapter-react-15": "^1.0.5",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "mocha-lcov-reporter": "^1.3.0",
+    "moxios": "^0.4.0",
     "nyc": "^11.1.0",
+    "react-test-renderer": "^16.1.1",
     "should": "^11.2.1",
     "supertest": "^3.0.0"
   }

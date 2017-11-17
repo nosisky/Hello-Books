@@ -124,7 +124,7 @@ class Profile extends React.Component {
           </div>
         </div>
         {this.state.profile && <div className="row">
-          <div className="col s12 l9">
+          <div className="col s12 l9 push-l3">
             <div className="user-profile">
               <img
                 className="avatar"

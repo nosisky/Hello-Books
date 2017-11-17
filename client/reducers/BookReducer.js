@@ -48,7 +48,6 @@ function BookReducer(state = INITIAL_STATE, action) {
         newData.push(book);
       }
       );
-      console.log(newData);
       return { ...state, data: newData };
     }
     default:

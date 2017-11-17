@@ -40,9 +40,10 @@ class SearchPage extends Component {
     }
     return (
       <div className="row">
-        <SideBar />
+        <SideBar fullname={this.props.user.fullname} 
+        isAdmin={this.props.user.isAdmin}/>
         <div className="row">
-        <div className="col s9">
+        <div className="col s12 push-l3 m9">
           {allbooks.map((book) => {
             return (<SearchResult
               prodYear={book.prodYear}

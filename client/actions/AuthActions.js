@@ -15,6 +15,14 @@ const SEARCH_API_URL = '/api/v1/search';
  * @returns {Object}
  */
 
+export function setCurrentUser(decoded) {
+  return {
+    type: SET_CURRENT_USER,
+    user: decoded.currentUser,
+    authenticated: true
+  };
+}
+
 export function registerUserAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signup`, userDetails)
     .then((res) => {
@@ -29,23 +37,20 @@ export function registerUserAction(userDetails) {
     });
 }
 
+
 /** Login action 
  * @param {Object} userDetails 
  * @returns { Object }
  */
 
 export function loginAction(userDetails) {
-  return dispatch =>
-    axios.post(`${API_URL}/signin`, userDetails).then((res) => {
+  return dispatch => axios.post(`${API_URL}/signin`, userDetails)
+    .then((res) => {
       const token = res.data.Token;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
       const decoded = jwt.decode(res.data.Token);
-      dispatch({
-        type: SET_CURRENT_USER,
-        user: decoded.currentUser,
-        authenticated: true
-      });
+      dispatch(setCurrentUser(decoded));
     });
 }
 

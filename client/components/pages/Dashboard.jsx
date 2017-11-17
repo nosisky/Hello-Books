@@ -28,15 +28,12 @@ class Dashboard extends Component {
         <h2>There is no book in the database</h2>
       </div>;
     }
-    return (
-      <div className="row">
+    return (<div>
+
         <div className="card-panel teal user-book-header">
           <center>Recently Added Books</center></div>
-        <SideBar 
-        fullname={this.props.user.fullname}
-        isAdmin={this.props.user.isAdmin}/>
         <div className="row">
-          <div className="col s12 l9">
+        <div className="col s12 push-l3 m9">
             {allbooks.map((book) => {
               return (<AllBooks
                 prodYear={book.prodYear}
@@ -52,17 +49,20 @@ class Dashboard extends Component {
                 description={book.description}/>)
             })
 }
-          </div>
+        </div>
+        <SideBar 
+        fullname={this.props.user.fullname}
+        isAdmin={this.props.user.isAdmin}/>
         </div>
       </div>
-
     )
   }
 
   render() {
     return (
       <div>
-        <Header fullname={this.props.user.fullName}/> {this.renderBooks()}
+        <Header fullname={this.props.user.fullName}/> 
+        {this.renderBooks()}
       </div>
     )
   }

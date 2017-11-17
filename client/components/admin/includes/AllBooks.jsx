@@ -141,7 +141,7 @@ class AllBooks extends Component {
                       required/>
                   </div>
                   <div className="input-field col s6">
-                    <b>Prod. Year</b>
+                    <b>Year</b>
                     <input
                       id="prodYear"
                       name="prodYear"
@@ -150,30 +150,6 @@ class AllBooks extends Component {
                       onChange={this.onChange}
                       className="validate"
                       required/>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>ISBN</b>
-                    <input
-                      id="isbn"
-                      name="isbn"
-                      type="text"
-                      onChange={this.onChange}
-                      defaultValue={this.state.isbn}
-                      className="validate"
-                      required/>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>Description</b>
-                    <textarea
-                      id="description"
-                      className="materialize-textarea"
-                      name="description"
-                      onChange={this.onChange}
-                      defaultValue={this.state.description}></textarea>
                   </div>
                 </div>
               </div>

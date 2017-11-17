@@ -3,7 +3,7 @@ import NavBar from '../includes/NavBar';
 import AuthForm from '../auth/AuthForm';
 import { connect } from 'react-redux';
 
-class HomePage extends Component {
+export class HomePage extends Component {
   render() {
     if (localStorage.getItem('token')) {
       window.location.href ='/dashboard';      
@@ -11,14 +11,9 @@ class HomePage extends Component {
     return (
       <div>
         <NavBar/>
-        <AuthForm message={this.props.message}/>
+        <AuthForm />
       </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  return { message: state.auth.message }
-}
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

@@ -120,23 +120,23 @@ class AdminSideBar extends Component {
                 <li className="divider"></li>
                 <li id="menu-list">
                   <Link to="/add-book">Add a book
-                    <i className="material-icons">chevron_right</i>
+                    <i className="material-icons">add</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <a data-target="add_cat" className="modal-trigger" href="#add_cat">Add Category<i className="material-icons">chevron_right</i>
+                  <a data-target="add_cat" className="modal-trigger" href="#add_cat">Add Category<i className="material-icons">add</i>
                   </a>
                 </li>
                 <li id="menu-list">
-                  <Link to="/admin">Edit Books<i className="material-icons">chevron_right</i>
+                  <Link to="/admin">Edit Books<i className="material-icons">edit</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <Link to="/admin">Delete Books<i className="material-icons">chevron_right</i>
+                  <Link to="/admin">Delete Books<i className="material-icons">delete</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <Link to="/dashboard">User Dashboard<i className="material-icons">chevron_right</i>
+                  <Link to="/dashboard">User Dashboard<i className="material-icons">person</i>
                   </Link>
                 </li>
               </ul>

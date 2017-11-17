@@ -252,6 +252,9 @@ h5 {
   font-size: 12px;
 }
 
+#profile_edit {
+  padding: 30px !important;  
+}
 .nav-wrapper {
   background-color: $navWrapper !important;
 }
@@ -346,6 +349,7 @@ h5 {
   margin-top: 5px;
   background: #fff;
   border-radius: .3em;
+  padding: 30px;
 }
 
 .user-profile  .username {
@@ -427,6 +431,22 @@ h5 {
 .card .card-content .card-title {
   width: max-content;
 }
+
+@media screen and (max-width: 1366px) and (min-width: 1024px) {  
+  .side-nav{
+    width: 250px !important;
+  }
+}
+
+@media screen and (min-width: 1366px) {  
+  .side-nav{
+    width: 360px !important;
+  }
+}
+
+// .side-nav{
+//   width: 360px !important;
+// }
 
 .card{
   height: 420px !important;

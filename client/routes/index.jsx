@@ -1,5 +1,5 @@
 import React from 'react';  
-import { Route, Switch} from 'react-router-dom';
+import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
 import App from '../components/app';
 import NotFoundPage from '../components/pages/NotFoundPage';
