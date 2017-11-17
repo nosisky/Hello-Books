@@ -48,7 +48,7 @@ app.use(express.static('./client/public/')); // configure static files folder
 app.use('/api/docs/', express.static(path.join(__dirname, 'server/api-docs/')));
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(webpackMiddleware(webpack(webpackConfig)));
+ // app.use(webpackMiddleware(webpack(webpackConfig)));
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
