@@ -15,3 +15,5 @@ ratings:
 exclude_paths:
 - tests
 - client/public
+- client/test
+- client/test/__mocks__
