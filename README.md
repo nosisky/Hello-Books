@@ -113,6 +113,7 @@ An API route that allows users get a specific book
 > GET : ```/api/v1/books/logs/:userId```
 An API route that allows users see rented book history
 
+
 ## How to Contribute
 Contributions to this project are welcomed, If you need to contribute to this project, kindly take steps below
 * **Fork** the repository
