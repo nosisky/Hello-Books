@@ -5,6 +5,7 @@ import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import {bindActionCreators} from 'redux';
 import {editProfileAction} from '../../actions/AuthActions';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -191,6 +192,7 @@ class Profile extends React.Component {
           </div>
 
         </div>}
+        <DashboardFooter/>
       </div>
     )
   }

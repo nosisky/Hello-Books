@@ -13,7 +13,7 @@ class SideBar extends Component {
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
+      click: true, // Activate on hover
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
@@ -74,7 +74,7 @@ class SideBar extends Component {
             <i className="material-icons">person</i>
           </Link>
         </li>
-       {this.props.isAdmin && <li id="menu-list">
+       {this.props.isAdmin === 1 && <li id="menu-list">
           <Link to="/admin">Admin Section
             <i className="material-icons">verified_user</i>
           </Link>

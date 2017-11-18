@@ -129,7 +129,7 @@ class Register extends Component {
         <form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
           <div className="form-container">
             <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field col s6">
                 <input
                   name="fullName"
                   type="text"
@@ -140,9 +140,7 @@ class Register extends Component {
                 <div className="red-text">{this.state.fullNameError}
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field col s6">
                 <input
                   name="username"
                   type="text"

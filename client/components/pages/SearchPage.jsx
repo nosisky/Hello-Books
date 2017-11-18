@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import SearchResult from '../includes/SearchResult';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class SearchPage extends Component {
     return (
       <div>
         <Header/> {this.renderBooks()}
+        <DashboardFooter/>
       </div>
     )
   }

@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar'
 import AllBooks from '../includes/AllBooks';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class Dashboard extends Component {
       <div>
         <Header fullname={this.props.user.fullName}/> 
         {this.renderBooks()}
+        <DashboardFooter />
       </div>
     )
   }

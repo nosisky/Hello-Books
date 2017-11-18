@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import RentedBooks from '../includes/RentedBooks';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class RentedBooksPage extends Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class RentedBooksPage extends Component {
     return (
       <div>
         <Header/> {this.renderRentedBooks()}
+        <DashboardFooter />
       </div>
     )
   }

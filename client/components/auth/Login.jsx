@@ -45,7 +45,7 @@ class Login extends Component {
       .then((data) => {
         this.setState({isLoading: false})
           Materialize.toast('Logged In Successfully', 2000, 'blue darken-4', () => {
-            window.location.href ='/admin';            
+           window.location.href ='/admin';            
         });
       }, (data) => {
         this.setState({loginError: data.response.data.message, isLoading: false});

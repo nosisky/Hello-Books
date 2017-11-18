@@ -253,6 +253,12 @@ export default {
       .catch(error => res.status(400).send(error));
   },
 
+  /** Gets the list of category from database
+   * @param  {object} req - request
+   * @param  {object} res - response
+   * Route: PUT: /books/category
+   */
+
   getCategory(req, res) {
     return Category.findAll({})
       .then((category) => {
