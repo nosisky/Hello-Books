@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
-import webpackConfig from './webpack.config';
+import webpackConfig from './webpack.config.prod';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
 import CategoryRouter from './server/routes/category';
@@ -43,9 +43,13 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 app.use(logger('dev'));
+app.use(express.static('./client/')); // configure static files folder
 app.use(express.static('./client/public/')); // configure static files folder
 app.use('/api/docs/', express.static(path.join(__dirname, 'server/api-docs/')));
-app.use(webpackMiddleware(webpack(webpackConfig)));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(webpackMiddleware(webpack(webpackConfig)));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());

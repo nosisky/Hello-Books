@@ -37,7 +37,11 @@ class AllBooks extends Component {
   }
 
   handleClick() {
-    swal({title: "Are you sure?", text: "Once deleted, you will not be able to recover it back!", icon: "warning", buttons: true, dangerMode: true}).then((willDelete) => {
+    swal({title: "Are you sure?", text: "Once deleted, you will not be able to recover it back!", 
+    icon: "warning", 
+    buttons: true, 
+    dangerMode: true})
+    .then((willDelete) => {
       if (willDelete) {
         this
           .props
@@ -60,9 +64,9 @@ class AllBooks extends Component {
   }
   handleFormSubmit(e) {
     e.preventDefault();
-    modifyBookAction(this.state, this.props.id).then((res) => {
-      Materialize.toast(res, 2000, 'blue', () => {
-        window.location.href ='/admin';
+    this.props.actions.modifyBookAction(this.state, this.props.id).then((res) => {
+      Materialize.toast(res, 1000, 'blue', () => {
+        this.setState({displayBook: true, edit: false})
       });
     })
   }
@@ -137,7 +141,7 @@ class AllBooks extends Component {
                       required/>
                   </div>
                   <div className="input-field col s6">
-                    <b>Prod. Year</b>
+                    <b>Year</b>
                     <input
                       id="prodYear"
                       name="prodYear"
@@ -148,40 +152,17 @@ class AllBooks extends Component {
                       required/>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>ISBN</b>
-                    <input
-                      id="isbn"
-                      name="isbn"
-                      type="text"
-                      onChange={this.onChange}
-                      defaultValue={this.state.isbn}
-                      className="validate"
-                      required/>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>Description</b>
-                    <textarea
-                      id="description"
-                      className="materialize-textarea"
-                      name="description"
-                      onChange={this.onChange}
-                      defaultValue={this.state.description}></textarea>
-                  </div>
-                </div>
               </div>
               <button
                 style={style.edit}
-                className="btn"
                 type="submit"
                 name="submit">Edit Book
               </button>
-              <br/>
-              <div className="card-action">
-              <a style={style.cancel} onClick={this.changeView} id="edit_button">Cancel</a>
+              <div>
+              <button
+              style={style.cancel} 
+              onClick={this.changeView} 
+              id="edit_button">Cancel</button>
             </div>
             </form>
           </div>
@@ -209,7 +190,8 @@ class AllBooks extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      deleteBookAction
+      deleteBookAction,
+      modifyBookAction
     }, dispatch)
   };
 }

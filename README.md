@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/nosisky/Hello-Books.svg?branch=implement-tests)](https://travis-ci.org/nosisky/Hello-Books) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/nosisky/Hello-Books)
 [![Coverage Status](https://coveralls.io/repos/github/nosisky/Hello-Books/badge.svg?branch=implement-tests)](https://coveralls.io/github/nosisky/Hello-Books?branch=implement-tests)
+[![Issue Count](https://codeclimate.com/github/ekundayo-ab/hello-books/badges/issue_count.svg)](https://codeclimate.com/github/nosisky/hello-books)
 # Hello-Books 
 ### Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. With this application users are able to find and rent books. The application also has an admin section where the admin can do things like add books, delete books, increase the quantity of a book etc.
 
@@ -112,3 +113,23 @@ An API route that allows users get a specific book
 > GET : ```/api/v1/books/logs/:userId```
 An API route that allows users see rented book history
 
+## How to Contribute
+Contributions to this project are welcomed, If you need to contribute to this project, kindly take steps below
+* **Fork** the repository
+* Follow [Installation and Setup](#installation-and-setup) as explained earlier
+* Create a branch off **master** for the feature you wish to add
+* Make neccessary changes, commit and raise a pull request against develop
+**Note** when making contributions, please endevour to follow the [Airbnb](https://github.com/airbnb/javascript) javascript style guide. check out the [wiki]
+
+## License
+This project is authored by **Abdulrasaq Nasirudeen** (nosisky@gmail.com) and is licensed for your use, modification and distribution under the **MIT** license.
+[MIT][license] © [nosisky][author]
+<!-- Definitions -->
+[license]: LICENSE
+[author]: Abdulrasaq Nasirudeen
+
+### FAQs
+For more details contact nosisky@gmail.com
+
+### Support or New Features
+Having new features you feel I can add to HelloBooks? Kindly contact as above, I'll look into it. Thanks.

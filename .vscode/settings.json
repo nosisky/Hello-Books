@@ -13,8 +13,6 @@
   "files.associations": {
     "*.jsx": "javascriptreact"
   },
-  "[javascriptreact]": {
-
-  },
+  "[javascriptreact]": {},
   "extensions.ignoreRecommendations": false
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import { returnBook } from '../../actions/BookActions';
 
 export default class RentedBooks extends Component {
   constructor(props) {
@@ -19,11 +18,11 @@ export default class RentedBooks extends Component {
       dangerMode: true
     }).then((willReturn) => {
       if (willReturn) {
-        returnBook(this.props.userId, {bookId: this.props.id}).then((res) => {
+        this.props.returnBook(this.props.userId, {bookId: this.props.id})
+        .then((res) => {
           if (res) {
             {
               swal(res.message, {icon: 'success'});
-              window.location.href = '/rented-books';
             }
           } else {
             swal(res, {icon: 'warning'});

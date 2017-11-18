@@ -193,12 +193,9 @@ class AddBook extends Component {
         style={{
         marginTop: 20,
         backgroundColor: '#fff',
-        width: '70%',
-        float: 'right',
-        marginRight: 100
       }}>
         <div className="row">
-          <form name="add_book" className="col s12" onSubmit={this.handleSubmit}>
+          <form name="add_book" className="col s12 l9 push-l3" onSubmit={this.handleSubmit}>
             <div className="add-book">
               <div className="row">
                 <div className="input-field col s6">
@@ -351,7 +348,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 function mapStateToProps(state) {
-  return { category: state.book.data }
+  return { category: state.book.category }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBook);

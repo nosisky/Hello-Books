@@ -13,7 +13,6 @@ module.exports = {
     publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
-
   externals: {
     Materialize: 'Materialize'
   },
@@ -27,17 +26,12 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
       Hammer: 'hammerjs/hammer'
-    })
+    }),
   ],
   module: {
     rules: [

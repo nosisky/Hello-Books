@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import SearchResult from '../includes/SearchResult';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -40,9 +41,10 @@ class SearchPage extends Component {
     }
     return (
       <div className="row">
-        <SideBar />
+        <SideBar fullname={this.props.user.fullname} 
+        isAdmin={this.props.user.isAdmin}/>
         <div className="row">
-        <div className="col s9">
+        <div className="col s12 push-l3 m9">
           {allbooks.map((book) => {
             return (<SearchResult
               prodYear={book.prodYear}
@@ -68,6 +70,7 @@ class SearchPage extends Component {
     return (
       <div>
         <Header/> {this.renderBooks()}
+        <DashboardFooter/>
       </div>
     )
   }

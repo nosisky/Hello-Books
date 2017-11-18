@@ -5,6 +5,7 @@ import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import {bindActionCreators} from 'redux';
 import {editProfileAction} from '../../actions/AuthActions';
+import  DashboardFooter from '../includes/DashboardFooter';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -53,20 +54,21 @@ class Profile extends React.Component {
     return (
       <div className="row">
         <Header/>
-        <SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin}/> {this.state.edit && <div id="edit">
-          <div
+        <SideBar fullname={this.props.user.fullname} 
+        isAdmin={this.props.user.isAdmin}/> 
+        <div id="edit">
+          <div id="profile_edit"
             style={{
             backgroundColor: '#fff',
-            float: 'right',
-            width: '80%'
           }}
-            className="row">
+            className="row modal">
             <h4
               style={{
               alignContent: 'center',
               marginLeft: '20px'
             }}>Edit Profile</h4>
-            <form className="col s12" name="edit_profile" onSubmit={this.handleSubmit}>
+            <div class="modal-content">
+            <form  name="edit_profile" onSubmit={this.handleSubmit}>
               <div className="edit-profile">
                 <div className="row">
                   <div className="input-field col s12">
@@ -119,10 +121,11 @@ class Profile extends React.Component {
                 name="submit">Submit
               </button>
             </form>
+            </div>
           </div>
-        </div>}
+        </div>
         {this.state.profile && <div className="row">
-          <div className="col s12 m3 l9">
+          <div className="col s12 l9 push-l3">
             <div className="user-profile">
               <img
                 className="avatar"
@@ -178,7 +181,7 @@ class Profile extends React.Component {
 
               <ul className="data">
                 <li className="right-align">
-                  <button className="btn" onClick={this.displayEdit}>Edit Profile</button>
+                  <a className="btn modal-trigger" href="#profile_edit">Edit Profile</a>
                 </li>
                 <li className="right-align">
                   <Link className="waves-effect waves-light btn" to="/rented-books">Rented Books</Link>
@@ -189,6 +192,7 @@ class Profile extends React.Component {
           </div>
 
         </div>}
+        <DashboardFooter/>
       </div>
     )
   }

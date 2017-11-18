@@ -10,11 +10,15 @@ html {
 }
 
 body {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(25, 25, 25, 0.79)), url(/img/bg.jpg);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.78), rgba(25, 25, 25, 0.88)), url(/img/bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 900px;
   margin: 0 0 100px;
+}
+
+.blue.darken-4 {
+  background-color: #1a5261 !important;
 }
 
 #container {
@@ -111,9 +115,19 @@ h5 {
   }
 }
 
+.page-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #1a5261;
+  left: 0;
+}
+
 .main-auth {
-  width: 50%;
+  width: 90%;
   margin-top: 80px;
+  float: right;
+  margin-right: 30px;
 }
 
 .tab {
@@ -198,6 +212,7 @@ h5 {
   font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
   padding: 5px !important;
+  margin-top: 1px;
 }
 
 .card-action {
@@ -251,6 +266,9 @@ h5 {
   font-size: 12px;
 }
 
+#profile_edit {
+  padding: 30px !important;  
+}
 .nav-wrapper {
   background-color: $navWrapper !important;
 }
@@ -345,6 +363,7 @@ h5 {
   margin-top: 5px;
   background: #fff;
   border-radius: .3em;
+  padding: 30px;
 }
 
 .user-profile  .username {
@@ -427,8 +446,26 @@ h5 {
   width: max-content;
 }
 
+@media screen and (max-width: 1366px) and (min-width: 1024px) {  
+  .side-nav{
+    width: 250px !important;
+  }
+}
+
+@media screen and (min-width: 1366px) {  
+  .side-nav{
+    width: 360px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {  
+  .side-nav{
+    width: 260px !important;
+  }
+}
+
 .card{
-  max-height: 600px !important;
+  height: 420px !important;
 }
 
 .empty-notifier {
@@ -437,6 +474,7 @@ h5 {
   margin-right: 50px;
   background: $circular;
   padding: 40px;
+  margin: 30px
 }
 
 .notfound {

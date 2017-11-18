@@ -33,7 +33,6 @@ export default class SearchResult extends Component {
           }
         }).then((res) => {
           if (res) {
-            window.location.href ='/rented-books';
           }
         }).catch((error) => error)
 

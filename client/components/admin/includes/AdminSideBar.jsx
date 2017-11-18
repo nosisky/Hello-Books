@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 
 class AdminSideBar extends Component {
@@ -41,10 +43,10 @@ class AdminSideBar extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-    addCategoryAction(this.state)
+    this.props.actions.addCategoryAction(this.state)
     .then((message) => {
       Materialize.toast(message, 2000, 'blue');
-      window.location.href ='/admin';      
+      $('.modal').modal('close');
     }).catch((err) => err)
   }
 
@@ -118,23 +120,23 @@ class AdminSideBar extends Component {
                 <li className="divider"></li>
                 <li id="menu-list">
                   <Link to="/add-book">Add a book
-                    <i className="material-icons">chevron_right</i>
+                    <i className="material-icons">add</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <a data-target="add_cat" className="modal-trigger" href="#add_cat">Add Category<i className="material-icons">chevron_right</i>
+                  <a data-target="add_cat" className="modal-trigger" href="#add_cat">Add Category<i className="material-icons">add</i>
                   </a>
                 </li>
                 <li id="menu-list">
-                  <Link to="/admin">Edit Books<i className="material-icons">chevron_right</i>
+                  <Link to="/admin">Edit Books<i className="material-icons">edit</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <Link to="/admin">Delete Books<i className="material-icons">chevron_right</i>
+                  <Link to="/admin">Delete Books<i className="material-icons">delete</i>
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <Link to="/dashboard">User Dashboard<i className="material-icons">chevron_right</i>
+                  <Link to="/dashboard">User Dashboard<i className="material-icons">person</i>
                   </Link>
                 </li>
               </ul>
@@ -186,4 +188,13 @@ class AdminSideBar extends Component {
   }
 }
 
-export default AdminSideBar;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      addCategoryAction,
+    }, dispatch)
+  };
+}
+
+
+export default connect(null, mapDispatchToProps)(AdminSideBar);

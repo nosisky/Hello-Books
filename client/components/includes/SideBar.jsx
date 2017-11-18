@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 class SideBar extends Component {
   componentDidMount(){
     $('.button-collapse').sideNav({
-      menuWidth: 300, // Default is 300
       edge: 'left', // Choose the horizontal origin
+      menuWidth: '300',
       closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
       draggable: true // Choose whether you can drag to open on touch screens
     });
@@ -13,7 +13,7 @@ class SideBar extends Component {
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
+      click: true, // Activate on hover
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
@@ -24,8 +24,7 @@ class SideBar extends Component {
   }
   render() {
     return (
-         <div className="col s2 m3 l3">
-      <ul id="slide-out" className="side-nav fixed show-on-large-only">
+      <ul id="slide-out" className="col s2 m3 l3 side-nav fixed show-on-large-only">
         <div
           style={{
           textAlign: 'center',
@@ -57,31 +56,30 @@ class SideBar extends Component {
         <li className="divider"></li>
         <li id="menu-list">
           <Link to='rented-books'>Rent History
-            <i className="material-icons">chevron_right</i>
+            <i className="material-icons">history</i>
           </Link>
         </li>
         <li id="menu-list">
           <Link to="/dashboard">Rent a Book
-            <i className="material-icons">chevron_right</i>
+            <i className="material-icons">reorder</i>
           </Link>
         </li>
         <li id="menu-list">
           <Link to="rented-books">Rented Books
-            <i className="material-icons">chevron_right</i>
+            <i className="material-icons">filter_list</i>
           </Link>
         </li>
         <li id="menu-list">
           <Link to="profile">My Profile
-            <i className="material-icons">chevron_right</i>
+            <i className="material-icons">person</i>
           </Link>
         </li>
-       {this.props.isAdmin && <li id="menu-list">
+       {this.props.isAdmin === 1 && <li id="menu-list">
           <Link to="/admin">Admin Section
-            <i className="material-icons">chevron_right</i>
+            <i className="material-icons">verified_user</i>
           </Link>
         </li>} 
       </ul>
-    </div>
     );
   }
 }

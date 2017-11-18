@@ -4,7 +4,9 @@ import { ADD_BOOK,
   GET_ALL_BOOKS,
   GET_RENTED_BOOKS,
   GET_CATEGORY,
+  ADD_CATEGORY,
   SEARCH_BOOK,
+  EDIT_BOOK,
   RETURN_RENTED_BOOK,
   DELETE_BOOK
 } from './types';
@@ -72,8 +74,14 @@ export function deleteBookAction(bookId) {
  */
 
 export function modifyBookAction(bookData, bookId) {
-  return axios.put(`${API_URL}/${bookId}`, bookData)
-    .then(res => res.data.message)
+  return dispatch => axios.put(`${API_URL}/${bookId}`, bookData)
+    .then((res) => {
+      dispatch({
+        type: EDIT_BOOK,
+        data: res.data.book
+      });
+      return res.data.message;
+    })
     .catch(error => error);
 }
 
@@ -84,8 +92,14 @@ export function modifyBookAction(bookData, bookId) {
  */
 
 export function addCategoryAction(data) {
-  return axios.post(`${API_URL}/cat`, data)
-    .then(res => res.data.message)
+  return dispatch => axios.post(`${API_URL}/cat`, data)
+    .then((res) => {
+      dispatch({
+        type: ADD_CATEGORY,
+        data: res.data.category
+      });
+      return res.data.message;
+    })
     .catch(error => error);
 }
 
@@ -126,8 +140,14 @@ export function getRentedBooksAction(userId) {
  */
 
 export function returnBook(userId, bookId) {
-  return axios.put(`${USER_API_URL}/${userId}/books`, bookId)
-    .then(res => res.data)
+  return dispatch => axios.put(`${USER_API_URL}/${userId}/books`, bookId)
+    .then((res) => {
+      dispatch({
+        type: RETURN_RENTED_BOOK,
+        data: res.data.book
+      });
+      return res.data.message;
+    })
     .catch(error => error);
 }
 
