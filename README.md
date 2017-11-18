@@ -71,15 +71,18 @@ HelloBooks consists of the following features:
 - npm install -g seqeulize-cli
 - cd server
 - sequelize db:migrate
-```
-> Create a `.env` file in the root directory of the application. Use a different database for your testing and development. Example of the content of a .env file looks like this. Additionally, the contentof the .env.sample file should give you an overview of what the environment variables should look like.
-```
-secretKey=mysecretkey
-DATABASE_TEST_URL=postgres://127.0.0.1:8000/hello-books-test
 
+
+```
+> Create a `.env` file in the root directory of the application. Use a different database for your testing and development. Example of the content of a .env file looks like this. Additionally, the contentof the .env.sample file should give you an overview of what the environment variables should look like. ```
+
+
+## Sample environment config
+- SecretKey=mysecretkey
+- DATABASE_TEST_URL=postgres://127.0.0.1:8000/hello-books-test
+- More details can be found in the .env.sample file
 
 ## API Routes
-
 > POST : ```/api/v1/users/signup```
 API routes for users to create accounts and login to the application
 
