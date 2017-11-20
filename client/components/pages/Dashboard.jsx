@@ -117,10 +117,11 @@ Dashboard.PropTypes = {
 }
 
 function mapStateToProps(state) {
+  console.log(state.book)
   return {
     user: state.auth.user.currentUser, 
-    books: state.book.data.rows,
-    count: state.book.data.count
+    books: state.book.data,
+    count: state.book.count
   }
 }
 
