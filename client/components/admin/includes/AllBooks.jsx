@@ -174,7 +174,7 @@ class AllBooks extends Component {
             <img height="250px" src={this.props.cover} alt="loading image..."/>
             <span className="card-title">{this.props.title}</span>
           </div>
-          <div className="card-content">
+          <div className="truncate card-content">
             <p>{this.props.description}</p>
           </div>
           <div className="card-action">

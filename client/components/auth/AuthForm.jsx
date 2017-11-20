@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import Login from './Login';
 import Register from './Register';
-import { registerUserAction, loginAction } from '../../actions/AuthActions';
 import { checkUserExist, checkEmailExist, reMap } from '../../utils/Validation';
 
-class AuthForm extends Component {
+export default class AuthForm extends Component {
     render() {
         const {registerUserAction, loginAction} = this.props;
         return (
@@ -37,9 +36,3 @@ class AuthForm extends Component {
     }
 }
 
-function mapStateToProps(state) {
-  return { message: state.auth.message }
-}
-
-
-export default connect(mapStateToProps, {registerUserAction, loginAction})(AuthForm);

@@ -4,9 +4,10 @@ import GoogleLogin from './GoogleLogin';
 import { checkEmailExist, reMap } from '../../utils/Validation';
 import { registerUserAction, getUserByEmailAction } from '../../actions/AuthActions';
 import { connect } from 'react-redux';
+import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
-class Login extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -140,5 +141,3 @@ class Login extends Component {
     )
   }
 }
-
-export default connect(null, {registerUserAction})(Login);

@@ -26,6 +26,7 @@ export default {
           userId: user.id,
           username: user.username,
           fullname: user.fullName,
+          email: user.email,
           isAdmin: user.isAdmin,
           plan: user.plan,
           active: user.active };

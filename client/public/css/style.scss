@@ -108,6 +108,23 @@ h5 {
   background-color: $navbar;
 }
 
+.pagination {
+  display: inline-block;
+  width: 100% !important;  
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination li.active a {
+  background-color: #1a5260 !important;
+}
+
 @media screen and (max-width: 800px) {
   .main-auth {
     width: 80% !important;

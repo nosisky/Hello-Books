@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
+import ReactPaginate from 'react-paginate';
 import AdminHeader from './includes/AdminHeader';
 import AllBooks from './includes/AllBooks';
 import AddBook from './includes/AddBook';
@@ -19,29 +20,58 @@ class AdminHome extends Component {
         this.logout = this
             .logout
             .bind(this);
+        this.handlePageChange = this 
+            .handlePageChange
+            .bind(this);
+        this.renderPagination = this 
+            .renderPagination
+            .bind(this);
     }
     componentDidMount() {
         this
             .props
             .actions
-            .getAllBooksAction();
+            .getAllBooksAction(1);
     }
 
     logout(event) {
-
         event.preventDefault();
-
         this
             .props
             .actions
             .logoutAction();
-
         this
             .context
             .router
             .push('/');
 
     }
+
+    handlePageChange(page){
+        console.log(page)
+        this
+        .props
+        .actions
+        .getAllBooksAction(page.selected + 1);
+      }
+    
+      renderPagination(count){
+        return(
+          <ReactPaginate
+          previousLabel={<i className="material-icons">chevron_left</i>}
+          nextLabel={<i className="material-icons">chevron_right</i>}
+          breakLabel={<a href="">...</a>}
+          breakClassName={"break-me"}
+          pageCount={this.props.count/8}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          initialPage={count}
+          onPageChange={this.handlePageChange}
+          containerClassName={"pagination center-align"}
+          activeClassName={"active"}
+        />
+        )
+      }
 
     handleClick(bookId) {
         swal({title: "Are you sure?", text: "Once deleted, you will not be able to recover it back!", icon: "warning", buttons: true, dangerMode: true}).then((willDelete) => {
@@ -59,16 +89,16 @@ class AdminHome extends Component {
         const {fullname} = this.props.user;
 
         const allbooks = this.props.books;
-        if (!allbooks) {
-            return <div
-                style={{
-                backgroundColor: '#fff',
-                float: 'right',
-                marginLeft: '-100px',
-                marginRight: '-50px'
-            }}>
-                <h2>There is no book in the database</h2>
-            </div>;
+        if (!allbooks || allbooks.length < 1) {
+return (
+    <div>
+        <AdminSideBar fullname={this.props.user.fullname}/>
+        <div className="empty-notifier">
+        <h2>No more book in the database</h2>
+    </div>
+    {this.renderPagination(this.props.count)}
+    </div>
+);
         }
 
         return (
@@ -91,6 +121,7 @@ class AdminHome extends Component {
                     })
                 }
                 </div>
+                {this.renderPagination(0)}
             </div>
 
         )
@@ -106,8 +137,11 @@ class AdminHome extends Component {
 }
 
 function mapStateToProps(state) {
-    return {books: state.book.data,
-         user: state.auth.user.currentUser}
+    return {
+        books: state.book.data.rows,
+        count: state.book.data.count,
+        user: state.auth.user.currentUser
+    }
 }
 
 AdminHome.PropTypes = {

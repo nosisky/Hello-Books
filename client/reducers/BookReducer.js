@@ -5,10 +5,12 @@ import { ADD_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
   DELETE_BOOK,
+  GET_ONE_BOOK,
+  SET_OFFSET,
   RETURN_RENTED_BOOK
 } from '../actions/types';
 
-const INITIAL_STATE = { userExist: '', category: [], error: '', message: '', user: '', allRentedBooks: [], content: '', authenticated: false, data: [] };
+const INITIAL_STATE = { userExist: '', offset: 0, category: [], error: '', message: '', user: '', allRentedBooks: [], content: '', authenticated: false, data: [] };
 
 function BookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -16,12 +18,16 @@ function BookReducer(state = INITIAL_STATE, action) {
       return { ...state, message: 'Book added Successfully' };
     case GET_ALL_BOOKS:
       return { ...state, data: action.data };
+    case GET_ONE_BOOK:
+      return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
       return { ...state, allRentedBooks: action.data };
     case GET_CATEGORY:
       return { ...state, category: action.data };
     case SEARCH_BOOK:
       return { ...state, data: action.data };
+    case SET_OFFSET:
+      return { offset: state.offset + action.data };
     case DELETE_BOOK: {
       const newState = state.data.filter(book =>
         (book.id !== action.data)

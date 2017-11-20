@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
 
-class Register extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -216,8 +216,3 @@ class Register extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  return { userExist: state.userExist } 
-}
-export default connect(mapStateToProps)(Register)
