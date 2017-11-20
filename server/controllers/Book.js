@@ -78,8 +78,6 @@ export default {
       page = pageNum;
       offset = (page - 1) * limit;
     }
-
-
     return Book
       .findAndCountAll({
         order: [
@@ -89,7 +87,7 @@ export default {
         offset,
       })
       .then((books) => {
-        if (books.length < 1) {
+        if (books.count < 1) {
           res.status(400).send({
             message: 'There is no book in the database'
           });
