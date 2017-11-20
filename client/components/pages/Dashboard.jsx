@@ -27,7 +27,6 @@ export class Dashboard extends Component {
   }
 
   handlePageChange(page){
-    console.log(page)
     this
     .props
     .actions

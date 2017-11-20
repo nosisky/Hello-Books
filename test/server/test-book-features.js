@@ -283,7 +283,6 @@ describe('Adds a new book to the database', () => {
       .type('form')
       .expect(200)
       .end((err, res) => {
-        console.log(res.body)
         res.status.should.equal(400);
         res.body.message.should.equal('There is no book in the database');
         done();

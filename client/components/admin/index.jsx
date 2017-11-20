@@ -48,7 +48,6 @@ class AdminHome extends Component {
     }
 
     handlePageChange(page){
-        console.log(page)
         this
         .props
         .actions
@@ -138,8 +137,8 @@ return (
 
 function mapStateToProps(state) {
     return {
-        books: state.book.data.rows,
-        count: state.book.data.count,
+        books: state.book.data,
+        count: state.book.count,
         user: state.auth.user.currentUser
     }
 }
