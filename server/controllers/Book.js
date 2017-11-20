@@ -68,8 +68,26 @@ export default {
    */
 
   getBooks(req, res) {
+    const pageNum = Number(req.query.page);
+    let offset;
+    let page;
+    const limit = 8;
+    if (pageNum === 0) {
+      offset = 0;
+    } else {
+      page = pageNum;
+      offset = (page - 1) * limit;
+    }
+
+
     return Book
-      .findAll({})
+      .findAndCountAll({
+        order: [
+          ['title', 'ASC'],
+        ],
+        limit,
+        offset,
+      })
       .then((books) => {
         if (books.length < 1) {
           res.status(400).send({

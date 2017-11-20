@@ -8,6 +8,7 @@ import { ADD_BOOK,
   GET_ONE_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
+  SET_OFFSET,
   RETURN_RENTED_BOOK,
   DELETE_BOOK
 } from './types';
@@ -33,13 +34,20 @@ export function addBookAction(bookDetails) {
     .catch(error => error);
 }
 
+export function setOffset() {
+  return {
+    type: SET_OFFSET,
+    data: 8
+  };
+}
+
 /**
  * Get all books action
  * @returns { Object }
  */
 
-export function getAllBooksAction() {
-  return dispatch => axios.get(API_URL)
+export function getAllBooksAction(page) {
+  return dispatch => axios.get(`${API_URL}/?page=${page}`)
     .then((res) => {
       dispatch({
         type: GET_ALL_BOOKS,
