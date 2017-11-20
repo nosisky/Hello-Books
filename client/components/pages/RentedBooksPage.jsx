@@ -9,7 +9,7 @@ import SideBar from '../includes/SideBar';
 import RentedBooks from '../includes/RentedBooks';
 import  DashboardFooter from '../includes/DashboardFooter';
 
-class RentedBooksPage extends Component {
+export class RentedBooksPage extends Component {
   constructor(props) {
     super(props);
     this.renderRentedBooks = this

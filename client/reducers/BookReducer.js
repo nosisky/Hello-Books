@@ -5,6 +5,7 @@ import { ADD_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
   DELETE_BOOK,
+  GET_ONE_BOOK,
   RETURN_RENTED_BOOK
 } from '../actions/types';
 
@@ -16,6 +17,8 @@ function BookReducer(state = INITIAL_STATE, action) {
       return { ...state, message: 'Book added Successfully' };
     case GET_ALL_BOOKS:
       return { ...state, data: action.data };
+    case GET_ONE_BOOK:
+      return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
       return { ...state, allRentedBooks: action.data };
     case GET_CATEGORY:

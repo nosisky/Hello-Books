@@ -60,7 +60,7 @@ class Header extends Component {
         <div id="menu">
           <nav>
             <div className="nav-wrapper"> <div className="left" style={{fontSize: 'x-large'}}>
-              HelloBooks</div>           
+            <Link to="/">HelloBooks</Link></div>           
               <a
                 href="#"
                 data-activates="slide-out"

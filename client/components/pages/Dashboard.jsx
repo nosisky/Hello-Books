@@ -8,7 +8,7 @@ import SideBar from '../includes/SideBar'
 import AllBooks from '../includes/AllBooks';
 import  DashboardFooter from '../includes/DashboardFooter';
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.renderBooks = this

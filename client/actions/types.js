@@ -10,6 +10,7 @@ export const AUTH_USER = 'auth_user',
   EDIT_BOOK = 'edit_book',
   SEARCH_BOOK = 'search_book',
   RETURN_RENTED_BOOK = 'return_rented_book',
+  GET_ONE_BOOK = 'get_one_book',
   ADD_CATEGORY = 'add_category',
   DELETE_BOOK = 'delete_book';
 

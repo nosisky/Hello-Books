@@ -40,7 +40,7 @@ export default class RentedBooks extends Component {
           </div>
           <div className="card-content">
             <span className="card-title activator grey-text text-darken-4">{this.props.title}</span>
-            <span>{this.props.description}</span>
+            <span className="truncate">{this.props.description}</span>
             <p>
               {!this.props.isReturned && <a href="#" onClick={this.handleClick} className="btn">Return</a>}
               {this.props.isReturned && <a href="#" onClick={this.handleClick} className="btn disabled">Returned</a>}

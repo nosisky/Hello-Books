@@ -3,11 +3,12 @@ import NavBar from '../includes/NavBar';
 import AuthForm from '../auth/AuthForm';
 import { connect } from 'react-redux';
 import  Footer from '../includes/Footer';
+import { registerUserAction, loginAction } from '../../actions/AuthActions';
 
 export class HomePage extends Component {
   render() {
     if (localStorage.getItem('token')) {
-      window.location.href ='/dashboard';      
+      this.props.history.push('/dashboard');      
     }
 
     return (
@@ -25,7 +26,11 @@ export class HomePage extends Component {
             </div>
           </div>
           <div className="col l6 m12 s12">
-          <AuthForm />
+          <AuthForm 
+          loginAction={this.props.loginAction}
+          registerUserAction={this.props.registerUserAction}
+          userExist={this.props.userExist}
+          />
           </div>
         </div>
         <Footer />
@@ -33,4 +38,11 @@ export class HomePage extends Component {
     );
   }
 }
-export default HomePage;
+function mapStateToProps(state) {
+  return { message: state.auth.message,
+    userExist: state.userExist,    
+  }
+}
+
+
+export default connect(mapStateToProps, {registerUserAction, loginAction})(HomePage);

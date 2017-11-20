@@ -5,6 +5,7 @@ import { ADD_BOOK,
   GET_RENTED_BOOKS,
   GET_CATEGORY,
   ADD_CATEGORY,
+  GET_ONE_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
   RETURN_RENTED_BOOK,
@@ -153,13 +154,19 @@ export function returnBook(userId, bookId) {
 
 /**
  * Get specific book
- * @param {Number} userId 
+ * @param {Number} BookId 
  * @returns { Object }
  */
 
-export function getSpecificBook(userId) {
-  return axios.get(`${API_URL}/${userId}`)
-    .then(res => res.data)
+export function getSpecificBook(bookId) {
+  return dispatch => axios.get(`${API_URL}/${bookId}`)
+    .then((res) => {
+      dispatch({
+        type: GET_ONE_BOOK,
+        data: res.data
+      });
+      return res.data;
+    })
     .catch(error => error);
 }
 
