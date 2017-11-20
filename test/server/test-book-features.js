@@ -244,7 +244,7 @@ describe('Adds a new book to the database', () => {
   });
   it('should return all books', (done) => {
     server
-      .get('/api/v1/books')
+      .get('/api/v1/books?page=0')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('x-access-token', token)
@@ -252,11 +252,11 @@ describe('Adds a new book to the database', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(201);
-        res.body.length.should.equal(1);
-        res.body[0].should.have.property('title');
-        res.body[0].should.have.property('author');
-        res.body[0].should.have.property('description');
-        res.body[0].should.have.property('isbn');
+        res.body.count.should.equal(1);
+        res.body.rows[0].should.have.property('title');
+        res.body.rows[0].should.have.property('author');
+        res.body.rows[0].should.have.property('description');
+        res.body.rows[0].should.have.property('isbn');
         done();
       });
   });
@@ -276,13 +276,14 @@ describe('Adds a new book to the database', () => {
   });
   it('should return message \'There is no book in the database\' ', (done) => {
     server
-      .get('/api/v1/books')
+      .get('/api/v1/books?page=0')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('x-access-token', token)
       .type('form')
       .expect(200)
       .end((err, res) => {
+        console.log(res.body)
         res.status.should.equal(400);
         res.body.message.should.equal('There is no book in the database');
         done();
