@@ -204,6 +204,7 @@ app.route('/:userId/books')
     Authorization.validUser,
     Authorization.validBook,
     Validation.checkTotalBook,
+    Authorization.checkUserPlan,
     Authorization.hasRentedBefore,
     BookController.rentBook);
 
