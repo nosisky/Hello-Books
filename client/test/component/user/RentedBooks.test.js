@@ -5,6 +5,9 @@ import Adapter from 'enzyme-adapter-react-15';
 import  { RentedBooksPage } from '../../../components/pages/RentedBooksPage';
 
 configure({ adapter: new Adapter() });
+jest.mock('../../../actions/BookActions');
+jest.mock('../../../components/includes/Header')
+
 
 const props = {
   user: {
@@ -12,12 +15,15 @@ const props = {
   },
   actions: {
     allRentedBooks: jest.fn()
+  },
+  rentedBooks: {
+    allRentedBooks: [{id: 1}]
   }
 }
 
 describe('Component: Rented Books Page', () => {
   it('tests that the component successfully rendered', () => {
-    const wrapper = mount(<RentedBooksPage {...props}/>)
+    const wrapper = shallow(<RentedBooksPage {...props}/>)
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find('li').length).toBe(6);
     expect(wrapper.find('nav').length).toBe(1);    

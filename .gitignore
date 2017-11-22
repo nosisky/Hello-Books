@@ -2,6 +2,7 @@ node_modules
 .env
 .nyc_output
 coverage/*
+reports
 npm-debug.log*
 dist
 client/dist/*

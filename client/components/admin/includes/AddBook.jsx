@@ -280,7 +280,7 @@ class AddBook extends Component {
                 </div>
               </div>
               <div className="row">
-                <div className="input-field col s12">
+                <div className="input-field col s12 textarea">
                   <textarea
                     id="description"
                     className="materialize-textarea"
@@ -310,6 +310,7 @@ class AddBook extends Component {
               <div>
                 <img
                   height="50px"
+                  id="completed"
                   width="50px"
                   alt="check mark"
                   src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/512/Tick_Mark-128.png"/><br/></div>}
@@ -323,6 +324,7 @@ class AddBook extends Component {
                 onUploadStart={this.handleUploadStart}/>
             </div>
             <button
+            id="addIt"
               style={{
               backgroundColor: 'rgb(37, 76, 71)',
               color: '#fff',

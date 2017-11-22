@@ -23,7 +23,7 @@ export default class AuthForm extends Component {
                         <a className="white-text active" href="#login">login</a>
                     </li>
                     <li className="tab col s3">
-                        <a className="white-text reg" href="#register">register</a>
+                        <a id="joinus" className="white-text reg" href="#register">register</a>
                     </li>
                 </ul>
                 <Login onSubmit={loginAction}/>

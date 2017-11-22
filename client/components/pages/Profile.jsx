@@ -67,7 +67,7 @@ class Profile extends React.Component {
               alignContent: 'center',
               marginLeft: '20px'
             }}>Edit Profile</h4>
-            <div class="modal-content">
+            <div className="modal-content">
             <form  name="edit_profile" onSubmit={this.handleSubmit}>
               <div className="edit-profile">
                 <div className="row">

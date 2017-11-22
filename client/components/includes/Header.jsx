@@ -41,11 +41,6 @@ class Header extends Component {
       .push('/');
 
   }
-  onClick() {
-    window
-      .location
-      .reload()
-  }
 
   render() {
     const style = {
@@ -79,9 +74,10 @@ class Header extends Component {
                   </a>
                 </li>
                 <li>
-                  <a onClick={this.onClick} href="#!">
-                    <i className="material-icons">refresh</i>
-                  </a>
+                <a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+                  <i className="material-icons">exit_to_app</i> 
+                </a>
+                
                 </li>
                 <li>
                   <a className="dropdown-button" data-activates="dropdown2">
@@ -94,7 +90,7 @@ class Header extends Component {
                   <Link to="/profile">Profile</Link>
                 </li>
                 <li>
-                  <a onClick={this.props.actions.logoutAction} href="#!">Logout</a>
+                  <a name="logout" onClick={this.props.actions.logoutAction} href="#!">Logout</a>
                 </li>
               </ul>
             </div>

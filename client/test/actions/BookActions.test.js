@@ -36,15 +36,15 @@ describe('Auth actions', () => {
   });
 
   it('creates GET_ALL_BOOKS when trying to get all books', () => {
-    moxios.stubRequest('/api/v1/books', {
+    moxios.stubRequest('/api/v1/books/?page=1', {
       status: 201,
       response: mockData.returnedBook
     });
 
     const expectedActions = [{ type: ActionTypes.GET_ALL_BOOKS, data: mockData.returnedBook }];
-
+  
     const store = mockStore({});
-    return store.dispatch(BookActions.getAllBooksAction())
+    return store.dispatch(BookActions.getAllBooksAction(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -99,7 +99,7 @@ describe('Auth actions', () => {
       .catch(error => error);
   });
 
-  it('creates GET_RENTED_BOOKS when tyring to get rented books', () => {
+  it('creates GET_RENTED_BOOKS when trying to get rented books', () => {
     moxios.stubRequest('/api/v1/books/logs/1', {
       status: 201,
       response: mockData.returnedBook
