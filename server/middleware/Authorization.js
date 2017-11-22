@@ -348,6 +348,55 @@ export default {
       })
       .catch(error => res.status(404).send(error));
   },
+
+  /**
+   * 
+   *  Check the rentedbook limit limit
+   * @param {any} req - request
+   * @param {any} res - response
+   * @param {any} next - callBack function
+   * @return {Object} - Object
+   */
+  checkUserPlan(req, res, next) {
+    const message = 'You are not permitted to '
+          + 'borrow more books, please return the ones you have '
+          + 'borrowed or upgrade your plan';
+
+    RentedBook.findAndCount({
+      where: {
+        userId: req.params.userId,
+        returned: false
+      }
+    })
+      .then((rented) => {
+        User.findById(req.params.userId)
+          .then((user) => {
+            if (user.plan === 'Silver' && rented.count === 5) {
+              res.status(403).send({
+                message
+              });
+            } else if (user.plan === 'Diamond' && rented.count === 20) {
+              res.status(403).send({
+                message
+              });
+            } else if (user.plan === 'Gold' && rented.count === 20) {
+              res.status(403).send({
+                message: 'Book limit reached, return previously borrowed'
+              });
+            } else {
+              next();
+            }
+          });
+      });
+  },
+
+  /**
+   * 
+   *  Get users by email address
+   * @param {Object} req - request
+   * @param {Object} res - response
+   * @returns {Object} - Object
+   */
   getUserByEmail(req, res) {
     return User
       .findOne({

@@ -19,7 +19,7 @@ export default (sequelize, DataTypes) => {
     },
     plan: {
       type: DataTypes.STRING,
-      defaultValue: 'silver'
+      defaultValue: 'Silver'
     },
     active: {
       type: DataTypes.BOOLEAN,
