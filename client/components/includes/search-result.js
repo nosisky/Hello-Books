@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import swal from 'sweetalert';
 import { rentBook } from '../../actions/book_actions';
 
-export default class AllBooks extends Component {
+export default class SearchResult extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);

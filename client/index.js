@@ -10,7 +10,8 @@ import { AUTH_USER } from './actions/types';
 import configureStore from './store/index';
 import {setAuthorizationToken} from '../client/utils/Authorization';
 import {SET_CURRENT_USER} from './actions/types';
-// import './public/css/materialize.min.css';
+import '../node_modules/materialize-css/dist/js/materialize.min';
+import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
 import './public/css/style.scss';
 

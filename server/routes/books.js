@@ -45,4 +45,10 @@ app.route('/logs/:userId')
     Authorization.validUser,
     BookController.rentedBookByUser);
 
+// Get All category
+app.route('/category')
+  .get(Authorization.isLoggedIn,
+    Authorization.validUser,
+    BookController.rentedBookByUser);
+
 export default app;

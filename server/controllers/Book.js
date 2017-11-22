@@ -1,14 +1,13 @@
 import db from '../models';
 
-const { RentedBook } = db;
-const { Book, Category } = db;
+const { RentedBook, Book, Category, History } = db;
 
 export default {
   /** Admin add new book
    * @param  {object} req request
    * @param  {object} res response
    * Route: POST: /books  
-   */ 
+   */
 
   create(req, res) {
     return Book
@@ -29,17 +28,15 @@ export default {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
     Book.findById(req.body.bookId)
-      .then((book) => {
-        return RentedBook
-          .create({
-            bookId: req.body.bookId,
-            description: book.description,
-            title: book.title,
-            userId: req.params.userId,
-            cover: 'hello.jpg',
-            toReturnDate: after30days
-          });
-      })
+      .then(book => RentedBook
+        .create({
+          bookId: req.body.bookId,
+          description: book.description,
+          title: book.title,
+          userId: req.params.userId,
+          cover: 'hello.jpg',
+          toReturnDate: after30days
+        }))
       .then(() => Book
         .findOne({ where: { id: req.body.bookId } })
         .then(books => Book
@@ -50,6 +47,14 @@ export default {
               id: req.body.bookId
             }
           })))
+      .then((book) => {
+        History
+          .create({
+            userId: req.params.userId,
+            type: 'rent',
+            description: `You rented ${book.title}`
+          });
+      })
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',
       }))
@@ -231,6 +236,14 @@ export default {
               id: req.body.bookId
             }
           })))
+      .then((book) => {
+        History
+          .create({
+            userId: req.params.userId,
+            type: 'return',
+            description: `You returned ${book.title}`
+          });
+      })
       .then(() => res.status(200).send(
         {
           message: 'Book returned successfully!'
@@ -238,4 +251,28 @@ export default {
       ))
       .catch(error => res.status(400).send(error));
   },
+
+  getCategory(req, res) {
+    return Category.findAll({})
+      .then((category) => {
+        res.status(200).send(category);
+      })
+      .catch(error => res.status(500).send(error));
+  },
+
+  search(req, res) {
+    return Book.findAll({
+      where: {
+        $or: [
+          { title: {
+            $iLike: `%${req.body.search}%` }
+          }
+        ]
+      }
+    })
+      .then((book) => {
+        res.status(200).send(book);
+      })
+      .catch(error => res.status(500).send(error));
+  }
 };

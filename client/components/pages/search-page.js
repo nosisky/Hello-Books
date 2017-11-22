@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllBooks } from '../../actions/book_actions';
+import { search } from '../../actions/book_actions';
 import { bindActionCreators } from 'redux';
 import HeaderSideBar from '../includes/header-side-bar';
-import AllBooks from '../includes/book-list';
+import SearchResult from '../includes/search-result';
 
-class Dashboard extends Component {
+class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.renderBooks = this.renderBooks.bind(this);
   }
   componentDidMount() {
-    this.props.actions.getAllBooks()
+      if(!location.search){
+          window.location = '/dashboard'
+      }
+      const page = location.search.split('=')[1]
+      const result = page.split('&')[0]
+    this.props.actions.search({search: result})
   }
 
   renderBooks() {
-    const allbooks = this.props.books;
-    if (!allbooks) {
-      return <div className="empty-notifier"><h2>There is no book in the database</h2></div>;
+    const allbooks = this.props.search;
+    if (!allbooks || allbooks.length < 1) {
+      return <div className="empty-notifier"><h4>Your query did not match any book in our database</h4></div>;
     }
     return (<div className="admin-book-list">
-      <div className="card-panel teal user-book-header"><center>Recently Added Books</center></div>
+      <div className="card-panel teal user-book-header"><center>Search Result</center></div>
       <div className="row">
         {allbooks.map((book) => {
           return (
-            <AllBooks
+            <SearchResult
               prodYear={book.prodYear}
               total={book.total}
               isbn={book.isbn}
@@ -56,25 +61,26 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.PropTypes = {
+SearchPage.PropTypes = {
   user: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  books: PropTypes.object.isRequired
+  search: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
+    console.log(state.book.data)
   return {
     user: state.auth.user.currentUser,
-    books: state.book.data
+    search: state.book.data
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      getAllBooks
+      search
     }, dispatch)
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)

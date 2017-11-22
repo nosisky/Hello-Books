@@ -20,28 +20,28 @@ class RentedBooksPage extends Component {
         let rentedBooks = this.props.rentedBooks.data;
         if (rentedBooks.length < 1) {
             return (
-              <h1 style={{color: '#fff', float: 'right'}}>Hello You have not rented any book </h1>)
+                <h1 className="empty-notifier">You have not rented any book </h1>)
         } else {
-                return (<div className="admin-book-list">
-                    <div className="card-panel teal user-book-header"><center>My Rented Books</center></div>
-                    <div className="row">
-                        {rentedBooks.map((book) => {
-                           return   (<RentedBooks
-                                  description={book.description}
-                                  id={book.bookId}
-                                  userId={this.props.user.userId}
-                                  key={book.id}
-                                  title={book.title}
-                                  userId = {book.userId}
-                              />)
+            return (<div className="admin-book-list">
+                <div className="card-panel teal user-book-header"><center>My Rented Books</center></div>
+                <div className="row">
+                    {rentedBooks.map((book) => {
+                        return (<RentedBooks
+                            description={book.description}
+                            id={book.bookId}
+                            userId={this.props.user.userId}
+                            key={book.id}
+                            title={book.title}
+                            userId={book.userId}
+                        />)
 
 
-                        })
-                      }
-                    </div>
+                    })
+                    }
                 </div>
+            </div>
 
-                )
+            )
         }
     }
     render() {

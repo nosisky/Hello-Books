@@ -37,11 +37,9 @@ export default class GoogleLogIn extends React.Component {
                     () => {
                       window.location.href = "/dashboard";
                     });
-                  } else {
-                    console.log(data)
-                  }
+                  } 
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => err)
             } else {
 
               getUserData({ email: newUserObj.currentUser.email })

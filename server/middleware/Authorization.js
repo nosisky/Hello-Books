@@ -321,6 +321,26 @@ export default {
           next();
         }
       });
-  }
+  },
+  getOneUser(req, res) {
+    return User
+      .findById(req.params.userId)
+      .then((user) => {
+        const currentUser = { userId: user.id,
+          username: user.username,
+          fullname: user.fullName,
+          active: user.active,
+          isAdmin: user.isAdmin,
+          email: user.email,
+          plan: user.plan };
+        const token = jwt.sign(
+          { currentUser
+          }, key
+        );
+        return res.status(201).send({
+          token
+        });
+      })
+      .catch(error => res.status(404).send(error));
+  },
 };
-

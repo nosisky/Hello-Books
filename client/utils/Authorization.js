@@ -41,3 +41,10 @@ export function registerGoogleUser(userDetails) {
       setAuthorizationToken(token);
     });
 }
+
+export function editProfile(userId, userData) {
+  return axios.put(`${API_URL}/edit/${userId}`, userData)
+    .then(() => axios.get(`${SEARCH_API_URL}/userId`)
+      .then(res => res.data.token))
+    .catch(error => error.data.response);
+}

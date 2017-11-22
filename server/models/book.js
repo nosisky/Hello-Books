@@ -22,6 +22,7 @@ export default (sequelize, DataTypes) => {
       associate: (models) => {
         // associations can be defined here
         Books.hasMany(models.RentedBook, {
+          onDelete: 'CASCADE',
           foreignKey: 'bookId'
         });
         Books.hasOne(models.Category, {
