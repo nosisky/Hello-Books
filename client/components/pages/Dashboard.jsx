@@ -34,7 +34,7 @@ export class Dashboard extends Component {
   }
 
   renderPagination(count){
-    if(count > 1){
+    if(this.props.count > 8){
       return(
         <ReactPaginate
         previousLabel={<i className="material-icons">chevron_left</i>}
