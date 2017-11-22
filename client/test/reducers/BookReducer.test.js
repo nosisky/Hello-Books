@@ -7,19 +7,19 @@ describe('Book Reducer', () => {
     const initialState = {
       data: []
     };
-    const book = [{ title: 'test' }, { title: 'game' }];
+    const book = { count: 4, rows: [{ title: 'test' }, { title: 'game' }] };
     const action = {
       type: ActionTypes.GET_ALL_BOOKS,
       data: book,
     };
     const newState = BookReducer(initialState, action);
-    expect(newState.data[0].title).toEqual('test');
+    expect(action.data.rows[0].title).toEqual('test');
     expect(newState.data.length).toEqual(2);
   });
   it('should completely delete a book', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: book };
-    
+
     const action = {
       type: ActionTypes.DELETE_BOOK,
       data: book[0].id,
@@ -31,7 +31,7 @@ describe('Book Reducer', () => {
   it('should return success message for ADD_BOOK', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: book };
-    
+
     const action = {
       type: ActionTypes.ADD_BOOK,
       message: 'Book added successfully',
@@ -43,7 +43,7 @@ describe('Book Reducer', () => {
   it('should return list of books for SEARCH_BOOK', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: [] };
-    
+
     const action = {
       type: ActionTypes.SEARCH_BOOK,
       data: book,
@@ -55,7 +55,7 @@ describe('Book Reducer', () => {
   it('should return list of books for GET_RENTED_BOOKS', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: [] };
-    
+
     const action = {
       type: ActionTypes.GET_RENTED_BOOKS,
       data: book,
@@ -85,7 +85,7 @@ describe('Book Reducer', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: book };
     const editedBook = { id: 1, title: 'test me' };
-    
+
     const action = {
       type: ActionTypes.EDIT_BOOK,
       data: editedBook,

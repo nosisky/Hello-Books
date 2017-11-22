@@ -112,7 +112,7 @@ export default class Register extends Component {
             }
           });
         if (value.length < 5 || !value) {
-            this.setState({usernameError: "Username must be a minimum of 5 characters"});
+            this.setState({usernameError: "username must be a minimum of 5 characters"});
             return false;
           } else {
             this.setState({usernameError: ""});
@@ -143,13 +143,14 @@ export default class Register extends Component {
               <div className="input-field col s6">
                 <input
                   name="username"
+                  id="uname"
                   type="text"
                   onBlur={this.onBlur}
                   onChange={this.onChange}
                   onFocus={this.onFocus}
                   className="validate"
                   required/>
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">username</label>
                 <div className="red-text">{this.state.userExist}
                 </div>
                 <div className="red-text">{this.state.usernameError}
@@ -178,7 +179,7 @@ export default class Register extends Component {
                 <input
                   name="password"
                   type="password"
-                  id="password"
+                  id="pword"
                   onChange={this.onChange}
                   onBlur={this.onBlur}
                   onFocus={this.onFocus}
@@ -206,6 +207,7 @@ export default class Register extends Component {
             <center>
               <button
                 className="btn waves-effect waves-light teal"
+                id="createAccount"
                 type="submit"
                 name="submit">Submit</button>
             </center>

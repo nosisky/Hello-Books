@@ -47,7 +47,7 @@ export default class AllBooks extends Component {
           <span className="card-title">{this.props.title}</span>
             <span className="truncate">{this.props.description}</span>
             <p>
-              <a href="#" onClick={this.handleClick} className="btn">Borrow Now</a>
+              <a href="#" id="borrowNow" onClick={this.handleClick} className="btn">Borrow Now</a>
             </p>
           </div>
         </div>

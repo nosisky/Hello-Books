@@ -119,7 +119,7 @@ class AdminSideBar extends Component {
                 </div>
                 <li className="divider"></li>
                 <li id="menu-list">
-                  <Link to="/add-book">Add a book
+                  <Link id="add-book" to="/add-book">Add a book
                     <i className="material-icons">add</i>
                   </Link>
                 </li>

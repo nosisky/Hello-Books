@@ -55,21 +55,24 @@ class AdminHome extends Component {
       }
     
       renderPagination(count){
-        return(
-          <ReactPaginate
-          previousLabel={<i className="material-icons">chevron_left</i>}
-          nextLabel={<i className="material-icons">chevron_right</i>}
-          breakLabel={<a href="">...</a>}
-          breakClassName={"break-me"}
-          pageCount={this.props.count/8}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          initialPage={count}
-          onPageChange={this.handlePageChange}
-          containerClassName={"pagination center-align"}
-          activeClassName={"active"}
-        />
-        )
+          console.log(count)
+        if(count > 1){
+            return(
+                <ReactPaginate
+                previousLabel={<i className="material-icons">chevron_left</i>}
+                nextLabel={<i className="material-icons">chevron_right</i>}
+                breakLabel={<a href="">...</a>}
+                breakClassName={"break-me"}
+                pageCount={this.props.count/8}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                initialPage={count}
+                onPageChange={this.handlePageChange}
+                containerClassName={"pagination center-align"}
+                activeClassName={"active"}
+              />
+              )
+        }
       }
 
     handleClick(bookId) {

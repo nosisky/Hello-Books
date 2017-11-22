@@ -34,21 +34,23 @@ export class Dashboard extends Component {
   }
 
   renderPagination(count){
-    return(
-      <ReactPaginate
-      previousLabel={<i className="material-icons">chevron_left</i>}
-      nextLabel={<i className="material-icons">chevron_right</i>}
-      breakLabel={<a href="">...</a>}
-      breakClassName={"break-me"}
-      pageCount={this.props.count/8}
-      marginPagesDisplayed={1}
-      pageRangeDisplayed={1}
-      initialPage={count}
-      onPageChange={this.handlePageChange}
-      containerClassName={"pagination center-align"}
-      activeClassName={"active"}
-    />
-    )
+    if(count > 1){
+      return(
+        <ReactPaginate
+        previousLabel={<i className="material-icons">chevron_left</i>}
+        nextLabel={<i className="material-icons">chevron_right</i>}
+        breakLabel={<a href="">...</a>}
+        breakClassName={"break-me"}
+        pageCount={this.props.count/8}
+        marginPagesDisplayed={1}
+        pageRangeDisplayed={1}
+        initialPage={count}
+        onPageChange={this.handlePageChange}
+        containerClassName={"pagination center-align"}
+        activeClassName={"active"}
+      />
+      )
+    }
   }
 
   renderBooks() {
@@ -117,7 +119,6 @@ Dashboard.PropTypes = {
 }
 
 function mapStateToProps(state) {
-  console.log(state.book)
   return {
     user: state.auth.user.currentUser, 
     books: state.book.data,

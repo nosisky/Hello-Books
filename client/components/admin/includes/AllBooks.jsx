@@ -154,6 +154,7 @@ class AllBooks extends Component {
                 </div>
               </div>
               <button
+                id="submit_edit"
                 style={style.edit}
                 type="submit"
                 name="submit">Edit Book

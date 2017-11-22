@@ -13,15 +13,15 @@ class SideBar extends Component {
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
-      click: true, // Activate on hover
+      hover: false, // Activate on hover
       gutter: 0, // Spacing from edge
       belowOrigin: false, // Displays dropdown below the button
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
     }
-    );
+  );
     $('.modal').modal();
-  }
+}
   render() {
     return (
       <ul id="slide-out" className="col s2 m3 l3 side-nav fixed show-on-large-only">
@@ -55,7 +55,7 @@ class SideBar extends Component {
         </div>
         <li className="divider"></li>
         <li id="menu-list">
-          <Link to='rented-books'>Rent History
+          <Link id="rentedBooks" to='rented-books'>Rent History
             <i className="material-icons">history</i>
           </Link>
         </li>
