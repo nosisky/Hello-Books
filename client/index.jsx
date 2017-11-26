@@ -29,6 +29,7 @@ var config = {
   storageBucket: "gs://hellobooks-178515.appspot.com/",
   messagingSenderId: "81242968730"
 };
+
 firebase.initializeApp(config);
 
  if (localStorage.token) {

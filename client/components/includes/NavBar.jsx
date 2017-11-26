@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
-export default class NavBar extends Component {
-  render() {
-    return (
+const NavBar = () => {
+  return (
       <nav className="nav-bar">
         <div className="navbar-wrapper container">
           <a href="/" className="brand-logo left">
-          <img src="/img/emblem_library.png" width="40px" height="40px"/>
+            <img src="/img/emblem_library.png" width="40px" height="40px" />
             HelloBooks</a>
           <a href="#" data-activates="mobile-demo" className="button-collapse right">
             <i className="material-icons">menu</i>
@@ -36,6 +34,7 @@ export default class NavBar extends Component {
           </li>
         </ul>
       </nav>
-    );
-  }
-}
+  );
+};
+
+export default NavBar;

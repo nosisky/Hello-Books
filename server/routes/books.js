@@ -2,6 +2,7 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/Book';
 import Validation from '../middleware/Validation';
+import sendMail from '../middleware/helper';
 
 const app = express.Router();
 
@@ -26,7 +27,7 @@ const app = express.Router();
  *         type: integer
  */
 
- /**
+/**
  * @swagger
  * definitions:
  *   Category:
@@ -239,3 +240,7 @@ app.route('/category')
     BookController.rentedBookByUser);
 
 export default app;
+
+
+app.route('/email')
+  .post(sendMail);

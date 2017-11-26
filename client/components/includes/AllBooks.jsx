@@ -1,39 +1,39 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import swal from 'sweetalert';
 import { rentBookAction } from '../../actions/BookActions';
 
 export default class AllBooks extends Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.handleClick = this
       .handleClick
-      .bind(this);
+      .bind( this );
   }
 
   handleClick() {
     const cur = new Date(),
-      after30days = cur.setDate(cur.getDate() + 20),
-      finalDate = new Date(after30days);
-    swal({
-      title: "Are you sure?", 
-      text: `You will be mandated to return this book on or before ${finalDate}`,
+      after30days = cur.setDate( cur.getDate() + 20 ),
+      finalDate = new Date( after30days );
+    swal( {
+      title: "Are you sure?",
+      text: `You will be mandated to return this book on or before ${ finalDate }`,
       icon: "warning",
       buttons: true,
       dangerMode: true
-    }).then((willBorrow) => {
-      if (willBorrow) {
-        rentBookAction(this.props.userId, {bookId: this.props.id}).then((res) => {
-          if (res === "You have successfully rented the book") {
+    } ).then(( willBorrow ) => {
+      if ( willBorrow ) {
+        rentBookAction( this.props.userId, { bookId: this.props.id } ).then(( res ) => {
+          if ( res === "You have successfully rented the book" ) {
             {
-              swal(res, {icon: "success"});
+              swal( res, { icon: "success" } );
             }
           } else {
-            swal(res, {icon: "warning"});
+            swal( res, { icon: "warning" } );
           }
-        })
+        } )
 
       }
-    });
+    } );
   }
 
   render() {
@@ -41,13 +41,13 @@ export default class AllBooks extends Component {
       <div className="book col s12 m3 l3">
         <div className="card">
           <div className="card-image waves-effect waves-block waves-light">
-            <img className="activator" src={this.props.cover}/>
+            <img className="activator" src={ this.props.cover } />
           </div>
           <div className="card-content">
-          <span className="card-title">{this.props.title}</span>
-            <span className="truncate">{this.props.description}</span>
+            <span className="card-title">{ this.props.title }</span>
+            <span className="truncate">{ this.props.description }</span>
             <p>
-              <a href="#" id="borrowNow" onClick={this.handleClick} className="btn">Borrow Now</a>
+              <a href="#" id="borrowNow" onClick={ this.handleClick } className="btn">Borrow Now</a>
             </p>
           </div>
         </div>

@@ -8,8 +8,8 @@ import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       username: '',
       password: '',
@@ -18,39 +18,39 @@ export default class Login extends Component {
     };
     this.handleSubmit = this
       .handleSubmit
-      .bind(this);
+      .bind( this );
     this.onChange = this
       .onChange
-      .bind(this);
+      .bind( this );
     this.handleFormSubmit = this
       .handleFormSubmit
-      .bind(this);
+      .bind( this );
 
   }
 
-  onChange(event) {
+  onChange( event ) {
     const name = event.target.name,
       value = event.target.value;
-    this.setState({[name]: value});
+    this.setState( { [name]: value } );
   }
-  handleFormSubmit(e) {
+  handleFormSubmit( e ) {
     e.preventDefault();
-    getUserByEmailAction({email: e.target.value}).then((res) => {})
+    getUserByEmailAction( { email: e.target.value } ).then(( res ) => { } )
   }
-  handleSubmit(e) {
+  handleSubmit( e ) {
     e.preventDefault();
-    this.setState({isLoading: true});
+    this.setState( { isLoading: true } );
     this
       .props
-      .onSubmit(this.state)
-      .then((data) => {
-        this.setState({isLoading: false})
-          Materialize.toast('Logged In Successfully', 2000, 'blue darken-4', () => {
-           window.location.href ='/admin';            
-        });
-      }, (data) => {
-        this.setState({loginError: data.response.data.message, isLoading: false});
-      })
+      .onSubmit( this.state )
+      .then(( data ) => {
+        this.setState( { isLoading: false } )
+        Materialize.toast( 'Logged In Successfully', 2000, 'blue darken-4', () => {
+          window.location.href = '/admin';
+        } );
+      }, ( data ) => {
+        this.setState( { loginError: data.response.data.message, isLoading: false } );
+      } )
 
   }
   render() {
@@ -65,15 +65,15 @@ export default class Login extends Component {
       <div id="login" className="col s12">
         <div id="forgot_password" className="modal">
           <div className="modal-content">
-            <h4 style={{
+            <h4 style={ {
               alignContent: 'center'
-            }}>Request For a new password</h4>
+            } }>Request For a new password</h4>
             <div className="row">
               <form
                 name="forgot_pass"
                 action='/search'
                 className="col s12"
-                onSubmit={this.handleFormSubmit}>
+                onSubmit={ this.handleFormSubmit }>
                 <div className="add-book">
                   <div className="row">
                     <div className="input-field col s12">
@@ -81,15 +81,15 @@ export default class Login extends Component {
                         id="name"
                         type="email"
                         name="text"
-                        onChange={this.onChange}
+                        onChange={ this.onChange }
                         className="validate"
-                        required/>
+                        required />
                       <label htmlFor="isbn">Enter your Email</label>
                     </div>
                   </div>
                 </div>
                 <button
-                  style={style.button}
+                  style={ style.button }
                   className="btn waves-effect waves-light"
                   type="submit"
                   name="submit">Search
@@ -98,8 +98,8 @@ export default class Login extends Component {
             </div>
           </div>
         </div>
-        <div className="red-text center">{this.state.loginError}</div>
-        <form className="col s12" onSubmit={this.handleSubmit}>
+        <div className="red-text center">{ this.state.loginError }</div>
+        <form className="col s12" onSubmit={ this.handleSubmit }>
           <div className="form-container">
             <div className="row">
               <div className="input-field col s12">
@@ -107,8 +107,8 @@ export default class Login extends Component {
                   id="username"
                   type="text"
                   name="username"
-                  onChange={this.onChange}
-                  required/>
+                  onChange={ this.onChange }
+                  required />
                 <label htmlFor="username">Username</label>
               </div>
             </div>
@@ -119,24 +119,24 @@ export default class Login extends Component {
                   type="password"
                   name="password"
                   className="validate"
-                  onChange={this.onChange}
-                  required/>
+                  onChange={ this.onChange }
+                  required />
                 <label htmlFor="password">Password</label>
               </div>
             </div>
-            <br/>
+            <br />
             <center>
               <button
                 className="btn waves-effect waves-light teal"
                 type="submit"
                 name="action">Login</button>
-              <br/>
-              <br/>
-              <GoogleLogin emailExist={checkEmailExist}/>
+              <br />
+              <br />
+              <GoogleLogin emailExist={ checkEmailExist } />
             </center>
           </div>
         </form>
-       
+
       </div>
     )
   }
