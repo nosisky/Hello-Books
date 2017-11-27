@@ -326,7 +326,4 @@ app.route('/:userId')
     Validation.validBook,
     Authorization.getOneUser);
 
-
-
-
 export default app;

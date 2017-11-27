@@ -6,7 +6,6 @@ import db from '../models/';
 dotenv.load();
 const key = process.env.secretKey;
 const { User } = db;
-const { Book } = db;
 const { RentedBook } = db;
 
 export default {
