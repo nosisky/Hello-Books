@@ -7,7 +7,7 @@ const Notification = ({message, time}) => {
 		<div>
 			<ul className="collection">
 				<li className="collection-item avatar" id="collection-item">
-				<i className="material-icons circle green">insert_chart</i>
+				<i className="material-icons circle main-green">insert_chart</i>
 					<span className="title">{message.toUpperCase()}</span>
 					<div className="secondary-content">
           <i className="Tiny material-icons">access_time</i> {newTime}<br />

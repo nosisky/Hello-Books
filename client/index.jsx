@@ -18,8 +18,6 @@ import './public/css/style.scss';
 import firebase from 'firebase';
 import config from './utils/FirebaseConfig';
 
-console.log(config)
-
 const store = configureStore();
 
 firebase.initializeApp(config);
