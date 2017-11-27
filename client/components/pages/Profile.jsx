@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
-import {bindActionCreators} from 'redux';
-import {editProfileAction} from '../../actions/AuthActions';
-import  DashboardFooter from '../includes/DashboardFooter';
+import { bindActionCreators } from 'redux';
+import { editProfileAction } from '../../actions/AuthActions';
+import DashboardFooter from '../includes/DashboardFooter';
 
-class Profile extends React.Component {
-  constructor(props) {
-    super(props);
+export class Profile extends React.Component {
+  constructor( props ) {
+    super( props );
     this.state = {
       fullName: this.props.user.fullname,
       email: this.props.user.email,
@@ -19,126 +19,126 @@ class Profile extends React.Component {
 
     this.onChange = this
       .onChange
-      .bind(this);
+      .bind( this );
     this.handleSubmit = this
       .handleSubmit
-      .bind(this);
+      .bind( this );
     this.displayEdit = this
       .displayEdit
-      .bind(this);
+      .bind( this );
   }
 
-  onChange(e) {
+  onChange( e ) {
     const name = e.target.name,
       value = e.target.value;
-    this.setState({[name]: value})
+    this.setState( { [name]: value } )
   }
 
-  displayEdit(e) {
-    this.setState({edit: true, profile: false})
+  displayEdit( e ) {
+    this.setState( { edit: true, profile: false } )
   }
 
-  handleSubmit(e) {
+  handleSubmit( e ) {
     e.preventDefault();
-    editProfileAction(this.props.user.userId, this.state).then((res) => {
-      localStorage.setItem('token', res)
-      Materialize.toast('Profile edited Successfully', 2000, 'blue darken-4', () => {
+    editProfileAction( this.props.user.userId, this.state ).then(( res ) => {
+      localStorage.setItem( 'token', res )
+      Materialize.toast( 'Profile edited Successfully', 2000, 'blue darken-4', () => {
         window.location.href = '/profile';
-      });
-    })
+      } );
+    } )
   }
 
   render() {
-    const {username, fullname, id, email, plan} = this.props.user;
+    const { username, fullname, id, email, plan } = this.props.user;
 
     return (
       <div className="row">
-        <Header/>
-        <SideBar fullname={this.props.user.fullname} 
-        isAdmin={this.props.user.isAdmin}/> 
+        <Header />
+        <SideBar fullname={ this.props.user.fullname }
+          isAdmin={ this.props.user.isAdmin } />
         <div id="edit">
           <div id="profile_edit"
-            style={{
-            backgroundColor: '#fff',
-          }}
+            style={ {
+              backgroundColor: '#fff',
+            } }
             className="row modal">
             <h4
-              style={{
-              alignContent: 'center',
-              marginLeft: '20px'
-            }}>Edit Profile</h4>
+              style={ {
+                alignContent: 'center',
+                marginLeft: '20px'
+              } }>Edit Profile</h4>
             <div className="modal-content">
-            <form  name="edit_profile" onSubmit={this.handleSubmit}>
-              <div className="edit-profile">
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>Username</b>
-                    <input
-                      id="email"
-                      type="text"
-                      name="email"
-                      className="validate"
-                      defaultValue={username}
-                      disabled/>
+              <form name="edit_profile" onSubmit={ this.handleSubmit }>
+                <div className="edit-profile">
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <b>Username</b>
+                      <input
+                        id="email"
+                        type="text"
+                        name="email"
+                        className="validate"
+                        defaultValue={ username }
+                        disabled />
+                    </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>Full Name</b>
-                    <input
-                      id="fullName"
-                      type="text"
-                      name="fullName"
-                      onChange={this.onChange}
-                      defaultValue={fullname}
-                      className="validate"
-                      required/>
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <b>Full Name</b>
+                      <input
+                        id="fullName"
+                        type="text"
+                        name="fullName"
+                        onChange={ this.onChange }
+                        defaultValue={ fullname }
+                        className="validate"
+                        required />
+                    </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <b>Email Address</b>
-                    <input
-                      id="email"
-                      type="text"
-                      name="email"
-                      className="validate"
-                      defaultValue={email}
-                      onChange={this.onChange}
-                      required/>
+                  <div className="row">
+                    <div className="input-field col s12">
+                      <b>Email Address</b>
+                      <input
+                        id="email"
+                        type="text"
+                        name="email"
+                        className="validate"
+                        defaultValue={ email }
+                        onChange={ this.onChange }
+                        required />
+                    </div>
                   </div>
-                </div>
 
-              </div>
-              <button
-                style={{
-                backgroundColor: 'rgb(21, 179, 157)',
-                color: '#fff',
-                float: 'right'
-              }}
-                className="btn waves-effect waves-light"
-                type="submit"
-                name="submit">Submit
+                </div>
+                <button
+                  style={ {
+                    backgroundColor: 'rgb(21, 179, 157)',
+                    color: '#fff',
+                    float: 'right'
+                  } }
+                  className="btn waves-effect waves-light"
+                  type="submit"
+                  name="submit">Submit
               </button>
-            </form>
+              </form>
             </div>
           </div>
         </div>
-        {this.state.profile && <div className="row">
+        { this.state.profile && <div className="row">
           <div className="col s12 l9 push-l3">
             <div className="user-profile">
               <img
                 className="avatar"
                 src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
-                alt="Ash"/>
-              <div className="username">{fullname}</div>
+                alt="Ash" />
+              <div className="username">{ fullname }</div>
               <div className="bio">
                 Library User
               </div>
               <div className="row">
                 <div className="col s12 m3 l6">
                   <div className="description">
-                   My name is {fullname} I am a user of the Hello Books Application,
+                    My name is { fullname } I am a user of the Hello Books Application,
                    I love the helloBooks app because it is a fast and simple library management system.
                   When i am not reading, i love to skie, play football and also have fun with my friends.
                   </div>
@@ -152,18 +152,18 @@ class Profile extends React.Component {
                           <p>
                             <b>Full name: &nbsp;
                             </b> &nbsp;
-                            {fullname}</p>
+                            { fullname }</p>
                           <div className="divider"></div>
                           <p>
                             <b>Username: &nbsp;
                             </b>
-                            {username}
+                            { username }
                           </p>
                           <div className="divider"></div>
                           <p>
                             <b>Email: &nbsp;
                             </b>
-                            {email}
+                            { email }
                           </p>
                           <div className="divider"></div>
                           <p>
@@ -191,23 +191,23 @@ class Profile extends React.Component {
             </div>
           </div>
 
-        </div>}
-        <DashboardFooter/>
+        </div> }
+        <DashboardFooter />
       </div>
     )
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps( dispatch ) {
   return {
-    actions: bindActionCreators({
+    actions: bindActionCreators( {
       editProfileAction
-    }, dispatch)
+    }, dispatch )
   };
 }
 
-function mapStateToProps(state) {
-  return {user: state.auth.user.currentUser}
+function mapStateToProps( state ) {
+  return { user: state.auth.user.currentUser }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect( mapStateToProps, mapDispatchToProps )( Profile )

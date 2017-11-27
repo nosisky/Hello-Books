@@ -21,7 +21,6 @@ class AddANewBook extends Component {
       </div>
     )
   }
-
 }
 
 function mapStateToProps(state){

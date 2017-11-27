@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class SideBar extends Component {
-  componentDidMount(){
-    $('.button-collapse').sideNav({
+  componentDidMount() {
+    $( '.button-collapse' ).sideNav( {
       edge: 'left', // Choose the horizontal origin
       menuWidth: '300',
       closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
       draggable: true // Choose whether you can drag to open on touch screens
-    });
-    $('.dropdown-button').dropdown({
+    } );
+    $( '.dropdown-button' ).dropdown( {
       inDuration: 300,
       outDuration: 225,
       constrainWidth: false, // Does not change width of dropdown to that of the activator
@@ -19,19 +19,19 @@ class SideBar extends Component {
       alignment: 'left', // Displays dropdown with edge aligned to the left of button
       stopPropagation: false // Stops event propagation
     }
-  );
-    $('.modal').modal();
-}
+    );
+    $( '.modal' ).modal();
+  }
   render() {
     return (
       <ul id="slide-out" className="col s2 m3 l3 side-nav fixed show-on-large-only">
         <div
-          style={{
-          textAlign: 'center',
-          color: '#000',
-          backgroundColor: '#25758c',
-          marginTop: -16
-        }}>
+          style={ {
+            textAlign: 'center',
+            color: '#000',
+            backgroundColor: '#25758c',
+            marginTop: -16
+          } }>
           <div className="row">
             <span className="card-title">
               <h4>
@@ -41,17 +41,17 @@ class SideBar extends Component {
             <li className="divider"></li>
             <p></p>
             <img
-              style={{
-              borderRadius: 50,
-              border: '2px solid black'
-            }}
+              style={ {
+                borderRadius: 50,
+                border: '2px solid black'
+              } }
               width="100px"
               height="100px"
               src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
-              alt="HelloBooks"/><br/>
+              alt="HelloBooks" /><br />
             <i className="material-icons">account_circle</i>
-            <b>{this.props.fullname}</b>
-          </div><br/>
+            <b>{ this.props.fullname }</b>
+          </div><br />
         </div>
         <li className="divider"></li>
         <li id="menu-list">
@@ -74,11 +74,11 @@ class SideBar extends Component {
             <i className="material-icons">person</i>
           </Link>
         </li>
-       {this.props.isAdmin === 1 && <li id="menu-list">
+        { this.props.isAdmin === 1 && <li id="menu-list">
           <Link to="/admin">Admin Section
             <i className="material-icons">verified_user</i>
           </Link>
-        </li>} 
+        </li> }
       </ul>
     );
   }

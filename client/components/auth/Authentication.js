@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import { bindActionCreators } from 'redux';
-import {logout} from '../../actions/AuthActions';
+import { logout } from '../../actions/AuthActions';
 
-export default function (ComposedComponent) {
+export default function ( ComposedComponent ) {
   class Authentication extends Component {
 
     componentWillMount() {
       const key = 'Andelahellobooks';
-      const token = localStorage.getItem('token');
-      if (token) {
-        jwt.verify(token, key, (error) => {
-          if (error) {
+      const token = localStorage.getItem( 'token' );
+      if ( token ) {
+        jwt.verify( token, key, ( error ) => {
+          if ( error ) {
             this
               .props
               .actions
@@ -21,43 +21,43 @@ export default function (ComposedComponent) {
             this
               .props
               .history
-              .push('/');
+              .push( '/' );
           }
-        });
+        } );
       }
-      if (!this.props.authenticated) {
+      if ( !this.props.authenticated ) {
         this
           .props
           .history
-          .push('/');
+          .push( '/' );
       }
-      if (!this.props.authenticated) {
+      if ( !this.props.authenticated ) {
         this
           .props
           .history
-          .push('/');
+          .push( '/' );
       }
     }
 
-    componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
+    componentWillUpdate( nextProps ) {
+      if ( !nextProps.authenticated ) {
         this
           .props
           .history
-          .push('/');
+          .push( '/' );
       }
     }
 
     render() {
-      return <ComposedComponent {...this.props}/>
+      return <ComposedComponent {...this.props} />
     }
   }
 
-  function mapDispatchToProps(dispatch) {
+  function mapDispatchToProps( dispatch ) {
     return {
-      actions: bindActionCreators({
+      actions: bindActionCreators( {
         logout
-      }, dispatch)
+      }, dispatch )
     };
   }
 
@@ -65,9 +65,9 @@ export default function (ComposedComponent) {
     router: PropTypes.object
   }
 
-  function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated, user: state.auth.user};
+  function mapStateToProps( state ) {
+    return { authenticated: state.auth.authenticated, user: state.auth.user };
   }
 
-  return connect(mapStateToProps, mapDispatchToProps)(Authentication);
+  return connect( mapStateToProps, mapDispatchToProps )( Authentication );
 }

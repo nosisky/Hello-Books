@@ -120,6 +120,7 @@ export default {
         }
       });
   },
+
   /** Get all users in the database
    * @param  {Object} request 
    * @param  {Object} response
@@ -152,6 +153,7 @@ export default {
       })
       .catch(error => res.status(500).send({ error }));
   },
+
   /** Validates Email address
    * @param  {object} req - request
    * @param  {object} res - response

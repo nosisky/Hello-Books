@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
 
 export default class Register extends Component {
-  constructor(props) {
-    super(props);
+  constructor( props ) {
+    super( props );
     this.state = {
       fullName: "",
       username: "",
@@ -21,123 +21,123 @@ export default class Register extends Component {
     }
     this.onChange = this
       .onChange
-      .bind(this)
+      .bind( this )
     this.handleSubmit = this
       .handleSubmit
-      .bind(this);
+      .bind( this );
     this.onBlur = this
       .onBlur
-      .bind(this);
+      .bind( this );
     this.onFocus = this
       .onFocus
-      .bind(this);
+      .bind( this );
 
   }
 
-  onChange(event) {
+  onChange( event ) {
     const name = event.target.name,
       value = event.target.value;
-    this.setState({
+    this.setState( {
       [event.target.name]: event.target.value
-    });
+    } );
   }
 
-  handleSubmit(formData) {
-    this.setState({isLoading: true})
+  handleSubmit( formData ) {
+    this.setState( { isLoading: true } )
     formData.preventDefault();
     this
       .props
-      .onSubmit(this.state)
-      .then((data) => {
-        Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4', () => {
-          this.setState({isLoading: false})
-          window.location.href ='/dashboard';
-        });
-      })
+      .onSubmit( this.state )
+      .then(( data ) => {
+        Materialize.toast( 'Sign Up Successfully', 2000, 'blue darken-4', () => {
+          this.setState( { isLoading: false } )
+          window.location.href = '/dashboard';
+        } );
+      } )
   }
 
-  onFocus(e) {
+  onFocus( e ) {
     const name = e.target.name;
-    switch (name) {
+    switch ( name ) {
       case "username":
-        this.setState({ usernameError: "", userExist: "" })
+        this.setState( { usernameError: "", userExist: "" } )
         break;
       case "password":
-        this.setState({ passwordError: "" })
+        this.setState( { passwordError: "" } )
         break;
       case "cpassword":
-        this.setState({ passwordConfirm: "" })
+        this.setState( { passwordConfirm: "" } )
         break;
       case "email":
-        this.setState({emailError: "", emailExist: ""})
+        this.setState( { emailError: "", emailExist: "" } )
     }
   }
 
-  onBlur(e) {
+  onBlur( e ) {
     const name = e.target.name,
       value = e.target.value;
 
-    switch (name) {
+    switch ( name ) {
       case "password":
-        if (value.length < 5 || !value) {
-          this.setState({passwordError: "Password must be a minimum of 8 characters"});
+        if ( value.length < 5 || !value ) {
+          this.setState( { passwordError: "Password must be a minimum of 8 characters" } );
           return false;
         } else {
-          this.setState({passwordError: ""});
+          this.setState( { passwordError: "" } );
           return true;
         }
       case "email":
         this
           .props
-          .EmailExist({email: value})
-          .then((data) => {
-            if (data.length > 1) {
-              this.setState({emailExist: data})
+          .EmailExist( { email: value } )
+          .then(( data ) => {
+            if ( data.length > 1 ) {
+              this.setState( { emailExist: data } )
               return false;
             } else {
               return true;
             }
-          });
+          } );
         break;
 
       case "username":
         this
           .props
-          .UserExist({ username: value })
-          .then((data) => {
-            if (data.length > 1) {
-              this.setState({ userExist: data })
+          .UserExist( { username: value } )
+          .then(( data ) => {
+            if ( data.length > 1 ) {
+              this.setState( { userExist: data } )
             } else {
-              this.setState({ userExist: '' })
+              this.setState( { userExist: '' } )
             }
-          });
-        if (value.length < 5 || !value) {
-            this.setState({usernameError: "username must be a minimum of 5 characters"});
-            return false;
-          } else {
-            this.setState({usernameError: ""});
-            return true;
-          }
+          } );
+        if ( value.length < 5 || !value ) {
+          this.setState( { usernameError: "username must be a minimum of 5 characters" } );
+          return false;
+        } else {
+          this.setState( { usernameError: "" } );
+          return true;
+        }
 
     }
   }
 
   render() {
-    const {userExist} = this.props;
+    const { userExist } = this.props;
     return (
       <div id="register" className="col s12">
-        <form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
+        <form className="col s12" id="form-validate" onSubmit={ this.handleSubmit }>
           <div className="form-container">
             <div className="row">
               <div className="input-field col s6">
                 <input
                   name="fullName"
                   type="text"
-                  onChange={this.onChange}
+                  onChange={ this.onChange }
                   className="validate"
-                  required/>
+                  required />
                 <label htmlFor="fullName">Full Name</label>
-                <div className="red-text">{this.state.fullNameError}
+                <div className="red-text">{ this.state.fullNameError }
                 </div>
               </div>
               <div className="input-field col s6">
@@ -145,15 +145,15 @@ export default class Register extends Component {
                   name="username"
                   id="uname"
                   type="text"
-                  onBlur={this.onBlur}
-                  onChange={this.onChange}
-                  onFocus={this.onFocus}
+                  onBlur={ this.onBlur }
+                  onChange={ this.onChange }
+                  onFocus={ this.onFocus }
                   className="validate"
-                  required/>
+                  required />
                 <label htmlFor="username">username</label>
-                <div className="red-text">{this.state.userExist}
+                <div className="red-text">{ this.state.userExist }
                 </div>
-                <div className="red-text">{this.state.usernameError}
+                <div className="red-text">{ this.state.usernameError }
                 </div>
               </div>
             </div>
@@ -162,15 +162,15 @@ export default class Register extends Component {
                 <input
                   name="email"
                   type="email"
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  onFocus={this.onFocus}
+                  onChange={ this.onChange }
+                  onBlur={ this.onBlur }
+                  onFocus={ this.onFocus }
                   className="validate"
-                  required/>
+                  required />
                 <label htmlFor="email">Email</label>
-                <div className="red-text">{this.state.emailError}
+                <div className="red-text">{ this.state.emailError }
                 </div>
-                <div className="red-text">{this.state.emailExist}
+                <div className="red-text">{ this.state.emailExist }
                 </div>
               </div>
             </div>
@@ -180,13 +180,13 @@ export default class Register extends Component {
                   name="password"
                   type="password"
                   id="pword"
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  onFocus={this.onFocus}
+                  onChange={ this.onChange }
+                  onBlur={ this.onBlur }
+                  onFocus={ this.onFocus }
                   className="validate"
-                  required/>
+                  required />
                 <label htmlFor="password">Password</label>
-                <div className="red-text">{this.state.passwordError}
+                <div className="red-text">{ this.state.passwordError }
                 </div>
               </div>
             </div>
@@ -194,13 +194,13 @@ export default class Register extends Component {
               <div className="input-field col s12">
                 <input
                   name="cpassword"
-                  onChange={this.onChange}
-                  onBlur={this.onBlur}
-                  onFocus={this.onFocus}
+                  onChange={ this.onChange }
+                  onBlur={ this.onBlur }
+                  onFocus={ this.onFocus }
                   type="password"
-                  className="validate"/>
+                  className="validate" />
                 <label htmlFor="cpassword">Password Confirmation</label>
-                <div className="red-text">{this.state.passwordConfirm}
+                <div className="red-text">{ this.state.passwordConfirm }
                 </div>
               </div>
             </div>
