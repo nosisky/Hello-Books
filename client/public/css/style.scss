@@ -184,6 +184,16 @@ h5 {
   background-color: #fff;
 }
 
+#collection-item {
+  font-weight: bold;
+  margin: 10px !important;
+}
+
+.collection .collection-item.avatar .secondary-content {
+  font-size: 10px;
+  font-weight: normal;
+}
+
 .container-fluid {
   width: 80%;
   margin: 20px;

@@ -111,7 +111,7 @@ app.route('/')
 app.route('/:bookId')
   .put(Authorization.isLoggedIn,
     Authorization.isAdmin,
-    Authorization.validBook,
+    Validation.validBook,
     BookController.modifyBook);
 
 /**
@@ -149,7 +149,7 @@ app.route('/cat')
 // Get a specific book
 app.route('/:bookId')
   .get(Authorization.isLoggedIn,
-    Authorization.validBook,
+    Validation.validBook,
     BookController.getOneBook);
 
 /**
@@ -183,7 +183,7 @@ app.route('/:bookId')
 app.route('/delete/:bookId')
   .delete(Authorization.isLoggedIn,
     Authorization.isAdmin,
-    Authorization.validBook,
+    Validation.validBook,
     BookController.deleteBook);
 
 /**
@@ -209,7 +209,7 @@ app.route('/delete/:bookId')
  */
 app.route('/logs/:userId')
   .get(Authorization.isLoggedIn,
-    Authorization.validUser,
+    Validation.validUser,
     BookController.rentedBookByUser);
 
 
@@ -236,11 +236,17 @@ app.route('/logs/:userId')
  */
 app.route('/category')
   .get(Authorization.isLoggedIn,
-    Authorization.validUser,
+    Validation.validUser,
+    BookController.rentedBookByUser);
+
+app.route('/category')
+  .get(Authorization.isAdmin,
     BookController.rentedBookByUser);
 
 export default app;
 
 
 app.route('/email')
-  .post(sendMail);
+  .post(Authorization.isAdmin, sendMail);
+
+

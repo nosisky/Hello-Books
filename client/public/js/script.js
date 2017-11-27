@@ -18,5 +18,7 @@ $(document).ready(() => {
   );
   $('.modal').modal();
 
+  $('.collapsible').collapsible();
+
   $('select').material_select();
 });

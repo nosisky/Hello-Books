@@ -1,6 +1,6 @@
 import db from '../models';
 
-const { RentedBook, Book, Category, History } = db;
+const { RentedBook, Book, Category, Notification, User } = db;
 
 export default {
   /** Admin add new book
@@ -47,18 +47,46 @@ export default {
               id: req.body.bookId
             }
           })))
-      .then((book) => {
-        History
-          .create({
-            userId: req.params.userId,
-            type: 'rent',
-            description: `You rented ${book.title}`
+      .then(() => {
+        Book.findOne({ where: { id: req.body.bookId } })
+          .then((book) => {
+            User.findById(req.params.userId)
+              .then((user) => {
+                Notification.create({
+                  userId: req.params.userId,
+                  message: `${user.username} rented ${book.title}`
+                });
+              });
           });
       })
       .then(() => res.status(201).send({
         message: 'You have successfully rented the book',
       }))
       .catch(error => res.status(400).send(error));
+  },
+
+  /**
+   * Retrieves all recent notifications from the database
+   * @param {Object} req - request
+   * @param {Object} res - response
+   * @return {Array} - data
+   */
+  getNotification(req, res) {
+    const limit = 10,
+      offset = 0;
+    Notification.findAll({
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+      limit,
+      offset,
+    })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
   },
 
   /** displays all books
@@ -260,6 +288,16 @@ export default {
             }
           })
           .then(() => {
+            Book.findOne({ where: { id: req.body.bookId } })
+              .then((book) => {
+                User.findById(req.params.userId)
+                  .then((user) => {
+                    Notification.create({
+                      userId: req.params.userId,
+                      message: `${user.username} returned ${book.title}`
+                    });
+                  });
+              });
             res.status(201).send({
               message: 'Book returned successfully',
               book: books
