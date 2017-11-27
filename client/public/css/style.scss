@@ -184,6 +184,16 @@ h5 {
   background-color: #fff;
 }
 
+#collection-item {
+  font-weight: bold;
+  margin: 10px !important;
+}
+
+.collection .collection-item.avatar .secondary-content {
+  font-size: 10px;
+  font-weight: normal;
+}
+
 .container-fluid {
   width: 80%;
   margin: 20px;
@@ -192,6 +202,7 @@ h5 {
 
 .book {
   width: 100px;
+  box-shadow: white 4px 3px 4px 5px;
 }
 
 .history-container {

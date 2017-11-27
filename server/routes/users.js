@@ -7,7 +7,7 @@ import BookController from '../controllers/Book';
 
 const app = express.Router();
 
- /**
+/**
  * @swagger
  * /:
  *   get:
@@ -201,8 +201,8 @@ app.route('/getemail')
  */
 app.route('/:userId/books')
   .post(Authorization.isLoggedIn,
-    Authorization.validUser,
-    Authorization.validBook,
+    Validation.validUser,
+    Validation.validBook,
     Validation.checkTotalBook,
     Authorization.checkUserPlan,
     Authorization.hasRentedBefore,
@@ -254,8 +254,8 @@ app.route('/:userId/books')
  */
 app.route('/:userId/books')
   .put(Authorization.isLoggedIn,
-    Authorization.validUser,
-    Authorization.validBook,
+    Validation.validUser,
+    Validation.validBook,
     BookController.returnBook);
 
 /**
@@ -291,13 +291,13 @@ app.route('/:userId/books')
  */
 app.route('/:userId/books')
   .get(Authorization.isLoggedIn,
-    Authorization.validUser,
+    Validation.validUser,
     BookController.rentedBooks);
 
 // Edit user profile
 app.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
-    Authorization.validUser,
+    Validation.validUser,
     UserController.editProfile);
 
 /**
@@ -323,7 +323,7 @@ app.route('/edit/:userId')
  */
 app.route('/:userId')
   .get(Authorization.isLoggedIn,
-    Authorization.validBook,
+    Validation.validBook,
     Authorization.getOneUser);
 
 export default app;

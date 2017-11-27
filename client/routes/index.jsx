@@ -12,6 +12,7 @@ import Profile from '../components/pages/Profile';
 import SearchPage from '../components/pages/SearchPage';
 import Authentication from '../components/auth/Authentication';
 import AdminAuthentication from '../components/auth/AdminAuthentication';
+import NotificationPage from '../components/admin/pages/NotificationPage';
 
 export const Main = () => (
   <Switch>
@@ -19,6 +20,7 @@ export const Main = () => (
     <Route exact path="/dashboard" component={Authentication(Dashboard)} />
     <Route exact path="/admin" component={AdminAuthentication(AdminHome)} />
     <Route path="/add-book" component={AdminAuthentication(AddNewBook)} />
+    <Route path="/notifications" component={AdminAuthentication(NotificationPage)} />
     <Route path="/rented-books" component={Authentication(RentedBooksPage)} />
     <Route path="/profile" component={Authentication(Profile)} />
     <Route path="/search" component={Authentication(SearchPage)} />

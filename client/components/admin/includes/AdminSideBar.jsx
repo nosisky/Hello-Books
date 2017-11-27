@@ -132,7 +132,7 @@ class AdminSideBar extends Component {
                   </Link>
                 </li>
                 <li id="menu-list">
-                  <Link to="/admin">Delete Books<i className="material-icons">delete</i>
+                  <Link to="/notifications">Activity Logs<i className="material-icons">insert_chart</i>
                   </Link>
                 </li>
                 <li id="menu-list">

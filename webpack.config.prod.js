@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
@@ -18,11 +17,14 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['client/dist']),
-    // new HtmlWebpackPlugin({
-    //   title: 'Hello-Books',
-    //   template: 'client/index.html',
-    //   inject: 'body',
-    // }),
+    new webpack.EnvironmentPlugin(
+      ['FIREABSE_DOMAIN',
+        'FIREBASE_MESSENGERID',
+        'FIREBASE_APIKEY',
+        'FIREBASE_URL',
+        'FIREBASE_PROJECTID',
+        'FIREBASE_STORAGEBUCKET',
+        'FIREBASE_STORAGEBUCKET']),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),

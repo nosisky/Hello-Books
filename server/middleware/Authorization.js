@@ -6,7 +6,6 @@ import db from '../models/';
 dotenv.load();
 const key = process.env.secretKey;
 const { User } = db;
-const { Book } = db;
 const { RentedBook } = db;
 
 export default {
@@ -247,64 +246,7 @@ export default {
         });
     }
   },
-  /** Checks is a valid user ID was supplied
-   * @param  {Object} req - request
-   * @param  {object} res - response
-   */
 
-  validUser(req, res, next) {
-    const querier = req.params.userId;
-    if (!querier || querier.match(/[\D]/)) {
-      res.status(404).send({
-        message: 'Invalid user id supplied!!!'
-      });
-    } else {
-      User
-        .findOne({
-          where: {
-            id: req.params.userId
-          }
-        })
-        .then((user) => {
-          if (!user) {
-            res.status(404).send({
-              message: 'Invalid user id supplied'
-            });
-          } else {
-            next();
-          }
-        });
-    }
-  },
-  /** Checks if a valid book ID was supplied
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  validBook(req, res, next) {
-    const querier = req.body.bookId || req.params.bookId;
-    if (!querier || /[\D]/.test(querier)) {
-      res.status(404).send({
-        message: 'Invalid book id supplied!!!'
-      });
-    } else {
-      Book
-        .findOne({
-          where: {
-            id: req.params.bookId || req.body.bookId
-          }
-        })
-        .then((book) => {
-          if (!book) {
-            res.status(404).send({
-              message: 'Book id is not valid'
-            });
-          } else {
-            next();
-          }
-        });
-    }
-  },
   /** Checks if user has rented a book before
    * @param  {object} req - request
    * @param  {object} res - response
