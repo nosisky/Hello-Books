@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment'
 
 const Notification = ({message, time}) => {
-  const newTime = moment(time).format('MMMM Do YYYY, h:mm:ss a');
+  const newTime = moment(time).format('MMMM Do YYYY, h:mm a');
 	return (
 		<div>
 			<ul className="collection">
