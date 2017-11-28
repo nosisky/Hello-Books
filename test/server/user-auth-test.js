@@ -6,7 +6,7 @@ import models from '../../server/models/';
 import userSeeder from '../../server/seeders/users';
 
 const server = supertest.agent(app);
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiYmFiYWxvbGEiLCJmdWxsbmFtZSI6IkFiZHVsIHJhc2EiLCJpc0FkbWluIjoxLCJwbGFuIjoic2lsdmVyIiwiYWN0aXZlIjp0cnVlfSwiaWF0IjoxNTAyMjEyNzY5fQ.OY7VqntSO0zn1fYzmTw-RcFIcEbdZ4uvLBGT_TUpdB4';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
 
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
@@ -77,6 +77,21 @@ describe('User Api', () => {
       });
   });
 
+  it('Checks for existing email address', (done) => {
+    server
+      .post('/api/v1/users/getemail')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ email: 'nosisky@gmail.com' })
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.message.should.equal('Email already exist');
+        done();
+      });
+  });
+
   it('Checks for invalid login details', (done) => {
     server
       .post('/api/v1/users/signin')
@@ -88,6 +103,19 @@ describe('User Api', () => {
       .end((err, res) => {
         res.status.should.equal(401);
         res.body.message.should.equal('Invalid Credentials.');
+        done();
+      });
+  });
+
+  it('Feteches all users from the database', (done) => {
+    server
+      .get('/api/v1/users/all')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('x-access-token', token)
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
         done();
       });
   });
@@ -107,3 +135,4 @@ describe('User Api', () => {
       });
   });
 });
+

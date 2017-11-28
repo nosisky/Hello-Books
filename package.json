@@ -16,7 +16,7 @@
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
     "migrate:undo": "sequelize db:seed:undo",
     "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed --seed server/seeders/20171016124637-users.js",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test/server"
   },
   "engines": {
     "node": "6.11.0"
@@ -127,6 +127,7 @@
     "moxios": "^0.4.0",
     "nyc": "^11.1.0",
     "react-test-renderer": "^15.6.1",
+    "selenium-standalone": "^6.11.0",
     "should": "^11.2.1",
     "sinon": "^4.1.2",
     "supertest": "^3.0.0"

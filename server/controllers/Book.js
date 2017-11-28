@@ -10,11 +10,12 @@ export default {
    */
 
   create(req, res) {
-    return Book
-      .create(req.userInput)
-      .then(() => res.status(201).send({
-        message: 'Book uploaded successfully',
-      }))
+    return Book.create(req.userInput)
+      .then(() =>
+        res.status(201).send({
+          message: 'Book uploaded successfully'
+        })
+      )
       .catch(error => res.status(400).send(error));
   },
 
@@ -28,40 +29,45 @@ export default {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
     Book.findById(req.body.bookId)
-      .then(book => RentedBook
-        .create({
+      .then(book =>
+        RentedBook.create({
           bookId: req.body.bookId,
           description: book.description,
           title: book.title,
           userId: req.params.userId,
           cover: book.cover,
           toReturnDate: after30days
-        }))
-      .then(() => Book
-        .findOne({ where: { id: req.body.bookId } })
-        .then(books => Book
-          .update({
-            total: books.total - 1
-          }, {
-            where: {
-              id: req.body.bookId
+        })
+      )
+      .then(() =>
+        Book.findOne({ where: { id: req.body.bookId } }).then(books =>
+          Book.update(
+            {
+              total: books.total - 1
+            },
+            {
+              where: {
+                id: req.body.bookId
+              }
             }
-          })))
+          )
+        )
+      )
       .then(() => {
-        Book.findOne({ where: { id: req.body.bookId } })
-          .then((book) => {
-            User.findById(req.params.userId)
-              .then((user) => {
-                Notification.create({
-                  userId: req.params.userId,
-                  message: `${user.username} rented ${book.title}`
-                });
-              });
+        Book.findOne({ where: { id: req.body.bookId } }).then((book) => {
+          User.findById(req.params.userId).then((user) => {
+            Notification.create({
+              userId: req.params.userId,
+              message: `${user.username} rented ${book.title}`
+            });
           });
+        });
       })
-      .then(() => res.status(201).send({
-        message: 'You have successfully rented the book',
-      }))
+      .then(() =>
+        res.status(201).send({
+          message: 'You have successfully rented the book'
+        })
+      )
       .catch(error => res.status(400).send(error));
   },
 
@@ -75,11 +81,9 @@ export default {
     const limit = 10,
       offset = 0;
     Notification.findAll({
-      order: [
-        ['createdAt', 'DESC'],
-      ],
+      order: [['createdAt', 'DESC']],
       limit,
-      offset,
+      offset
     })
       .then((data) => {
         res.status(200).send(data);
@@ -106,14 +110,11 @@ export default {
       page = pageNum;
       offset = (page - 1) * limit;
     }
-    return Book
-      .findAndCountAll({
-        order: [
-          ['title', 'ASC'],
-        ],
-        limit,
-        offset,
-      })
+    return Book.findAndCountAll({
+      order: [['title', 'ASC']],
+      limit,
+      offset
+    })
       .then((books) => {
         if (books.count < 1) {
           res.status(400).send({
@@ -132,8 +133,7 @@ export default {
    */
 
   addCategory(req, res) {
-    return Category
-      .create(req.body)
+    return Category.create(req.body)
       .then((category) => {
         if (category) {
           return res.status(201).send({
@@ -142,9 +142,11 @@ export default {
           });
         }
       })
-      .catch(error => res.status(401).send({
-        error
-      }));
+      .catch(error =>
+        res.status(401).send({
+          error
+        })
+      );
   },
   /** Dislay users rented books
    * @param  {object} req request
@@ -153,13 +155,12 @@ export default {
    */
 
   rentedBooks(req, res) {
-    return RentedBook
-      .findAll({
-        where: {
-          returned: req.query.returned,
-          userId: req.params.userId
-        }
-      })
+    return RentedBook.findAll({
+      where: {
+        returned: req.query.returned,
+        userId: req.params.userId
+      }
+    })
       .then((books) => {
         if (books.length < 1) {
           res.status(201).send({
@@ -179,21 +180,18 @@ export default {
    */
 
   modifyBook(req, res) {
-    return Book
-      .update(req.body,
-        {
-          where: {
-            id: req.params.bookId
-          }
-        })
+    return Book.update(req.body, {
+      where: {
+        id: req.params.bookId
+      }
+    })
       .then(() => {
-        Book.findById(req.params.bookId)
-          .then((book) => {
-            res.status(200).send({
-              book,
-              message: 'Book updated successfully!'
-            });
+        Book.findById(req.params.bookId).then((book) => {
+          res.status(200).send({
+            book,
+            message: 'Book updated successfully!'
           });
+        });
       })
       .catch(error => res.status(400).send(error));
   },
@@ -204,12 +202,11 @@ export default {
    */
 
   getOneBook(req, res) {
-    return Book
-      .findAll({
-        where: {
-          id: req.params.bookId
-        }
-      })
+    return Book.findAll({
+      where: {
+        id: req.params.bookId
+      }
+    })
       .then((books) => {
         res.status(200).send(books);
       })
@@ -222,12 +219,11 @@ export default {
    */
 
   deleteBook(req, res) {
-    return Book
-      .destroy({
-        where: {
-          id: req.params.bookId
-        }
-      })
+    return Book.destroy({
+      where: {
+        id: req.params.bookId
+      }
+    })
       .then(() => {
         res.status(200).send({
           message: 'Book deleted successfully!',
@@ -243,12 +239,11 @@ export default {
    */
 
   rentedBookByUser(req, res) {
-    return RentedBook
-      .findAll({
-        where: {
-          userId: req.params.userId,
-        }
-      })
+    return RentedBook.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
       .then((books) => {
         if (books.length < 1) {
           res.status(200).send({
@@ -267,8 +262,8 @@ export default {
    */
 
   returnBook(req, res) {
-    return RentedBook
-      .update({
+    return RentedBook.update(
+      {
         returnDate: Date.now(),
         returned: true
       },
@@ -276,34 +271,35 @@ export default {
         where: {
           bookId: req.body.bookId
         }
-      })
-      .then(() => Book
-        .findOne({ where: { id: req.body.bookId } })
-        .then(books => Book
-          .update({
-            total: books.total + 1
-          }, {
-            where: {
-              id: req.body.bookId
+      }
+    )
+      .then(() =>
+        Book.findOne({ where: { id: req.body.bookId } }).then(books =>
+          Book.update(
+            {
+              total: books.total + 1
+            },
+            {
+              where: {
+                id: req.body.bookId
+              }
             }
-          })
-          .then(() => {
-            Book.findOne({ where: { id: req.body.bookId } })
-              .then((book) => {
-                User.findById(req.params.userId)
-                  .then((user) => {
-                    Notification.create({
-                      userId: req.params.userId,
-                      message: `${user.username} returned ${book.title}`
-                    });
-                  });
+          ).then(() => {
+            Book.findOne({ where: { id: req.body.bookId } }).then((book) => {
+              User.findById(req.params.userId).then((user) => {
+                Notification.create({
+                  userId: req.params.userId,
+                  message: `${user.username} returned ${book.title}`
+                });
               });
+            });
             res.status(201).send({
               message: 'Book returned successfully',
               book: books
             });
           })
-        ))
+        )
+      )
       .catch(error => res.status(400).send(error));
   },
 
@@ -325,8 +321,10 @@ export default {
     return Book.findAll({
       where: {
         $or: [
-          { title: {
-            $iLike: `%${req.body.search}%` }
+          {
+            title: {
+              $iLike: `%${req.body.search}%`
+            }
           }
         ]
       }

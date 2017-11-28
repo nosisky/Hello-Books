@@ -247,4 +247,5 @@ export default app;
 
 
 app.route('/email')
-  .post(Authorization.isAdmin, sendMail);
+  .post(Authorization.isLoggedIn,
+    Authorization.isAdmin, sendMail);

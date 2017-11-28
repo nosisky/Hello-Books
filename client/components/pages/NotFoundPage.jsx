@@ -3,15 +3,14 @@ import DashboardFooter from '../includes/DashboardFooter';
 import NavBar from '../includes/NavBar';
 
 export default class NotFoundPage extends Component {
-
-  render() {
-    return (
-      <div>
-        <NavBar />
-        <h1 className="notfound">404 - Page Not Found :(</h1>
-        <h3 className="notfound">I'm sorry, the page you were looking for cannot be found! :D</h3>
-        <DashboardFooter />
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div>
+				<NavBar />
+				<h1 className="notfound">404 - Page Not Found :(</h1>
+				<h3 className="notfound">I'm sorry, the page you were looking for cannot be found! :D</h3>
+				<DashboardFooter />
+			</div>
+		);
+	}
 }

@@ -22,7 +22,7 @@ export default function sendMail(req, res) {
     from: 'no-reply@hellobooks.com', // sender address
     to: 'nosisky@gmail.com', // list of receivers
     subject: req.body.subject, // Subject line
-    html: `<p>${req.body.message}</p>`// plain text body
+    html: `<p>${req.body.message}</p>` // plain text body
   };
   transporter.sendMail(mailOptions, (err) => {
     if (err) {

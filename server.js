@@ -8,7 +8,6 @@ import webpack from 'webpack';
 import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
-import webpackConfig from './webpack.config.prod';
 import webpackConfigDev from './webpack.config.dev';
 import UserRouter from './server/routes/users';
 import BookRouter from './server/routes/books';
@@ -26,11 +25,12 @@ const swaggerDefinition = {
   info: {
     title: 'HelloBooks API',
     version: '1.0.0',
-    description: 'An application that helps manage a library and its processes like stocking, tracking and renting of books.',
+    description:
+   'An application that helps manage a library and its processes like stocking, tracking and renting of books.'
   },
   host: 'andela-hellobooks.herokuapp.com',
 
-  basePath: '/api/v1',
+  basePath: '/api/v1'
 };
 
 // options for the swagger docs
@@ -38,7 +38,7 @@ const options = {
   // import swaggerDefinitions
   swaggerDefinition,
   // path to the API docs
-  apis: ['./server/routes/*.js'],
+  apis: ['./server/routes/*.js']
 };
 
 // initialize swagger-jsdoc
