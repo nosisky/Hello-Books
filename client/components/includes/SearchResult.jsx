@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
+import moment from 'moment';
 import { rentBookAction } from '../../actions/BookActions';
 
 export default class SearchResult extends Component {
@@ -11,8 +12,8 @@ export default class SearchResult extends Component {
 	handleClick() {
 		const cur = new Date(),
 			after30days = cur.setDate(cur.getDate() + 30),
-			getDateNow = cur.getDate() + '/' + (cur.getMonth() + 1) + '/' + cur.getFullYear();
-
+			finalDate = new Date(after30days);
+			const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
 		swal({
 			title: 'Are you sure?',
 			text: `You will be mandated to return this book on or before ${new Date(getDateNow)}`,

@@ -103,7 +103,7 @@ describe('Adds a new book to the database', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
-        res.body.should.equal(true)
+        res.body.should.equal(true);
         done();
       });
   });
@@ -366,7 +366,7 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
-  
+
   it('deletes a book successfully', (done) => {
     server
       .delete('/api/v1/books/delete/1')
