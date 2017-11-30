@@ -92,22 +92,6 @@ describe('Adds a new book to the database', () => {
       });
   });
 
-  it('Sends an email', (done) => {
-    server
-      .post('/api/v1/books/email')
-      .set('Connection', 'keep alive')
-      .set('x-access-token', token)
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send({ message: 'Think rich', subject: 'Hello Test' })
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.should.equal(true);
-        done();
-      });
-  });
-
   it('checks if email can be sent with invalid details', (done) => {
     server
       .post('/api/v1/books/email')
