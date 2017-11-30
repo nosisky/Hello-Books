@@ -93,7 +93,7 @@ export default class Register extends Component {
 						this.setState({ userExist: '' });
 					}
 				});
-				if (value.length < 5 || !value) {
+				if (value.length < 4 || !value) {
 					this.setState({ usernameError: 'username must be a minimum of 5 characters' });
 					return false;
 				} else {

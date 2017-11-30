@@ -46,6 +46,22 @@ describe('Adds a new book to the database', () => {
       });
   });
 
+  it('adds a new category', (done) => {
+    server
+      .post('/api/v1/books/cat')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ name: 'Test', description: 'test' })
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
+        res.body.message.should.equal('Category added successfully');
+        done();
+      });
+  });
+
   it('retrieves all category', (done) => {
     server
       .get('/api/v1/category')

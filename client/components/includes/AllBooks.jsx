@@ -16,7 +16,7 @@ export default class AllBooks extends Component {
 		const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
 		swal({
 			title: 'Are you sure?',
-			text: `You will be mandated to return this book on or before ${curl}`,
+			text: `You will be mandated to return this book on or before ${newTime}`,
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
