@@ -13,7 +13,8 @@ export default class SearchResult extends Component {
 		const cur = new Date(),
 			after30days = cur.setDate(cur.getDate() + 30),
 			finalDate = new Date(after30days);
-			const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
+			const newTime = moment(finalDate)
+			.format('MMMM Do YYYY, h:mm a');
 		swal({
 			title: 'Are you sure?',
 			text: `You will be mandated to return this book on or before ${new Date(getDateNow)}`,
