@@ -6,7 +6,7 @@ import rootReducers from '../reducers/index';
 
 
 /**
- * 
+ *
  * Redux store configuration
  * @param {Object}  initialState - i
  * @returns {Object} - Object containing data in redux store

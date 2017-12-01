@@ -15,7 +15,7 @@ export function setAuthorizationToken(token) {
 }
 
 /**
- * 
+ *
  * @param {Object} email - Object containing email
  * @returns {Object} - Object containing user data
  */
@@ -43,9 +43,9 @@ export function registerGoogleUser(userDetails) {
 /**
  * 
  * @param {Number} userId - user id
- * 
+ *
  * @param {Object} userData - Object containing User Data
- * 
+ *
  * @returns {String} - JWT Token
  */
 export function editProfile(userId, userData) {

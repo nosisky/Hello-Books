@@ -4,7 +4,7 @@ const API_URL = '/api/v1/notification';
 
 
 /**
- * 
+ *
  * @returns {Object} - Object containing notifications
  */
 export default function Notifications() {
