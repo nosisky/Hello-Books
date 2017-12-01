@@ -9,8 +9,7 @@
 
 * [Features](#features)
 * [Technologies](#technology)
-* [Installation and Setup](#installation-and-setup)
-* [Limitations](#limitations)
+* [Installation and Setup](#installation)
 * [How to Contribute](#how-to-contribute)
 * [Frequently Asked Questions](#faqs)
 * [Support or New Features](#support-or-new-features)
@@ -81,6 +80,7 @@ HelloBooks consists of the following features:
 - SecretKey=mysecretkey
 - DATABASE_TEST_URL=postgres://127.0.0.1:8000/hello-books-test
 - More details can be found in the .env.sample file
+- run `npm start`
 
 ## API Routes
 > POST : ```/api/v1/users/signup```
