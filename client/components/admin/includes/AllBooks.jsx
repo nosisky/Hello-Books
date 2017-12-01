@@ -45,11 +45,16 @@ class AllBooks extends Component {
 	}
 
 	onClick() {
-		this.setState({ displayBook: false, edit: true });
+		this.setState({ 
+			displayBook: false, 
+			edit: true 
+		});
 	}
+
 	changeView() {
 		this.setState({ displayBook: true, edit: false });
 	}
+	
 	handleFormSubmit(e) {
 		e.preventDefault();
 		this.props.actions.modifyBookAction(this.state, this.props.id).then((res) => {
@@ -81,6 +86,7 @@ class AllBooks extends Component {
 				float: 'left'
 			}
 		};
+
 		return (
 			<div className="col s12 m3 l3" style={style.file}>
 				{this.state.edit && (

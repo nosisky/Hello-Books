@@ -1,4 +1,5 @@
-import { ADD_BOOK,
+import {
+  ADD_BOOK,
   GET_ALL_BOOKS,
   GET_RENTED_BOOKS,
   GET_CATEGORY,
@@ -10,8 +11,24 @@ import { ADD_BOOK,
   RETURN_RENTED_BOOK
 } from '../actions/types';
 
-const INITIAL_STATE = { userExist: '', count: 0, category: [], error: '', message: '', user: '', allRentedBooks: [], content: '', authenticated: false, data: [] };
+const INITIAL_STATE = {
+  userExist: '',
+  count: 0,
+  category: [],
+  error: '',
+  message: '',
+  user: '',
+  allRentedBooks: [],
+  content: '',
+  authenticated: false,
+  data: []
+};
 
+/**
+ * @param {Object} state - Object containing the defaul state
+ * @param {Object} action - Object containing displatched data
+ * @returns {Object} - Object containing the store data
+ */
 function BookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BOOK:
@@ -21,7 +38,9 @@ function BookReducer(state = INITIAL_STATE, action) {
     case GET_ONE_BOOK:
       return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
-      return { ...state, count: action.data.count, allRentedBooks: action.data };
+      return { ...state,
+        count: action.data.count,
+        allRentedBooks: action.data };
     case GET_CATEGORY:
       return { ...state, category: action.data };
     case SEARCH_BOOK:
@@ -29,9 +48,7 @@ function BookReducer(state = INITIAL_STATE, action) {
     case SET_OFFSET:
       return { offset: state.offset + action.data };
     case DELETE_BOOK: {
-      const newState = state.data.filter(book =>
-        (book.id !== action.data)
-      );
+      const newState = state.data.filter(book => book.id !== action.data);
       return { ...state, count: state.count - 1, data: newState };
     }
     case RETURN_RENTED_BOOK: {
@@ -41,8 +58,7 @@ function BookReducer(state = INITIAL_STATE, action) {
           book.returned = true;
         }
         newData.push(book);
-      }
-      );
+      });
       return { ...state, allRentedBooks: newData };
     }
     case EDIT_BOOK: {
@@ -53,8 +69,7 @@ function BookReducer(state = INITIAL_STATE, action) {
         } else {
           newData.push(book);
         }
-      }
-      );
+      });
       return { ...state, data: newData };
     }
     default:
@@ -63,4 +78,3 @@ function BookReducer(state = INITIAL_STATE, action) {
 }
 
 export default BookReducer;
-

@@ -10,46 +10,44 @@ export default {
 
   checkUserInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
-    req.checkBody(
-      {
-        title: {
-          notEmpty: true,
-          isLength: {
-            options: [{ min: 5 }],
-            errorMessage: bookError
-          },
-          errorMessage: 'Book title is required'
+    req.checkBody({
+      title: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: bookError
         },
-        isbn: {
-          notEmpty: true,
-          errorMessage: 'ISBN is required'
-        },
-        prodYear: {
-          notEmpty: true,
-          errorMessage: 'Production Year is required'
-        },
-        cover: {
-          notEmpty: true,
-          errorMessage: 'Please upload a valid book cover'
-        },
-        author: {
-          notEmpty: true,
-          errorMessage: 'Please add book author'
-        },
-        description: {
-          notEmpty: true,
-          errorMessage: 'Please add book description'
-        },
-        total: {
-          notEmpty: true,
-          errorMessage: 'Please add total book'
-        },
-        catId: {
-          notEmpty: true,
-          errorMessage: 'Please add book category'
-        },
+        errorMessage: 'Book title is required'
+      },
+      isbn: {
+        notEmpty: true,
+        errorMessage: 'ISBN is required'
+      },
+      prodYear: {
+        notEmpty: true,
+        errorMessage: 'Production Year is required'
+      },
+      cover: {
+        notEmpty: true,
+        errorMessage: 'Please upload a valid book cover'
+      },
+      author: {
+        notEmpty: true,
+        errorMessage: 'Please add book author'
+      },
+      description: {
+        notEmpty: true,
+        errorMessage: 'Please add book description'
+      },
+      total: {
+        notEmpty: true,
+        errorMessage: 'Please add total book'
+      },
+      catId: {
+        notEmpty: true,
+        errorMessage: 'Please add book category'
       }
-    );
+    });
     const errors = req.validationErrors();
     if (errors) {
       const allErrors = [];
@@ -57,10 +55,9 @@ export default {
         const errorMessage = error.msg;
         allErrors.push(errorMessage);
       });
-      return res.status(409)
-        .json({
-          message: allErrors[0]
-        });
+      return res.status(409).json({
+        message: allErrors[0]
+      });
     }
     req.userInput = {
       title: req.body.title,
@@ -74,30 +71,28 @@ export default {
     };
     next();
   },
-  
+
   /** Check quantity of book in the DB
    * @param  {Object} req - request
    * @param  {object} res - response
    */
-  
+
   checkTotalBook(req, res, next) {
-    Book
-      .findOne({
-        where: {
-          id: req.body.bookId
-        }
-      })
-      .then((book) => {
-        if (book.total < 1) {
-          res.status(200).send({
-            message: 'This book is not available for rent!'
-          });
-        } else {
-          next();
-        }
-      });
+    Book.findOne({
+      where: {
+        id: req.body.bookId
+      }
+    }).then((book) => {
+      if (book.total < 1) {
+        res.status(200).send({
+          message: 'This book is not available for rent!'
+        });
+      } else {
+        next();
+      }
+    });
   },
-    /** Checks is a valid user ID was supplied
+  /** Checks is a valid user ID was supplied
    * @param  {Object} req - request
    * @param  {object} res - response
    */
@@ -109,21 +104,19 @@ export default {
         message: 'Invalid user id supplied!!!'
       });
     } else {
-      User
-        .findOne({
-          where: {
-            id: req.params.userId
-          }
-        })
-        .then((user) => {
-          if (!user) {
-            res.status(404).send({
-              message: 'Invalid user id supplied'
-            });
-          } else {
-            next();
-          }
-        });
+      User.findOne({
+        where: {
+          id: req.params.userId
+        }
+      }).then((user) => {
+        if (!user) {
+          res.status(404).send({
+            message: 'Invalid user id supplied'
+          });
+        } else {
+          next();
+        }
+      });
     }
   },
   /** Checks if a valid book ID was supplied
@@ -138,21 +131,19 @@ export default {
         message: 'Invalid book id supplied!!!'
       });
     } else {
-      Book
-        .findOne({
-          where: {
-            id: req.params.bookId || req.body.bookId
-          }
-        })
-        .then((book) => {
-          if (!book) {
-            res.status(404).send({
-              message: 'Book id is not valid'
-            });
-          } else {
-            next();
-          }
-        });
+      Book.findOne({
+        where: {
+          id: req.params.bookId || req.body.bookId
+        }
+      }).then((book) => {
+        if (!book) {
+          res.status(404).send({
+            message: 'Book id is not valid'
+          });
+        } else {
+          next();
+        }
+      });
     }
-  },
+  }
 };

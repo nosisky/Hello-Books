@@ -7,20 +7,20 @@ import Notification from '../includes/Notification';
 import Notifications from '../../../utils/Notifications';
 
 class NotificationPage extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      data: []
-    }
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: []
+		};
+	}
 	componentDidMount() {
-    Notifications()
-    .then((data) => {
-      this.setState({
-        data
-      })
-    })
-    .catch(error => error)
+		Notifications()
+			.then((data) => {
+				this.setState({
+					data
+				});
+			})
+			.catch((error) => error);
 	}
 	render() {
 		return (
@@ -31,19 +31,17 @@ class NotificationPage extends Component {
 						<AdminSideBar />
 					</div>
 					<div className="col l9 m12 s12">
-					{
-            this.state.data.map((response) => {
-              return(
-                <div>
-                <Notification 
-                key={response.id}
-                message={response.message}
-                time={response.updatedAt}
-                />
-                </div>
-              )
-            })
-          }
+						{this.state.data.map((response) => {
+							return (
+								<div>
+									<Notification
+										key={response.id}
+										message={response.message}
+										time={response.updatedAt}
+									/>
+								</div>
+							);
+						})}
 					</div>
 					<DashboardFooter />
 				</div>

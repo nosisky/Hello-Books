@@ -14,12 +14,22 @@ export function setAuthorizationToken(token) {
   }
 }
 
+/**
+ *
+ * @param {Object} email - Object containing email
+ * @returns {Object} - Object containing user data
+ */
 export function getUserData(email) {
   return axios.post(`${API_URL}/getemail`, email)
     .then(response => response.data.user)
     .catch(error => error);
 }
 
+/**
+ * Google account creator
+* @param {Object} userDetails - Object containing user details
+ * @returns {null} - null
+ */
 export function registerGoogleUser(userDetails) {
   return axios.post(`${API_URL}/signup`, userDetails)
     .then((res) => {
@@ -30,6 +40,13 @@ export function registerGoogleUser(userDetails) {
     });
 }
 
+/**
+ * @param {Number} userId - user id
+ *
+ * @param {Object} userData - Object containing User Data
+ *
+ * @returns {String} - JWT Token
+ */
 export function editProfile(userId, userData) {
   return axios.put(`${API_URL}/edit/${userId}`, userData)
     .then(() => axios.get(`${API_URL}/userId`)

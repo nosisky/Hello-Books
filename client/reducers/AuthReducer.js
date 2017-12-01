@@ -1,7 +1,5 @@
-import { AUTH_USER,
+import {
   UNAUTH_USER,
-  AUTH_ERROR,
-  USER_EXIST,
   SET_CURRENT_USER
 } from '../actions/types';
 
@@ -13,10 +11,20 @@ const INITIAL_STATE = {
   content: '',
   authenticated: false };
 
+/**
+ *
+ * @param {Object} state - Default application state
+ * @param {Object} action - Response from the API
+ * @returns {Object} - Object containing new state
+ */
 function AuthReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case UNAUTH_USER:
-      return { ...state, error: '', user: {}, message: 'Successfully Logged Out', authenticated: false };
+      return { ...state,
+        error: '',
+        user: {},
+        message: 'Successfully Logged Out',
+        authenticated: false };
     case SET_CURRENT_USER:
       return { ...state, user: action.user, authenticated: true };
     default:

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import swal from 'sweetalert';
 
 import { ADD_BOOK,
   GET_ALL_BOOKS,
@@ -8,7 +9,6 @@ import { ADD_BOOK,
   GET_ONE_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
-  SET_OFFSET,
   RETURN_RENTED_BOOK,
   DELETE_BOOK
 } from './types';
@@ -19,10 +19,10 @@ const API_URL = '/api/v1/books',
 
 /**
  * Add new book action
- * @param {Object} bookDetails 
- * @returns { Object }
+ * @param {Object} bookDetails - Object containing book data
+ * 
+ * @returns { Object } - Redux action to be dispatched to the store
  */
-
 export function addBookAction(bookDetails) {
   return dispatch => axios.post(API_URL, bookDetails)
     .then((res) => {
@@ -34,18 +34,11 @@ export function addBookAction(bookDetails) {
     .catch(error => error);
 }
 
-export function setOffset() {
-  return {
-    type: SET_OFFSET,
-    data: 8
-  };
-}
-
 /**
  * Get all books action
- * @returns { Object }
+ * @param { Number } page - current Page number  
+ * @returns { Object } - Object containing book data
  */
-
 export function getAllBooksAction(page) {
   return dispatch => axios.get(`${API_URL}/?page=${page}`)
     .then((res) => {
@@ -60,10 +53,9 @@ export function getAllBooksAction(page) {
 
 /**
  * Delete book action
- * @param {Number} bookId 
- * @returns { String }
+ * @param {Number} bookId - Book ID
+ * @returns { String } - string containing API message
  */
-
 export function deleteBookAction(bookId) {
   return dispatch => axios.delete(`${API_URL}/delete/${bookId}`)
     .then((res) => {
@@ -78,10 +70,11 @@ export function deleteBookAction(bookId) {
 
 /**
  * Modify book action
- * @param {Object, Number} bookData BookId
- * @returns { String }
+ * @param {Object} bookData - Object containing Book Data
+ * 
+ * @param {bookId} bookId - ID of book to be modified
+ * @returns { String } - Messge fro API
  */
-
 export function modifyBookAction(bookData, bookId) {
   return dispatch => axios.put(`${API_URL}/${bookId}`, bookData)
     .then((res) => {
@@ -96,10 +89,10 @@ export function modifyBookAction(bookData, bookId) {
 
 /**
  * 
- * @param { Object } data 
- * @returns { String }
+ * @param { Object } data - New category data
+ * 
+ * @returns { String } - Message from the API
  */
-
 export function addCategoryAction(data) {
   return dispatch => axios.post(`${API_URL}/cat`, data)
     .then((res) => {
@@ -114,22 +107,31 @@ export function addCategoryAction(data) {
 
 /**
  * Rent book action
- * @param { Number } userId 
- * @returns { String }
+ * @param { Number } userId - User Id
+ * 
+ * @param { Number } bookId - Book ID
+ * 
+ * @returns { String } - String
  */
-
 export function rentBookAction(userId, bookId) {
   return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
-    .then(res => res.data.message)
-    .catch(error => error.response.data.message);
+    .then((response) => {
+      const message = response.data.message;
+      if (message === 'You have successfully rented the book') {
+        swal(message, { icon: 'success' });
+      } else {
+        swal(message, { icon: 'warning' });
+      }
+    })
+    .catch(error => swal(error.response.data.message));
 }
 
 /**
  * Get rented books action
- * @param {  Number } userId 
- * @returns { Object }
+ * @param {  Number } userId - User ID
+ * 
+ * @returns { Object } - Object containing rented books
  */
-
 export function getRentedBooksAction(userId) {
   return dispatch => axios.get(`${API_URL}/logs/${userId}`)
     .then((res) => {
@@ -144,28 +146,34 @@ export function getRentedBooksAction(userId) {
 
 /**
  * Return rented book action
- * @param {Number} userId 
- * @returns { Object }
+ * @param {Number} userId - User ID
+ * 
+ * @param {Number}  bookId - Book ID
+ * 
+ * @returns { Object } - Object
  */
-
 export function returnBook(userId, bookId) {
   return dispatch => axios.put(`${USER_API_URL}/${userId}/books`, bookId)
-    .then((res) => {
+    .then((response) => {
+      const message = response.data.message;
+      if (response) {
+        swal(message, { icon: 'success' });
+      } else {
+        swal(message, { icon: 'warning' });
+      }
       dispatch({
         type: RETURN_RENTED_BOOK,
-        data: res.data.book
+        data: response.data.book
       });
-      return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => swal(error.response.data.message));
 }
 
 /**
  * Get specific book
- * @param {Number} BookId 
- * @returns { Object }
+ * @param {Number} bookId - Book ID
+ * @returns { Object } - Object containg Book details
  */
-
 export function getSpecificBook(bookId) {
   return dispatch => axios.get(`${API_URL}/${bookId}`)
     .then((res) => {
@@ -180,9 +188,8 @@ export function getSpecificBook(bookId) {
 
 /**
  * Get all category action
- * @returns { Object }
+ * @returns { Object } - Object containg all categories
  */
-
 export function getCategoryAction() {
   return dispatch => axios.get('/api/v1/category')
     .then((res) => {
@@ -196,10 +203,9 @@ export function getCategoryAction() {
 
 /**
  * Search for a book action
- * @param {any} query 
- * @returns { Object }
+ * @param {Object} query - Object containg search query
+ * @returns { Object } - response that mateches the serach criteria
  */
-
 export function searchAction(query) {
   return dispatch => axios.post(SEARCH_API_URL, query)
     .then((res) => {

@@ -10,11 +10,10 @@ const API_URL = '/api/v1/users';
 const SEARCH_API_URL = '/api/v1/search';
 
 /**
- * Register User Action
- * @param {Object} userDetails 
- * @returns {Object}
+ * Sec current user
+ * @param {Object} decoded - Decoded JWT Token 
+ * @returns {Object} - redux action to be dispatched
  */
-
 export function setCurrentUser(decoded) {
   return {
     type: SET_CURRENT_USER,
@@ -23,6 +22,12 @@ export function setCurrentUser(decoded) {
   };
 }
 
+/**
+ * 
+ * Register user action
+ * @param {Object} userDetails - Object containing user details
+ * @returns { Object } - Dispatches user object to the store
+ */
 export function registerUserAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signup`, userDetails)
     .then((res) => {
@@ -39,10 +44,9 @@ export function registerUserAction(userDetails) {
 
 
 /** Login action 
- * @param {Object} userDetails 
- * @returns { Object }
+ * @param {Object} userDetails - Object containing user details
+ * @returns { Object } - Dispatches user object to the store
  */
-
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signin`, userDetails)
     .then((res) => {
@@ -54,10 +58,9 @@ export function loginAction(userDetails) {
     });
 }
 
-/** Logout action
- * @returns { Object }
+/** Unauthenticates a user
+ * @returns { Object } - Dispatches user object to the store
  */
-
 export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
@@ -72,10 +75,12 @@ export function logoutAction() {
 }
 
 /** Edit profile action
- * @param {Object} userId userData
- * @returns { String }
+ * @param {Number} userId - User ID
+ * 
+ * @param {Object} userData - User data object
+ * 
+ * @returns { String } - JWT Token
  */
-
 export function editProfileAction(userId, userData) {
   return axios.put(`${API_URL}/edit/${userId}`, userData)
     .then(() => axios.get(`${SEARCH_API_URL}/${userId}`)
@@ -85,10 +90,9 @@ export function editProfileAction(userId, userData) {
 
 /**
  *  Get users by email action
- * @param { object } email 
- * @returns { String }
+ * @param { object } email - object containing user email
+ * @returns { String } - JWT Token
  */
-
 export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
     .then(res => res.data.token)

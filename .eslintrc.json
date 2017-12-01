@@ -14,6 +14,7 @@
     "one-var-declaration-per-line": 0,
     "new-cap": 0,
     "consistent-return": 0,
+    "max-len": ["error", 80],
     "no-param-reassign": 0,
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
@@ -21,14 +22,15 @@
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturnType": true,
-      "requireParamDescription": false,
+      "requireParamDescription": true,
       "requireReturnDescription": true
     }],
+
     "require-jsdoc": ["error", {
         "require": {
-            "FunctionDeclaration": false,
-            "MethodDefinition": false,
-            "ClassDeclaration": false
+            "FunctionDeclaration": true,
+            "MethodDefinition": true,
+            "ClassDeclaration": true
         }
     }]
   }

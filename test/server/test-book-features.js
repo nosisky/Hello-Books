@@ -46,6 +46,67 @@ describe('Adds a new book to the database', () => {
       });
   });
 
+  it('adds a new category', (done) => {
+    server
+      .post('/api/v1/books/cat')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ name: 'Test', description: 'test' })
+      .expect(201)
+      .end((err, res) => {
+        res.status.should.equal(201);
+        res.body.message.should.equal('Category added successfully');
+        done();
+      });
+  });
+
+  it('retrieves all category', (done) => {
+    server
+      .get('/api/v1/category')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.have.lengthOf(1);
+        done();
+      });
+  });
+
+  it('Searches for book', (done) => {
+    server
+      .post('/api/v1/search')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ search: 'Think rich' })
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.have.lengthOf(1);
+        done();
+      });
+  });
+
+  it('checks if email can be sent with invalid details', (done) => {
+    server
+      .post('/api/v1/books/email')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', '8884848484848484')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ message: 'Think rich', subject: 'Hello Test' })
+      .expect(401)
+      .end((err, res) => {
+        res.status.should.equal(401);
+        done();
+      });
+  });
+
   it('tests if user can rent book without logging in', (done) => {
     server
       .post('/api/v1/users/1/books')
@@ -122,6 +183,20 @@ describe('Adds a new book to the database', () => {
       });
   });
 
+  it('Shoud display list of notifications', (done) => {
+    server
+      .get('/api/v1/notification')
+      .set('x-access-token', token)
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        done();
+      });
+  });
+
   it('tests for book renting', (done) => {
     server
       .post('/api/v1/users/1/books')
@@ -181,6 +256,21 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+
+  it('Shoud display list of notifications', (done) => {
+    server
+      .get('/api/v1/notification')
+      .set('x-access-token', token)
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        done();
+      });
+  });
+
   it('should rent a new book', (done) => {
     server
       .get('/api/v1/users/1/books?returned=false')
@@ -260,6 +350,7 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+
   it('deletes a book successfully', (done) => {
     server
       .delete('/api/v1/books/delete/1')
