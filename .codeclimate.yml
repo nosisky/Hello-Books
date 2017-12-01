@@ -20,3 +20,4 @@ exclude_paths:
 - e2e
 - server/models
 - server/seeders
+- server/migrations
