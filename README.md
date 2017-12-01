@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/nosisky/Hello-Books.svg?branch=implement-tests)](https://travis-ci.org/nosisky/Hello-Books) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/nosisky/Hello-Books)
 [![Coverage Status](https://coveralls.io/repos/github/nosisky/Hello-Books/badge.svg?branch=implement-tests)](https://coveralls.io/github/nosisky/Hello-Books?branch=implement-tests)
-[![Issue Count](https://codeclimate.com/github/ekundayo-ab/hello-books/badges/issue_count.svg)](https://codeclimate.com/github/nosisky/Hello-Books)
+[![Issue Count](https://codeclimate.com/github/ekundayo-ab/hello-books/badges/issue_count.svg)](https://codeclimate.com/github/nosisky/hello-books)
 # Hello-Books 
 ### Hello-Books is a simple application that helps manage a library and its processes like stocking, tracking and renting books. With this application users are able to find and rent books. The application also has an admin section where the admin can do things like add books, delete books, increase the quantity of a book etc.
 
@@ -9,8 +9,7 @@
 
 * [Features](#features)
 * [Technologies](#technology)
-* [Installation and Setup](#installation-and-setup)
-* [Limitations](#limitations)
+* [Installation and Setup](#installation)
 * [How to Contribute](#how-to-contribute)
 * [Frequently Asked Questions](#faqs)
 * [Support or New Features](#support-or-new-features)
@@ -81,6 +80,7 @@ HelloBooks consists of the following features:
 - SecretKey=mysecretkey
 - DATABASE_TEST_URL=postgres://127.0.0.1:8000/hello-books-test
 - More details can be found in the .env.sample file
+- run `npm start`
 
 ## API Routes
 > POST : ```/api/v1/users/signup```
