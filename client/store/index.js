@@ -4,12 +4,18 @@ import rootReducers from '../reducers/index';
 
 /* eslint-disable no-underscore-dangle */
 
-export default function configureStore(initialState = {}) {
+
+/**
+ * 
+ * Redux store configuration
+ * @param {Object}  initialState - i
+ * @returns {Object} - Object containing data in redux store
+ */
+export default function configureStore(initialState) {
   return createStore(
     rootReducers,
     initialState,
     applyMiddleware(thunk),
- //   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
 }
 

@@ -17,30 +17,17 @@ export default class SearchResult extends Component {
 			.format('MMMM Do YYYY, h:mm a');
 		swal({
 			title: 'Are you sure?',
-			text: `You will be mandated to return this book on or before ${new Date(getDateNow)}`,
+			text: `You will be mandated to return this book on or before ${newTime}`,
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
 		}).then((willBorrow) => {
 			if (willBorrow) {
 				rentBookAction(this.props.userId, { bookId: this.props.id })
-					.then((res) => {
-						if (res === 'You have successfully rented the book') {
-							{
-								swal(res, { icon: 'success' });
-							}
-						} else {
-							swal(res, { icon: 'warning' });
-						}
-					})
-					.then((res) => {
-						if (res) {
-						}
-					})
-					.catch((error) => error);
 			}
 		});
 	}
+
 	render() {
 		return (
 			<div className="book col s12 m3 l3">

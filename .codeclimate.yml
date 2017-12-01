@@ -13,7 +13,10 @@ ratings:
   paths:
   - "**.js"
 exclude_paths:
-- tests
+- test
 - client/public
 - client/test
 - client/test/__mocks__
+- e2e
+- server/models
+- server/seeders

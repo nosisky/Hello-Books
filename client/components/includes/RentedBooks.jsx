@@ -18,16 +18,6 @@ export default class RentedBooks extends Component {
 			if (willReturn) {
 				this.props
 					.returnBook(this.props.userId, { bookId: this.props.id })
-					.then((res) => {
-						if (res) {
-							{
-								swal(res.message, { icon: 'success' });
-							}
-						} else {
-							swal(res, { icon: 'warning' });
-						}
-					})
-					.catch((error) => error);
 			}
 		});
 	}

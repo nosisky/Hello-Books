@@ -22,15 +22,7 @@ export default class AllBooks extends Component {
 			dangerMode: true
 		}).then((willBorrow) => {
 			if (willBorrow) {
-				rentBookAction(this.props.userId, { bookId: this.props.id }).then((res) => {
-					if (res === 'You have successfully rented the book') {
-						{
-							swal(res, { icon: 'success' });
-						}
-					} else {
-						swal(res, { icon: 'warning' });
-					}
-				});
+				rentBookAction(this.props.userId, { bookId: this.props.id })
 			}
 		});
 	}
