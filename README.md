@@ -120,7 +120,7 @@ An API route that allows users see rented book history
 ## How to Contribute
 Contributions to this project are welcomed, If you need to contribute to this project, kindly take steps below
 * **Fork** the repository
-* Follow [Installation and Setup](#installation-and-setup) as explained earlier
+* Follow [Installation and Setup](#installation) as explained earlier
 * Create a branch off **master** for the feature you wish to add
 * Make neccessary changes, commit and raise a pull request against develop
 **Note** when making contributions, please endevour to follow the [Airbnb](https://github.com/airbnb/javascript) javascript style guide. check out the [wiki]
