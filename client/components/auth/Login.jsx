@@ -122,7 +122,7 @@ export default class Login extends Component {
 						</div>
 						<br />
 						<center>
-							<button className="btn waves-effect waves-light teal" type="submit" name="action">
+							<button className="btn waves-effect teal" type="submit" name="action">
 								Login
 							</button>
 							<br />

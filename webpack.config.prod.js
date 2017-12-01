@@ -5,7 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   cache: true,
   entry: [
-    // 'webpack-hot-middleware',
     './client/index.jsx'
   ],
   output: {

@@ -95,7 +95,7 @@ const app = express.Router();
  *         description: Bad Username, Password or Email
  */
 app.route('/signup')
-  .post(Authorization.checkUserInput, UserController.create);
+  .post(Validation.checkUserInput, UserController.create);
 
 /**
  * @swagger
@@ -120,7 +120,7 @@ app.route('/signup')
  *         description: Bad Username, Password or Email
  */
 app.route('/signin')
-  .post(Authorization.validateLogin, UserController.login);
+  .post(UserController.login);
 
 /**
  * @swagger

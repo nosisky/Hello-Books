@@ -3,12 +3,88 @@ import db from '../models/index';
 const { Book, User } = db;
 
 export default {
+
+  checkUserInput(req, res, next) {
+    const userNameError = 'Please provide a '
+    + 'username with atleast 4 characters.';
+    
+    req.checkBody({
+      username: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 4 }],
+          errorMessage: userNameError
+        },
+        errorMessage: 'Your Username is required'
+      },
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: 'Provide a valid a Email Adrress'
+        },
+        errorMessage: 'Your Email Address is required'
+      },
+      fullName: {
+        notEmpty: true,
+        errorMessage: 'Your Fullname is required'
+      },
+      password: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: 'Provide a valid password with minimum of 8 characters'
+        },
+        errorMessage: 'Your Password is required'
+      }
+    });
+    const errors = req.validationErrors();
+    if (errors) {
+      const allErrors = [];
+      errors.forEach((error) => {
+        allErrors.push({
+          error: error.msg
+        });
+      });
+      return res.status(400).json(allErrors);
+    }
+    User.findOne({
+      where: {
+        username: req.body.username,
+        $or: {
+          email: req.body.email
+        }
+      }
+    }).then((user) => {
+      if (user) {
+        if (user.email === req.body.email) {
+          return res.status(409).send({
+            message: 'Email already exist'
+          });
+        } else if (user.username === req.body.email) {
+          return res.status(409).send({
+            message: 'Username already exist'
+          });
+        }
+      }
+    });
+
+    const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
+    req.userInput = {
+      username: req.body.username,
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password,
+      plan: req.body.plan
+    };
+    next();
+  },
+
   /** A middleware that checks user input for valid book details
    * @param  {object} req - request
    * @param  {object} res - response
    */
 
-  checkUserInput(req, res, next) {
+  checkBookInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
     req.checkBody({
       title: {
