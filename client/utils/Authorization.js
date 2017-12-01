@@ -41,7 +41,6 @@ export function registerGoogleUser(userDetails) {
 }
 
 /**
- * 
  * @param {Number} userId - user id
  *
  * @param {Object} userData - Object containing User Data
