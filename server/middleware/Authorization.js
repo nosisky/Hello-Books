@@ -10,7 +10,7 @@ const { RentedBook } = db;
 
 export default {
   checkUserInput(req, res, next) {
-    const userNameError = 'Please provide a'
+    const userNameError = 'Please provide a '
     + 'username with atleast 4 characters.';
     
     req.checkBody({
