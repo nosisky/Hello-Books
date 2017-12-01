@@ -43,68 +43,8 @@ export default {
 
   getUsers(req, res) {
     return User.findAll({})
-      .then(users => res.status(201).send(users))
+      .then(users => res.status(200).send(users))
       .catch(error => res.status(404).send(error));
-  },
-
-  /** Ad
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  UserExist(req, res) {
-    return User.findOne({
-      where: {
-        username: req.body.username
-      }
-    })
-      .then((user) => {
-        if (user) {
-          res.status(200).send({ message: 'username already exist' });
-        } else {
-          res.status(200).send({ message: '' });
-        }
-      })
-      .catch(error => res.status(500).send({ error }));
-  },
-
-  /** Validates Email address
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  emailExist(req, res) {
-    const re = /\S+@\S+\.\S+/,
-      emailValidate = re.test(req.body.email);
-    if (!emailValidate) {
-      res.send({ message: 'Invalid email supplied' });
-      return;
-    }
-    return User.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
-      .then((user) => {
-        if (user) {
-          res.status(200).send({
-            message: 'Email already exist',
-            user: {
-              id: user.id,
-              fullname: user.fullName,
-              username: user.username,
-              email: user.email,
-              active: user.acative,
-              isBanned: user.isBanned,
-              isAdmin: user.isAdmin,
-              plan: user.plan
-            }
-          });
-        } else {
-          res.status(200).send({ message: '' });
-        }
-      })
-      .catch(error => res.status(404).send({ error }));
   },
 
   /** Checks if logged in user has valid AUTH token
@@ -174,7 +114,7 @@ export default {
       }
     }).then((books) => {
       if (books) {
-        res.status(401).send({
+        res.status(403).send({
           message: 'You have rented that book before'
         });
       } else {

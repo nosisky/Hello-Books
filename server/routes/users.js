@@ -148,11 +148,11 @@ app.route('/all')
 
 // User Exist
 app.route('/get')
-  .post(Authorization.UserExist);
+  .post(Validation.UserExist);
 
 // Email Exist
 app.route('/getemail')
-  .post(Authorization.emailExist);
+  .post(Validation.emailExist);
 
 
 /**
@@ -199,11 +199,9 @@ app.route('/getemail')
  *       404:
  *         description: Book not found
  */
+
 app.route('/:userId/books')
   .post(Authorization.isLoggedIn,
-    Validation.validUser,
-    Validation.validBook,
-    Validation.checkTotalBook,
     Authorization.checkUserPlan,
     Authorization.hasRentedBefore,
     BookController.rentBook);
@@ -254,8 +252,6 @@ app.route('/:userId/books')
  */
 app.route('/:userId/books')
   .put(Authorization.isLoggedIn,
-    Validation.validUser,
-    Validation.validBook,
     BookController.returnBook);
 
 /**

@@ -2,7 +2,7 @@ import db from '../models';
 
 const { RentedBook, Book, Category, Notification, User } = db;
 
-export default {
+const bookController = {
   /** Admin add new book
    * @param  {object} req request
    * @param  {object} res response
@@ -19,6 +19,13 @@ export default {
       .catch(error => res.status(500).send(error));
   },
 
+  createNotification(userId, username, bookTitle, type) {
+    Notification.create({
+      userId,
+      message: `${username} ${type} ${bookTitle}`
+    });
+  },
+
   /** User rent book
    * @param  {object} req - request
    * @param  {object} res - response
@@ -29,45 +36,36 @@ export default {
     const cur = new Date(),
       after30days = cur.setDate(cur.getDate() + 30);
     Book.findById(req.body.bookId)
-      .then(book =>
-        RentedBook.create({
-          bookId: req.body.bookId,
-          description: book.description,
-          title: book.title,
-          userId: req.params.userId,
-          cover: book.cover,
-          toReturnDate: after30days
-        })
-      )
-      .then(() =>
-        Book.findOne({ where: { id: req.body.bookId } }).then(books =>
-          Book.update(
-            {
-              total: books.total - 1
-            },
-            {
-              where: {
-                id: req.body.bookId
-              }
-            }
-          )
-        )
-      )
-      .then(() => {
-        Book.findOne({ where: { id: req.body.bookId } }).then((book) => {
-          User.findById(req.params.userId).then((user) => {
-            Notification.create({
-              userId: req.params.userId,
-              message: `${user.username} rented ${book.title}`
+      .then((book) => {
+        if (book.total > 1) {
+          RentedBook.create({
+            bookId: req.body.bookId,
+            description: book.description,
+            title: book.title,
+            userId: req.params.userId,
+            cover: book.cover,
+            toReturnDate: after30days
+          })
+            .then(() => {
+              Book.update({
+                total: book.total - 1
+              },
+              {
+                where: {
+                  id: req.body.bookId
+                }
+              });
+            })
+            .then(() => {
+              const { username, id } = req.decoded.currentUser;
+              bookController.createNotification(id, username, book.title, 'rented');
             });
-          });
-        });
+        }
       })
       .then(() =>
         res.status(201).send({
           message: 'You have successfully rented the book'
-        })
-      )
+        }))
       .catch(error => res.status(500).send(error));
   },
 
@@ -264,6 +262,12 @@ export default {
    * @return {Object} - return list of rented books
    */
   returnBook(req, res) {
+    const querier = req.body.bookId || req.params.bookId;
+    if (!querier || /[\D]/.test(querier)) {
+      return res.status(400).send({
+        message: 'Invalid book id supplied!!!'
+      });
+    }
     return RentedBook.update(
       {
         returnDate: Date.now(),
@@ -276,31 +280,26 @@ export default {
       }
     )
       .then(() =>
-        Book.findOne({ where: { id: req.body.bookId } }).then(books =>
-          Book.update(
-            {
-              total: books.total + 1
-            },
-            {
-              where: {
-                id: req.body.bookId
+        Book.findById(req.body.bookId)
+          .then((book) => {
+            Book.update(
+              {
+                total: book.total + 1
+              },
+              {
+                where: {
+                  id: req.body.bookId
+                }
               }
-            }
-          ).then(() => {
-            Book.findOne({ where: { id: req.body.bookId } }).then((book) => {
-              User.findById(req.params.userId).then((user) => {
-                Notification.create({
-                  userId: req.params.userId,
-                  message: `${user.username} returned ${book.title}`
-                });
+            ).then(() => {
+              const { username, id } = req.decoded.currentUser;
+              bookController.createNotification(id, username, book.title, 'return');
+              res.status(201).send({
+                message: 'Book returned successfully',
+                book
               });
             });
-            res.status(201).send({
-              message: 'Book returned successfully',
-              book: books
-            });
           })
-        )
       )
       .catch(error => res.status(500).send(error));
   },
@@ -344,3 +343,5 @@ export default {
       .catch(error => res.status(500).send(error));
   }
 };
+
+export default bookController;
