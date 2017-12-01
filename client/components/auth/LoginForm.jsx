@@ -14,7 +14,6 @@ export default class Login extends Component {
 			username: '',
 			password: '',
 			loginError: '',
-			isLoading: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -22,29 +21,31 @@ export default class Login extends Component {
 	}
 
 	onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({ [name]: value });
 	}
-	handleFormSubmit(e) {
-		e.preventDefault();
-		getUserByEmailAction({ email: e.target.value }).then((res) => {});
+
+	handleFormSubmit(event) {
+		event.preventDefault();
+		getUserByEmailAction({ email: event.target.value }).then((res) => {});
 	}
-	handleSubmit(e) {
-		e.preventDefault();
-		this.setState({ isLoading: true });
-		this.props.onSubmit(this.state).then(
+
+	handleSubmit(event) {
+		event.preventDefault();
+		this.props.onSubmit(this.state)
+		.then(
 			(data) => {
-				this.setState({ isLoading: false });
 				Materialize.toast('Logged In Successfully', 2000, 'blue darken-4', () => {
 					window.location.href = '/admin';
 				});
 			},
 			(data) => {
-				this.setState({ loginError: data.response.data.message, isLoading: false });
+				this.setState({ loginError: data.response.data.message});
 			}
 		);
 	}
+
 	render() {
 		const style = {
 			button: {

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import Login from './Login';
-import Register from './Register';
+import LoginForm from './LoginForm';
+import RegisterationForm from './RegisterationForm';
 import { checkUserExist, checkEmailExist, reMap } from '../../utils/Validation';
 
-export default class AuthForm extends Component {
-	render() {
-		const { registerUserAction, loginAction } = this.props;
-		return (
+const AuthPage = ({ registerUserAction, loginAction, message }) => {
+	return (
+		<div>
 			<div className="container main-auth white z-depth-2">
 				<div
 					style={{
@@ -17,7 +15,7 @@ export default class AuthForm extends Component {
 						fontWeight: 'bold'
 					}}
 				>
-					{this.props.message}
+					{message}
 				</div>
 				<ul className="tabs teal">
 					<li className="tab col s3">
@@ -26,18 +24,16 @@ export default class AuthForm extends Component {
 						</a>
 					</li>
 					<li className="tab col s3">
-						<a id="joinus" 
-                        className="white-text reg" 
-                        href="#register">
+						<a id="joinus" className="white-text reg" href="#register">
 							register
 						</a>
 					</li>
 				</ul>
-				<Login onSubmit={loginAction} />
-				<Register UserExist={checkUserExist} 
-                EmailExist={checkEmailExist} 
-                onSubmit={registerUserAction} />
+				<LoginForm onSubmit={loginAction} />
+				<RegisterationForm UserExist={checkUserExist} EmailExist={checkEmailExist} onSubmit={registerUserAction} />
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
+
+export default AuthPage;

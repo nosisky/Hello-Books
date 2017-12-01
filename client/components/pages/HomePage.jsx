@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavBar from '../includes/NavBar';
-import AuthForm from '../auth/AuthForm';
+import AuthPage from '../auth/AuthPage';
 import { connect } from 'react-redux';
 import Footer from '../includes/Footer';
 import { registerUserAction, loginAction } from '../../actions/AuthActions';
@@ -27,7 +27,7 @@ export class HomePage extends Component {
 						</div>
 					</div>
 					<div className="col l6 m12 s12">
-						<AuthForm
+						<AuthPage
 							loginAction={this.props.loginAction}
 							registerUserAction={this.props.registerUserAction}
 							userExist={this.props.userExist}

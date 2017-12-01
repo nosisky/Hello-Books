@@ -54,7 +54,7 @@ export default {
       }
     }).then((user) => {
       if (user && bcrypt.compareSync(req.body.password, user.password)) {
-        const currentUser = omit(user, [
+        const currentUser = omit(user.dataValues, [
           'password',
           'createdAt',
           'updatedAt'

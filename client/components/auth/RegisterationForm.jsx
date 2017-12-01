@@ -26,8 +26,8 @@ export default class Register extends Component {
 	}
 
 	onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({
 			[event.target.name]: event.target.value
 		});
@@ -44,8 +44,8 @@ export default class Register extends Component {
 		});
 	}
 
-	onFocus(e) {
-		const name = e.target.name;
+	onFocus(event) {
+		const name = event.target.name;
 		switch (name) {
 			case 'username':
 				this.setState({ usernameError: '', userExist: '' });
@@ -61,9 +61,9 @@ export default class Register extends Component {
 		}
 	}
 
-	onBlur(e) {
-		const name = e.target.name,
-			value = e.target.value;
+	onBlur(event) {
+		const name = event.target.name;
+		const	value = event.target.value;
 
 		switch (name) {
 			case 'password':

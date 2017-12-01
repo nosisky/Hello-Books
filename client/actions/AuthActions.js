@@ -50,10 +50,10 @@ export function registerUserAction(userDetails) {
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signin`, userDetails)
     .then((res) => {
-      const token = res.data.Token;
+      const token = res.data.token;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
-      const decoded = jwt.decode(res.data.Token);
+      const decoded = jwt.decode(res.data.token);
       dispatch(setCurrentUser(decoded));
     });
 }
