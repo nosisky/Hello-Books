@@ -70,7 +70,8 @@ app.route('/')
     Authorization.isAdmin,
     Validation.checkUserInput,
     BookController.create)
-  .get(Authorization.isLoggedIn, BookController.getBooks);
+  .get(Authorization.isLoggedIn,
+    BookController.getBooks);
 
 /**
  * @swagger

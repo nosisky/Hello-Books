@@ -91,7 +91,7 @@ export default {
       return res.status(403).send({
         message: 'You do not have permission to perform that operation'
       });
-    } else if (decodedToken.currentUser.isAdmin === 1) {
+    } else if (decodedToken.currentUser.isAdmin) {
       next();
     } else {
       return res.status(403).send({

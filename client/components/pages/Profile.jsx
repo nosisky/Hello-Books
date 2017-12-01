@@ -11,7 +11,7 @@ export class Profile extends React.Component {
   constructor( props ) {
     super( props );
     this.state = {
-      fullName: this.props.user.fullname,
+      fullName: this.props.user.fullName,
       email: this.props.user.email,
       edit: false,
       profile: true
@@ -49,12 +49,11 @@ export class Profile extends React.Component {
   }
 
   render() {
-    const { username, fullname, id, email, plan } = this.props.user;
-
+    const { username, fullName, id, email, plan } = this.props.user;
     return (
       <div className="row">
         <Header />
-        <SideBar fullname={ this.props.user.fullname }
+        <SideBar fullname={ fullName }
           isAdmin={ this.props.user.isAdmin } />
         <div id="edit">
           <div id="profile_edit"
@@ -90,7 +89,7 @@ export class Profile extends React.Component {
                         type="text"
                         name="fullName"
                         onChange={ this.onChange }
-                        defaultValue={ fullname }
+                        defaultValue={ fullName }
                         className="validate"
                         required />
                     </div>
@@ -131,19 +130,12 @@ export class Profile extends React.Component {
                 className="avatar"
                 src="https://images.vexels.com/media/users/3/130527/isolated/preview/845f79841ea58765d623a68bf434d5ed-girl-cartoon-head-character-by-vexels.png"
                 alt="Ash" />
-              <div className="username">{ fullname }</div>
+              <div className="username">{ fullName }</div>
               <div className="bio">
                 Library User
               </div>
               <div className="row">
-                <div className="col s12 m3 l6">
-                  <div className="description">
-                    My name is { fullname } I am a user of the Hello Books Application,
-                   I love the helloBooks app because it is a fast and simple library management system.
-                  When i am not reading, i love to skie, play football and also have fun with my friends.
-                  </div>
-                </div>
-                <div className="col s12 m3 l6">
+                <div className="col s12 m3 l12">
                   <div className="description">
                     <div className="horizontal">
 
@@ -152,7 +144,7 @@ export class Profile extends React.Component {
                           <p>
                             <b>Full name: &nbsp;
                             </b> &nbsp;
-                            { fullname }</p>
+                            { fullName }</p>
                           <div className="divider"></div>
                           <p>
                             <b>Username: &nbsp;
