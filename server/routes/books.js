@@ -60,7 +60,7 @@ const app = express.Router();
  *         required: true
  *         type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully created
  *       400:
  *         description: Bad Username, Password or Email
@@ -100,7 +100,7 @@ app.route('/')
  *         required: true
  *         type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully created
  *         schema:
  *           $ref: '#/definitions/Book'
@@ -137,7 +137,7 @@ app.route('/:bookId')
  *         required: true
  *         type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully created
  *       400:
  *         description: Bad Username, Password or Email
@@ -204,7 +204,7 @@ app.route('/delete/:bookId')
  *         type: string
  *     responses:
  *       200:
- *         description: An array of Categories
+ *         description: Returns An array of books
  *         schema:
  *           $ref: '#/definitions/Book'
  */
@@ -231,7 +231,7 @@ app.route('/logs/:userId')
  *         type: string
  *     responses:
  *       200:
- *         description: An array of Categories
+ *         description: Returns An array of Categories
  *         schema:
  *           $ref: '#/definitions/Book'
  */

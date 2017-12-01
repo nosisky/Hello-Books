@@ -89,7 +89,7 @@ const app = express.Router();
  *         schema:
  *           $ref: '#/definitions/Register'
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully created
  *       400:
  *         description: Bad Username, Password or Email
@@ -115,7 +115,7 @@ app.route('/signup')
  *           $ref: '#/definitions/Login'
  *     responses:
  *       200:
- *         description: Successfully created
+ *         description: Successfully Logged In
  *       400:
  *         description: Bad Username, Password or Email
  */
@@ -190,7 +190,7 @@ app.route('/getemail')
  *         required: true
  *         type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Book Successfully borrowed
  *         schema:
  *           $ref: '#/definitions/Book'
