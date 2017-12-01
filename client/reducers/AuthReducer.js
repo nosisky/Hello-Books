@@ -17,7 +17,7 @@ const INITIAL_STATE = {
  * @param {Object} action - Response from the API
  * @returns {Object} - Object containing new state
  */
-function AuthReducer(state = INITIAL_STATE, action) {
+function authReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case UNAUTH_USER:
       return { ...state,
@@ -32,4 +32,4 @@ function AuthReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default AuthReducer;
+export default authReducer;

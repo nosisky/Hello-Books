@@ -29,7 +29,7 @@ const INITIAL_STATE = {
  * @param {Object} action - Object containing displatched data
  * @returns {Object} - Object containing the store data
  */
-function BookReducer(state = INITIAL_STATE, action) {
+function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BOOK:
       return { ...state, message: 'Book added Successfully' };
@@ -77,4 +77,4 @@ function BookReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default BookReducer;
+export default bookReducer;

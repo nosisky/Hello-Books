@@ -31,7 +31,8 @@ module.exports = {
       'FIREBASE_URL',
       'FIREBASE_PROJECTID',
       'FIREBASE_STORAGEBUCKET',
-      'FIREBASE_STORAGEBUCKET'
+      'FIREBASE_STORAGEBUCKET',
+      'secretKey'
     ]),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),

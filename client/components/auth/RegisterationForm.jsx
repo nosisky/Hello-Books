@@ -36,8 +36,10 @@ export default class Register extends Component {
 	handleSubmit(formData) {
 		this.setState({ isLoading: true });
 		formData.preventDefault();
-		this.props.onSubmit(this.state).then((data) => {
-			Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4', () => {
+		this.props.onSubmit(this.state)
+		.then((data) => {
+			Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4', 
+			() => {
 				this.setState({ isLoading: false });
 				window.location.href = '/dashboard';
 			});
@@ -68,14 +70,17 @@ export default class Register extends Component {
 		switch (name) {
 			case 'password':
 				if (value.length < 5 || !value) {
-					this.setState({ passwordError: 'Password must be a minimum of 8 characters' });
+					this.setState({ 
+						passwordError: 'Password must be a minimum of 8 characters' 
+					});
 					return false;
 				} else {
 					this.setState({ passwordError: '' });
 					return true;
 				}
 			case 'email':
-				this.props.EmailExist({ email: value }).then((data) => {
+				this.props.EmailExist({ email: value })
+				.then((data) => {
 					if (data.length > 1) {
 						this.setState({ emailExist: data });
 						return false;
@@ -86,7 +91,8 @@ export default class Register extends Component {
 				break;
 
 			case 'username':
-				this.props.UserExist({ username: value }).then((data) => {
+				this.props.UserExist({ username: value })
+				.then((data) => {
 					if (data.length > 1) {
 						this.setState({ userExist: data });
 					} else {
@@ -94,7 +100,9 @@ export default class Register extends Component {
 					}
 				});
 				if (value.length < 4 || !value) {
-					this.setState({ usernameError: 'username must be a minimum of 5 characters' });
+					this.setState({ 
+						usernameError: 'username must be a minimum of 5 characters' 
+					});
 					return false;
 				} else {
 					this.setState({ usernameError: '' });
@@ -107,7 +115,8 @@ export default class Register extends Component {
 		const { userExist } = this.props;
 		return (
 			<div id="register" className="col s12">
-				<form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
+				<form className="col s12" id="form-validate" 
+				onSubmit={this.handleSubmit}>
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s6">

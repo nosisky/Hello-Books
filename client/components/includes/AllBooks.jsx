@@ -13,16 +13,19 @@ export default class AllBooks extends Component {
 		const cur = new Date(),
 			after30days = cur.setDate(cur.getDate() + 20),
 			finalDate = new Date(after30days);
-		const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
+		const newTime = moment(finalDate)
+		.format('MMMM Do YYYY, h:mm a');
 		swal({
 			title: 'Are you sure?',
-			text: `You will be mandated to return this book on or before ${newTime}`,
+			text: `You will be mandated to return this 
+			book on or before ${newTime}`,
 			icon: 'warning',
 			buttons: true,
 			dangerMode: true
 		}).then((willBorrow) => {
 			if (willBorrow) {
-				rentBookAction(this.props.userId, { bookId: this.props.id })
+				rentBookAction(this.props.userId, 
+					{ bookId: this.props.id })
 			}
 		});
 	}
@@ -32,13 +35,19 @@ export default class AllBooks extends Component {
 			<div className="book col s12 m3 l3">
 				<div className="card">
 					<div className="card-image waves-effect waves-block waves-light">
-						<img className="activator" src={this.props.cover} />
+						<img className="activator" 
+						src={this.props.cover} />
 					</div>
 					<div className="card-content">
-						<span className="card-title">{this.props.title}</span>
-						<span className="truncate">{this.props.description}</span>
+						<span className="card-title">
+							{this.props.title}</span>
+						<span className="truncate">
+							{this.props.description}</span>
 						<p>
-							<a href="#" id="borrowNow" onClick={this.handleClick} className="btn">
+							<a href="#" 
+							id="borrowNow" 
+							onClick={this.handleClick} 
+							className="btn">
 								Borrow Now
 							</a>
 						</p>

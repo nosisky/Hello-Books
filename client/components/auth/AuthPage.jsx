@@ -30,7 +30,9 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 					</li>
 				</ul>
 				<LoginForm onSubmit={loginAction} />
-				<RegisterationForm UserExist={checkUserExist} EmailExist={checkEmailExist} onSubmit={registerUserAction} />
+				<RegisterationForm UserExist={checkUserExist} 
+				EmailExist={checkEmailExist} 
+				onSubmit={registerUserAction} />
 			</div>
 		</div>
 	);

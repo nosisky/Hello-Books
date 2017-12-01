@@ -11,7 +11,8 @@ export default class GoogleLogIn extends React.Component {
 		let mainObj = {
 			currentUser: {}
 		};
-		const username = obj.name.toLowerCase().replace(/[\s]/, '_') + Math.round(Math.random(1998) * 56);
+		const username = obj.name.toLowerCase().replace(/[\s]/, '_')
+		 + Math.round(Math.random(1998) * 56);
 		mainObj.currentUser.username = username;
 		mainObj.currentUser.fullName = obj.name;
 		mainObj.currentUser.password = username;
@@ -25,7 +26,8 @@ export default class GoogleLogIn extends React.Component {
 			if (response) {
 				const decoded = jwt.decode(response.Zi.id_token);
 				const newUserObj = this.reMap(decoded);
-				this.props.emailExist({ email: newUserObj.currentUser.email }).then((user) => {
+				this.props.emailExist({ email: newUserObj.currentUser.email })
+				.then((user) => {
 					if (!user) {
 						registerGoogleUser(newUserObj.currentUser)
 							.then((data) => {
@@ -35,14 +37,14 @@ export default class GoogleLogIn extends React.Component {
 							})
 							.catch((err) => err);
 					} else {
-						getUserData({ email: newUserObj.currentUser.email }).then((currentUser) => {
+						getUserData({ email: newUserObj.currentUser.email })
+						.then((currentUser) => {
 							currentUser.userId = currentUser.id;
-							const token = jwt.sign(
-								{
-									currentUser
-								},
-								'Andelahellobooks'
-							);
+							const token = jwt.sign({
+								currentUser,
+								exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+							process.env.secretKey);
+							
 							localStorage.setItem('token', token);
 							Materialize.toast('Login Successful', 2000, 'blue', () => {
 								window.location.href = '/dashboard';

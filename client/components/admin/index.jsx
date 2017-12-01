@@ -117,7 +117,10 @@ class AdminHome extends Component {
 		const { username, fullname, id } = this.props.user;
 		return (
 			<div>
-				<AdminHeader onClick={this.logout} fullName={fullname} username={username} /> {this.renderBooks()}
+				<AdminHeader 
+				onClick={this.logout} 
+				fullName={fullname} 
+				username={username} /> {this.renderBooks()}
 			</div>
 		);
 	}

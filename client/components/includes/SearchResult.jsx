@@ -33,10 +33,12 @@ export default class SearchResult extends Component {
 			<div className="book col s12 m3 l3">
 				<div className="card">
 					<div className="card-image waves-effect waves-block waves-light">
-						<img className="activator" height="150px" src={this.props.cover} />
+						<img className="activator" height="150px" 
+						src={this.props.cover} />
 					</div>
 					<div className="card-content">
-						<span className="card-title activator grey-text text-darken-4">{this.props.title}</span>
+						<span className="card-title activator grey-text text-darken-4">
+							{this.props.title}</span>
 						<span className="truncate">{this.props.description}</span>
 						<p>
 							<a href="#" onClick={this.handleClick} className="btn">

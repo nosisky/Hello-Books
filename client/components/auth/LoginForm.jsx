@@ -28,7 +28,8 @@ export default class Login extends Component {
 
 	handleFormSubmit(event) {
 		event.preventDefault();
-		getUserByEmailAction({ email: event.target.value }).then((res) => {});
+		getUserByEmailAction({ email: event.target.value })
+		.then((res) => {});
 	}
 
 	handleSubmit(event) {
@@ -36,12 +37,16 @@ export default class Login extends Component {
 		this.props.onSubmit(this.state)
 		.then(
 			(data) => {
-				Materialize.toast('Logged In Successfully', 2000, 'blue darken-4', () => {
+				Materialize.toast('Logged In Successfully', 2000, 
+				'blue darken-4',
+				 () => {
 					window.location.href = '/admin';
 				});
 			},
 			(data) => {
-				this.setState({ loginError: data.response.data.message});
+				this.setState({ 
+					loginError: data.response.data.message
+				});
 			}
 		);
 	}
@@ -104,7 +109,8 @@ export default class Login extends Component {
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s12">
-								<input id="username" type="text" name="username" onChange={this.onChange} required />
+								<input id="username" type="text" name="username" 
+								onChange={this.onChange} required />
 								<label htmlFor="username">Username</label>
 							</div>
 						</div>
@@ -123,7 +129,8 @@ export default class Login extends Component {
 						</div>
 						<br />
 						<center>
-							<button className="btn waves-effect teal" type="submit" name="action">
+							<button className="btn waves-effect teal" 
+							type="submit" name="action">
 								Login
 							</button>
 							<br />

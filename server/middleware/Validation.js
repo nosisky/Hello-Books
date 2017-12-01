@@ -224,8 +224,8 @@ export default {
    */
 
   emailExist(req, res) {
-    const re = /\S+@\S+\.\S+/,
-      emailValidate = re.test(req.body.email);
+    const regularExpression = /\S+@\S+\.\S+/,
+      emailValidate = regularExpression.test(req.body.email);
     if (!emailValidate) {
       res.send({ message: 'Invalid email supplied' });
       return;

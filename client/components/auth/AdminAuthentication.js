@@ -55,7 +55,9 @@ export default function(ComposedComponent) {
 	}
 
 	function mapStateToProps(state) {
-		return { authenticated: state.auth.authenticated, user: state.auth.user.currentUser };
+		return { 
+			authenticated: state.auth.authenticated, 
+			user: state.auth.user.currentUser };
 	}
 
 	return connect(mapStateToProps, mapDispatchToProps)(AdminAuthentication);

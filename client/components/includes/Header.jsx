@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/AuthActions';
-import MailSender from '../../utils/MailSender';
+import mailSender from '../../utils/mailSender';
 
 class Header extends Component {
 	constructor(props) {
@@ -83,7 +83,8 @@ class Header extends Component {
 						>
 							<Link to="/">HelloBooks</Link>
 						</div>
-						<a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only right">
+						<a href="#" data-activates="slide-out" 
+						className="button-collapse hide-on-large-only right">
 							<i
 								style={{
 									color: '#fff',
@@ -96,7 +97,9 @@ class Header extends Component {
 						</a>
 						<ul className="right hide-on-med-and-down">
 							<li>
-								<a data-target="search_book" className="modal-trigger" href="#search_book">
+								<a data-target="search_book" 
+								className="modal-trigger" 
+								href="#search_book">
 									<i className="material-icons">search</i>
 								</a>
 							</li>
@@ -116,7 +119,8 @@ class Header extends Component {
 								<Link to="/profile">Profile</Link>
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" 
+								onClick={this.props.actions.logoutAction} href="#!">
 									Logout
 								</a>
 							</li>

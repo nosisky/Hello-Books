@@ -134,12 +134,11 @@ export default {
           email: user.email,
           plan: user.plan
         };
-        const token = jwt.sign(
-          {
-            currentUser
-          },
-          key
-        );
+        const token = jwt.sign({
+          currentUser,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+        key);
+
         return res.status(201).send({
           token
         });
@@ -205,12 +204,11 @@ export default {
           userId: user.id,
           username: user.username
         };
-        const token = jwt.sign(
-          {
-            currentUser
-          },
-          key
-        );
+        const token = jwt.sign({
+          currentUser,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+        key);
+
         return res.status(201).send({
           token
         });

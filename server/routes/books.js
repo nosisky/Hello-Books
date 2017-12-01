@@ -2,7 +2,7 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/Book';
 import Validation from '../middleware/Validation';
-import sendMail from '../middleware/helper';
+import sendMail from '../middleware/sendMail';
 
 const app = express.Router();
 
