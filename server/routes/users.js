@@ -69,7 +69,16 @@ const app = express.Router();
  *         type: string
  *       prodYear: 
  *         type: integer
- */
+ *     example: {
+ *        isbn: 123-isbn-1992,
+ *        title: Think rich to grow rich,
+ *       author: Napoleon Hill,
+ *       description: This is a sample book description,
+ *       quantity: 10,
+ *       cover: http://example.com/img/cover.jpg,
+ *       prodYear: 1993
+ *  }
+ */ 
 
 
 /**

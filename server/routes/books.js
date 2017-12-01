@@ -25,6 +25,15 @@ const app = express.Router();
  *         type: string
  *       prodYear: 
  *         type: integer
+ *     example: {
+ *       isbn: 123-isbn-1992,
+ *       title: Think rich to grow rich,
+ *       author: Napoleon Hill,
+ *       description: This is a sample book description,
+ *       quantity: 10,
+ *       cover: http://example.com/img/cover.jpg,
+ *       prodYear: 1993
+ *     }
  */
 
 /**
@@ -36,6 +45,10 @@ const app = express.Router();
  *         type: string
  *       description:
  *         type: string
+ *     example: {
+ *      name: Art & Science,
+ *      description: This is sample description
+ *      }
  */
 
 /**
@@ -68,7 +81,7 @@ const app = express.Router();
 app.route('/')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin,
-    Validation.checkUserInput,
+    Validation.checkBookInput,
     BookController.create)
   .get(Authorization.isLoggedIn,
     BookController.getBooks);
