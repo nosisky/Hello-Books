@@ -14,3 +14,4 @@ export const RETURN_RENTED_BOOK = 'return_rented_book';
 export const GET_ONE_BOOK = 'get_one_book';
 export const ADD_CATEGORY = 'add_category';
 export const DELETE_BOOK = 'delete_book';
+export const EDIT_PROFILE = 'edit_profile';

@@ -7,7 +7,7 @@ import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
 class AddBook extends Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -47,7 +47,6 @@ class AddBook extends Component {
 	}
 	handleUploadError(error) {
 		this.setState({ isUploading: false });
-		console.error(error);
 	}
 
 	handleUploadSuccess(filename) {
@@ -302,7 +301,7 @@ class AddBook extends Component {
 									<br />{' '}
 								</div>
 							)}
-							{this.state.progress === 100 && (
+							{this.state.progress === 100 && this.state.cover.length > 1 && (
 								<div>
 									<img
 										height="50px"

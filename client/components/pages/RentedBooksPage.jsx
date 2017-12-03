@@ -18,7 +18,8 @@ export class RentedBooksPage extends Component {
 	}
 
 	componentDidMount(props) {
-		this.props.actions.getRentedBooksAction(this.props.user.id);
+		const userId = this.props.user.id || this.props.user.userId
+		this.props.actions.getRentedBooksAction(userId);
 	}
 
 	handleClick(id) {
@@ -65,7 +66,6 @@ export class RentedBooksPage extends Component {
 									author={book.author}
 									description={book.description}
 									id={book.bookId}
-									userId={this.props.user.id}
 									key={book.id}
 									title={book.title}
 									cover={book.cover}

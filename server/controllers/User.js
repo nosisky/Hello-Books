@@ -2,14 +2,13 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import omit from 'lodash/omit';
-import db from '../models';
+import database from '../models';
 
 dotenv.load();
 const secret = process.env.secretKey;
 
-const { User } = db;
+const { User } = database;
 export default {
-
   /** Adds a new use to the database
    * 
    * @param  {object} req request object
@@ -24,15 +23,15 @@ export default {
   create(req, res) {
     return User.create(req.userInput)
       .then((user) => {
-        const currentUser = omit(user.dataValues, [
-          'password',
-          'createdAt',
-          'updatedAt'
-        ]);
-        const token = jwt.sign({
-          currentUser,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
-        secret);
+        const currentUser = omit(user.dataValues,
+          ['password', 'createdAt', 'updatedAt']);
+        const token = jwt.sign(
+          {
+            currentUser,
+            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
+          },
+          secret
+        );
         return res.status(201).send({
           message: 'Signed up successfully',
           token
@@ -43,7 +42,9 @@ export default {
 
   /** Authenticates user login information
    * @param  {object} req - request
+   * 
    * @param  {object} res - response 
+   * 
    * Route: POST: /users/signin
    * @return {Object} - Object containing user details
    */
@@ -57,26 +58,27 @@ export default {
       where: {
         username: req.body.username
       }
-    }).then((user) => {
-      if (user && bcrypt.compareSync(req.body.password, user.password)) {
-        const currentUser = omit(user.dataValues, [
-          'password',
-          'createdAt',
-          'updatedAt'
-        ]);
-        const token = jwt.sign({
-          currentUser,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
-        secret);
-        return res.status(200).send({
-          message: 'Logged in successfully',
-          token
-        });
-      }
-      return res.status(401).json({
-        message: 'Invalid Credentials.'
-      });
     })
+      .then((user) => {
+        if (user && bcrypt.compareSync(req.body.password, user.password)) {
+          const currentUser = omit(user.dataValues,
+            ['password', 'createdAt', 'updatedAt']);
+          const token = jwt.sign(
+            {
+              currentUser,
+              exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+            },
+            secret
+          );
+          return res.status(200).send({
+            message: 'Logged in successfully',
+            token
+          });
+        }
+        return res.status(401).json({
+          message: 'Invalid Credentials.'
+        });
+      })
       .catch(error => res.status(500).send(error));
   },
 
@@ -84,7 +86,9 @@ export default {
    * 
    * Edit profile controller
    * @param {Object} req - request
+   * 
    * @param {Object} res - response
+   * 
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
@@ -93,11 +97,24 @@ export default {
         id: req.params.userId
       }
     })
-      .then(() =>
-        res.status(201).send({
-          message: 'Profile updated successfully'
-        })
-      )
-      .catch(error => res.status(400).send(error));
+      .then(() => {
+        User.findById(req.params.userId)
+          .then((user) => {
+            const currentUser = omit(user.dataValues,
+              ['password', 'createdAt', 'updatedAt']);
+            const token = jwt.sign(
+              {
+                currentUser,
+                exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+              },
+              secret
+            );
+            res.status(200).send({
+              message: 'Profile updated successfully',
+              token
+            });
+          });
+      })
+      .catch(error => res.status(500).send(error));
   }
 };

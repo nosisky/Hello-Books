@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
-import db from '../models/index';
+import omit from 'lodash/omit';
 
-const { Book, User } = db;
+import database from '../models/index';
+
+const { Book, User } = database;
 
 export default {
 
@@ -170,8 +172,11 @@ export default {
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   checkTotalBook(req, res, next) {
     Book.findOne({
       where: {
@@ -187,12 +192,16 @@ export default {
       }
     });
   },
-  /** Checks is a valid user ID was supplied
+
+  /** Check if a user is valid
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   validUser(req, res, next) {
     const querier = req.params.userId;
     if (!querier || querier.match(/[\D]/)) {
@@ -216,34 +225,44 @@ export default {
     }
   },
 
-  /** Checks if user exist
-   * @param  {object} req - request
-   *
+  /** Checks if a user alreday exist
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @return {Object} - Object containing message
    */
-
   UserExist(req, res) {
+    const validator = /[0-9]{2,}/;
+    const validator2 = /[\W]{2,}/;
+    if (validator.test(req.body.username)
+      || validator2.test(req.body.username)) {
+      return res.status(400).send({
+        message: 'Invalid Username supplied!'
+      });
+    }
     return User.findOne({
       where: {
         username: req.body.username
       }
     })
       .then((user) => {
-        if (user) {
-          res.status(200).send({ message: 'username already exist' });
-        } else {
-          res.status(200).send({ message: '' });
+        if (user.username !== req.params.username) {
+          return res.status(200).send({ message: 'username already exist' });
         }
+        return res.status(404).send({ message: '' });
       })
       .catch(error => res.status(500).send({ error }));
   },
 
-  /** Validates Email address
-   * @param  {object} req - request
-   *
-   * @param  {object} res - response
-   */
 
+  /** Checks if an email address already exist
+   * @param  {Object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @return {Object} - Object containing message
+   */
   emailExist(req, res) {
     const regularExpression = /\S+@\S+\.\S+/,
       emailValidate = regularExpression.test(req.body.email);
@@ -257,19 +276,15 @@ export default {
       }
     })
       .then((user) => {
-        if (user) {
+        if (user.id !== req.body.userId) {
+          const currentUser = omit(user.dataValues, [
+            'password',
+            'createdAt',
+            'updatedAt'
+          ]);
           res.status(200).send({
             message: 'Email already exist',
-            user: {
-              id: user.id,
-              fullname: user.fullName,
-              username: user.username,
-              email: user.email,
-              active: user.acative,
-              isBanned: user.isBanned,
-              isAdmin: user.isAdmin,
-              plan: user.plan
-            }
+            user: currentUser
           });
         } else {
           res.status(200).send({ message: '' });
@@ -278,12 +293,15 @@ export default {
       .catch(error => res.status(404).send({ error }));
   },
 
-  /** Checks if a valid book ID was supplied
-   * @param  {object} req - request
-   *
+  /** Checks for validity of book
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || /[\D]/.test(querier)) {

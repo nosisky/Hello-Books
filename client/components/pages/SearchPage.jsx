@@ -41,7 +41,8 @@ class SearchPage extends Component {
 			dangerMode: true
 		}).then((willBorrow) => {
 			if (willBorrow) {
-				rentBookAction(this.props.user.id, 
+				const userId = this.props.user.id || this.props.user.userId				
+				rentBookAction(userId, 
 					{ bookId: id })
 			}
 		});
@@ -75,7 +76,6 @@ class SearchPage extends Component {
 									description={book.description}
 									id={book.id}
 									handleAction={this.handleClick}
-									userId={this.props.user.id}
 									key={book.id}
 									cover={book.cover}
 									text='Borrow'

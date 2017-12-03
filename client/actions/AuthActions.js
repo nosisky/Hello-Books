@@ -4,7 +4,7 @@ import Materialize from 'materialize-css';
 
 import { setAuthorizationToken } from '../utils/Authorization';
 
-import { SET_CURRENT_USER, UNAUTH_USER } from './types';
+import { SET_CURRENT_USER, UNAUTH_USER, EDIT_PROFILE } from './types';
 
 const API_URL = '/api/v1/users';
 
@@ -71,7 +71,7 @@ export function loginAction(userDetails) {
           window.location.href = '/admin';
         });
     })
-    .catch(error => Materialize.toast(error.response.data.message, 
+    .catch(error => Materialize.toast(error.response.data.message,
       3000,
       'red'));
 }
@@ -100,10 +100,20 @@ export function logoutAction() {
  * @returns { String } - JWT Token
  */
 export function editProfileAction(userId, userData) {
-  return axios.put(`${API_URL}/edit/${userId}`, userData)
+  return dispatch => axios.put(`${API_URL}/edit/${userId}`, userData)
     .then(() => axios.get(`${SEARCH_API_URL}/${userId}`)
-      .then(res => res.data.token))
-    .catch(error => error.data.response);
+      .then((response) => {
+        dispatch({
+          type: EDIT_PROFILE,
+          user: jwt.decode(response.data.token)
+        });
+        localStorage.setItem('token', response.data.token);
+        Materialize.toast('Profile edited Successfully',
+          1000, 'blue darken-4', () => {
+            $('.modal').modal('close');
+          });
+      }))
+    .catch(error => Materialize.toast(error.response.data.message));
 }
 
 /**
@@ -115,5 +125,5 @@ export function editProfileAction(userId, userData) {
 export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
     .then(res => res.data.token)
-    .catch(error => error.data.response);
+    .catch(error => Materialize.toast(error.response.data.message));
 }

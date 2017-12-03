@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import db from '../models/';
+import database from '../models/';
 
 dotenv.load();
 const key = process.env.secretKey;
-const { User } = db;
-const { RentedBook } = db;
+const { User } = database;
+const { RentedBook } = database;
 
 export default {
   /** Validates users login information
@@ -52,11 +52,14 @@ export default {
   },
 
   /** Checks if logged in user has valid AUTH token
-   * @param  {object} req - request
-   *
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {null} - null
    */
-
   isLoggedIn(req, res, next) {
     let token;
     const tokenAvailable = req.headers.authorization ||
@@ -86,11 +89,14 @@ export default {
     }
   },
   /** Checks if currently logged in user is an admin
-   * @param  {object} req - request
-   *
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   isAdmin(req, res, next) {
     const decodedToken = req.decoded;
     if (typeof decodedToken.currentUser.isAdmin === 'undefined') {
@@ -107,11 +113,14 @@ export default {
   },
 
   /** Checks if user has rented a book before
-   * @param  {object} req - request
-   *
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   hasRentedBefore(req, res, next) {
     RentedBook.findOne({
       where: {
@@ -132,7 +141,7 @@ export default {
 
   /**
    * 
-   * 
+   * Gets user data from the database
    * @param {Object} req - request
    *
    * @param {Object} res - response

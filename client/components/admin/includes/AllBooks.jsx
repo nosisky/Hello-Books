@@ -52,6 +52,7 @@ class AllBooks extends Component {
 		});
 	}
 
+
 	changeView() {
 		this.setState({ displayBook: true, edit: false });
 	}

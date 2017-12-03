@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+import Materialize from 'materialize-css';
 
 import { ADD_BOOK,
   GET_ALL_BOOKS,
@@ -28,10 +29,12 @@ export function addBookAction(bookDetails) {
     .then((res) => {
       dispatch({
         type: ADD_BOOK,
-        message: res.data.message
+        message: res.data.message,
+        book: res.data.book
       });
+      Materialize.toast('Book added successfully', 1000);
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message));
 }
 
 /**
@@ -45,11 +48,11 @@ export function getAllBooksAction(page) {
     .then((res) => {
       dispatch({
         type: GET_ALL_BOOKS,
-        data: res.data
+        books: res.data
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -67,7 +70,7 @@ export function deleteBookAction(bookId) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -87,7 +90,7 @@ export function modifyBookAction(bookData, bookId) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -105,7 +108,7 @@ export function addCategoryAction(data) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -144,7 +147,7 @@ export function getRentedBooksAction(userId) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -187,7 +190,7 @@ export function getSpecificBook(bookId) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -202,7 +205,7 @@ export function getCategoryAction() {
         data: res.data
       });
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -220,5 +223,5 @@ export function searchAction(query) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }

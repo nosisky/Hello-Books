@@ -122,7 +122,7 @@ app.route('/books')
  *         required: true
  *         type: string
  *     responses:
- *       201:
+ *       200:
  *         description: Book Successfully borrowed
  *         schema:
  *           $ref: '#/definitions/Book'

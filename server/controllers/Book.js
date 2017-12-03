@@ -1,6 +1,6 @@
-import db from '../models';
+import database from '../models';
 
-const { RentedBook, Book, Category, Notification } = db;
+const { RentedBook, Book, Category, Notification } = database;
 
 const bookController = {
   /** Admin add new book
@@ -13,9 +13,10 @@ const bookController = {
    */
   create(req, res) {
     return Book.create(req.userInput)
-      .then(() =>
+      .then(book =>
         res.status(201).send({
-          message: 'Book uploaded successfully'
+          message: 'Book uploaded successfully',
+          book
         })
       )
       .catch(error => res.status(500).send(error));

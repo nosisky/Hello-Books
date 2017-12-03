@@ -64,7 +64,8 @@ export class Dashboard extends Component {
 			dangerMode: true
 		}).then((willBorrow) => {
 			if (willBorrow) {
-				rentBookAction(this.props.user.id, 
+				const userId = this.props.user.id || this.props.user.userId				
+				rentBookAction(userId, 
 					{ bookId: id })
 			}
 		});
@@ -117,7 +118,6 @@ export class Dashboard extends Component {
 									author={book.author}
 									description={book.description}
 									id={book.id}
-									userId={this.props.user.id}
 									key={book.id}
 									title={book.title}
 									cover={book.cover}

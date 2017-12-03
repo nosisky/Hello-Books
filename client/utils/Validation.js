@@ -13,7 +13,7 @@ export function checkUserExist(detail) {
   return axios
     .post(`${API_URL}/get`, detail)
     .then(response => response.data.message)
-    .catch(error => error);
+    .catch(error => error.response.data.message);
 }
 
 /**

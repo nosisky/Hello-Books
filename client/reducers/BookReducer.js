@@ -26,15 +26,19 @@ const INITIAL_STATE = {
 
 /**
  * @param {Object} state - Object containing the defaul state
+ * 
  * @param {Object} action - Object containing displatched data
+ * 
  * @returns {Object} - Object containing the store data
  */
 function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BOOK:
-      return { ...state, message: 'Book added Successfully' };
+      return { ...state,
+        message: 'Book added Successfully',
+        data: action.data.book };
     case GET_ALL_BOOKS:
-      return { ...state, count: action.data.count, data: action.data.rows };
+      return { ...state, count: action.books.count, data: action.books.rows };
     case GET_ONE_BOOK:
       return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
