@@ -5,7 +5,9 @@ const { RentedBook, Book, Category, Notification, User } = db;
 const bookController = {
   /** Admin add new book
    * @param  {object} req request
+   * 
    * @param  {object} res response
+   * 
    * Route: POST: /books  
    * @return {Object} - Object containing status code and success message
    */
@@ -28,7 +30,9 @@ const bookController = {
 
   /** User rent book
    * @param  {object} req - request
+   * 
    * @param  {object} res - response
+   * 
    * ROUTE: POST: /users/:userId/books
    * @return {Object} - Success message
    */
@@ -72,7 +76,9 @@ const bookController = {
   /**
    * Retrieves all recent notifications from the database
    * @param {Object} req - request
+   * 
    * @param {Object} res - response
+   * 
    * @return {Array} - data
    */
   getNotification(req, res) {
@@ -93,7 +99,9 @@ const bookController = {
 
   /** displays all books
    * @param  {object} req request
+   * 
    * @param  {object} res response
+   * 
    *  Route: GET: /api/books
    * @return {Object} - Book details
    */
@@ -127,7 +135,9 @@ const bookController = {
 
   /** Adds a new category
    * @param  {object} req request
+   * 
    * @param  {Object} res response
+   * 
    * @return {Object} - return lists of category
    */
   addCategory(req, res) {
@@ -175,7 +185,9 @@ const bookController = {
 
   /** Admin modify book details
    * @param  {object} req - request
+   * 
    * @param  {object}  res -resonse
+   * 
    * Route: GET: /
    * @return {Object} - Success message
    */
@@ -197,7 +209,9 @@ const bookController = {
   },
   /** User get a specific book
    * @param  {Object} req - request
+   * 
    * @param  {Object} res - response
+   * 
    * Route: GET: /books/:bookId 
    * @returns {Object} - status code and book details
    */
@@ -214,7 +228,9 @@ const bookController = {
   },
   /** Admin delete a book
    * @param  {Object} req - request
+   * 
    * @param  {Object} res - reponse
+   * 
    * ROute: DELETE: /books/delete/:bookId
    * @returns {Object} - returns success message
    */
@@ -234,7 +250,9 @@ const bookController = {
   },
   /** Get rented books by a specific user
    * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
    * Route: GET: /books/logs/:userId
    * @returns {Object} - return lists of rented book by a user
    */
@@ -257,7 +275,9 @@ const bookController = {
   },
   /** User return rented book
    * @param  {object} req - request
+   * 
    * @param  {object} res - response
+   * 
    * Route: PUT: /users/:userId/books
    * @return {Object} - return list of rented books
    */
@@ -293,7 +313,8 @@ const bookController = {
               }
             ).then(() => {
               const { username, id } = req.decoded.currentUser;
-              bookController.createNotification(id, username, book.title, 'return');
+              bookController.createNotification(id,
+                username, book.title, 'return');
               res.status(201).send({
                 message: 'Book returned successfully',
                 book
@@ -306,7 +327,9 @@ const bookController = {
 
   /** Gets the list of category from database
    * @param  {object} req - request
+   * 
    * @param  {object} res - response
+   * 
    * Route: PUT: /books/category
    * @return {Object} - Return category from database
    */
@@ -322,7 +345,9 @@ const bookController = {
    * 
    * Book search controller
    * @param {Object} req - request
+   * 
    * @param {Object} res - response
+   * 
    * @returns {Object} - Returns search result
    */
   search(req, res) {

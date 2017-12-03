@@ -78,6 +78,7 @@ class SearchPage extends Component {
 									userId={this.props.user.id}
 									key={book.id}
 									cover={book.cover}
+									text='Borrow'
 									title={book.title}
 									description={book.description}
 								/>

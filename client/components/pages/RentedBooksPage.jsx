@@ -7,17 +7,32 @@ import { getSpecificBook,
 import { bindActionCreators } from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
-import RentedBooks from '../includes/RentedBooks';
+import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 export class RentedBooksPage extends Component {
 	constructor(props) {
 		super(props);
 		this.renderRentedBooks = this.renderRentedBooks.bind(this);
+		this.handleClick =  this.handleClick.bind(this);
 	}
 
 	componentDidMount(props) {
 		this.props.actions.getRentedBooksAction(this.props.user.id);
+	}
+
+	handleClick(id) {
+		swal({
+			title: 'Are you sure?',
+			text: 'Do you really want to return the book?',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willReturn) => {
+			if (willReturn) {
+				this.props.actions.returnBook(this.props.user.id, { bookId: id })
+			}
+		});
 	}
 
 	renderRentedBooks() {
@@ -40,16 +55,21 @@ export class RentedBooksPage extends Component {
 						<div className="col s12 push-l3 m9">
 							{rentedBooks.map((book) => {
 								return (
-									<RentedBooks
-										description={book.description}
-										id={book.bookId}
-										userId={this.props.user.userId}
-										key={book.id}
-										isReturned={book.returned}
-										returnBook={this.props.actions.returnBook}
-										title={book.title}
-										cover={book.cover}
-										userId={book.userId}
+									<AllBooks
+									prodYear={book.prodYear}
+									total={book.total}
+									isbn={book.isbn}
+									rented={true}
+									isReturned={book.returned}
+									handleAction={this.handleClick}
+									author={book.author}
+									description={book.description}
+									id={book.bookId}
+									userId={this.props.user.id}
+									key={book.id}
+									title={book.title}
+									cover={book.cover}
+									description={book.description}
 									/>
 								);
 							})}
@@ -69,7 +89,7 @@ export class RentedBooksPage extends Component {
 	}
 }
 
-RentedBooks.PropTypes = {
+AllBooks.PropTypes = {
 	user: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
 	rentedBooks: PropTypes.object.isRequired

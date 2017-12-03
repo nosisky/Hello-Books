@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import LoginForm from './LoginForm';
 import RegisterationForm from './RegisterationForm';
-import { checkUserExist, checkEmailExist, reMap } from '../../utils/Validation';
+import { checkUserExist, 
+	checkEmailExist, reMap } from '../../utils/Validation';
 
 const AuthPage = ({ registerUserAction, loginAction, message }) => {
 	return (

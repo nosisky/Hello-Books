@@ -111,7 +111,9 @@ export class Dashboard extends Component {
 									prodYear={book.prodYear}
 									total={book.total}
 									isbn={book.isbn}
-									handleBorrow={this.handleClick}
+									text='Borrow'
+									rented={false}
+									handleAction={this.handleClick}
 									author={book.author}
 									description={book.description}
 									id={book.id}
