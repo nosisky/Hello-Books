@@ -11,15 +11,20 @@ const { User } = db;
 export default {
 
   /** Adds a new use to the database
+   * 
    * @param  {object} req request object
+   * 
    * @param  {object} res response object
+   * 
    * Route: POST: /users/signup
-   * @return {Object} - Object containing user details
+   * 
+   * @return {Object} - Object containing user detail
+   * s
    */
   create(req, res) {
     return User.create(req.userInput)
       .then((user) => {
-        const currentUser = omit(user, [
+        const currentUser = omit(user.dataValues, [
           'password',
           'createdAt',
           'updatedAt'

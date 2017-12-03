@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import loadJS from 'load-js';
 import PropTypes from 'prop-types';
-import { getSpecificBook, returnBook, getRentedBooksAction } from '../../actions/BookActions';
+import { getSpecificBook, 
+	returnBook, 
+	getRentedBooksAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
@@ -16,7 +17,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	componentDidMount(props) {
-		this.props.actions.getRentedBooksAction(this.props.user.userId);
+		this.props.actions.getRentedBooksAction(this.props.user.id);
 	}
 
 	renderRentedBooks() {
@@ -24,14 +25,17 @@ export class RentedBooksPage extends Component {
 		if (rentedBooks.length < 1) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+					<SideBar fullname={this.props.user.fullname} 
+					isAdmin={this.props.user.isAdmin} />
 					<h1 className="empty-notifier">You have not rented any book</h1>
 				</div>
 			);
 		} else {
 			return (
 				<div className="row">
-					<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+					<SideBar fullname={this.props.user.fullName} 
+					isAdmin={this.props.user.isAdmin} />
+
 					<div className="row">
 						<div className="col s12 push-l3 m9">
 							{rentedBooks.map((book) => {

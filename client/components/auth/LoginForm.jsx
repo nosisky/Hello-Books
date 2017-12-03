@@ -35,20 +35,6 @@ export default class Login extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.onSubmit(this.state)
-		.then(
-			(data) => {
-				Materialize.toast('Logged In Successfully', 2000, 
-				'blue darken-4',
-				 () => {
-					window.location.href = '/admin';
-				});
-			},
-			(data) => {
-				this.setState({ 
-					loginError: data.response.data.message
-				});
-			}
-		);
 	}
 
 	render() {

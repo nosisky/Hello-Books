@@ -37,13 +37,6 @@ export default class Register extends Component {
 		this.setState({ isLoading: true });
 		formData.preventDefault();
 		this.props.onSubmit(this.state)
-		.then((data) => {
-			Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4', 
-			() => {
-				this.setState({ isLoading: false });
-				window.location.href = '/dashboard';
-			});
-		});
 	}
 
 	onFocus(event) {

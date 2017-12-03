@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
+import moment from 'moment';
+import { rentBookAction } from '../../actions/BookActions';
 import { searchAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
-import SearchResult from '../includes/SearchResult';
+import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 class SearchPage extends Component {
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 	componentDidMount() {
 		if (!location.search) {
@@ -20,6 +24,27 @@ class SearchPage extends Component {
 		const page = location.search.split('=')[1];
 		const result = page.split('&')[0];
 		this.props.actions.searchAction({ search: result });
+	}
+
+	handleClick(id) {
+		const cur = new Date(),
+			after30days = cur.setDate(cur.getDate() + 20),
+			finalDate = new Date(after30days);
+		const newTime = moment(finalDate)
+		.format('MMMM Do YYYY, h:mm a');
+		swal({
+			title: 'Are you sure?',
+			text: `You will be mandated to return this 
+			book on or before ${newTime}`,
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willBorrow) => {
+			if (willBorrow) {
+				rentBookAction(this.props.user.id, 
+					{ bookId: id })
+			}
+		});
 	}
 
 	renderBooks() {
@@ -36,19 +61,21 @@ class SearchPage extends Component {
 		}
 		return (
 			<div className="row">
-				<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+				<SideBar fullname={this.props.user.fullname} 
+				isAdmin={this.props.user.isAdmin} />
 				<div className="row">
 					<div className="col s12 push-l3 m9">
 						{allbooks.map((book) => {
 							return (
-								<SearchResult
+								<AllBooks
 									prodYear={book.prodYear}
 									total={book.total}
 									isbn={book.isbn}
 									author={book.author}
 									description={book.description}
 									id={book.id}
-									userId={this.props.user.userId}
+									handleBorrow={this.handleClick}
+									userId={this.props.user.id}
 									key={book.id}
 									cover={book.cover}
 									title={book.title}
@@ -79,7 +106,9 @@ SearchPage.PropTypes = {
 };
 
 function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser, search: state.book.data };
+	return { 
+		user: state.auth.user.currentUser, 
+		search: state.book.data };
 }
 
 function mapDispatchToProps(dispatch) {

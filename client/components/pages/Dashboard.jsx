@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert';
+import moment from 'moment';
+import { rentBookAction } from '../../actions/BookActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -15,6 +18,7 @@ export class Dashboard extends Component {
 		this.renderBooks = this.renderBooks.bind(this);
 		this.renderPagination = this.renderPagination.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	componentDidMount() {
@@ -45,12 +49,34 @@ export class Dashboard extends Component {
 		}
 	}
 
+	handleClick(id) {
+		const cur = new Date(),
+			after30days = cur.setDate(cur.getDate() + 20),
+			finalDate = new Date(after30days);
+		const newTime = moment(finalDate)
+		.format('MMMM Do YYYY, h:mm a');
+		swal({
+			title: 'Are you sure?',
+			text: `You will be mandated to return this 
+			book on or before ${newTime}`,
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true
+		}).then((willBorrow) => {
+			if (willBorrow) {
+				rentBookAction(this.props.user.id, 
+					{ bookId: id })
+			}
+		});
+	}
+
 	renderBooks() {
 		const allbooks = this.props.books;
 		if (!allbooks) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+					<SideBar fullname={this.props.user.fullname} 
+					isAdmin={this.props.user.isAdmin} />
 					<div className="col push-l3 s12">
 						<img
 							style={{ float: 'right', width: '50%' }}
@@ -62,7 +88,9 @@ export class Dashboard extends Component {
 		} else if (allbooks.length < 1) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+					<SideBar fullname={this.props.user.fullname} 
+					isAdmin={this.props.user.isAdmin} />
+
 					<div className="empty-notifier">
 						<h2>No more book in the database</h2>
 					</div>
@@ -83,10 +111,11 @@ export class Dashboard extends Component {
 									prodYear={book.prodYear}
 									total={book.total}
 									isbn={book.isbn}
+									handleBorrow={this.handleClick}
 									author={book.author}
 									description={book.description}
 									id={book.id}
-									userId={this.props.user.userId}
+									userId={this.props.user.id}
 									key={book.id}
 									title={book.title}
 									cover={book.cover}
@@ -96,7 +125,8 @@ export class Dashboard extends Component {
 						})}
 						{this.renderPagination(0)}
 					</div>
-					<SideBar fullname={this.props.user.fullname} isAdmin={this.props.user.isAdmin} />
+					<SideBar fullname={this.props.user.fullname} 
+					isAdmin={this.props.user.isAdmin} />
 				</div>
 			</div>
 		);
@@ -115,7 +145,8 @@ export class Dashboard extends Component {
 Dashboard.PropTypes = {
 	user: PropTypes.object.isRequired,
 	actions: PropTypes.object.isRequired,
-	books: PropTypes.object.isRequired
+	books: PropTypes.object.isRequired,
+	count: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state) {

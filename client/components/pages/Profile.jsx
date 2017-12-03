@@ -38,10 +38,10 @@ export class Profile extends React.Component {
     this.setState( { edit: true, profile: false } )
   }
 
-  handleSubmit( e ) {
-    e.preventDefault();
-    editProfileAction( this.props.user.userId, this.state ).then(( res ) => {
-      localStorage.setItem( 'token', res )
+  handleSubmit( event ) {
+    event.preventDefault();
+    editProfileAction( this.props.user.userId, this.state ).then(( response ) => {
+      localStorage.setItem( 'token', response )
       Materialize.toast( 'Profile edited Successfully', 2000, 'blue darken-4', () => {
         window.location.href = '/profile';
       } );

@@ -8,7 +8,8 @@ import rootReducers from '../reducers/index';
 /**
  *
  * Redux store configuration
- * @param {Object}  initialState - i
+ * @param {Object}  initialState - inistial state
+ * 
  * @returns {Object} - Object containing data in redux store
  */
 export default function configureStore(initialState) {

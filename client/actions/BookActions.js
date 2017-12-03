@@ -37,6 +37,7 @@ export function addBookAction(bookDetails) {
 /**
  * Get all books action
  * @param { Number } page - current Page number  
+ *
  * @returns { Object } - Object containing book data
  */
 export function getAllBooksAction(page) {
@@ -54,6 +55,7 @@ export function getAllBooksAction(page) {
 /**
  * Delete book action
  * @param {Number} bookId - Book ID
+ *
  * @returns { String } - string containing API message
  */
 export function deleteBookAction(bookId) {
@@ -73,6 +75,7 @@ export function deleteBookAction(bookId) {
  * @param {Object} bookData - Object containing Book Data
  * 
  * @param {bookId} bookId - ID of book to be modified
+ *
  * @returns { String } - Messge fro API
  */
 export function modifyBookAction(bookData, bookId) {
@@ -172,6 +175,7 @@ export function returnBook(userId, bookId) {
 /**
  * Get specific book
  * @param {Number} bookId - Book ID
+ *
  * @returns { Object } - Object containg Book details
  */
 export function getSpecificBook(bookId) {
@@ -204,6 +208,7 @@ export function getCategoryAction() {
 /**
  * Search for a book action
  * @param {Object} query - Object containg search query
+ *
  * @returns { Object } - response that mateches the serach criteria
  */
 export function searchAction(query) {
