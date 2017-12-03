@@ -23,7 +23,8 @@ class SideBar extends Component {
 	}
 	render() {
 		return (
-			<ul id="slide-out" className="col s2 m3 l3 side-nav fixed show-on-large-only">
+			<ul id="slide-out" 
+			className="col s2 m3 l3 side-nav fixed show-on-large-only">
 				<div
 					style={{
 						textAlign: 'center',

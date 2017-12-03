@@ -80,7 +80,8 @@ class AdminHeader extends Component {
 					</ul>
 					<div id="menu">
 						<div style={style.account}>
-							<a style={style.main} className="dropdown-button btn" href="#" data-activates="dropdown1">
+							<a style={style.main} className="dropdown-button btn" href="#" 
+							data-activates="dropdown1">
 								Account
 							</a>
 						</div>

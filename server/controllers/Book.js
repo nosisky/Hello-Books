@@ -1,6 +1,6 @@
 import db from '../models';
 
-const { RentedBook, Book, Category, Notification, User } = db;
+const { RentedBook, Book, Category, Notification } = db;
 
 const bookController = {
   /** Admin add new book
@@ -51,25 +51,29 @@ const bookController = {
             toReturnDate: after30days
           })
             .then(() => {
-              Book.update({
-                total: book.total - 1
-              },
-              {
-                where: {
-                  id: req.body.bookId
+              Book.update(
+                {
+                  total: book.total - 1
+                },
+                {
+                  where: {
+                    id: req.body.bookId
+                  }
                 }
-              });
+              );
             })
             .then(() => {
               const { username, id } = req.decoded.currentUser;
-              bookController.createNotification(id, username, book.title, 'rented');
+              bookController.createNotification(id,
+                username, book.title, 'rented');
             });
         }
       })
       .then(() =>
         res.status(201).send({
           message: 'You have successfully rented the book'
-        }))
+        })
+      )
       .catch(error => res.status(500).send(error));
   },
 
@@ -300,27 +304,26 @@ const bookController = {
       }
     )
       .then(() =>
-        Book.findById(req.body.bookId)
-          .then((book) => {
-            Book.update(
-              {
-                total: book.total + 1
-              },
-              {
-                where: {
-                  id: req.body.bookId
-                }
+        Book.findById(req.body.bookId).then((book) => {
+          Book.update(
+            {
+              total: book.total + 1
+            },
+            {
+              where: {
+                id: req.body.bookId
               }
-            ).then(() => {
-              const { username, id } = req.decoded.currentUser;
-              bookController.createNotification(id,
-                username, book.title, 'return');
-              res.status(201).send({
-                message: 'Book returned successfully',
-                book
-              });
+            }
+          ).then(() => {
+            const { username, id } = req.decoded.currentUser;
+            bookController.createNotification(id,
+              username, book.title, 'return');
+            res.status(201).send({
+              message: 'Book returned successfully',
+              book
             });
-          })
+          });
+        })
       )
       .catch(error => res.status(500).send(error));
   },

@@ -40,9 +40,11 @@ export class Profile extends React.Component {
 
   handleSubmit( event ) {
     event.preventDefault();
-    editProfileAction( this.props.user.userId, this.state ).then(( response ) => {
+    editProfileAction( this.props.user.userId, this.state )
+    .then(( response ) => {
       localStorage.setItem( 'token', response )
-      Materialize.toast( 'Profile edited Successfully', 2000, 'blue darken-4', () => {
+      Materialize.toast( 'Profile edited Successfully', 
+      2000, 'blue darken-4', () => {
         window.location.href = '/profile';
       } );
     } )
@@ -173,10 +175,12 @@ export class Profile extends React.Component {
 
               <ul className="data">
                 <li className="right-align">
-                  <a className="btn modal-trigger" href="#profile_edit">Edit Profile</a>
+                  <a className="btn modal-trigger" 
+                  ref="#profile_edit">Edit Profile</a>
                 </li>
                 <li className="right-align">
-                  <Link className="waves-effect waves-light btn" to="/rented-books">Rented Books</Link>
+                  <Link className="waves-effect waves-light btn" 
+                  to="/rented-books">Rented Books</Link>
                 </li>
 
               </ul>

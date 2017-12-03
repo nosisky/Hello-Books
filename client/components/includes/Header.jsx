@@ -104,7 +104,8 @@ class Header extends Component {
 								</a>
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" onClick={this.props.actions.logoutAction} 
+								href="#!">
 									<i className="material-icons">exit_to_app</i>
 								</a>
 							</li>

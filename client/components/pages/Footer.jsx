@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Footer extends Component {
-	render() {
-		return (
+const Footer = () => {
+	return (
 			<footer className="page-footer">
 				<div className="container">
 					<div className="row">
@@ -42,12 +41,14 @@ export default class Footer extends Component {
 				<div className="footer-copyright">
 					<div className="container">
 						&copy; 2017 Copyright{' '}
-						<a className="grey-text text-lighten-3" href="http://github.com/nosisky">
+						<a className="grey-text text-lighten-3" 
+						href="http://github.com/nosisky">
 							<b>Abdulrasaq Nasirudeen</b>
 						</a>
 					</div>
 				</div>
 			</footer>
-		);
-	}
-}
+	);
+};
+
+export default Footer;

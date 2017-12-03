@@ -10,7 +10,6 @@ export class HomePage extends Component {
 		if (localStorage.getItem('token')) {
 			this.props.history.push('/dashboard');
 		}
-
 		return (
 			<div>
 				<NavBar />
@@ -46,4 +45,5 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, { registerUserAction, loginAction })(HomePage);
+export default connect(mapStateToProps, 
+	{ registerUserAction, loginAction })(HomePage);

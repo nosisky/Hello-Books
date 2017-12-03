@@ -50,7 +50,8 @@ class AddBook extends Component {
 	}
 
 	handleUploadSuccess(filename) {
-		firebase.storage().ref('images').child(filename).getDownloadURL().then((url) => {
+		firebase.storage().ref('images').child(filename).getDownloadURL()
+		.then((url) => {
 			this.setState({ cover: url, progress: 100 });
 		});
 	}
@@ -97,13 +98,15 @@ class AddBook extends Component {
 		switch (name) {
 			case 'title':
 				if (value.length < 2 || !value) {
-					this.setState({ titleError: 'Book title must be greater than 2 characters' });
+					this.setState({ 
+						titleError: 'Book title must be greater than 2 characters' });
 					break;
 				}
 
 			case 'author':
 				if (value.length < 2 || !value) {
-					this.setState({ authorError: 'Book author name must be greater than 2 characters' });
+					this.setState({ 
+						authorError: 'Book author name must be greater than 2 characters' });
 					break;
 				}
 			case 'prodYear':
@@ -119,7 +122,8 @@ class AddBook extends Component {
 				}
 			case 'isbn':
 				if (value.length < 5 || !value) {
-					this.setState({ isbnError: 'Book ISBN must be a minimum of 5 characters' });
+					this.setState({ 
+						isbnError: 'Book ISBN must be a minimum of 5 characters' });
 					break;
 				}
 		}
@@ -168,7 +172,8 @@ class AddBook extends Component {
 				}}
 			>
 				<div className="row">
-					<form name="add_book" className="col s12 l9 push-l3" onSubmit={this.handleSubmit}>
+					<form name="add_book" className="col s12 l9 push-l3" 
+					onSubmit={this.handleSubmit}>
 						<div className="add-book">
 							<div className="row">
 								<div className="input-field col s6">

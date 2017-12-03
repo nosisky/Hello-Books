@@ -32,7 +32,8 @@ export default class GoogleLogIn extends React.Component {
 						registerGoogleUser(newUserObj.currentUser)
 							.then((data) => {
 								if (data) {
-									Materialize.toast('Signed Up Successfully', 2000, 'blue darken-4');
+									Materialize.toast('Signed Up Successfully', 
+									2000, 'blue darken-4');
 								}
 							})
 							.catch((err) => err);
@@ -56,7 +57,7 @@ export default class GoogleLogIn extends React.Component {
 		};
 		return (
 			<GoogleLogin
-				clientId="993480706358-p6qn70ue8qucce00cpbfhsb52a87t451.apps.googleusercontent.com"
+				clientId={process.env.GOOLE_ID}
 				buttonText="Login with Google"
 				onSuccess={responseGoogle}
 				onFailure={responseGoogle}

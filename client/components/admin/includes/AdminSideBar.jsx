@@ -126,7 +126,8 @@ class AdminSideBar extends Component {
 							</Link>
 						</li>
 						<li id="menu-list">
-							<a data-target="add_cat" className="modal-trigger" href="#add_cat">
+							<a data-target="add_cat" className="modal-trigger" 
+							href="#add_cat">
 								Add Category<i className="material-icons">add</i>
 							</a>
 						</li>
@@ -156,7 +157,8 @@ class AdminSideBar extends Component {
 								Add Category
 							</h4>
 							<div className="row">
-								<form name="edit_book" className="col s12" onSubmit={this.handleFormSubmit}>
+								<form name="edit_book" className="col s12" 
+								onSubmit={this.handleFormSubmit}>
 									<div className="add-book">
 										<div className="row">
 											<div className="input-field col s12">

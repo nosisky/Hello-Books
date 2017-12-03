@@ -6,6 +6,7 @@ const API_URL = '/api/v1/books';
 /**
  *
  * @param {Object} data - Object containing mail data
+ * 
  * @returns {boolean} Boolean - True or False
  */
 export default function mailSender(data) {

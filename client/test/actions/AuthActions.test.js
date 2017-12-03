@@ -34,7 +34,8 @@ describe('Auth actions', () => {
           }
       }
     };
-    expect(AuthActions.setCurrentUser(user).user).toEqual(expectedAction.currentUser);
+    expect(AuthActions.setCurrentUser(user).user)
+      .toEqual(expectedAction.currentUser);
   });
 
   it('creates SET_CURRENT_USER when login action is successful', () => {
@@ -44,7 +45,9 @@ describe('Auth actions', () => {
       response: authResponse
     });
 
-    const expectedActions = { type: ActionTypes.SET_CURRENT_USER, user: authResponse.currentUser };
+    const expectedActions = {
+      type: ActionTypes.SET_CURRENT_USER,
+      user: authResponse.currentUser };
 
     const store = mockStore({});
     store.dispatch(AuthActions.loginAction({}))

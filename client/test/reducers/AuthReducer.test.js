@@ -1,5 +1,5 @@
 import expect from 'expect';
-import AuthReducer from '../../reducers/AuthReducer';
+import AuthReducer from '../../reducers/authReducer';
 import * as ActionTypes from '../../actions/types';
 
 describe('Auth Reducer', () => {

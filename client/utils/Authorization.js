@@ -4,6 +4,7 @@ const API_URL = '/api/v1/users';
 /**
  * setAuthorizationToken - set token to request headers
  * @param  {string} token Authorization token
+ * 
  * @return {void} no return or void
  */
 export function setAuthorizationToken(token) {
@@ -17,6 +18,7 @@ export function setAuthorizationToken(token) {
 /**
  *
  * @param {Object} email - Object containing email
+ * 
  * @returns {Object} - Object containing user data
  */
 export function getUserData(email) {
@@ -27,7 +29,8 @@ export function getUserData(email) {
 
 /**
  * Google account creator
-* @param {Object} userDetails - Object containing user details
+ * @param {Object} userDetails - Object containing user details
+ * 
  * @returns {null} - null
  */
 export function registerGoogleUser(userDetails) {

@@ -24,6 +24,7 @@ module.exports = {
       'FIREBASE_URL',
       'FIREBASE_PROJECTID',
       'FIREBASE_STORAGEBUCKET',
+      'GOOGLE_ID',
       'FIREBASE_STORAGEBUCKET',
       'secretKey'
     ]),

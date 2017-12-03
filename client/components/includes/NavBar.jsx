@@ -8,7 +8,8 @@ const NavBar = () => {
 					<img src="/img/emblem_library.png" width="40px" height="40px" />
 					HelloBooks
 				</a>
-				<a href="#" data-activates="mobile-demo" className="button-collapse right">
+				<a href="#" data-activates="mobile-demo" 
+				className="button-collapse right">
 					<i className="material-icons">menu</i>
 				</a>
 				<ul className="right hide-on-med-and-down">

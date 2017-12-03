@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import { bindActionCreators } from 'redux';
-import { deleteBookAction, modifyBookAction } from '../../../actions/BookActions';
+import { deleteBookAction, 
+	modifyBookAction } from '../../../actions/BookActions';
 
 class AllBooks extends Component {
 	constructor(props) {
@@ -57,7 +58,8 @@ class AllBooks extends Component {
 	
 	handleFormSubmit(e) {
 		e.preventDefault();
-		this.props.actions.modifyBookAction(this.state, this.props.id).then((res) => {
+		this.props.actions.modifyBookAction(this.state, this.props.id)
+		.then((res) => {
 			Materialize.toast(res, 1000, 'blue', () => {
 				this.setState({ displayBook: true, edit: false });
 			});

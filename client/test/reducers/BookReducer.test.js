@@ -1,5 +1,5 @@
 import expect from 'expect';
-import BookReducer from '../../reducers/BookReducer';
+import BookReducer from '../../reducers/bookReducer';
 import * as ActionTypes from '../../actions/types';
 
 describe('Book Reducer', () => {
@@ -66,7 +66,8 @@ describe('Book Reducer', () => {
   });
 
   it('should return a rented book with RETURN_RENTED_BOOKS', () => {
-    const book = [{ bookId: 1, title: 'test', returned: false }, { bookId: 2, title: 'game', returned: false }];
+    const book = [{ bookId: 1, title: 'test', returned: false },
+      { bookId: 2, title: 'game', returned: false }];
     const initialState = { allRentedBooks: book };
     const returnedBook = { id: 1, title: 'test', returned: true };
 

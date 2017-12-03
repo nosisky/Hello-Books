@@ -74,7 +74,7 @@ class SearchPage extends Component {
 									author={book.author}
 									description={book.description}
 									id={book.id}
-									handleBorrow={this.handleClick}
+									handleAction={this.handleClick}
 									userId={this.props.user.id}
 									key={book.id}
 									cover={book.cover}
