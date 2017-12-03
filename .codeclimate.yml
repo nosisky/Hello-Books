@@ -2,13 +2,15 @@ engines:
   eslint:
     enabled: true
     checks:
-      import/extensions:
+      comma-dangle:
         enabled: false
   duplication:
     enabled: false
     config:
       languages:
       - javascript
+  fixme:
+    enabled: true
 ratings:
   paths:
   - "**.js"
