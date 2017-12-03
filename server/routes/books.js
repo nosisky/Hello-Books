@@ -78,13 +78,149 @@ const app = express.Router();
  *       400:
  *         description: Bad Username, Password or Email
  */
-app.route('/')
+app.route('/books')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.checkBookInput,
     BookController.create)
   .get(Authorization.isLoggedIn,
     BookController.getBooks);
+
+
+/**
+ * @swagger
+ * /users/{userId}/books:
+ *   post:
+ *     tags:
+ *       - Borrowing Operations
+ *     description: Borrow a specific Book
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: userId
+ *         description: ID of the User
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: bookId
+ *         description: ID of Book to Borrow
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           required:
+ *             - bookId
+ *           properties:
+ *             bookId:
+ *               type: integer
+ *           example: {
+ *             "bookId": 4
+ *           }
+ *       - name: x-access-token
+ *         in: header
+ *         description: an authentication header
+ *         required: true
+ *         type: string
+ *     responses:
+ *       201:
+ *         description: Book Successfully borrowed
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ *       400:
+ *         description: All fields are required
+ *       404:
+ *         description: Book not found
+ */
+
+app.route('/users/:userId/books')
+  .post(Authorization.isLoggedIn,
+    Authorization.checkUserPlan,
+    Authorization.hasRentedBefore,
+    BookController.rentBook);
+
+/**
+ * @swagger
+ * /users/{userId}/books:
+ *   put:
+ *     tags:
+ *       - Borrowing Operations
+ *     description: Return a specific Book
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: userId
+ *         description: ID of the User
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: bookId
+ *         description: ID of Book to Return
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           required:
+ *             - bookId
+ *           properties:
+ *             bookId:
+ *               type: integer
+ *           example: {
+ *             "bookId": 4
+ *           }
+ *       - name: x-access-token
+ *         in: header
+ *         description: an authentication header
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Book Successfully returned
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ *       400:
+ *         description: All fields are required
+ *       404:
+ *         description: Book not found
+ */
+app.route('/users/:userId/books')
+  .put(Authorization.isLoggedIn,
+    BookController.returnBook);
+
+/**
+ * @swagger
+ * /users/{userId}/books:
+ *   get:
+ *     tags:
+ *       - Borrowing Operations
+ *     description: Returns all Books borrowed but not returned by a User
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: returned
+ *         in: query
+ *         required: true
+ *         type: boolean
+ *         default: false
+ *       - name: userId
+ *         in: path
+ *         description: ID of the User to show list for
+ *         required: true
+ *         type: integer
+ *       - name: x-access-token
+ *         in: header
+ *         description: an authentication header
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: An array of Books
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ */
+app.route('/books/:userId/books')
+  .get(Authorization.isLoggedIn,
+    Validation.validUser,
+    BookController.rentedBooks);
 
 /**
  * @swagger
@@ -122,7 +258,7 @@ app.route('/')
  *       404:
  *         description: Book not found
  */
-app.route('/:bookId')
+app.route('/books/:bookId')
   .put(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.validBook,
@@ -155,13 +291,13 @@ app.route('/:bookId')
  *       400:
  *         description: Bad Username, Password or Email
  */
-app.route('/cat')
+app.route('/books/cat')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin,
     BookController.addCategory);
 
 // Get a specific book
-app.route('/:bookId')
+app.route('/books/:bookId')
   .get(Authorization.isLoggedIn,
     Validation.validBook,
     BookController.getOneBook);
@@ -194,7 +330,7 @@ app.route('/:bookId')
  *       404:
  *         description: Book not found
  */
-app.route('/delete/:bookId')
+app.route('/books/delete/:bookId')
   .delete(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.validBook,
@@ -221,7 +357,7 @@ app.route('/delete/:bookId')
  *         schema:
  *           $ref: '#/definitions/Book'
  */
-app.route('/logs/:userId')
+app.route('/books/logs/:userId')
   .get(Authorization.isLoggedIn,
     Validation.validUser,
     BookController.rentedBookByUser);
@@ -248,18 +384,18 @@ app.route('/logs/:userId')
  *         schema:
  *           $ref: '#/definitions/Book'
  */
-app.route('/category')
+app.route('/books/category')
   .get(Authorization.isLoggedIn,
     Validation.validUser,
     BookController.rentedBookByUser);
 
-app.route('/category')
+app.route('/books/category')
   .get(Authorization.isAdmin,
     BookController.rentedBookByUser);
 
 export default app;
 
 
-app.route('/email')
+app.route('/books/email')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin, sendMail);
