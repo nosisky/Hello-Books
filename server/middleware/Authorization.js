@@ -11,8 +11,11 @@ const { RentedBook } = db;
 export default {
   /** Validates users login information
    * @param  {Object} req - request
+   *
    * @param  {Object} res - response
+   *
    * @param  {Object} next - calls the next method
+   *
    * @return {Object} - Response message
    */
   validateLogin(req, res, next) {
@@ -38,6 +41,7 @@ export default {
 
   /** Get all users in the database
    * @param  {Object} request 
+   * 
    * @param  {Object} response
    */
 
@@ -49,6 +53,7 @@ export default {
 
   /** Checks if logged in user has valid AUTH token
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
@@ -82,6 +87,7 @@ export default {
   },
   /** Checks if currently logged in user is an admin
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
@@ -102,6 +108,7 @@ export default {
 
   /** Checks if user has rented a book before
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
@@ -122,6 +129,16 @@ export default {
       }
     });
   },
+
+  /**
+   * 
+   * 
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @returns {String} JWT Token
+   */
   getOneUser(req, res) {
     return User.findById(req.params.userId)
       .then((user) => {
@@ -149,9 +166,12 @@ export default {
   /**
    * 
    *  Check the rentedbook limit limit
-   * @param {any} req - request
-   * @param {any} res - response
-   * @param {any} next - callBack function
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @param {Object} next - callBack function
+   *
    * @return {Object} - Object
    */
   checkUserPlan(req, res, next) {
@@ -190,8 +210,10 @@ export default {
    * 
    *  Get users by email address
    * @param {Object} req - request
+   *
    * @param {Object} res - response
-   * @returns {Object} - Object
+   *
+   * @returns {Object} - Object containg token
    */
   getUserByEmail(req, res) {
     return User.findOne({

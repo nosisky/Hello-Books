@@ -62,8 +62,8 @@ class AdminHome extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				deleteBook(bookId).then((res) => {
-					swal(res, { icon: 'success' });
+				deleteBook(bookId).then((response) => {
+					swal(response, { icon: 'success' });
 				});
 			} else {
 				swal('Book not deleted!');

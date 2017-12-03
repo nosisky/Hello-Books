@@ -36,8 +36,8 @@ class AllBooks extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				this.props.actions.deleteBookAction(this.props.id).then((res) => {
-					swal(res, { icon: 'success' });
+				this.props.actions.deleteBookAction(this.props.id).then((response) => {
+					swal(response, { icon: 'success' });
 				});
 			} else {
 				swal('Book was not deleted');
@@ -59,8 +59,8 @@ class AllBooks extends Component {
 	handleFormSubmit(e) {
 		e.preventDefault();
 		this.props.actions.modifyBookAction(this.state, this.props.id)
-		.then((res) => {
-			Materialize.toast(res, 1000, 'blue', () => {
+		.then((response) => {
+			Materialize.toast(response, 1000, 'blue', () => {
 				this.setState({ displayBook: true, edit: false });
 			});
 		});

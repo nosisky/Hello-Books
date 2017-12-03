@@ -5,10 +5,21 @@ const { Book, User } = db;
 
 export default {
 
+  /**
+   * 
+   * Validates User Input
+   * @param {Object} req - request
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} next - call back function
+   * 
+   * @returns {Object} - Object containing error message
+   */
   checkUserInput(req, res, next) {
     const userNameError = 'Please provide a '
     + 'username with atleast 4 characters.';
-    
+
     req.checkBody({
       username: {
         notEmpty: true,
@@ -80,11 +91,17 @@ export default {
     next();
   },
 
-  /** A middleware that checks user input for valid book details
-   * @param  {object} req - request
-   * @param  {object} res - response
+  /**
+   * 
+   * Validates User Input when adding book
+   * @param {Object} req - request
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} next - call back function
+   * 
+   * @returns {Object} - Object containing error message
    */
-
   checkBookInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
     req.checkBody({
@@ -151,6 +168,7 @@ export default {
 
   /** Check quantity of book in the DB
    * @param  {Object} req - request
+   * 
    * @param  {object} res - response
    */
 
@@ -171,6 +189,7 @@ export default {
   },
   /** Checks is a valid user ID was supplied
    * @param  {Object} req - request
+   * 
    * @param  {object} res - response
    */
 
@@ -197,8 +216,9 @@ export default {
     }
   },
 
-    /** Ad
+  /** Checks if user exist
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
@@ -220,6 +240,7 @@ export default {
 
   /** Validates Email address
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 
@@ -259,6 +280,7 @@ export default {
 
   /** Checks if a valid book ID was supplied
    * @param  {object} req - request
+   *
    * @param  {object} res - response
    */
 

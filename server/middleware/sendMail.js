@@ -6,7 +6,9 @@ dotenv.load();
 /**
  * Mail sender
  * @param {Object} req - Object
+ * 
  * @param {Object} res - Object
+ * 
  * @return {Boolean} - Boolean - true or false
  */
 export default function sendMail(req, res) {

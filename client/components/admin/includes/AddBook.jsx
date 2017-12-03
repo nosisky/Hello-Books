@@ -7,6 +7,7 @@ import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
 class AddBook extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {
