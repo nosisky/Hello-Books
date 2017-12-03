@@ -6,7 +6,23 @@ import { getUserData, registerGoogleUser } from '../../utils/Authorization';
 
 dotenv.load();
 
+/**
+ * 
+ * 
+ * @export {Object}
+ * @class GoogleLogIn
+ * @extends {React.Component}
+ */
 export default class GoogleLogIn extends React.Component {
+
+	/**
+	 * Re-map API response to retrieve necessary data
+	 * 
+	 * @param {Object} obj - Object from Google API
+	 * @returns {Object} 
+	 * 
+	 * @memberOf GoogleLogIn
+	 */
 	reMap(obj) {
 		let mainObj = {
 			currentUser: {}
@@ -19,6 +35,14 @@ export default class GoogleLogIn extends React.Component {
 		mainObj.currentUser.email = obj.email;
 		return mainObj;
 	}
+
+	/**
+	 * Renders the application
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf GoogleLogIn
+	 */
 	render() {
 		const responseGoogle = (response) => {
 			const key = process.env.secretKey;

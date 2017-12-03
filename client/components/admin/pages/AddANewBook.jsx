@@ -6,7 +6,21 @@ import AddBook from '../includes/AddBook';
 import AdminSideBar from '../includes/AdminSideBar';
 import { addBookAction } from '../../../actions/BookActions';
 
+/**
+ * 
+ * 
+ * @class AddANewBook
+ * @extends {Component} extends React.Component
+ */
 class AddANewBook extends Component {
+
+	/**
+	 * 
+	 * Renders the application
+	 * @returns {Object}
+	 * 
+	 * @memberOf AddANewBook
+	 */
 	render() {
 		const { addNewBookAction } = this.props;
 		return (
@@ -20,6 +34,13 @@ class AddANewBook extends Component {
 	}
 }
 
+/**
+ * 
+ * 
+ * @param {Object} state 
+ * 
+ * @returns {Object} Object containing the application state
+ */
 function mapStateToProps(state) {
 	return {
 		user: state.auth.user.currentUser

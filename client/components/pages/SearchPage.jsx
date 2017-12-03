@@ -11,12 +11,25 @@ import SideBar from '../includes/SideBar';
 import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
+/**
+ * SearchPage component
+ * 
+ * @class SearchPage
+ * @extends {Component}
+ */
 class SearchPage extends Component {
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
+
+	/**
+	 * Displays search result
+	 * 
+	 * 
+	 * @memberOf SearchPage
+	 */
 	componentDidMount() {
 		if (!location.search) {
 			window.location = '/dashboard';
@@ -26,6 +39,13 @@ class SearchPage extends Component {
 		this.props.actions.searchAction({ search: result });
 	}
 
+	/**
+	 * Handles renting of books
+	 * 
+	 * @param {any} id 
+	 * 
+	 * @memberOf SearchPage
+	 */
 	handleClick(id) {
 		const cur = new Date(),
 			after30days = cur.setDate(cur.getDate() + 20),
@@ -48,6 +68,13 @@ class SearchPage extends Component {
 		});
 	}
 
+	/**
+	 * Displays books that matches search query
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf SearchPage
+	 */
 	renderBooks() {
 		const allbooks = this.props.search;
 		if (!allbooks || allbooks.length < 1) {
@@ -90,6 +117,13 @@ class SearchPage extends Component {
 		);
 	}
 
+	/**
+	 * Displays the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf SearchPage
+	 */
 	render() {
 		return (
 			<div>
@@ -112,6 +146,13 @@ function mapStateToProps(state) {
 		search: state.book.data };
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ *
+ * @param  {object} state the store state
+ *
+ * @return {Object} returns state object
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

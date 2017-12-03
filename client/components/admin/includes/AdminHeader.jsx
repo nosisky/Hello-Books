@@ -8,6 +8,11 @@ import { addCategoryAction } from '../../../actions/BookActions';
 import { logoutAction } from '../../../actions/AuthActions';
 
 class AdminHeader extends Component {
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AdminHeader
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -27,7 +32,13 @@ class AdminHeader extends Component {
 		});
 		$('.modal').modal();
 	}
-
+	/**
+	 * 
+	 * Renders the component
+	 * @memberOf AdminHeader
+	 * 
+	 * @return {Object}
+	 */
 	render() {
 		const style = {
 			account: {
@@ -104,6 +115,13 @@ AdminHeader.PropTypes = {
 	logout: PropTypes.func.isRequired
 };
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
@@ -115,6 +133,13 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return { user: state.auth.user.currentUser };
 }

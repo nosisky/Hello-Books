@@ -3,6 +3,13 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
 
+/**
+ * 
+ * 
+ * @export {Object} - Regiser component
+ * @class Register
+ * @extends {Component}
+ */
 export default class Register extends Component {
 	constructor(props) {
 		super(props);
@@ -25,6 +32,13 @@ export default class Register extends Component {
 		this.onFocus = this.onFocus.bind(this);
 	}
 
+	/**
+	 * Handles the input value changes
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Register
+	 */
 	onChange(event) {
 		const name = event.target.name;
 		const	value = event.target.value;
@@ -33,12 +47,26 @@ export default class Register extends Component {
 		});
 	}
 
+	/**
+	 * Submits the ulogi information
+	 * 
+	 * @param {any} event 
+	 * 
+	 * @memberOf Register
+	 */
 	handleSubmit(formData) {
 		this.setState({ isLoading: true });
 		formData.preventDefault();
 		this.props.onSubmit(this.state)
 	}
 
+	/**
+	 * Clears out error on input box
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Register
+	 */
 	onFocus(event) {
 		const name = event.target.name;
 		switch (name) {
@@ -56,6 +84,15 @@ export default class Register extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf Register
+	 */
 	onBlur(event) {
 		const name = event.target.name;
 		const	value = event.target.value;
@@ -104,6 +141,13 @@ export default class Register extends Component {
 		}
 	}
 
+	/**
+	 * Displays the component
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf Register
+	 */
 	render() {
 		const { userExist } = this.props;
 		return (

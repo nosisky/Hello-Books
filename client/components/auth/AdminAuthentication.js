@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import dotenv from 'dotenv';
 import { bindActionCreators } from 'redux';
 import jwt from 'jsonwebtoken';
-
 import { logout } from '../../actions/AuthActions';
 
+
+dotenv.load();
+
+/**
+ * 
+ * Higher order component for admin authentication
+ * @export {Object}
+ * 
+ * @param {Object} ComposedComponent 
+ * 
+ * @returns {Object}
+ */
 export default function(ComposedComponent) {
 	class AdminAuthentication extends Component {
+
+		/**
+		 * 
+		 * 
+		 * 
+		 * @memberOf AdminAuthentication
+		 */
 		componentWillMount() {
-			const key = 'Andelahellobooks';
+			const key = process.env.secretKey;
 
 			const token = localStorage.getItem('token');
 			if (token) {
@@ -29,12 +48,26 @@ export default function(ComposedComponent) {
 			}
 		}
 
+		/**
+		 * Executes before component is updated
+		 * 
+		 * @param {any} nextProps 
+		 * 
+		 * @memberOf AdminAuthentication
+		 */
 		componentWillUpdate(nextProps) {
 			if (nextProps.currentUser.isAdmin !== 1) {
 				this.props.history.push('/');
 			}
 		}
 
+		/**
+		 * Renders the component
+		 * 
+		 * @returns 
+		 * 
+		 * @memberOf AdminAuthentication
+		 */
 		render() {
 			return <ComposedComponent {...this.props} />;
 		}
@@ -43,6 +76,13 @@ export default function(ComposedComponent) {
 		router: PropTypes.object
 	};
 
+	/**
+	 * Maps dispatch to the application action creators
+	 * 
+	 * @param {Function} dispatch 
+	 * 
+	 * @returns {Object} - Object containing action creators
+	 */
 	function mapDispatchToProps(dispatch) {
 		return {
 			actions: bindActionCreators(
@@ -54,6 +94,13 @@ export default function(ComposedComponent) {
 		};
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Function} state 
+	 * 
+	 * @returns {Object} - Object containing application state
+	 */
 	function mapStateToProps(state) {
 		return { 
 			authenticated: state.auth.authenticated, 

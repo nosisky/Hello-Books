@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from './GoogleLogin';
 import { checkEmailExist, reMap } from '../../utils/Validation';
-import { registerUserAction, getUserByEmailAction } from '../../actions/AuthActions';
+import { registerUserAction, 
+	getUserByEmailAction } from '../../actions/AuthActions';
 import { connect } from 'react-redux';
 import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
+/**
+ * 
+ * 
+ * @export {Object} Login component
+ * @class Login
+ * @extends {Component}
+ */
 export default class Login extends Component {
 	constructor(props) {
 		super(props);
@@ -20,23 +28,51 @@ export default class Login extends Component {
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
+	/**
+	 * Handles the input value changes
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Login
+	 */
 	onChange(event) {
 		const name = event.target.name;
 		const	value = event.target.value;
 		this.setState({ [name]: value });
 	}
 
+	/**
+	 * Submits forgot user password submission
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Login
+	 */
 	handleFormSubmit(event) {
 		event.preventDefault();
 		getUserByEmailAction({ email: event.target.value })
 		.then((res) => {});
 	}
 
+	/**
+	 * Submits the login information
+	 * 
+	 * @param {any} event 
+	 * 
+	 * @memberOf Login
+	 */
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.onSubmit(this.state)
 	}
 
+	/**
+	 * Renders the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf Login
+	 */
 	render() {
 		const style = {
 			button: {

@@ -11,6 +11,12 @@ import { getAllBooksAction } from '../../actions/BookActions';
 import { logoutAction } from '../../actions/AuthActions';
 import AdminSideBar from './includes/AdminSideBar';
 
+/**
+ * 
+ * 
+ * @class AdminHome
+ * @extends {Component} - Extends React.Component
+ */
 class AdminHome extends Component {
 	constructor(props) {
 		super(props);
@@ -19,20 +25,48 @@ class AdminHome extends Component {
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.renderPagination = this.renderPagination.bind(this);
 	}
+
+	/**
+	 * ComponentDidMount - executes after component is successfully rendered
+	 * @memberOf AdminHome
+	 */
 	componentDidMount() {
 		this.props.actions.getAllBooksAction(1);
 	}
 
+	/**
+	 * 
+	 * Logs the user off the application
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AdminHome
+	 */
 	logout(event) {
 		event.preventDefault();
 		this.props.actions.logoutAction();
 		this.context.router.push('/');
 	}
 
+	/**
+	 * 
+	 * Toggles component view
+	 * @param {Object} page 
+	 * 
+	 * @memberOf AdminHome
+	 */
 	handlePageChange(page) {
 		this.props.actions.getAllBooksAction(page.selected + 1);
 	}
 
+	/**
+	 * 
+	 * Displays pagination
+	 * @param {Number} count
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf AdminHome
+	 */
 	renderPagination(count) {
 		if (this.props.count > 8) {
 			return (
@@ -53,6 +87,13 @@ class AdminHome extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * Handles book delete
+	 * @param {Number} bookId 
+	 * 
+	 * @memberOf AdminHome
+	 */
 	handleClick(bookId) {
 		swal({
 			title: 'Are you sure?',
@@ -71,6 +112,13 @@ class AdminHome extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * Displays book
+	 * @returns {Object}
+	 * 
+	 * @memberOf AdminHome
+	 */
 	renderBooks() {
 		const { fullname } = this.props.user;
 
@@ -113,6 +161,14 @@ class AdminHome extends Component {
 			</div>
 		);
 	}
+
+	/**
+	 * 
+	 * Renders the component
+	 * @returns {Object}
+	 * 
+	 * @memberOf AdminHome
+	 */
 	render() {
 		const { username, fullname, id } = this.props.user;
 		return (
@@ -126,6 +182,13 @@ class AdminHome extends Component {
 	}
 }
 
+/**
+ * 
+ * 
+ * @param {Object} state 
+ *
+ * @returns Object containing selected application state
+ */
 function mapStateToProps(state) {
 	return {
 		books: state.book.data,
@@ -139,6 +202,13 @@ AdminHome.PropTypes = {
 	user: PropTypes.object.isRequired
 };
 
+/**
+ * 
+ * 
+ * @param {Function} dispatch
+ * 
+ * @returns - Object containing action creators
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

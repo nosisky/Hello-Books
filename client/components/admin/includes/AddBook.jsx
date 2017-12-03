@@ -39,16 +39,43 @@ class AddBook extends Component {
 		this.handleUploadError = this.handleUploadError.bind(this);
 	}
 
+	/**
+	 * Starts the book cover upload
+	 * @memberOf AddBook
+	 */
 	handleUploadStart() {
 		this.setState({ isUploading: true, progress: 0 });
 	}
+
+	/**
+	 * 
+	 * Displays progress of book upload
+	 * @param {Object} progress 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleProgress(progress) {
 		this.setState({ progress });
 	}
+
+	/**
+	 * 
+	 * Displays error if any during file upload
+	 * @param {Object} error 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleUploadError(error) {
 		this.setState({ isUploading: false });
 	}
 
+	/**
+	 * 
+	 * Completes the file upload and set the state to cover url
+	 * @param {String} filename - Link to uploaded file
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleUploadSuccess(filename) {
 		firebase.storage().ref('images').child(filename).getDownloadURL()
 		.then((url) => {
@@ -56,10 +83,21 @@ class AddBook extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AddBook
+	 */
 	componentDidMount() {
 		this.props.actions.getCategoryAction();
 	}
 
+	/**
+	 * Executes when text is typed in input box
+	 * @param {Object} event - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	onChange(event) {
 		const name = event.target.name,
 			value = event.target.value;
@@ -68,6 +106,13 @@ class AddBook extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * Executes when the input box is clicked
+	 * @param {Object} event - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	onFocus(event) {
 		const value = event.target.value,
 			name = event.target.name;
@@ -91,6 +136,14 @@ class AddBook extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * Executes when the input box lost focus
+	 * @param {Object} event - Object
+	 * @returns 
+	 * 
+	 * @memberOf AddBook
+	 */
 	onBlur(event) {
 		const value = event.target.value,
 			name = event.target.name;
@@ -129,6 +182,13 @@ class AddBook extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * Displays the list of category
+	 * @returns {Array} - Array of category
+	 * 
+	 * @memberOf AddBook
+	 */
 	renderCategory() {
 		let allCat = [];
 		const category = this.props.category;
@@ -145,6 +205,14 @@ class AddBook extends Component {
 		return allCat;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Object} event - Submits the form
+	 * @returns 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleSubmit(event) {
 		if (this.state.cover.length < 5) {
 			Materialize.toast('Please upload book cover', 4000, '#15b39d');
@@ -160,9 +228,16 @@ class AddBook extends Component {
 				});
 				window.location.href = '/admin';
 			})
-			.catch((err) => err);
+			.catch((err) => Materialize.toast(err, 2000, '#15b39d'));
 	}
 
+	/**
+	 * 
+	 * Renders the component
+	 * @returns {Object} - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	render() {
 		return (
 			<div
@@ -342,6 +417,13 @@ class AddBook extends Component {
 	}
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
@@ -352,6 +434,14 @@ function mapDispatchToProps(dispatch) {
 		)
 	};
 }
+
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return { category: state.book.category };
 }

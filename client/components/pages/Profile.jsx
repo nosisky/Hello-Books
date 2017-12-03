@@ -28,7 +28,15 @@ export class Profile extends React.Component {
     
   }
   
-	onBlur(event) {
+	/**
+   * Validates the user input
+   * 
+   * @param {Object} event 
+   * @returns 
+   * 
+   * @memberOf Profile
+   */
+  onBlur(event) {
 		const name = event.target.name;
 		const	value = event.target.value;
 
@@ -57,6 +65,13 @@ export class Profile extends React.Component {
 		}
   }
 
+  /**
+   * 
+   * 
+   * @param {Object} event 
+   * 
+   * @memberOf Profile
+   */
   onFocus(event) {
 		const name = event.target.name;
 		const	value = event.target.value;
@@ -72,22 +87,49 @@ export class Profile extends React.Component {
   }
   
   
-	onChange(e) {
-		const name = e.target.name,
-			value = e.target.value;
+	/**
+   * set user input to state
+   * 
+   * @param {any} event 
+   * 
+   * @memberOf Profile
+   */
+  onChange(event) {
+		const name = event.target.name,
+			value = event.target.value;
 		this.setState({ [name]: value });
 	}
 
-	displayEdit() {
+	/**
+   * Toggles page display
+   * 
+   * 
+   * @memberOf Profile
+   */
+  displayEdit() {
 		this.setState({ edit: true, profile: false });
 	}
 
-	handleSubmit(event) {
+	/**
+   * Submits user input
+   * 
+   * @param {any} event 
+   * 
+   * @memberOf Profile
+   */
+  handleSubmit(event) {
 		event.preventDefault();
 		this.props.actions.editProfileAction(this.props.user.userId, this.state);
 	}
 
-	render() {
+	/**
+   * Renders the component
+   * 
+   * @returns {Object}
+   * 
+   * @memberOf Profile
+   */
+  render() {
 		const { username, fullname, id, email, plan } = this.props.user;
 		return (
 			<div className="row">
@@ -242,6 +284,13 @@ export class Profile extends React.Component {
 	}
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
@@ -253,6 +302,13 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
+/**
+ * @description mapStateToProps - maps state value to props
+ *
+ * @param  {object} state the store state
+ *
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
 	return { user: state.auth.user.currentUser };
 }

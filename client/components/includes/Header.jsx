@@ -8,6 +8,12 @@ import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/AuthActions';
 import mailSender from '../../utils/mailSender';
 
+/**
+ * 
+ * 
+ * @class Header
+ * @extends {Component}
+ */
 class Header extends Component {
 	constructor(props) {
 		super(props);
@@ -20,6 +26,12 @@ class Header extends Component {
 		this.onChange = this.onChange.bind(this);
 	}
 
+	/**
+	 * Executes after the component has rendered
+	 * 
+	 * 
+	 * @memberOf Header
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -30,6 +42,13 @@ class Header extends Component {
 		$('.modal').modal();
 	}
 
+	/**
+	 * Logs the user out of the application
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	logout(event) {
 		event.preventDefault();
 
@@ -38,12 +57,26 @@ class Header extends Component {
 		this.context.router.push('/');
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	onChange(event) {
 		this.setState({
 			plan: event.target.value
 		});
 	}
 
+	/**
+	 * Handles form submit
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	onSubmit(event) {
 		event.preventDefault();
 		const data = {
@@ -62,6 +95,13 @@ class Header extends Component {
 			.catch((error) => {});
 	}
 
+	/**
+	 * 
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf Header
+	 */
 	render() {
 		const style = {
 			button: {
@@ -215,10 +255,24 @@ Header.PropTypes = {
 	logout: PropTypes.func.isRequired
 };
 
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return { user: state.auth.user.currentUser };
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

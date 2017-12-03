@@ -10,6 +10,13 @@ import SideBar from '../includes/SideBar';
 import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
+/**
+ * RentedBooks component
+ * 
+ * @export {Object}
+ * @class RentedBooksPage
+ * @extends {Component}
+ */
 export class RentedBooksPage extends Component {
 	constructor(props) {
 		super(props);
@@ -17,11 +24,25 @@ export class RentedBooksPage extends Component {
 		this.handleClick =  this.handleClick.bind(this);
 	}
 
+	/**
+	 * Fetches the list of rented books by a user
+	 * 
+	 * @param {any} props 
+	 * 
+	 * @memberOf RentedBooksPage
+	 */
 	componentDidMount(props) {
 		const userId = this.props.user.id || this.props.user.userId
 		this.props.actions.getRentedBooksAction(userId);
 	}
 
+	/**
+	 * Handles book return
+	 * 
+	 * @param {any} id 
+	 * 
+	 * @memberOf RentedBooksPage
+	 */
 	handleClick(id) {
 		swal({
 			title: 'Are you sure?',
@@ -36,6 +57,13 @@ export class RentedBooksPage extends Component {
 		});
 	}
 
+	/**
+	 * Displays lists of rented books
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf RentedBooksPage
+	 */
 	renderRentedBooks() {
 		let rentedBooks = this.props.rentedBooks.allRentedBooks;
 		if (rentedBooks.length < 1) {
@@ -79,6 +107,14 @@ export class RentedBooksPage extends Component {
 			);
 		}
 	}
+
+	/**
+	 * Renders the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf RentedBooksPage
+	 */
 	render() {
 		return (
 			<div>
@@ -95,6 +131,13 @@ AllBooks.PropTypes = {
 	rentedBooks: PropTypes.object.isRequired
 };
 
+/**
+ * @description mapStateToProps - maps state value to props
+ *
+ * @param  {object} state the store state
+ *
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
 	return {
 		rentedBooks: state.book,
@@ -102,6 +145,13 @@ function mapStateToProps(state) {
 	};
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

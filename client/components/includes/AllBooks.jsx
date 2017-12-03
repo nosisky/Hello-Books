@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const AllBooks = ({ handleAction, cover, title, 
 	description, id, isReturned, rented }) => {
+		
 	const handleClick = () => {
 		handleAction(id);
 	};

@@ -12,6 +12,13 @@ import SideBar from '../includes/SideBar';
 import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
+/**
+ * 
+ * 
+ * @export {Object}
+ * @class Dashboard
+ * @extends {Component}
+ */
 export class Dashboard extends Component {
 	constructor(props) {
 		super(props);
@@ -21,14 +28,35 @@ export class Dashboard extends Component {
 		this.handleClick = this.handleClick.bind(this);
 	}
 
+	/**
+	 * Fetches all books in the database
+	 * 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	componentDidMount() {
 		this.props.actions.getAllBooksAction(1);
 	}
 
+	/**
+	 * Toggles book lists 
+	 * 
+	 * @param {Object} page 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	handlePageChange(page) {
 		this.props.actions.getAllBooksAction(page.selected + 1);
 	}
 
+	/**
+	 * Displays pagination
+	 * 
+	 * @param {Number} count 
+	 * @returns {Object}
+	 * 
+	 * @memberOf Dashboard
+	 */
 	renderPagination(count) {
 		if (this.props.count > 8) {
 			return (
@@ -49,6 +77,13 @@ export class Dashboard extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Number} id 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	handleClick(id) {
 		const cur = new Date(),
 			after30days = cur.setDate(cur.getDate() + 20),
@@ -71,6 +106,13 @@ export class Dashboard extends Component {
 		});
 	}
 
+	/**
+	 * Displays the books
+	 * 
+	 * @returns {void}
+	 * 
+	 * @memberOf Dashboard
+	 */
 	renderBooks() {
 		const allbooks = this.props.books;
 		if (!allbooks) {
@@ -134,6 +176,13 @@ export class Dashboard extends Component {
 		);
 	}
 
+	/**
+	 * Dsiplays the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	render() {
 		return (
 			<div>
@@ -151,6 +200,13 @@ Dashboard.PropTypes = {
 	count: PropTypes.number.isRequired
 };
 
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return {
 		user: state.auth.user.currentUser,
@@ -159,6 +215,13 @@ function mapStateToProps(state) {
 	};
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

@@ -15,6 +15,12 @@ class AdminSideBar extends Component {
 
 		this.onChange = this.onChange.bind(this);
 	}
+
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AdminSideBar
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -35,8 +41,16 @@ class AdminSideBar extends Component {
 		$('.modal').modal();
 	}
 
-	handleFormSubmit(e) {
-		e.preventDefault();
+
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AdminSideBar
+	 */
+	handleFormSubmit(event) {
+		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
 			.then((message) => {
@@ -46,9 +60,16 @@ class AdminSideBar extends Component {
 			.catch((err) => err);
 	}
 
-	onChange(e) {
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AdminSideBar
+	 */
+	onChange(event) {
 		this.setState({
-			[e.target.name]: e.target.value
+			[event.target.name]: event.target.value
 		});
 	}
 	render() {
@@ -203,6 +224,13 @@ class AdminSideBar extends Component {
 	}
 }
 
+/**
+ * 
+ * 
+ * @param {Function} dispatch 
+ * 
+ * @returns 
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

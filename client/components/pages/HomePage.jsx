@@ -5,6 +5,13 @@ import { connect } from 'react-redux';
 import Footer from '../includes/Footer';
 import { registerUserAction, loginAction } from '../../actions/AuthActions';
 
+/**
+ * 
+ * 
+ * @export {Object}
+ * @class HomePage
+ * @extends {Component}
+ */
 export class HomePage extends Component {
 	render() {
 		if (localStorage.getItem('token')) {
@@ -38,6 +45,14 @@ export class HomePage extends Component {
 		);
 	}
 }
+
+/**
+ * @description mapStateToProps - maps state value to props
+ *
+ * @param  {object} state the store state
+ *
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
 	return {
 		message: state.auth.message,

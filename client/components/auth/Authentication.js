@@ -6,6 +6,12 @@ import { bindActionCreators } from 'redux';
 import { logout } from '../../actions/AuthActions';
 
 export default function(ComposedComponent) {
+	/**
+	 * 
+	 * 
+	 * @class Authentication
+	 * @extends {Component}
+	 */
 	class Authentication extends Component {
 		componentWillMount() {
 			const key = 'Andelahellobooks';
@@ -26,17 +32,38 @@ export default function(ComposedComponent) {
 			}
 		}
 
+		/**
+		 * Executes before component is updated
+		 * 
+		 * @param {any} nextProps 
+		 * 
+		 * @memberOf AdminAuthentication
+		 */
 		componentWillUpdate(nextProps) {
 			if (!nextProps.authenticated) {
 				this.props.history.push('/');
 			}
 		}
-
+		
+		/**
+		 * Renders the component
+		 * 
+		 * @returns 
+		 * 
+		 * @memberOf AdminAuthentication
+		 */
 		render() {
 			return <ComposedComponent {...this.props} />;
 		}
 	}
-
+	
+	/**
+	 * Maps dispatch to the application action creators
+	 * 
+	 * @param {Function} dispatch 
+	 * 
+	 * @returns {Object} - Object containing action creators
+	 */
 	function mapDispatchToProps(dispatch) {
 		return {
 			actions: bindActionCreators(
@@ -52,6 +79,13 @@ export default function(ComposedComponent) {
 		router: PropTypes.object
 	};
 
+	/**
+	 * 
+	 * 
+	 * @param {Function} state 
+	 * 
+	 * @returns {Object} - Object containing application state
+	 */
 	function mapStateToProps(state) {
 		return { 
 			authenticated: state.auth.authenticated, 
