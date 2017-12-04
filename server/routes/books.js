@@ -217,7 +217,7 @@ app.route('/users/:userId/books')
  *         schema:
  *           $ref: '#/definitions/Book'
  */
-app.route('/books/:userId/books')
+app.route('/:userId/books')
   .get(Authorization.isLoggedIn,
     Validation.validUser,
     BookController.rentedBooks);
@@ -393,9 +393,9 @@ app.route('/books/category')
   .get(Authorization.isAdmin,
     BookController.rentedBookByUser);
 
-export default app;
-
-
 app.route('/books/email')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin, sendMail);
+
+export default app;
+

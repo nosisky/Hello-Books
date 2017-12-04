@@ -179,6 +179,15 @@ export default {
    * @return {Object} - Object
    */
   checkUserPlan(req, res, next) {
+    if (/[\D]/g.test(req.params.userId)) {
+      return res.status(400).send({
+        message: 'Invalid user id supplied!!!'
+      });
+    } else if (/[\D]/g.test(req.body.bookId)) {
+      return res.status(400).send({
+        message: 'Invalid book id supplied!!!'
+      });
+    }
     const message =
    'You are not permitted to ' +
    'borrow more books, please return the ones you have ' +
@@ -207,7 +216,10 @@ export default {
           next();
         }
       });
-    });
+    })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
   },
 
   /**

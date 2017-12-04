@@ -132,7 +132,7 @@ const bookController = {
             message: 'There is no book in the database'
           });
         } else {
-          res.status(201).send(books);
+          res.status(200).send(books);
         }
       })
       .catch(error => res.status(500).send(error));
@@ -204,7 +204,7 @@ const bookController = {
     })
       .then(() => {
         Book.findById(req.params.bookId).then((book) => {
-          res.status(201).send({
+          res.status(200).send({
             book,
             message: 'Book updated successfully!'
           });

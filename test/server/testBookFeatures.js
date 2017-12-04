@@ -10,7 +10,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2Vy
 
 let loggedInuser;
 
-describe('Adds a new book to the database', () => {
+describe('#Book Features: ', () => {
   before((done) => {
     models.sequelize.sync({ force: true }).then(() => {
       server
@@ -68,7 +68,7 @@ describe('Adds a new book to the database', () => {
       .set('Connection', 'keep alive')
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')
-      .expect(200)
+      .expect(404)
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.should.have.lengthOf(1);
@@ -130,9 +130,9 @@ describe('Adds a new book to the database', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ bookId: 1 })
-      .expect(401)
+      .expect(400)
       .end((err, res) => {
-        res.status.should.equal(404);
+        res.status.should.equal(400);
         res.body.message.should.equal('Invalid user id supplied!!!');
         done();
       });
@@ -161,9 +161,9 @@ describe('Adds a new book to the database', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ bookId: 'dhbsnnmz' })
-      .expect(401)
+      .expect(400)
       .end((err, res) => {
-        res.status.should.equal(404);
+        res.status.should.equal(400);
         res.body.message.should.equal('Invalid book id supplied!!!');
         done();
       });
@@ -220,13 +220,13 @@ describe('Adds a new book to the database', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         done();
       });
   });
-  it('test for returns rented books', (done) => {
+  it('returns rented books', (done) => {
     server
       .put('/api/v1/users/1/books')
       .set('x-access-token', token)
@@ -244,20 +244,20 @@ describe('Adds a new book to the database', () => {
 
   it('test if book is truly returned', (done) => {
     server
-      .get('/api/v1/users/1/books?returned=false')
+      .get('/api/v1/1/books?returned=false')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         res.body.message.should.equal('No rented unreturned books');
         done();
       });
   });
 
-  it('Shoud display list of notifications', (done) => {
+  it('Should display list of notifications', (done) => {
     server
       .get('/api/v1/notification')
       .set('x-access-token', token)
@@ -278,9 +278,9 @@ describe('Adds a new book to the database', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         done();
       });
   });
@@ -291,7 +291,7 @@ describe('Adds a new book to the database', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
         res.body[0].should.have.property('toReturnDate');
         res.body[0].should.have.property('returnDate');
@@ -341,7 +341,7 @@ describe('Adds a new book to the database', () => {
       .type('form')
       .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         res.body.count.should.equal(1);
         res.body.rows[0].should.have.property('title');
         res.body.rows[0].should.have.property('author');
@@ -372,9 +372,9 @@ describe('Adds a new book to the database', () => {
       .set('Content-Type', 'application/json')
       .set('x-access-token', token)
       .type('form')
-      .expect(200)
+      .expect(404)
       .end((err, res) => {
-        res.status.should.equal(400);
+        res.status.should.equal(404);
         res.body.message.should.equal('There is no book in the database');
         done();
       });

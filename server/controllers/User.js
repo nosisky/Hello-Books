@@ -71,7 +71,7 @@ export default {
             secret
           );
           return res.status(200).send({
-            message: 'Logged in successfully',
+            message: 'Logged In Successfully',
             token
           });
         }

@@ -24,9 +24,9 @@ describe('User Api', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send(userSeeder.usernameMin5)
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
-        res.status.should.equal(409);
+        res.status.should.equal(400);
         res.body[0].error.should.equal('Please provide a username with atleast 4 characters.');
         done();
       });
@@ -39,9 +39,9 @@ describe('User Api', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send(userSeeder.noFullName)
-      .expect(409)
+      .expect(400)
       .end((err, res) => {
-        res.status.should.equal(409);
+        res.status.should.equal(400);
         res.body[0].error.should.equal('Your Fullname is required');
         done();
       });
@@ -113,9 +113,9 @@ describe('User Api', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('x-access-token', token)
-      .expect(201)
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         done();
       });
   });
