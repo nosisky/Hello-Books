@@ -114,11 +114,12 @@ export class Dashboard extends Component {
 	 * @memberOf Dashboard
 	 */
 	renderBooks() {
+		const realFullName = this.props.user.fullname || this.props.user.fullName;		
 		const allbooks = this.props.books;
 		if (!allbooks) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} 
+					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
 					<div className="col push-l3 s12">
 						<img
@@ -131,7 +132,7 @@ export class Dashboard extends Component {
 		} else if (allbooks.length < 1) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} 
+					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
 
 					<div className="empty-notifier">
@@ -169,7 +170,7 @@ export class Dashboard extends Component {
 						})}
 						{this.renderPagination(0)}
 					</div>
-					<SideBar fullname={this.props.user.fullname} 
+					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
 				</div>
 			</div>

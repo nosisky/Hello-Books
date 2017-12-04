@@ -120,13 +120,13 @@ class AdminHome extends Component {
 	 * @memberOf AdminHome
 	 */
 	renderBooks() {
-		const { fullname } = this.props.user;
+		const { fullName } = this.props.user;
 
 		const allbooks = this.props.books;
 		if (!allbooks || allbooks.length < 1) {
 			return (
 				<div>
-					<AdminSideBar fullname={this.props.user.fullname} />
+					<AdminSideBar fullname={fullName} />
 					<div className="empty-notifier">
 						<h2>No more book in the database</h2>
 					</div>
@@ -137,7 +137,7 @@ class AdminHome extends Component {
 
 		return (
 			<div className="row">
-				<AdminSideBar fullname={this.props.user.fullname} />
+				<AdminSideBar fullname={fullName} />
 
 				<div className="col s12 l9" id="list_boy">
 					{allbooks.map((book) => {
@@ -170,12 +170,12 @@ class AdminHome extends Component {
 	 * @memberOf AdminHome
 	 */
 	render() {
-		const { username, fullname, id } = this.props.user;
+		const { username, fullName, id } = this.props.user;
 		return (
 			<div>
 				<AdminHeader 
 				onClick={this.logout} 
-				fullName={fullname} 
+				fullName={fullName} 
 				username={username} /> {this.renderBooks()}
 			</div>
 		);

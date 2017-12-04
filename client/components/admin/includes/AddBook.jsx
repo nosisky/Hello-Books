@@ -403,7 +403,7 @@ class AddBook extends Component {
 								color: '#fff',
 								float: 'right'
 							}}
-							className="btn waves-effect waves-light"
+							className="btn waves-effect"
 							type="submit"
 							name="submit"
 							disabled={this.state.isLoading}

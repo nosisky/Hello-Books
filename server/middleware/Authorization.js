@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import omit from 'lodash/omit';
 import database from '../models/';
 
 dotenv.load();
@@ -151,15 +152,9 @@ export default {
   getOneUser(req, res) {
     return User.findById(req.params.userId)
       .then((user) => {
-        const currentUser = {
-          userId: user.id,
-          username: user.username,
-          fullname: user.fullName,
-          active: user.active,
-          isAdmin: user.isAdmin,
-          email: user.email,
-          plan: user.plan
-        };
+        const currentUser = omit(user.dataValues,
+          ['password', 'createdAt', 'updatedAt']);
+
         const token = jwt.sign({
           currentUser,
           exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },

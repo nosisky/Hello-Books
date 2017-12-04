@@ -14,7 +14,7 @@ dotenv.load();
  * @extends {React.Component}
  */
 export default class GoogleLogIn extends React.Component {
-
+      
 	/**
 	 * Re-map API response to retrieve necessary data
 	 * 
@@ -53,14 +53,12 @@ export default class GoogleLogIn extends React.Component {
 				this.props.emailExist({ email: newUserObj.currentUser.email })
 				.then((user) => {
 					if (!user) {
-						registerGoogleUser(newUserObj.currentUser)
-							.then((data) => {
-								if (data) {
-									Materialize.toast('Signed Up Successfully', 
-									2000, 'blue darken-4');
-								}
-							})
-							.catch((err) => err);
+						const userObject = newUserObj.currentUser;
+						const token = jwt.sign({
+							userObject },
+						process.env.secretKey);
+							localStorage.setItem('userData', token);
+							window.location.href='/google-signup';
 					} else {
 						getUserData({ email: newUserObj.currentUser.email })
 						.then((currentUser) => {

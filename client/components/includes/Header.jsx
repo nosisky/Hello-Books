@@ -85,7 +85,7 @@ class Header extends Component {
 			subject: 'Account upgrade Notification'
 		};
 
-		MailSender(data)
+		mailSender(data)
 			.then((status) => {
 				if (status) {
 					swal('Response recieved successfully, an Admin will get back to you.');

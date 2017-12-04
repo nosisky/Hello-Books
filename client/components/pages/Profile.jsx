@@ -118,8 +118,9 @@ export class Profile extends React.Component {
    * @memberOf Profile
    */
   handleSubmit(event) {
+		const userId = this.props.user.userId || this.props.user.id
 		event.preventDefault();
-		this.props.actions.editProfileAction(this.props.user.userId, this.state);
+		this.props.actions.editProfileAction(userId, this.state);
 	}
 
 	/**
@@ -130,11 +131,12 @@ export class Profile extends React.Component {
    * @memberOf Profile
    */
   render() {
-		const { username, fullname, id, email, plan } = this.props.user;
+		const { username, fullname, id, email, plan, isAdmin } = this.props.user;
+		const realFullName = fullname || this.props.user.fullName;
 		return (
 			<div className="row">
 				<Header />
-				<SideBar fullname={fullname} isAdmin={this.props.user.isAdmin} />
+				<SideBar fullname={realFullName} isAdmin={isAdmin} />
 				<div id="edit">
 					<div
 						id="profile_edit"
@@ -177,7 +179,7 @@ export class Profile extends React.Component {
                         onBlur={this.onBlur}                                                
 												onChange={this.onChange}
                         onFocus={this.onFocus}
-												defaultValue={fullname}
+												defaultValue={realFullName}
 												className="validate"
 												required
 											/>
@@ -237,7 +239,7 @@ export class Profile extends React.Component {
 													<div className="card-content">
 														<p>
 															<b>Full name: &nbsp;</b> &nbsp;
-															{fullname}
+															{realFullName}
 														</p>
 														<div className="divider" />
 														<p>

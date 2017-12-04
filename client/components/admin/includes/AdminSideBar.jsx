@@ -57,7 +57,7 @@ class AdminSideBar extends Component {
 				Materialize.toast(message, 2000, 'blue');
 				$('.modal').modal('close');
 			})
-			.catch((err) => err);
+			.catch((error) => Materialize.toast(error, 2000, 'blue'));
 	}
 
 	/**

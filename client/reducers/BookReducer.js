@@ -36,7 +36,7 @@ function bookReducer(state = INITIAL_STATE, action) {
     case ADD_BOOK:
       return { ...state,
         message: 'Book added Successfully',
-        data: action.data.book };
+        data: action.book };
     case GET_ALL_BOOKS:
       return { ...state, count: action.books.count, data: action.books.rows };
     case GET_ONE_BOOK:

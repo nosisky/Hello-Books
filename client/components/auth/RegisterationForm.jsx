@@ -14,13 +14,13 @@ export default class Register extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			fullName: '',
+			fullName: this.props.fullName || '',
 			username: '',
 			password: '',
-			email: '',
+			email: this.props.email || '',
 			usernameError: '',
 			passwordError: '',
-			passwordConfirm: '',
+			passwordConfirmError: '',
 			emailError: '',
 			userExist: '',
 			emailExist: '',
@@ -76,7 +76,7 @@ export default class Register extends Component {
 			case 'password':
 				this.setState({ passwordError: '' });
 				break;
-			case 'cpassword':
+			case 'passwordConfirm':
 				this.setState({ passwordConfirm: '' });
 				break;
 			case 'email':
@@ -149,7 +149,7 @@ export default class Register extends Component {
 	 * @memberOf Register
 	 */
 	render() {
-		const { userExist } = this.props;
+		const { userExist, fullName, email } = this.props;
 		return (
 			<div id="register" className="col s12">
 				<form className="col s12" id="form-validate" 
@@ -162,6 +162,7 @@ export default class Register extends Component {
 									type="text"
 									onChange={this.onChange}
 									className="validate"
+									defaultValue={fullName}
 									required
 								/>
 								<label htmlFor="fullName">Full Name</label>
@@ -190,6 +191,7 @@ export default class Register extends Component {
 									type="email"
 									onChange={this.onChange}
 									onBlur={this.onBlur}
+									defaultValue={email}
 									onFocus={this.onFocus}
 									className="validate"
 									required
@@ -218,15 +220,16 @@ export default class Register extends Component {
 						<div className="row">
 							<div className="input-field col s12">
 								<input
-									name="cpassword"
+									name="passwordConfirm"
 									onChange={this.onChange}
 									onBlur={this.onBlur}
 									onFocus={this.onFocus}
 									type="password"
 									className="validate"
 								/>
-								<label htmlFor="cpassword">Password Confirmation</label>
-								<div className="red-text">{this.state.passwordConfirm}</div>
+								<label htmlFor="passwordConfirm">Password Confirmation</label>
+								<div className="red-text">
+									{this.state.passwordConfirmError}</div>
 							</div>
 						</div>
 						<center>
