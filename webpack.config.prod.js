@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   cache: true,
   entry: [
+    // 'webpack-hot-middleware',
     './client/index.jsx'
   ],
   output: {
@@ -24,9 +25,7 @@ module.exports = {
       'FIREBASE_URL',
       'FIREBASE_PROJECTID',
       'FIREBASE_STORAGEBUCKET',
-      'GOOGLE_ID',
-      'FIREBASE_STORAGEBUCKET',
-      'secretKey'
+      'FIREBASE_STORAGEBUCKET'
     ]),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
