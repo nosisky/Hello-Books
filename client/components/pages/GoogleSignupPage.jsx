@@ -11,7 +11,9 @@ import { checkUserExist,
  * 
  * 
  * @export {Object}
+ * 
  * @class GoogleSignUpPage
+ * 
  * @extends {Component}
  */
 export class GoogleSignUpPage extends Component {

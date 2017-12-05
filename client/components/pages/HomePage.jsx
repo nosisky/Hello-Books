@@ -9,7 +9,9 @@ import { registerUserAction, loginAction } from '../../actions/AuthActions';
  * 
  * 
  * @export {Object}
+ * 
  * @class HomePage
+ * 
  * @extends {Component}
  */
 export class HomePage extends Component {
