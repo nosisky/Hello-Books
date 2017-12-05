@@ -140,6 +140,7 @@ class AddBook extends Component {
 	 * 
 	 * Executes when the input box lost focus
 	 * @param {Object} event - Object
+	 * 
 	 * @returns 
 	 * 
 	 * @memberOf AddBook

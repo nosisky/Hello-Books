@@ -1,21 +1,22 @@
 import expect from 'expect';
-import BookReducer from '../../reducers/bookReducer';
+import bookReducer from '../../reducers/bookReducer';
 import * as ActionTypes from '../../actions/types';
 
-describe('Book Reducer', () => {
+describe('Book Reducer:', () => {
   it('should return list of books for GET_ALL_BOOK', () => {
     const initialState = {
       data: []
     };
-    const book = { count: 4, rows: [{ title: 'test' }, { title: 'game' }] };
+    const books = { count: 4, rows: [{ title: 'test' }, { title: 'game' }] };
     const action = {
       type: ActionTypes.GET_ALL_BOOKS,
-      data: book,
+      books,
     };
-    const newState = BookReducer(initialState, action);
+    const newState = bookReducer(initialState, action);
     expect(action.data.rows[0].title).toEqual('test');
     expect(newState.data.length).toEqual(2);
   });
+
   it('should completely delete a book', () => {
     const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
     const initialState = { data: book };
@@ -24,7 +25,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.DELETE_BOOK,
       data: book[0].id,
     };
-    const deleteState = BookReducer(initialState, action);
+    const deleteState = bookReducer(initialState, action);
     expect(deleteState.data.length).toEqual(1);
   });
 
@@ -36,7 +37,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.ADD_BOOK,
       message: 'Book added successfully',
     };
-    const state = BookReducer(initialState, action);
+    const state = bookReducer(initialState, action);
     expect(state.message).toEqual('Book added Successfully');
   });
 
@@ -48,7 +49,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.SEARCH_BOOK,
       data: book,
     };
-    const state = BookReducer(initialState, action);
+    const state = bookReducer(initialState, action);
     expect(state.data).toEqual(book);
   });
 
@@ -60,7 +61,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.GET_RENTED_BOOKS,
       data: book,
     };
-    const state = BookReducer(initialState, action);
+    const state = bookReducer(initialState, action);
     expect(state.allRentedBooks).toEqual(book);
     expect(state.allRentedBooks[0].title).toEqual('test');
   });
@@ -75,7 +76,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.RETURN_RENTED_BOOK,
       data: returnedBook,
     };
-    const state = BookReducer(initialState, action);
+    const state = bookReducer(initialState, action);
     expect(state.allRentedBooks).toEqual(book);
     expect(state.allRentedBooks[0].title).toEqual('test');
     expect(state.allRentedBooks[0].returned).toEqual(true);
@@ -91,7 +92,7 @@ describe('Book Reducer', () => {
       type: ActionTypes.EDIT_BOOK,
       data: editedBook,
     };
-    const state = BookReducer(initialState, action);
+    const state = bookReducer(initialState, action);
     expect(state.data[0].title).toEqual('test me');
   });
 });

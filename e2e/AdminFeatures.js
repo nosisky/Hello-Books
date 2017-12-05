@@ -29,7 +29,6 @@ module.exports = {
       .setValue('input[name=total]', 19)
       .setValue('input[type="file"]', path.resolve('../../Desktop/how-to-book.jpeg'))
       .waitForElementVisible('#completed', 10000)
-      .pause(4000)
       .click('#addIt')
       .waitForElementVisible('#book_card', 10000)
       .assert.urlContains('http://localhost:8000/admin')

@@ -13,7 +13,7 @@ module.exports = {
       .setValue('#uname', username)
       .setValue('input[name=fullName]', randomName)
       .setValue('#pword', randomName)
-      .setValue('input[name=cpassword]', randomName)
+      .setValue('input[name=passwordConfirm]', randomName)
       .setValue('input[name=email]', randomEmail)
       .click('#createAccount')
       .waitForElementVisible('.dropdown-button', 5000)
