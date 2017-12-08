@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 import { logoutAction } from '../../../actions/AuthActions';
 
-class AdminHeader extends Component {
+export class AdminHeader extends Component {
 
 	/**
 	 * 

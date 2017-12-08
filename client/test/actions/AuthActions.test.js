@@ -1,4 +1,5 @@
 import expect from 'expect';
+import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
@@ -13,6 +14,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 window.localStorage = new localstorageMock();
+
 
 describe('Auth actions', () => {
   beforeEach(() => moxios.install());
@@ -57,6 +59,7 @@ describe('Auth actions', () => {
       .catch(error => error);
   });
 
+
   it('creates SET_CURRENT_USER when signup action is successful', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/signup', {
@@ -69,6 +72,29 @@ describe('Auth actions', () => {
 
     const store = mockStore({});
     store.dispatch(AuthActions.registerUserAction({}))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+  it('creates EDIT_PROFILE when user edit profile', () => {
+    const { authResponse } = mockData;
+    moxios.stubRequest('/api/v1/users/edit/1', {
+      status: 200,
+      response: authResponse
+    });
+
+    moxios.stubRequest('/api/v1/search/1', {
+      status: 200,
+      response: authResponse
+    });
+
+    const expectedActions = { type: ActionTypes.EDIT_PROFILE,
+      user: authResponse.currentUser };
+
+    const store = mockStore({});
+    store.dispatch(AuthActions.editProfileAction({}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })

@@ -1,21 +1,55 @@
 export default class LocalStorageMock {
-  constructor() {
-    this.store = {};
-  }
+	/**
+   * Creates an instance of LocalStorageMock.
+   * 
+   * @memberOf LocalStorageMock
+   */
+	constructor() {
+		this.store = {};
+	}
 
-  clear() {
-    this.store = {};
-  }
+	/**
+   * 
+   * 
+   * 
+   * @memberOf LocalStorageMock
+   */
+	clear() {
+		this.store = {};
+	}
 
-  getItem(key) {
-    return this.store[key] || null;
-  }
+	/**
+   * 
+   * 
+   * @param {any} key 
+   * @returns 
+   * 
+   * @memberOf LocalStorageMock
+   */
+	getItem(key) {
+		return this.store[key] || null;
+	}
 
-  setItem(key, value) {
-    this.store[key] = value.toString();
-  }
+	/**
+   * 
+   * 
+   * @param {any} key 
+   * @param {any} value 
+   * 
+   * @memberOf LocalStorageMock
+   */
+	setItem(key, value) {
+		this.store[key] = value.toString();
+	}
 
+	/**
+   * 
+   * 
+   * @param {any} key 
+   * 
+   * @memberOf LocalStorageMock
+   */
   removeItem(key) {
-    delete this.store[key];
-  }
+		delete this.store[key];
+	}
 }

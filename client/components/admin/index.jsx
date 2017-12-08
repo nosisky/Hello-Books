@@ -17,7 +17,7 @@ import AdminSideBar from './includes/AdminSideBar';
  * @class AdminHome
  * @extends {Component} - Extends React.Component
  */
-class AdminHome extends Component {
+export class AdminHome extends Component {
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);

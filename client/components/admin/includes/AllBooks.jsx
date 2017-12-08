@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { deleteBookAction, 
 	modifyBookAction } from '../../../actions/BookActions';
 
-class AllBooks extends Component {
+export class AllBooks extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

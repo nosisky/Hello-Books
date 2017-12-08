@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import firebase from 'firebase';
 import { connect } from 'react-redux';
 import AdminHeader from '../includes/AdminHeader';
 import AddBook from '../includes/AddBook';
@@ -12,7 +13,7 @@ import { addBookAction } from '../../../actions/BookActions';
  * @class AddANewBook
  * @extends {Component} extends React.Component
  */
-class AddANewBook extends Component {
+export class AddANewBook extends Component {
 
 	/**
 	 * 
@@ -28,7 +29,9 @@ class AddANewBook extends Component {
 				<AdminHeader />
 				<AdminSideBar fullname={this.props.user.fullname} 
         isAdmin={this.props.user.isAdmin} />
-				<AddBook onSubmit={this.props.addBookAction} />
+				<AddBook 
+				firebaseStorage={firebase.storage().ref('images')}
+				onSubmit={this.props.addBookAction} />
 			</div>
 		);
 	}

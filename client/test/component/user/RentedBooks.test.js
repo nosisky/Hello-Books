@@ -1,6 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow, configure, mount } from 'enzyme';
+import hammerjs from 'hammerjs';
 import Adapter from 'enzyme-adapter-react-15';
 import  { RentedBooksPage } from '../../../components/pages/RentedBooksPage';
 import mockData from '../../__mocks__/mockData';
@@ -27,7 +28,7 @@ const props = {
 describe('Component: Rented Books Page', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = mount(<RentedBooksPage {...props}/>)
-    expect(wrapper.find('div').length).toBe(14);
+    expect(wrapper.find('div').length).toBe(16);
   })
 
   it('tests that the component received props', () => {
@@ -37,8 +38,9 @@ describe('Component: Rented Books Page', () => {
     expect(wrapper.props().user.isAdmin).toBe(0);
   })
 
-  it('tests that the component called the ', () => {
+  it('tests that the component called getRentedBooksAction', () => {
     const wrapper = mount(<RentedBooksPage {...props}/>)
     expect(wrapper.props().actions.getRentedBooksAction).toHaveBeenCalled();
+    expect(wrapper.props().user).toBeTruthy();
   })
 })

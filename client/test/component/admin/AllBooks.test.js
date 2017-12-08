@@ -5,14 +5,13 @@ import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
-import  { Dashboard } from '../../../components/pages/Dashboard';
 import {getAllBooksAction} from '../../../actions/BookActions';
-import DashboardFooter from '../../../components/includes/DashboardFooter';
+import { AllBooks } from '../../../components/admin/includes/AllBooks';
 
 configure({ adapter: new Adapter() });
 
-jest.mock('../../../components/includes/Header');
-jest.mock('../../../components/includes/SideBar');
+jest.mock('../../../components/admin/includes/AdminHeader');
+jest.mock('../../../components/admin/includes/AdminSideBar');
 
 
 let props;
@@ -26,27 +25,29 @@ const setup = () => {
       isAdmin: 0
     },
       actions: {
-        getAllBooksAction: jest.fn()
+        getAllBooksAction: jest.fn(),
+        modifyBookAction: jest.fn(),
+        deleteBookAction: jest.fn()
       },
       books: mockData.modifiedBook
   }
-  return mount(<Dashboard {...props} />)
+  return mount(<AllBooks {...props} />)
 }
 
-describe('Component: Dashboard', () => {
+describe('Component: AllBooks', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = setup();
-    expect(wrapper.find('div').length).toBe(17);
-    expect(wrapper.find('img').length).toBe(2);
-    expect(wrapper.find('.truncate').length).toBe(2);
-    expect(wrapper.find('.card').length).toBe(2);
-    expect(wrapper.find('span').length).toBe(4);
+    expect(wrapper.find('div').length).toBe(5);
+    expect(wrapper.find('img').length).toBe(1);
+    expect(wrapper.find('.truncate').length).toBe(1);
+    expect(wrapper.find('.card').length).toBe(1);
+    expect(wrapper.find('span').length).toBe(1);
   })
 
   it('tests that the component received the user props', () => {
     const wrapper = setup();
     expect(wrapper.props().user.fullName).toBe('test');
-    expect(wrapper.find('a').length).toBe(3);
+    expect(wrapper.find('a').length).toBe(2);
     expect(wrapper.props().user.fullName).toBe('test');
     expect(wrapper.props().user.plan).toBe('Silver');
     expect(wrapper.props().user.isAdmin).toBe(0);
@@ -54,16 +55,20 @@ describe('Component: Dashboard', () => {
 
   it('tests that the component received the action creator', () => {
     const wrapper = setup();
-    expect(wrapper.props().actions.getAllBooksAction).toHaveBeenCalled();
+    const newState = wrapper.setState({ displayBook: true, edit: false });
+    expect(wrapper.props().actions.deleteBookAction).toBeTruthy;
+    expect(wrapper.props().actions.modifyBookAction).toBeTruthy;
     expect(wrapper.props().books.length).toBe(2);
+    expect(wrapper.state().edit).toBeFalsy;
+    expect(wrapper.state().displayBook).toBeTruthy;
     expect(wrapper.props().books[0].title).toBe('This is a test');
     expect(wrapper.props().books[0].author).toBe('dealwap');
   })
 
   it('should render Footer component', () => {
-    const footerWrapper = shallow(<DashboardFooter />);
+    const footerWrapper = shallow(<AllBooks />);
     expect(footerWrapper).toBeDefined();
-    expect(footerWrapper.find('div').length).toBe(2);
+    expect(footerWrapper.find('div').length).toBe(5);
   });
 
 it('should receive the book props', () => {
@@ -72,4 +77,13 @@ it('should receive the book props', () => {
   expect(wrapper.props().books[0].title).toBe('This is a test');
   expect(wrapper.props().books[0].author).toBe('dealwap');
 })
+
+it('should call handleClick to delete book', () => {
+  const wrapper = setup();
+  const action = wrapper.instance();
+  
+  wrapper.find('#delete_button').simulate('click');
+  
+  expect(action.handleClick).toBeTruthy()
+});
 })

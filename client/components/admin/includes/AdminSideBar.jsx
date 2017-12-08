@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 
-class AdminSideBar extends Component {
+export class AdminSideBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

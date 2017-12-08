@@ -27,32 +27,3 @@ export function getUserData(email) {
     .catch(error => error);
 }
 
-/**
- * Google account creator
- * @param {Object} userDetails - Object containing user details
- * 
- * @returns {null} - null
- */
-export function registerGoogleUser(userDetails) {
-  return axios.post(`${API_URL}/signup`, userDetails)
-    .then((res) => {
-      const token = res.data.Token;
-      localStorage.setItem('token', token);
-      setAuthorizationToken(token);
-      window.location.href = '/dashboard';
-    });
-}
-
-/**
- * @param {Number} userId - user id
- *
- * @param {Object} userData - Object containing User Data
- *
- * @returns {String} - JWT Token
- */
-export function editProfile(userId, userData) {
-  return axios.put(`${API_URL}/edit/${userId}`, userData)
-    .then(() => axios.get(`${API_URL}/userId`)
-      .then(res => res.data.token))
-    .catch(error => error.data.response);
-}

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
-class AddBook extends Component {
+export class AddBook extends Component {
 
 	constructor(props) {
 		super(props);
@@ -391,7 +391,7 @@ class AddBook extends Component {
 							)}
 							<ImageUploader
 								name="cover"
-								storageRef={firebase.storage().ref('images')}
+								storageRef={this.props.firebaseStorage}
 								onProgress={this.handleProgress}
 								onUploadSuccess={this.handleUploadSuccess}
 								onUploadStart={this.handleUploadStart}
@@ -425,7 +425,7 @@ class AddBook extends Component {
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
@@ -443,7 +443,7 @@ function mapDispatchToProps(dispatch) {
  *  
  * @returns {Object} - Selected state
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return { category: state.book.category };
 }
 
