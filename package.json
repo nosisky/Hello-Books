@@ -30,8 +30,10 @@
   "jest": {
     "verbose": true,
     "collectCoverage": true,
-    "testPathIgnorePatterns": [
-      "client/test/__mocks__"
+    "modulePathIgnorePatterns": [
+      "client/__test__/__mocks__",
+      "client/components/admin/pages/AddANewBook",
+      "client/components/auth/GoogleLogin"
     ]
   },
   "homepage": "https://github.com/nosisky/Hello-Books#readme",

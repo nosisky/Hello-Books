@@ -25,7 +25,7 @@ const setup = () => {
         editProfileAction: jest.fn()
       },
   }
-  return shallow(<AdminHeader {...props} />)
+  return mount(<AdminHeader {...props} />)
 }
 
 describe('Component: AdminHeader', () => {

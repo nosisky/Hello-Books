@@ -124,7 +124,7 @@ AdminHeader.PropTypes = {
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
