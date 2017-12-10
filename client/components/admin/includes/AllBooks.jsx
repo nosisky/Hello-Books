@@ -87,6 +87,10 @@ class AllBooks extends Component {
 	handleFormSubmit(event) {
 		event.preventDefault();
 		this.props.actions.modifyBookAction(this.state, this.props.id)
+		this.setState({
+			displayBook: true, 
+			edit: false 
+		})
 	}
 
 	/**
