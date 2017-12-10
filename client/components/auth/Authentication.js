@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import { bindActionCreators } from 'redux';
-import { logout } from '../../actions/AuthActions';
+import { logoutAction } from '../../actions/AuthActions';
 
 export default function(ComposedComponent) {
 	/**
@@ -19,7 +19,7 @@ export default function(ComposedComponent) {
 			if (token) {
 				jwt.verify(token, key, (error) => {
 					if (error) {
-						this.props.actions.logout();
+						this.props.actions.logoutAction();
 						this.props.history.push('/');
 					}
 				});
@@ -68,7 +68,7 @@ export default function(ComposedComponent) {
 		return {
 			actions: bindActionCreators(
 				{
-					logout
+					logoutAction
 				},
 				dispatch
 			)

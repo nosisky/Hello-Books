@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import dotenv from 'dotenv';
 import { bindActionCreators } from 'redux';
 import jwt from 'jsonwebtoken';
-import { logout } from '../../actions/AuthActions';
+import { logoutAction } from '../../actions/AuthActions';
 
 
 dotenv.load();
@@ -34,11 +34,12 @@ export default function(ComposedComponent) {
 			if (token) {
 				jwt.verify(token, key, (error) => {
 					if (error) {
-						this.props.actions.logout();
+						this.props.actions.logoutAction();
 						this.props.history.push('/');
 					}
 				});
 			}
+
 			if (!this.props.authenticated) {
 				this.props.history.push('/');
 			}
@@ -49,7 +50,7 @@ export default function(ComposedComponent) {
 		}
 
 		/**
-		 * Executes before component is updated
+		 * Executes before component is updated 
 		 * 
 		 * @param {Object} nextProps 
 		 * 
@@ -87,7 +88,7 @@ export default function(ComposedComponent) {
 		return {
 			actions: bindActionCreators(
 				{
-					logout
+					logoutAction
 				},
 				dispatch
 			)
