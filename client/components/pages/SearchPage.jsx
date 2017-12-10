@@ -42,7 +42,7 @@ class SearchPage extends Component {
 	/**
 	 * Handles renting of books
 	 * 
-	 * @param {any} id 
+	 * @param {String} id 
 	 * 
 	 * @memberOf SearchPage
 	 */

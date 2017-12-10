@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
+import AddBookModal from '../includes/AddBookModal';
+
 
 class AdminSideBar extends Component {
 	constructor(props) {
@@ -43,11 +45,6 @@ class AdminSideBar extends Component {
 		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
-			.then((message) => {
-				Materialize.toast(message, 2000, 'blue');
-				$('.modal').modal('close');
-			})
-			.catch((error) => Materialize.toast(error, 2000, 'blue'));
 	}
 
 	/**
@@ -102,6 +99,7 @@ class AdminSideBar extends Component {
 		};
 		return (
 			<div>
+				<AddBookModal />
 				<div className="col s2 m3 l3">
 					<ul id="slide-out" className="side-nav fixed show-on-large-only">
 						<div style={style.side}>
@@ -131,10 +129,10 @@ class AdminSideBar extends Component {
 						</div>
 						<li className="divider" />
 						<li id="menu-list">
-							<Link id="add-book" to="/add-book">
-								Add a book
-								<i className="material-icons">add</i>
-							</Link>
+						<a data-target="add_cat" className="modal-trigger" 
+						href="#addBook">
+							Add Book<i className="material-icons">add</i>
+						</a>
 						</li>
 						<li id="menu-list">
 							<a data-target="add_cat" className="modal-trigger" 
@@ -160,11 +158,7 @@ class AdminSideBar extends Component {
 					</ul>
 					<div id="add_cat" className="modal">
 						<div className="modal-content">
-							<h4
-								style={{
-									alignContent: 'center'
-								}}
-							>
+							<h4 className="center-align">
 								Add Category
 							</h4>
 							<div className="row">

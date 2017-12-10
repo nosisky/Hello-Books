@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { getCategoryAction } from '../../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { addBookAction } from '../../../actions/BookActions';
 import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
@@ -19,7 +20,7 @@ class AddBook extends Component {
 			title: '',
 			isbn: '',
 			description: '',
-			cover: '',
+			cover: 'https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2',
 			author: '',
 			catId: '',
 			total: 5,
@@ -221,15 +222,8 @@ class AddBook extends Component {
 			return false;
 		}
 		event.preventDefault();
-		this.props
-			.onSubmit(this.state)
-			.then((message) => {
-				Materialize.toast('Book added Successfully', 2000, '#15b39d', () => {
-					this.setState({ isLoading: false });
-				});
-				window.location.href = '/admin';
-			})
-			.catch((err) => Materialize.toast(err, 2000, '#15b39d'));
+		this.props.actions
+			.addBookAction(this.state)
 	}
 
 	/**
@@ -242,13 +236,18 @@ class AddBook extends Component {
 	render() {
 		return (
 			<div
+			id="addBook"
+			className="modal"
 				style={{
 					marginTop: 20,
-					backgroundColor: '#fff'
+					backgroundColor: '#fff',
 				}}
 			>
-				<div className="row">
-					<form name="add_book" className="col s12 l9 push-l3" 
+				<div className="modal-content">
+				<h4 className="center-align">
+								Add Book
+				</h4>
+					<form name="add_book"
 					onSubmit={this.handleSubmit}>
 						<div className="add-book">
 							<div className="row">
@@ -429,7 +428,8 @@ function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
-				getCategoryAction
+				getCategoryAction,
+				addBookAction
 			},
 			dispatch
 		)

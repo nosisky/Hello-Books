@@ -50,7 +50,7 @@ export default class Register extends Component {
 	/**
 	 * Submits the ulogi information
 	 * 
-	 * @param {any} event 
+	 * @param {Object} event 
 	 * 
 	 * @memberOf Register
 	 */

@@ -32,7 +32,9 @@ export function addBookAction(bookDetails) {
         message: res.data.message,
         book: res.data.book
       });
-      Materialize.toast('Book added successfully', 1000);
+      Materialize.toast('Book added Successfully', 1000, '#15b39d', () => {
+        $('.modal').modal('close');
+      });
     })
     .catch(error => Materialize.toast(error.response.data.message));
 }
@@ -88,7 +90,9 @@ export function modifyBookAction(bookData, bookId) {
         type: EDIT_BOOK,
         data: res.data.book
       });
-      return res.data.message;
+      Materialize.toast('Book modified successfully', 1000, 'blue', () => {
+        this.setState({ displayBook: true, edit: false });
+      });
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
@@ -106,7 +110,8 @@ export function addCategoryAction(data) {
         type: ADD_CATEGORY,
         data: res.data.category
       });
-      return res.data.message;
+      Materialize.toast('Category added successfully', 2000, 'blue');
+      $('.modal').modal('close');
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }

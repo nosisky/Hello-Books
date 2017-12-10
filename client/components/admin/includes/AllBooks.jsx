@@ -87,11 +87,6 @@ class AllBooks extends Component {
 	handleFormSubmit(event) {
 		event.preventDefault();
 		this.props.actions.modifyBookAction(this.state, this.props.id)
-		.then((response) => {
-			Materialize.toast(response, 1000, 'blue', () => {
-				this.setState({ displayBook: true, edit: false });
-			});
-		});
 	}
 
 	/**

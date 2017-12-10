@@ -57,7 +57,7 @@ export default class Login extends Component {
 	/**
 	 * Submits the login information
 	 * 
-	 * @param {any} event 
+	 * @param {Object} event 
 	 * 
 	 * @memberOf Login
 	 */

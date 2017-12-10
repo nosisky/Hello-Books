@@ -35,7 +35,7 @@ export default function(ComposedComponent) {
 		/**
 		 * Executes before component is updated
 		 * 
-		 * @param {any} nextProps 
+		 * @param {Object} nextProps 
 		 * 
 		 * @memberOf AdminAuthentication
 		 */

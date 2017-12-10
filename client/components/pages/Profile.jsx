@@ -90,7 +90,7 @@ export class Profile extends React.Component {
 	/**
    * set user input to state
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf Profile
    */
@@ -113,7 +113,7 @@ export class Profile extends React.Component {
 	/**
    * Submits user input
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf Profile
    */

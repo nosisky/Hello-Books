@@ -27,7 +27,7 @@ export class RentedBooksPage extends Component {
 	/**
 	 * Fetches the list of rented books by a user
 	 * 
-	 * @param {any} props 
+	 * @param {Object} props 
 	 * 
 	 * @memberOf RentedBooksPage
 	 */
@@ -39,7 +39,7 @@ export class RentedBooksPage extends Component {
 	/**
 	 * Handles book return
 	 * 
-	 * @param {any} id 
+	 * @param {String} id 
 	 * 
 	 * @memberOf RentedBooksPage
 	 */

@@ -6,8 +6,10 @@ import { bindActionCreators } from 'redux';
 import ReactPaginate from 'react-paginate';
 import AdminHeader from './includes/AdminHeader';
 import AllBooks from './includes/AllBooks';
-import AddBook from './includes/AddBook';
-import { getAllBooksAction } from '../../actions/BookActions';
+
+import { getAllBooksAction, 
+	addBookAction } from '../../actions/BookActions';
+
 import { logoutAction } from '../../actions/AuthActions';
 import AdminSideBar from './includes/AdminSideBar';
 
@@ -138,7 +140,6 @@ class AdminHome extends Component {
 		return (
 			<div className="row">
 				<AdminSideBar fullname={fullName} />
-
 				<div className="col s12 l9" id="list_boy">
 					{allbooks.map((book) => {
 						return (
@@ -170,6 +171,7 @@ class AdminHome extends Component {
 	 * @memberOf AdminHome
 	 */
 	render() {
+
 		const { username, fullName, id } = this.props.user;
 		return (
 			<div>
@@ -214,7 +216,8 @@ function mapDispatchToProps(dispatch) {
 		actions: bindActionCreators(
 			{
 				getAllBooksAction,
-				logoutAction
+				logoutAction,
+				addBookAction
 			},
 			dispatch
 		)
