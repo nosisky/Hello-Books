@@ -10,7 +10,9 @@ dotenv.load();
  * 
  * 
  * @export {Object}
+ * 
  * @class GoogleLogIn
+ * 
  * @extends {React.Component}
  */
 export default class GoogleLogIn extends React.Component {
@@ -19,6 +21,7 @@ export default class GoogleLogIn extends React.Component {
 	 * Re-map API response to retrieve necessary data
 	 * 
 	 * @param {Object} obj - Object from Google API
+	 * 
 	 * @returns {Object} 
 	 * 
 	 * @memberOf GoogleLogIn

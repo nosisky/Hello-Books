@@ -12,7 +12,9 @@ import jwt from 'jsonwebtoken';
  * 
  * 
  * @export {Object} Login component
+ * 
  * @class Login
+ * 
  * @extends {Component}
  */
 export default class Login extends Component {
