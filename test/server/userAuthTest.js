@@ -69,9 +69,9 @@ describe('User Api', () => {
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ username: 'Dealwap' })
-      .expect(200)
+      .expect(409)
       .end((err, res) => {
-        res.status.should.equal(200);
+        res.status.should.equal(409);
         res.body.message.should.equal('username already exist');
         done();
       });
