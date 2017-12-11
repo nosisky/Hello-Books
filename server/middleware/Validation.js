@@ -248,7 +248,7 @@ export default {
     })
       .then((user) => {
         if (user.username !== req.params.username) {
-          return res.status(200).send({ message: 'username already exist' });
+          return res.status(409).send({ message: 'username already exist' });
         }
         return res.status(404).send({ message: '' });
       })

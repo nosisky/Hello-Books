@@ -125,6 +125,7 @@ export default class Register extends Component {
 				.then((data) => {
 					if (data.length > 1) {
 						this.setState({ userExist: data });
+						return false
 					} else {
 						this.setState({ userExist: '' });
 					}
@@ -234,7 +235,7 @@ export default class Register extends Component {
 						</div>
 						<center>
 							<button
-								className="btn waves-effect waves-light teal"
+								className="btn waves-effect teal"
 								id="createAccount"
 								type="submit"
 								name="submit"
