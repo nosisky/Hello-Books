@@ -32,7 +32,47 @@ const app = express.Router();
  *         type: string
  *       password:
  *         type: string
+ *     example: {
+ *        "fullName": Abdulrasaq Nasirudeen,
+ *       "email": dealwap@dealwap.com,
+ *       "plan": gold,
+ *       "isAdmin": 1,
+ *       "username": dealwap
+ *      }
  */
+
+/**
+ * @swagger
+ * definitions:
+ *   UserList:
+ *     properties:
+ *       username:
+ *         type: string
+ *       fullName:
+ *         type: string
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *     example: [{
+ *        "fullName": Abdulrasaq Nasirudeen,
+ *       "email": dealwap@dealwap.com,
+ *       "plan": gold,
+ *       "isAdmin": 1,
+ *       "username": dealwap
+ *      },
+ *     {
+ *        "fullName": Clinton James,
+ *       "email": dealwap@dealwap.com,
+ *       "plan": gold,
+ *       "isAdmin": 1,
+ *       "username": dealwap
+ *      }
+ * 
+ * ]
+ */
+
+
 /**
  * @swagger
  * definitions:
@@ -78,6 +118,45 @@ const app = express.Router();
  *       cover: http://example.com/img/cover.jpg,
  *       prodYear: 1993
  *  }
+ */ 
+
+/**
+ * @swagger
+ * definitions:
+ *   BookList:
+ *     properties:
+ *       isbn:
+ *         type: integer
+ *       title:
+ *         type: string
+ *       author:
+ *         type: string
+ *       description:
+ *         type: string
+ *       quantity:
+ *         type: integer
+ *       cover:
+ *         type: string
+ *       prodYear: 
+ *         type: integer
+ *     example: [{
+ *        isbn: 123-isbn-1992,
+ *        title: Think rich to grow rich,
+ *       author: Napoleon Hill,
+ *       description: This is a sample book description,
+ *       quantity: 10,
+ *       cover: http://example.com/img/cover.jpg,
+ *       prodYear: 1993
+ *  },
+ * {
+ *       isbn: 345-isbn-book,
+ *       title: Safe way,
+ *       author: Sandle Hill,
+ *       description: This is a sample book description,
+ *       quantity: 10,
+ *       cover: http://example.com/img/cover.jpg,
+ *       prodYear: 1999
+ *  }]
  */ 
 
 
@@ -126,7 +205,7 @@ app.route('/signup')
  *       200:
  *         description: Successfully Logged In
  *       400:
- *         description: Bad Username, Password or Email
+ *         description: Bad Username or Password
  */
 app.route('/signin')
   .post(UserController.login);
@@ -150,8 +229,9 @@ app.route('/signin')
  *       200:
  *         description: An array of Users
  *         schema:
- *           $ref: '#/definitions/Register'
+ *           $ref: '#/definitions/UserList'
  */
+
 app.route('/all')
   .get(Authorization.isLoggedIn, Authorization.isAdmin, Authorization.getUsers);
 

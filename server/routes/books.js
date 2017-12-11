@@ -76,7 +76,7 @@ const app = express.Router();
  *       201:
  *         description: Successfully created
  *       400:
- *         description: Bad Username, Password or Email
+ *         description: Bad input
  */
 app.route('/books')
   .post(Authorization.isLoggedIn,
@@ -124,8 +124,6 @@ app.route('/books')
  *     responses:
  *       200:
  *         description: Book Successfully borrowed
- *         schema:
- *           $ref: '#/definitions/Book'
  *       400:
  *         description: All fields are required
  *       404:
@@ -175,8 +173,6 @@ app.route('/users/:userId/books')
  *     responses:
  *       200:
  *         description: Book Successfully returned
- *         schema:
- *           $ref: '#/definitions/Book'
  *       400:
  *         description: All fields are required
  *       404:
@@ -215,7 +211,7 @@ app.route('/users/:userId/books')
  *       200:
  *         description: An array of Books
  *         schema:
- *           $ref: '#/definitions/Book'
+ *           $ref: '#/definitions/BookList'
  */
 app.route('/:userId/books')
   .get(Authorization.isLoggedIn,
@@ -289,7 +285,7 @@ app.route('/books/:bookId')
  *       201:
  *         description: Successfully created
  *       400:
- *         description: Bad Username, Password or Email
+ *         description: Bad input supplied
  */
 app.route('/books/cat')
   .post(Authorization.isLoggedIn,
@@ -355,7 +351,7 @@ app.route('/books/delete/:bookId')
  *       200:
  *         description: Returns An array of books
  *         schema:
- *           $ref: '#/definitions/Book'
+ *           $ref: '#/definitions/BookList'
  */
 app.route('/books/logs/:userId')
   .get(Authorization.isLoggedIn,
@@ -382,7 +378,7 @@ app.route('/books/logs/:userId')
  *       200:
  *         description: Returns An array of Categories
  *         schema:
- *           $ref: '#/definitions/Book'
+ *           $ref: '#/definitions/Category'
  */
 app.route('/books/category')
   .get(Authorization.isLoggedIn,
