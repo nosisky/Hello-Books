@@ -17,17 +17,20 @@ const Footer = () => {
 						<h5 className="white-text">Quick Links</h5>
 						<ul>
 							<li>
-								<a className="grey-text text-lighten-3" href="#!">
+								<a className="grey-text text-lighten-3" 
+								href="#!">
 									F.A.Q
 								</a>
 							</li>
 							<li>
-								<a className="grey-text text-lighten-3" href="#!">
+								<a className="grey-text text-lighten-3" 
+								href="#!">
 									Why Us?
 								</a>
 							</li>
 							<li>
-								<a className="grey-text text-lighten-3" href="http://github.com/nosisky/Hello-Books">
+								<a className="grey-text text-lighten-3" 
+								href="http://github.com/nosisky/Hello-Books">
 									Contribute on Github
 								</a>
 							</li>
@@ -38,7 +41,8 @@ const Footer = () => {
 			<div className="footer-copyright">
 				<div className="container">
 					&copy; 2017 Copyright{' '}
-					<a className="grey-text text-lighten-3" href="http://github.com/nosisky">
+					<a className="grey-text text-lighten-3" 
+					href="http://github.com/nosisky">
 						<b>Abdulrasaq Nasirudeen</b>
 					</a>
 				</div>

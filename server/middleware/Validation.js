@@ -1,14 +1,110 @@
-import db from '../models/index';
+import bcrypt from 'bcrypt';
+import omit from 'lodash/omit';
 
-const { Book, User } = db;
+import database from '../models/index';
+
+const { Book, User } = database;
 
 export default {
-  /** A middleware that checks user input for valid book details
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
 
+  /**
+   * 
+   * Validates User Input
+   * @param {Object} req - request
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} next - call back function
+   * 
+   * @returns {Object} - Object containing error message
+   */
   checkUserInput(req, res, next) {
+    const userNameError = 'Please provide a '
+    + 'username with atleast 4 characters.';
+
+    req.checkBody({
+      username: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 4 }],
+          errorMessage: userNameError
+        },
+        errorMessage: 'Your Username is required'
+      },
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: 'Provide a valid a Email Adrress'
+        },
+        errorMessage: 'Your Email Address is required'
+      },
+      fullName: {
+        notEmpty: true,
+        errorMessage: 'Your Fullname is required'
+      },
+      password: {
+        notEmpty: true,
+        isLength: {
+          options: [{ min: 5 }],
+          errorMessage: 'Provide a valid password with minimum of 8 characters'
+        },
+        errorMessage: 'Your Password is required'
+      }
+    });
+    const errors = req.validationErrors();
+    if (errors) {
+      const allErrors = [];
+      errors.forEach((error) => {
+        allErrors.push({
+          error: error.msg
+        });
+      });
+      return res.status(400).json(allErrors);
+    }
+    User.findOne({
+      where: {
+        username: req.body.username,
+        $or: {
+          email: req.body.email
+        }
+      }
+    }).then((user) => {
+      if (user) {
+        if (user.email === req.body.email) {
+          return res.status(409).send({
+            message: 'Email already exist'
+          });
+        } else if (user.username === req.body.email) {
+          return res.status(409).send({
+            message: 'Username already exist'
+          });
+        }
+      }
+    });
+
+    const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
+    req.userInput = {
+      username: req.body.username,
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password,
+      plan: req.body.plan
+    };
+    next();
+  },
+
+  /**
+   * 
+   * Validates User Input when adding book
+   * @param {Object} req - request
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} next - call back function
+   * 
+   * @returns {Object} - Object containing error message
+   */
+  checkBookInput(req, res, next) {
     const bookError = 'Please provide a book title with atleast 5 characters.';
     req.checkBody({
       title: {
@@ -74,9 +170,13 @@ export default {
 
   /** Check quantity of book in the DB
    * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   checkTotalBook(req, res, next) {
     Book.findOne({
       where: {
@@ -92,15 +192,20 @@ export default {
       }
     });
   },
-  /** Checks is a valid user ID was supplied
-   * @param  {Object} req - request
-   * @param  {object} res - response
-   */
 
+  /** Check if a user is valid
+   * @param  {Object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
+   */
   validUser(req, res, next) {
     const querier = req.params.userId;
     if (!querier || querier.match(/[\D]/)) {
-      res.status(404).send({
+      res.status(400).send({
         message: 'Invalid user id supplied!!!'
       });
     } else {
@@ -110,7 +215,7 @@ export default {
         }
       }).then((user) => {
         if (!user) {
-          res.status(404).send({
+          res.status(400).send({
             message: 'Invalid user id supplied'
           });
         } else {
@@ -119,15 +224,88 @@ export default {
       });
     }
   },
-  /** Checks if a valid book ID was supplied
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
 
+  /** Checks if a user alreday exist
+   * @param  {Object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @return {Object} - Object containing message
+   */
+  UserExist(req, res) {
+    const validator = /[0-9]{2,}/;
+    const validator2 = /[\W]{2,}/;
+    if (validator.test(req.body.username)
+      || validator2.test(req.body.username)) {
+      return res.status(400).send({
+        message: 'Invalid Username supplied!'
+      });
+    }
+    return User.findOne({
+      where: {
+        username: req.body.username
+      }
+    })
+      .then((user) => {
+        if (user.username !== req.params.username) {
+          return res.status(200).send({ message: 'username already exist' });
+        }
+        return res.status(404).send({ message: '' });
+      })
+      .catch(error => res.status(500).send({ error }));
+  },
+
+
+  /** Checks if an email address already exist
+   * @param  {Object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @return {Object} - Object containing message
+   */
+  emailExist(req, res) {
+    const regularExpression = /\S+@\S+\.\S+/,
+      emailValidate = regularExpression.test(req.body.email);
+    if (!emailValidate) {
+      res.send({ message: 'Invalid email supplied' });
+      return;
+    }
+    return User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+      .then((user) => {
+        if (user.id !== req.body.userId) {
+          const currentUser = omit(user.dataValues, [
+            'password',
+            'createdAt',
+            'updatedAt'
+          ]);
+          res.status(200).send({
+            message: 'Email already exist',
+            user: currentUser
+          });
+        } else {
+          res.status(200).send({ message: '' });
+        }
+      })
+      .catch(error => res.status(404).send({ error }));
+  },
+
+  /** Checks for validity of book
+   * @param  {Object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
+   */
   validBook(req, res, next) {
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || /[\D]/.test(querier)) {
-      res.status(404).send({
+      res.status(400).send({
         message: 'Invalid book id supplied!!!'
       });
     } else {
@@ -137,7 +315,7 @@ export default {
         }
       }).then((book) => {
         if (!book) {
-          res.status(404).send({
+          res.status(400).send({
             message: 'Book id is not valid'
           });
         } else {

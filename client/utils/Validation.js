@@ -6,19 +6,21 @@ const API_URL = '/api/v1/users';
  * 
  * Check if username exists
  * @param {object} detail - user details 
+ *
  * @returns {String} - String
  */
 export function checkUserExist(detail) {
   return axios
     .post(`${API_URL}/get`, detail)
     .then(response => response.data.message)
-    .catch(error => error);
+    .catch(error => error.response.data.message);
 }
 
 /**
  * 
  * Check if email exists
  * @param {object} detail - User email
+ *
  * @returns {String} - String
  */
 export function checkEmailExist(detail) {

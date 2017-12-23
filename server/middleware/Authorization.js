@@ -1,97 +1,27 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import db from '../models/';
+import omit from 'lodash/omit';
+import database from '../models/';
 
 dotenv.load();
 const key = process.env.secretKey;
-const { User } = db;
-const { RentedBook } = db;
+const { User } = database;
+const { RentedBook } = database;
 
 export default {
-  checkUserInput(req, res, next) {
-    const userNameError = 'Please provide a '
-    + 'username with atleast 4 characters.';
-    
-    req.checkBody({
-      username: {
-        notEmpty: true,
-        isLength: {
-          options: [{ min: 4 }],
-          errorMessage: userNameError
-        },
-        errorMessage: 'Your Username is required'
-      },
-      email: {
-        notEmpty: true,
-        isEmail: {
-          errorMessage: 'Provide a valid a Email Adrress'
-        },
-        errorMessage: 'Your Email Address is required'
-      },
-      fullName: {
-        notEmpty: true,
-        errorMessage: 'Your Fullname is required'
-      },
-      password: {
-        notEmpty: true,
-        isLength: {
-          options: [{ min: 5 }],
-          errorMessage: 'Provide a valid password with minimum of 8 characters'
-        },
-        errorMessage: 'Your Password is required'
-      }
-    });
-    const errors = req.validationErrors();
-    if (errors) {
-      const allErrors = [];
-      errors.forEach((error) => {
-        allErrors.push({
-          error: error.msg
-        });
-      });
-      return res.status(409).json(allErrors);
-    }
-    User.findOne({
-      where: {
-        username: req.body.username,
-        $or: {
-          email: req.body.email
-        }
-      }
-    }).then((user) => {
-      if (user) {
-        if (user.email === req.body.email) {
-          return res.status(409).send({
-            message: 'Email already exist'
-          });
-        } else if (user.username === req.body.email) {
-          return res.status(409).send({
-            message: 'Username already exist'
-          });
-        }
-      }
-    });
-
-    const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
-    req.userInput = {
-      username: req.body.username,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password,
-      plan: req.body.plan
-    };
-    next();
-  },
   /** Validates users login information
    * @param  {Object} req - request
+   *
    * @param  {Object} res - response
+   *
    * @param  {Object} next - calls the next method
+   *
+   * @return {Object} - Response message
    */
-
   validateLogin(req, res, next) {
     if (!req.body.username || !req.body.password) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: 'Please provide your username or password to login'
       });
     }
@@ -112,80 +42,25 @@ export default {
 
   /** Get all users in the database
    * @param  {Object} request 
+   * 
    * @param  {Object} response
    */
 
   getUsers(req, res) {
     return User.findAll({})
-      .then(users => res.status(201).send(users))
+      .then(users => res.status(200).send(users))
       .catch(error => res.status(404).send(error));
   },
 
-  /** Ad
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  UserExist(req, res) {
-    return User.findOne({
-      where: {
-        username: req.body.username
-      }
-    })
-      .then((user) => {
-        if (user) {
-          res.status(200).send({ message: 'username already exist' });
-        } else {
-          res.status(200).send({ message: '' });
-        }
-      })
-      .catch(error => res.status(500).send({ error }));
-  },
-
-  /** Validates Email address
-   * @param  {object} req - request
-   * @param  {object} res - response
-   */
-
-  emailExist(req, res) {
-    const re = /\S+@\S+\.\S+/,
-      emailValidate = re.test(req.body.email);
-    if (!emailValidate) {
-      res.send({ message: 'Invalid email supplied' });
-      return;
-    }
-    return User.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
-      .then((user) => {
-        if (user) {
-          res.status(200).send({
-            message: 'Email already exist',
-            user: {
-              id: user.id,
-              fullname: user.fullName,
-              username: user.username,
-              email: user.email,
-              active: user.acative,
-              isBanned: user.isBanned,
-              isAdmin: user.isAdmin,
-              plan: user.plan
-            }
-          });
-        } else {
-          res.status(200).send({ message: '' });
-        }
-      })
-      .catch(error => res.status(404).send({ error }));
-  },
-
   /** Checks if logged in user has valid AUTH token
-   * @param  {object} req - request
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {null} - null
    */
-
   isLoggedIn(req, res, next) {
     let token;
     const tokenAvailable = req.headers.authorization ||
@@ -215,17 +90,21 @@ export default {
     }
   },
   /** Checks if currently logged in user is an admin
-   * @param  {object} req - request
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   isAdmin(req, res, next) {
     const decodedToken = req.decoded;
     if (typeof decodedToken.currentUser.isAdmin === 'undefined') {
       return res.status(403).send({
         message: 'You do not have permission to perform that operation'
       });
-    } else if (decodedToken.currentUser.isAdmin === 1) {
+    } else if (decodedToken.currentUser.isAdmin) {
       next();
     } else {
       return res.status(403).send({
@@ -235,10 +114,14 @@ export default {
   },
 
   /** Checks if user has rented a book before
-   * @param  {object} req - request
+   * @param  {Object} req - request
+   * 
    * @param  {object} res - response
+   * 
+   * @param {Object} next - Call back function
+   * 
+   * @return {Object} - Object containing message
    */
-
   hasRentedBefore(req, res, next) {
     RentedBook.findOne({
       where: {
@@ -248,7 +131,7 @@ export default {
       }
     }).then((books) => {
       if (books) {
-        res.status(401).send({
+        res.status(403).send({
           message: 'You have rented that book before'
         });
       } else {
@@ -256,24 +139,27 @@ export default {
       }
     });
   },
+
+  /**
+   * 
+   * Gets user data from the database
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @returns {String} JWT Token
+   */
   getOneUser(req, res) {
     return User.findById(req.params.userId)
       .then((user) => {
-        const currentUser = {
-          userId: user.id,
-          username: user.username,
-          fullname: user.fullName,
-          active: user.active,
-          isAdmin: user.isAdmin,
-          email: user.email,
-          plan: user.plan
-        };
-        const token = jwt.sign(
-          {
-            currentUser
-          },
-          key
-        );
+        const currentUser = omit(user.dataValues,
+          ['password', 'createdAt', 'updatedAt']);
+
+        const token = jwt.sign({
+          currentUser,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+        key);
+
         return res.status(201).send({
           token
         });
@@ -284,12 +170,24 @@ export default {
   /**
    * 
    *  Check the rentedbook limit limit
-   * @param {any} req - request
-   * @param {any} res - response
-   * @param {any} next - callBack function
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @param {Object} next - callBack function
+   *
    * @return {Object} - Object
    */
   checkUserPlan(req, res, next) {
+    if (/[\D]/g.test(req.params.userId)) {
+      return res.status(400).send({
+        message: 'Invalid user id supplied!!!'
+      });
+    } else if (/[\D]/g.test(req.body.bookId)) {
+      return res.status(400).send({
+        message: 'Invalid book id supplied!!!'
+      });
+    }
     const message =
    'You are not permitted to ' +
    'borrow more books, please return the ones you have ' +
@@ -318,15 +216,20 @@ export default {
           next();
         }
       });
-    });
+    })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
   },
 
   /**
    * 
    *  Get users by email address
    * @param {Object} req - request
+   *
    * @param {Object} res - response
-   * @returns {Object} - Object
+   *
+   * @returns {Object} - Object containg token
    */
   getUserByEmail(req, res) {
     return User.findOne({
@@ -339,12 +242,11 @@ export default {
           userId: user.id,
           username: user.username
         };
-        const token = jwt.sign(
-          {
-            currentUser
-          },
-          key
-        );
+        const token = jwt.sign({
+          currentUser,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
+        key);
+
         return res.status(201).send({
           token
         });

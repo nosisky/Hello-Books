@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import { bindActionCreators } from 'redux';
-import { deleteBookAction, modifyBookAction } from '../../../actions/BookActions';
+import { deleteBookAction, 
+	modifyBookAction } from '../../../actions/BookActions';
 
-class AllBooks extends Component {
+export class AllBooks extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,6 +27,12 @@ class AllBooks extends Component {
 		this.changeView = this.changeView.bind(this);
 	}
 
+	/**
+	 * 
+	 * Handles the delete book actioon
+	 * 
+	 * @memberOf AllBooks
+	 */
 	handleClick() {
 		swal({
 			title: 'Are you sure?',
@@ -35,8 +42,8 @@ class AllBooks extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				this.props.actions.deleteBookAction(this.props.id).then((res) => {
-					swal(res, { icon: 'success' });
+				this.props.actions.deleteBookAction(this.props.id).then((response) => {
+					swal(response, { icon: 'success' });
 				});
 			} else {
 				swal('Book was not deleted');
@@ -44,6 +51,13 @@ class AllBooks extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * 
+	 * Toggles the application display
+	 * 
+	 * @memberOf AllBooks
+	 */
 	onClick() {
 		this.setState({ 
 			displayBook: false, 
@@ -51,25 +65,55 @@ class AllBooks extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * 
+	 * Toggles the application display
+	 * 
+	 * @memberOf AllBooks
+	 */
 	changeView() {
 		this.setState({ displayBook: true, edit: false });
 	}
 	
-	handleFormSubmit(e) {
-		e.preventDefault();
-		this.props.actions.modifyBookAction(this.state, this.props.id).then((res) => {
-			Materialize.toast(res, 1000, 'blue', () => {
+	/**
+	 * 
+	 * Submits the form data
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AllBooks
+	 */
+	handleFormSubmit(event) {
+		event.preventDefault();
+		this.props.actions.modifyBookAction(this.state, this.props.id)
+		.then((response) => {
+			Materialize.toast(response, 1000, 'blue', () => {
 				this.setState({ displayBook: true, edit: false });
 			});
 		});
 	}
 
-	onChange(e) {
+	/**
+	 * 
+	 * Executes when the input box value changes
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AllBooks
+	 */
+	onChange(event) {
 		this.setState({
-			[e.target.name]: e.target.value
+			[event.target.name]: event.target.value
 		});
 	}
 
+	/**
+	 * 
+	 * Displays the component
+	 * @returns {Object}
+	 * 
+	 * @memberOf AllBooks
+	 */
 	render() {
 		const style = {
 			file: {
@@ -193,6 +237,12 @@ class AllBooks extends Component {
 	}
 }
 
+/**
+ * 
+ * Maps dispatch to the component props
+ * @param {Object} dispatch 
+ * @returns {Object}
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

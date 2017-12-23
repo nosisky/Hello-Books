@@ -69,7 +69,16 @@ const app = express.Router();
  *         type: string
  *       prodYear: 
  *         type: integer
- */
+ *     example: {
+ *        isbn: 123-isbn-1992,
+ *        title: Think rich to grow rich,
+ *       author: Napoleon Hill,
+ *       description: This is a sample book description,
+ *       quantity: 10,
+ *       cover: http://example.com/img/cover.jpg,
+ *       prodYear: 1993
+ *  }
+ */ 
 
 
 /**
@@ -89,13 +98,13 @@ const app = express.Router();
  *         schema:
  *           $ref: '#/definitions/Register'
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully created
  *       400:
  *         description: Bad Username, Password or Email
  */
 app.route('/signup')
-  .post(Authorization.checkUserInput, UserController.create);
+  .post(Validation.checkUserInput, UserController.create);
 
 /**
  * @swagger
@@ -115,12 +124,12 @@ app.route('/signup')
  *           $ref: '#/definitions/Login'
  *     responses:
  *       200:
- *         description: Successfully created
+ *         description: Successfully Logged In
  *       400:
  *         description: Bad Username, Password or Email
  */
 app.route('/signin')
-  .post(Authorization.validateLogin, UserController.login);
+  .post(UserController.login);
 
 /**
  * @swagger
@@ -148,151 +157,11 @@ app.route('/all')
 
 // User Exist
 app.route('/get')
-  .post(Authorization.UserExist);
+  .post(Validation.UserExist);
 
 // Email Exist
 app.route('/getemail')
-  .post(Authorization.emailExist);
-
-
-/**
- * @swagger
- * /users/{userId}/books:
- *   post:
- *     tags:
- *       - Borrowing Operations
- *     description: Borrow a specific Book
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: userId
- *         description: ID of the User
- *         in: path
- *         required: true
- *         type: integer
- *       - name: bookId
- *         description: ID of Book to Borrow
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           required:
- *             - bookId
- *           properties:
- *             bookId:
- *               type: integer
- *           example: {
- *             "bookId": 4
- *           }
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Book Successfully borrowed
- *         schema:
- *           $ref: '#/definitions/Book'
- *       400:
- *         description: All fields are required
- *       404:
- *         description: Book not found
- */
-app.route('/:userId/books')
-  .post(Authorization.isLoggedIn,
-    Validation.validUser,
-    Validation.validBook,
-    Validation.checkTotalBook,
-    Authorization.checkUserPlan,
-    Authorization.hasRentedBefore,
-    BookController.rentBook);
-
-/**
- * @swagger
- * /users/{userId}/books:
- *   put:
- *     tags:
- *       - Borrowing Operations
- *     description: Return a specific Book
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: userId
- *         description: ID of the User
- *         in: path
- *         required: true
- *         type: integer
- *       - name: bookId
- *         description: ID of Book to Return
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           required:
- *             - bookId
- *           properties:
- *             bookId:
- *               type: integer
- *           example: {
- *             "bookId": 4
- *           }
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Book Successfully returned
- *         schema:
- *           $ref: '#/definitions/Book'
- *       400:
- *         description: All fields are required
- *       404:
- *         description: Book not found
- */
-app.route('/:userId/books')
-  .put(Authorization.isLoggedIn,
-    Validation.validUser,
-    Validation.validBook,
-    BookController.returnBook);
-
-/**
- * @swagger
- * /users/{userId}/books:
- *   get:
- *     tags:
- *       - Borrowing Operations
- *     description: Returns all Books borrowed but not returned by a User
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: returned
- *         in: query
- *         required: true
- *         type: boolean
- *         default: false
- *       - name: userId
- *         in: path
- *         description: ID of the User to show list for
- *         required: true
- *         type: integer
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: An array of Books
- *         schema:
- *           $ref: '#/definitions/Book'
- */
-app.route('/:userId/books')
-  .get(Authorization.isLoggedIn,
-    Validation.validUser,
-    BookController.rentedBooks);
+  .post(Validation.emailExist);
 
 // Edit user profile
 app.route('/edit/:userId')

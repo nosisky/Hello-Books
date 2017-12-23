@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 
-class AdminSideBar extends Component {
+export class AdminSideBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -15,6 +15,12 @@ class AdminSideBar extends Component {
 
 		this.onChange = this.onChange.bind(this);
 	}
+
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AdminSideBar
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -22,33 +28,38 @@ class AdminSideBar extends Component {
 			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
-		$('.dropdown-button').dropdown({
-			inDuration: 300,
-			outDuration: 225,
-			constrainWidth: false, // Does not change width of dropdown to that of the activator
-			hover: true, // Activate on hover
-			gutter: 0, // Spacing from edge
-			belowOrigin: false, // Displays dropdown below the button
-			alignment: 'left', // Displays dropdown with edge aligned to the left of button
-			stopPropagation: false // Stops event propagation
-		});
 		$('.modal').modal();
 	}
 
-	handleFormSubmit(e) {
-		e.preventDefault();
+
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AdminSideBar
+	 */
+	handleFormSubmit(event) {
+		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
 			.then((message) => {
 				Materialize.toast(message, 2000, 'blue');
 				$('.modal').modal('close');
 			})
-			.catch((err) => err);
+			.catch((error) => Materialize.toast(error, 2000, 'blue'));
 	}
 
-	onChange(e) {
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf AdminSideBar
+	 */
+	onChange(event) {
 		this.setState({
-			[e.target.name]: e.target.value
+			[event.target.name]: event.target.value
 		});
 	}
 	render() {
@@ -126,7 +137,8 @@ class AdminSideBar extends Component {
 							</Link>
 						</li>
 						<li id="menu-list">
-							<a data-target="add_cat" className="modal-trigger" href="#add_cat">
+							<a data-target="add_cat" className="modal-trigger" 
+							href="#add_cat">
 								Add Category<i className="material-icons">add</i>
 							</a>
 						</li>
@@ -156,7 +168,8 @@ class AdminSideBar extends Component {
 								Add Category
 							</h4>
 							<div className="row">
-								<form name="edit_book" className="col s12" onSubmit={this.handleFormSubmit}>
+								<form name="edit_book" className="col s12" 
+								onSubmit={this.handleFormSubmit}>
 									<div className="add-book">
 										<div className="row">
 											<div className="input-field col s12">
@@ -201,6 +214,13 @@ class AdminSideBar extends Component {
 	}
 }
 
+/**
+ * 
+ * 
+ * @param {Function} dispatch 
+ * 
+ * @returns 
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

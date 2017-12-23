@@ -6,9 +6,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/AuthActions';
-import MailSender from '../../utils/MailSender';
+import mailSender from '../../utils/mailSender';
 
-class Header extends Component {
+/**
+ * 
+ * 
+ * @class Header
+ * @extends {Component}
+ */
+export class Header extends Component {
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);
@@ -20,6 +26,12 @@ class Header extends Component {
 		this.onChange = this.onChange.bind(this);
 	}
 
+	/**
+	 * Executes after the component has rendered
+	 * 
+	 * 
+	 * @memberOf Header
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -30,6 +42,13 @@ class Header extends Component {
 		$('.modal').modal();
 	}
 
+	/**
+	 * Logs the user out of the application
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	logout(event) {
 		event.preventDefault();
 
@@ -38,12 +57,26 @@ class Header extends Component {
 		this.context.router.push('/');
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	onChange(event) {
 		this.setState({
 			plan: event.target.value
 		});
 	}
 
+	/**
+	 * Handles form submit
+	 * 
+	 * @param {Object} event 
+	 * 
+	 * @memberOf Header
+	 */
 	onSubmit(event) {
 		event.preventDefault();
 		const data = {
@@ -52,7 +85,7 @@ class Header extends Component {
 			subject: 'Account upgrade Notification'
 		};
 
-		MailSender(data)
+		mailSender(data)
 			.then((status) => {
 				if (status) {
 					swal('Response recieved successfully, an Admin will get back to you.');
@@ -62,6 +95,13 @@ class Header extends Component {
 			.catch((error) => {});
 	}
 
+	/**
+	 * 
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf Header
+	 */
 	render() {
 		const style = {
 			button: {
@@ -83,7 +123,8 @@ class Header extends Component {
 						>
 							<Link to="/">HelloBooks</Link>
 						</div>
-						<a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only right">
+						<a href="#" data-activates="slide-out" 
+						className="button-collapse hide-on-large-only right">
 							<i
 								style={{
 									color: '#fff',
@@ -96,12 +137,15 @@ class Header extends Component {
 						</a>
 						<ul className="right hide-on-med-and-down">
 							<li>
-								<a data-target="search_book" className="modal-trigger" href="#search_book">
+								<a data-target="search_book" 
+								className="modal-trigger" 
+								href="#search_book">
 									<i className="material-icons">search</i>
 								</a>
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" onClick={this.props.actions.logoutAction} 
+								href="#!">
 									<i className="material-icons">exit_to_app</i>
 								</a>
 							</li>
@@ -116,7 +160,8 @@ class Header extends Component {
 								<Link to="/profile">Profile</Link>
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" 
+								onClick={this.props.actions.logoutAction} href="#!">
 									Logout
 								</a>
 							</li>
@@ -210,10 +255,24 @@ Header.PropTypes = {
 	logout: PropTypes.func.isRequired
 };
 
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return { user: state.auth.user.currentUser };
 }
 
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(

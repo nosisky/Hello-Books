@@ -58,11 +58,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 
+app.use('/api/v1', BookRouter);
+
 app.use('/api/v1/category', CategoryRouter);
 
 app.use('/api/v1/users', UserRouter);
-
-app.use('/api/v1/books', BookRouter);
 
 app.use('/api/v1/search', SearchRouter);
 

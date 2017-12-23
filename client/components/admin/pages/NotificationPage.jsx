@@ -6,6 +6,12 @@ import DashboardFooter from '../../includes/DashboardFooter';
 import Notification from '../includes/Notification';
 import Notifications from '../../../utils/Notifications';
 
+/**
+ * 
+ * 
+ * @class NotificationPage
+ * @extends {Component} extends React.Component
+ */
 class NotificationPage extends Component {
 	constructor(props) {
 		super(props);
@@ -13,6 +19,10 @@ class NotificationPage extends Component {
 			data: []
 		};
 	}
+	/**
+	 * ComponentDidMount - Executes when the component successfully renders
+	 * @memberOf NotificationPage
+	 */
 	componentDidMount() {
 		Notifications()
 			.then((data) => {
@@ -22,6 +32,14 @@ class NotificationPage extends Component {
 			})
 			.catch((error) => error);
 	}
+
+	/**
+	 * 
+	 * Displays the component
+	 * @returns {Object}
+	 * 
+	 * @memberOf NotificationPage
+	 */
 	render() {
 		return (
 			<div>

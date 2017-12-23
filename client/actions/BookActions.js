@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+import Materialize from 'materialize-css';
 
 import { ADD_BOOK,
   GET_ALL_BOOKS,
@@ -28,15 +29,18 @@ export function addBookAction(bookDetails) {
     .then((res) => {
       dispatch({
         type: ADD_BOOK,
-        message: res.data.message
+        message: res.data.message,
+        book: res.data.book
       });
+      Materialize.toast('Book added successfully', 1000);
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message));
 }
 
 /**
  * Get all books action
  * @param { Number } page - current Page number  
+ *
  * @returns { Object } - Object containing book data
  */
 export function getAllBooksAction(page) {
@@ -44,16 +48,17 @@ export function getAllBooksAction(page) {
     .then((res) => {
       dispatch({
         type: GET_ALL_BOOKS,
-        data: res.data
+        books: res.data
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
  * Delete book action
  * @param {Number} bookId - Book ID
+ *
  * @returns { String } - string containing API message
  */
 export function deleteBookAction(bookId) {
@@ -65,7 +70,7 @@ export function deleteBookAction(bookId) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -73,6 +78,7 @@ export function deleteBookAction(bookId) {
  * @param {Object} bookData - Object containing Book Data
  * 
  * @param {bookId} bookId - ID of book to be modified
+ *
  * @returns { String } - Messge fro API
  */
 export function modifyBookAction(bookData, bookId) {
@@ -84,7 +90,7 @@ export function modifyBookAction(bookData, bookId) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -102,7 +108,7 @@ export function addCategoryAction(data) {
       });
       return res.data.message;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -141,7 +147,7 @@ export function getRentedBooksAction(userId) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -172,6 +178,7 @@ export function returnBook(userId, bookId) {
 /**
  * Get specific book
  * @param {Number} bookId - Book ID
+ *
  * @returns { Object } - Object containg Book details
  */
 export function getSpecificBook(bookId) {
@@ -183,7 +190,7 @@ export function getSpecificBook(bookId) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
@@ -198,12 +205,13 @@ export function getCategoryAction() {
         data: res.data
       });
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
  * Search for a book action
  * @param {Object} query - Object containg search query
+ *
  * @returns { Object } - response that mateches the serach criteria
  */
 export function searchAction(query) {
@@ -215,5 +223,5 @@ export function searchAction(query) {
       });
       return res.data;
     })
-    .catch(error => error);
+    .catch(error => Materialize.toast(error.response.data.message, 1000));
 }

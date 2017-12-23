@@ -29,9 +29,11 @@ module.exports = {
       'FIREBASE_MESSENGERID',
       'FIREBASE_APIKEY',
       'FIREBASE_URL',
+      'GOOGLE_ID',
       'FIREBASE_PROJECTID',
       'FIREBASE_STORAGEBUCKET',
-      'FIREBASE_STORAGEBUCKET'
+      'FIREBASE_STORAGEBUCKET',
+      'secretKey',
     ]),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),

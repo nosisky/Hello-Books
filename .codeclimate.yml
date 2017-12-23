@@ -2,13 +2,17 @@ engines:
   eslint:
     enabled: true
     checks:
-      import/extensions:
+      comma-dangle:
+        enabled: false
+      no-trailing-spaces:
         enabled: false
   duplication:
     enabled: false
     config:
       languages:
       - javascript
+  fixme:
+    enabled: true
 ratings:
   paths:
   - "**.js"
@@ -21,3 +25,4 @@ exclude_paths:
 - server/models
 - server/seeders
 - server/migrations
+- server/api-docs

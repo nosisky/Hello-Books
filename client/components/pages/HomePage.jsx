@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import NavBar from '../includes/NavBar';
-import AuthForm from '../auth/AuthForm';
+import AuthPage from '../auth/AuthPage';
 import { connect } from 'react-redux';
 import Footer from '../includes/Footer';
 import { registerUserAction, loginAction } from '../../actions/AuthActions';
 
+/**
+ * 
+ * 
+ * @export {Object}
+ * 
+ * @class HomePage
+ * 
+ * @extends {Component}
+ */
 export class HomePage extends Component {
 	render() {
 		if (localStorage.getItem('token')) {
 			this.props.history.push('/dashboard');
 		}
-
 		return (
 			<div>
 				<NavBar />
@@ -27,7 +35,7 @@ export class HomePage extends Component {
 						</div>
 					</div>
 					<div className="col l6 m12 s12">
-						<AuthForm
+						<AuthPage
 							loginAction={this.props.loginAction}
 							registerUserAction={this.props.registerUserAction}
 							userExist={this.props.userExist}
@@ -39,6 +47,14 @@ export class HomePage extends Component {
 		);
 	}
 }
+
+/**
+ * @description mapStateToProps - maps state value to props
+ *
+ * @param  {object} state the store state
+ *
+ * @return {Object} returns state object
+ */
 function mapStateToProps(state) {
 	return {
 		message: state.auth.message,
@@ -46,4 +62,5 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, { registerUserAction, loginAction })(HomePage);
+export default connect(mapStateToProps, 
+	{ registerUserAction, loginAction })(HomePage);

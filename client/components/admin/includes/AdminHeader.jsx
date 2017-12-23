@@ -7,7 +7,13 @@ import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 import { logoutAction } from '../../../actions/AuthActions';
 
-class AdminHeader extends Component {
+export class AdminHeader extends Component {
+
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AdminHeader
+	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
@@ -19,7 +25,7 @@ class AdminHeader extends Component {
 			inDuration: 300,
 			outDuration: 225,
 			constrainWidth: false, // Does not change width of dropdown to that of the activator
-			hover: true, // Activate on hover
+			hover: false, // Activate on hover
 			gutter: 0, // Spacing from edge
 			belowOrigin: false, // Displays dropdown below the button
 			alignment: 'left', // Displays dropdown with edge aligned to the left of button
@@ -28,6 +34,13 @@ class AdminHeader extends Component {
 		$('.modal').modal();
 	}
 
+	/**
+	 * 
+	 * Renders the component
+	 * @memberOf AdminHeader
+	 * 
+	 * @return {Object}
+	 */
 	render() {
 		const style = {
 			account: {
@@ -80,7 +93,8 @@ class AdminHeader extends Component {
 					</ul>
 					<div id="menu">
 						<div style={style.account}>
-							<a style={style.main} className="dropdown-button btn" href="#" data-activates="dropdown1">
+							<a style={style.main} className="dropdown-button btn" href="#" 
+							data-activates="dropdown1">
 								Account
 							</a>
 						</div>
@@ -103,7 +117,14 @@ AdminHeader.PropTypes = {
 	logout: PropTypes.func.isRequired
 };
 
-function mapDispatchToProps(dispatch) {
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
@@ -114,6 +135,13 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
 function mapStateToProps(state) {
 	return { user: state.auth.user.currentUser };
 }

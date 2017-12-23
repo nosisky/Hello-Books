@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
-class AddBook extends Component {
+export class AddBook extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,27 +39,65 @@ class AddBook extends Component {
 		this.handleUploadError = this.handleUploadError.bind(this);
 	}
 
+	/**
+	 * Starts the book cover upload
+	 * @memberOf AddBook
+	 */
 	handleUploadStart() {
 		this.setState({ isUploading: true, progress: 0 });
 	}
+
+	/**
+	 * 
+	 * Displays progress of book upload
+	 * @param {Object} progress 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleProgress(progress) {
 		this.setState({ progress });
 	}
+
+	/**
+	 * 
+	 * Displays error if any during file upload
+	 * @param {Object} error 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleUploadError(error) {
 		this.setState({ isUploading: false });
-		console.error(error);
 	}
 
+	/**
+	 * 
+	 * Completes the file upload and set the state to cover url
+	 * @param {String} filename - Link to uploaded file
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleUploadSuccess(filename) {
-		firebase.storage().ref('images').child(filename).getDownloadURL().then((url) => {
+		firebase.storage().ref('images').child(filename).getDownloadURL()
+		.then((url) => {
 			this.setState({ cover: url, progress: 100 });
 		});
 	}
 
+	/**
+	 * 
+	 * Executes after component is mounted
+	 * @memberOf AddBook
+	 */
 	componentDidMount() {
 		this.props.actions.getCategoryAction();
 	}
 
+	/**
+	 * Executes when text is typed in input box
+	 * @param {Object} event - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	onChange(event) {
 		const name = event.target.name,
 			value = event.target.value;
@@ -67,6 +106,13 @@ class AddBook extends Component {
 		});
 	}
 
+	/**
+	 * 
+	 * Executes when the input box is clicked
+	 * @param {Object} event - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	onFocus(event) {
 		const value = event.target.value,
 			name = event.target.name;
@@ -90,6 +136,15 @@ class AddBook extends Component {
 		}
 	}
 
+	/**
+	 * 
+	 * Executes when the input box lost focus
+	 * @param {Object} event - Object
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf AddBook
+	 */
 	onBlur(event) {
 		const value = event.target.value,
 			name = event.target.name;
@@ -97,13 +152,15 @@ class AddBook extends Component {
 		switch (name) {
 			case 'title':
 				if (value.length < 2 || !value) {
-					this.setState({ titleError: 'Book title must be greater than 2 characters' });
+					this.setState({ 
+						titleError: 'Book title must be greater than 2 characters' });
 					break;
 				}
 
 			case 'author':
 				if (value.length < 2 || !value) {
-					this.setState({ authorError: 'Book author name must be greater than 2 characters' });
+					this.setState({ 
+						authorError: 'Book author name must be greater than 2 characters' });
 					break;
 				}
 			case 'prodYear':
@@ -119,12 +176,20 @@ class AddBook extends Component {
 				}
 			case 'isbn':
 				if (value.length < 5 || !value) {
-					this.setState({ isbnError: 'Book ISBN must be a minimum of 5 characters' });
+					this.setState({ 
+						isbnError: 'Book ISBN must be a minimum of 5 characters' });
 					break;
 				}
 		}
 	}
 
+	/**
+	 * 
+	 * Displays the list of category
+	 * @returns {Array} - Array of category
+	 * 
+	 * @memberOf AddBook
+	 */
 	renderCategory() {
 		let allCat = [];
 		const category = this.props.category;
@@ -141,6 +206,14 @@ class AddBook extends Component {
 		return allCat;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param {Object} event - Submits the form
+	 * @returns 
+	 * 
+	 * @memberOf AddBook
+	 */
 	handleSubmit(event) {
 		if (this.state.cover.length < 5) {
 			Materialize.toast('Please upload book cover', 4000, '#15b39d');
@@ -156,9 +229,16 @@ class AddBook extends Component {
 				});
 				window.location.href = '/admin';
 			})
-			.catch((err) => err);
+			.catch((err) => Materialize.toast(err, 2000, '#15b39d'));
 	}
 
+	/**
+	 * 
+	 * Renders the component
+	 * @returns {Object} - Object
+	 * 
+	 * @memberOf AddBook
+	 */
 	render() {
 		return (
 			<div
@@ -168,7 +248,8 @@ class AddBook extends Component {
 				}}
 			>
 				<div className="row">
-					<form name="add_book" className="col s12 l9 push-l3" onSubmit={this.handleSubmit}>
+					<form name="add_book" className="col s12 l9 push-l3" 
+					onSubmit={this.handleSubmit}>
 						<div className="add-book">
 							<div className="row">
 								<div className="input-field col s6">
@@ -296,7 +377,7 @@ class AddBook extends Component {
 									<br />{' '}
 								</div>
 							)}
-							{this.state.progress === 100 && (
+							{this.state.progress === 100 && this.state.cover.length > 1 && (
 								<div>
 									<img
 										height="50px"
@@ -310,7 +391,7 @@ class AddBook extends Component {
 							)}
 							<ImageUploader
 								name="cover"
-								storageRef={firebase.storage().ref('images')}
+								storageRef={this.props.firebaseStorage}
 								onProgress={this.handleProgress}
 								onUploadSuccess={this.handleUploadSuccess}
 								onUploadStart={this.handleUploadStart}
@@ -323,7 +404,7 @@ class AddBook extends Component {
 								color: '#fff',
 								float: 'right'
 							}}
-							className="btn waves-effect waves-light"
+							className="btn waves-effect"
 							type="submit"
 							name="submit"
 							disabled={this.state.isLoading}
@@ -337,7 +418,14 @@ class AddBook extends Component {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
+/**
+ * 
+ * Maps the state to component Props
+ * @param {Function} dispatch 
+ *
+ * @returns {Object} - Object containing functions
+ */
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
@@ -347,7 +435,15 @@ function mapDispatchToProps(dispatch) {
 		)
 	};
 }
-function mapStateToProps(state) {
+
+/**
+ * 
+ * 
+ * @param {Object} state - Application state
+ *  
+ * @returns {Object} - Selected state
+ */
+export function mapStateToProps(state) {
 	return { category: state.book.category };
 }
 
