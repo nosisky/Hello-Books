@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 const API_URL = '/api/v1/users';
+
 /**
  * setAuthorizationToken - set token to request headers
+ * 
  * @param  {string} token Authorization token
  * 
  * @return {void} no return or void
@@ -29,6 +31,7 @@ export function getUserData(email) {
 
 /**
  * Google account creator
+ * 
  * @param {Object} userDetails - Object containing user details
  * 
  * @returns {null} - null

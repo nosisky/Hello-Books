@@ -8,6 +8,7 @@ import loadJS from 'load-js';
 import App from './components/app';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
+import { logoutAction } from './actions/AuthActions';
 import configureStore from './store/index';
 import { setAuthorizationToken } from '../client/utils/Authorization';
 import { SET_CURRENT_USER } from './actions/types';
@@ -22,7 +23,16 @@ const store = configureStore();
 
 firebase.initializeApp(config);
 
-if (localStorage.token) {
+const token = localStorage.token;
+const key = process.env.secretKey;
+
+if (token) {
+	jwt.verify(token, key, (error) => {
+		if (error) {
+			logoutAction();
+			this.props.history.push('/');
+		}
+	})
 	setAuthorizationToken(localStorage.token);
 	store.dispatch({
 		type: SET_CURRENT_USER,

@@ -10,11 +10,13 @@ export default function(ComposedComponent) {
 	 * 
 	 * 
 	 * @class Authentication
+	 * 
 	 * @extends {Component}
 	 */
 	class Authentication extends Component {
+
 		componentWillMount() {
-			const key = 'Andelahellobooks';
+			const key = process.env.secretKey;
 			const token = localStorage.getItem('token');
 			if (token) {
 				jwt.verify(token, key, (error) => {
@@ -44,7 +46,7 @@ export default function(ComposedComponent) {
 				this.props.history.push('/');
 			}
 		}
-		
+
 		/**
 		 * Renders the component
 		 * 

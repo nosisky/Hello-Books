@@ -20,7 +20,8 @@ class Header extends Component {
 		this.logout = this.logout.bind(this);
 
 		this.state = {
-			plan: ''
+			plan: '',
+			search: ''
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -65,8 +66,12 @@ class Header extends Component {
 	 * @memberOf Header
 	 */
 	onChange(event) {
+		console.log(this.state, '===>')
+		const name = event.target.name;
+		const value = event.target.value;
+
 		this.setState({
-			plan: event.target.value
+			name: value
 		});
 	}
 
@@ -214,17 +219,15 @@ class Header extends Component {
 						<div className="row">
 							<form
 								name="search_book"
-								action="/search"
 								className="col s12"
-								onSubmit={this.handleFormSubmit}
 							>
 								<div className="add-book">
 									<div className="row">
 										<div className="input-field col s12">
 											<input
-												id="name"
+												id="search"
 												type="text"
-												name="text"
+												name="search"
 												onChange={this.onChange}
 												className="validate"
 												required
@@ -233,14 +236,13 @@ class Header extends Component {
 										</div>
 									</div>
 								</div>
-								<button
+								<Link
+									to={`search?text=this`}
 									style={style.button}
-									className="btn waves-effect waves-light"
-									type="submit"
-									name="submit"
+									className="btn waves-effect"
 								>
 									Search
-								</button>
+								</Link>
 							</form>
 						</div>
 					</div>
