@@ -21,7 +21,6 @@ export class Profile extends React.Component {
 			profile: true
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
-<<<<<<< HEAD
     this.displayEdit = this.displayEdit.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -98,8 +97,6 @@ export class Profile extends React.Component {
 		const name = event.target.name,
 			value = event.target.value;
 		this.setState({ [name]: value });
-=======
->>>>>>> origin/chore/153436554/implement-more-tests
 	}
 
 	/**

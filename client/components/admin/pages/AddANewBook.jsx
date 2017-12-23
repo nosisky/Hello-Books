@@ -28,12 +28,9 @@ export class AddANewBook extends Component {
 				<AdminHeader />
 				<AdminSideBar fullname={this.props.user.fullname} 
         isAdmin={this.props.user.isAdmin} />
-<<<<<<< HEAD
-=======
 				<AddBook 
 				firebaseStorage={firebase.storage().ref('images')}
 				onSubmit={this.props.addBookAction} />
->>>>>>> origin/chore/153436554/implement-more-tests
 			</div>
 		);
 	}

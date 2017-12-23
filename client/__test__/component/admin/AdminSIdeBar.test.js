@@ -33,7 +33,7 @@ describe('Component: AdminSideBar', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(12);
-    expect(wrapper.find('Link').length).toBe(5);
+    expect(wrapper.find('Link').length).toBe(4);
   })
   it('tests that the component received the user props', () => {
     const wrapper = setup();

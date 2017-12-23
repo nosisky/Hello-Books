@@ -1,6 +1,6 @@
 import { setAuthorizationToken } from '../../utils/Authorization';
 
-describe('# Set Authorization Token', () => {
+describe('#Set Authorization Token', () => {
   it('should set axios header when token is passed', () => {
     setAuthorizationToken('sampleToken');
   });

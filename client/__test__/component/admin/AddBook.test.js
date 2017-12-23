@@ -6,7 +6,7 @@ import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { AddBook, mapStateToProps,
   mapDispatchToProps
- } from '../../../components/admin/includes/AddBook';
+ } from '../../../components/admin/includes/AddBookModal';
 import localStorageMock from '../../__mocks__/mockLocalStorage';
 
 window.localStorage = new localStorageMock();
@@ -21,6 +21,7 @@ const setup = () => {
 	props = {
     actions: {
       getCategoryAction: jest.fn(),
+      addBookAction: jest.fn(() => Promise.resolve(1))
     },
     onSubmit: jest.fn(() => Promise.resolve(1)),
     storageRef: {
