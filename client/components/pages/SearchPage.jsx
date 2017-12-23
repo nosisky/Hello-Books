@@ -31,6 +31,12 @@ class SearchPage extends Component {
 	 * @memberOf SearchPage
 	 */
 	componentDidMount() {
+		const	elements = document.getElementsByClassName('modal-overlay');	
+		if(elements[0]) {
+			console.log(elements[0])
+			elements[0].style.opacity=0;
+		}
+
 		if (!location.search) {
 			window.location = '/dashboard';
 		}

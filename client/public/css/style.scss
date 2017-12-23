@@ -461,6 +461,15 @@ h5 {
 	margin: 33px !important;
 }
 
+#sidenav-overlay{
+  background: none !important;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+	margin-left: 10px;
+	margin-right: 8px;
+}
+
 .tag-name {
 	float: right;
 	font-weight: initial;

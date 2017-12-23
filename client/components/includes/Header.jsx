@@ -40,7 +40,16 @@ export class Header extends Component {
 			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
+		$(".dropdown-button").dropdown();
 		$('.modal').modal();
+		document.getElementById("search_book")
+    .addEventListener("keyup", function(event) {
+		event.preventDefault();
+    if (event.keyCode === 13) {
+				document.getElementById("submit_search").click();
+		}
+		
+});
 	}
 
 	/**
@@ -71,7 +80,7 @@ export class Header extends Component {
 		const value = event.target.value;
 
 		this.setState({
-			name: value
+			[name]: value
 		});
 	}
 
@@ -120,16 +129,9 @@ export class Header extends Component {
 			<div id="menu">
 				<nav>
 					<div className="nav-wrapper">
-						<div
-							className="left"
-							style={{
-								fontSize: 'x-large'
-							}}
-						>
-							<Link to="/">HelloBooks</Link>
-						</div>
+
 						<a href="#" data-activates="slide-out" 
-						className="button-collapse hide-on-large-only right">
+						className="button-collapse hide-on-large-only left">
 							<i
 								style={{
 									color: '#fff',
@@ -140,6 +142,17 @@ export class Header extends Component {
 								menu
 							</i>
 						</a>
+								<a 
+								className="right hide-on-large-only" 
+								name="logout" onClick={this.props.actions.logoutAction} 
+								href="#!">
+									<i className="material-icons">exit_to_app</i>
+								</a>
+								<a data-target="search_book" 
+								className="modal-trigger right hide-on-large-only" 
+								href="#search_book">
+									<i className="material-icons">search</i>
+								</a> 
 						<ul className="right hide-on-med-and-down">
 							<li>
 								<a data-target="search_book" 
@@ -169,7 +182,7 @@ export class Header extends Component {
 								onClick={this.props.actions.logoutAction} href="#!">
 									Logout
 								</a>
-							</li>
+							</li>																				
 							<li>
 								<a className="modal-trigger" href="#plan">
 									Upgrade Plan
@@ -217,15 +230,12 @@ export class Header extends Component {
 							Search for a book
 						</h4>
 						<div className="row">
-							<form
-								name="search_book"
-								className="col s12"
-							>
+							<div className="col s12">
 								<div className="add-book">
 									<div className="row">
 										<div className="input-field col s12">
 											<input
-												id="search"
+												id="search_book"
 												type="text"
 												name="search"
 												onChange={this.onChange}
@@ -236,14 +246,15 @@ export class Header extends Component {
 										</div>
 									</div>
 								</div>
-								<Link
-									to={`search?text=this`}
+							</div>
+							<Link
+									id="submit_search"
+									to={`search?text=${this.state.search}`}
 									style={style.button}
 									className="btn waves-effect"
 								>
 									Search
 								</Link>
-							</form>
 						</div>
 					</div>
 				</div>
