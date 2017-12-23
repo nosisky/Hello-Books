@@ -1,5 +1,6 @@
 import React from 'react';
 import expect from 'expect';
+import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import  NavBar from '../../../components/includes/NavBar';

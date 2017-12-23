@@ -14,7 +14,7 @@ import mailSender from '../../utils/mailSender';
  * @class Header
  * @extends {Component}
  */
-class Header extends Component {
+export class Header extends Component {
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);

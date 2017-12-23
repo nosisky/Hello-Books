@@ -26,7 +26,7 @@ describe('Auth Reducer', () => {
     expect(newState.user.currentUser.userName).toEqual('Dealwap');
     expect(newState.user.currentUser.email).toEqual('nosisky@gmail.com');
   });
-  it('should return initial state for invalid type', () => {
+  it('should return initial state for invalid action type', () => {
     const initialState = {
       authenticated: false,
       user: {

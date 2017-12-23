@@ -29,6 +29,7 @@ export function getUserData(email) {
     .catch(error => error);
 }
 
+<<<<<<< HEAD
 /**
  * Google account creator
  * 
@@ -59,3 +60,5 @@ export function editProfile(userId, userData) {
       .then(res => res.data.token))
     .catch(error => error.data.response);
 }
+=======
+>>>>>>> origin/chore/153436554/implement-more-tests

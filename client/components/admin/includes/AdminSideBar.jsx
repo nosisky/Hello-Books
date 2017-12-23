@@ -6,7 +6,7 @@ import { addCategoryAction } from '../../../actions/BookActions';
 import AddBookModal from '../includes/AddBookModal';
 
 
-class AdminSideBar extends Component {
+export class AdminSideBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

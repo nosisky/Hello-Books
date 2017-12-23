@@ -13,7 +13,7 @@ describe('Book Reducer:', () => {
       books,
     };
     const newState = bookReducer(initialState, action);
-    expect(action.data.rows[0].title).toEqual('test');
+    expect(action.books.rows[0].title).toEqual('test');
     expect(newState.data.length).toEqual(2);
   });
 

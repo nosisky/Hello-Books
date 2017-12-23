@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
  * @class SideBar
  * @extends {Component}
  */
-class SideBar extends Component {
+export class SideBar extends Component {
 
 	/**
 	 * Executes after the component has rendered

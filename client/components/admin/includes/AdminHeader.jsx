@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 import { logoutAction } from '../../../actions/AuthActions';
 
-class AdminHeader extends Component {
+export class AdminHeader extends Component {
 
 	/**
 	 * 
@@ -124,7 +124,7 @@ AdminHeader.PropTypes = {
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
