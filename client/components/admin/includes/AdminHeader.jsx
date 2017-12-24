@@ -28,7 +28,7 @@ export class AdminHeader extends Component {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
 			edge: 'left', // Choose the horizontal origin
-			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
 		$('.dropdown-button').dropdown({
@@ -46,7 +46,7 @@ export class AdminHeader extends Component {
 
 	/**
 	 * 
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @memberOf AdminHeader
 	 * 
@@ -110,7 +110,8 @@ export class AdminHeader extends Component {
 							</a>
 						</div>
 						<div id="content">
-							<a href="#" data-activates="slide-out" className="button-collapse hide-on-large-only">
+							<a href="#" data-activates="slide-out" 
+							className="button-collapse hide-on-large-only">
 								<i style={style.menuIcon} className="material-icons">
 									menu
 								</i>

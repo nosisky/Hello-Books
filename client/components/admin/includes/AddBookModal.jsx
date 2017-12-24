@@ -19,7 +19,7 @@ import ImageUploader from 'react-firebase-image-uploader';
 export class AddBook extends Component {
 
 	/**
-	 * Creates an instance of AddBook.
+	 * @description - Creates an instance of AddBook.
 	 * 
 	 * @param {Object} props - Componnet props data
 	 * 

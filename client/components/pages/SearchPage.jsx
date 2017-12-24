@@ -12,7 +12,7 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- *  @description SearchPage component
+ * @description SearchPage component
  * 
  * @class SearchPage
  * 
@@ -28,13 +28,11 @@ class SearchPage extends Component {
 	/**
 	 * @description Displays search result
 	 * 
-	 * 
 	 * @memberOf SearchPage
 	 */
 	componentDidMount() {
 		const	elements = document.getElementsByClassName('modal-overlay');	
 		if(elements[0]) {
-			console.log(elements[0])
 			elements[0].style.opacity=0;
 		}
 
@@ -43,7 +41,10 @@ class SearchPage extends Component {
 		}
 		const page = location.search.split('=')[1];
 		const result = page.split('&')[0];
+		if(result.length > 1){
 		this.props.actions.searchAction({ search: result });
+		
+		}
 	}
 
 	/**

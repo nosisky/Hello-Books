@@ -18,7 +18,7 @@ import { deleteBookAction,
 export class AllBooks extends Component {
 
 	/**
-	 * Creates an instance of AllBooks.
+	 * @description - Creates an instance of AllBooks.
 	 * 
 	 * @param {Object} props - component properties
 	 * 
@@ -46,7 +46,7 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Handles the delete book action
+	 * @description - Handles the delete book action
 	 * 
 	 * @memberOf AllBooks
 	 */
@@ -70,7 +70,7 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Toggles the application display
+	 * @description - Toggles the application display
 	 * 
 	 * @memberOf AllBooks
 	 */
@@ -83,7 +83,7 @@ export class AllBooks extends Component {
 
 	/**
 	 *
-	 * Toggles the application display
+	 * @description - Toggles the application display
 	 * 
 	 * @memberOf AllBooks
 	 */
@@ -93,7 +93,7 @@ export class AllBooks extends Component {
 	
 	/**
 	 * 
-	 * Submits the form data
+	 * @description - Submits the form data
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -110,7 +110,7 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Sets user input in component local sttae
+	 * @description - Sets user input in component local sttae
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -124,7 +124,7 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @returns {Object}
 	 * 
@@ -255,7 +255,7 @@ export class AllBooks extends Component {
 
 /**
  * 
- * Maps dispatch to the component props
+ * @description - Maps dispatch to the component props
  * 
  * @param {Object} dispatch 
  * 

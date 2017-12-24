@@ -4,7 +4,8 @@ const API_URL = '/api/v1/users';
 
 /**
  * 
- * Check if username exists
+ * @description - Check if username exists
+ * 
  * @param {object} detail - user details 
  *
  * @returns {String} - String
@@ -18,7 +19,8 @@ export function checkUserExist(detail) {
 
 /**
  * 
- * Check if email exists
+ * @description - Check if email exists
+ * 
  * @param {object} detail - User email
  *
  * @returns {String} - String

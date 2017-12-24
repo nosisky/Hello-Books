@@ -18,7 +18,7 @@ import AddBookModal from '../includes/AddBookModal';
 export class AdminSideBar extends Component {
 
 	/**
-	 * Creates an instance of AdminSideBar.
+	 * @description - Creates an instance of AdminSideBar.
 	 * 
 	 * @param {Object} props - component properties
 	 * 
@@ -37,7 +37,7 @@ export class AdminSideBar extends Component {
 
 	/**
 	 * 
-	 * Executes after component is mounted
+	 * @description - Executes after component is mounted
 	 * 
 	 * @memberOf AdminSideBar
 	 */
@@ -45,7 +45,7 @@ export class AdminSideBar extends Component {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
 			edge: 'left', // Choose the horizontal origin
-			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
 		$('.modal').modal();
@@ -53,7 +53,7 @@ export class AdminSideBar extends Component {
 
 
 	/**
-	 * Submits the user input
+	 * @description - Submits the user input
 	 * 
 	 * @param {Object} event - form data object
 	 * 
@@ -66,7 +66,7 @@ export class AdminSideBar extends Component {
 	}
 
 	/**
-	 * Sets the user input in the local state
+	 * @description - Sets the user input in the local state
 	 * 
 	 * @param {Object} event - form data object
 	 * 
@@ -79,7 +79,7 @@ export class AdminSideBar extends Component {
 	}
 
 	/**
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @returns {Object}
 	 * 
@@ -235,7 +235,7 @@ export class AdminSideBar extends Component {
 }
 
 /**
- * Maps dispatch to component props
+ * @description - Maps dispatch to component props
  * 
  * @param {Function} dispatch 
  * 

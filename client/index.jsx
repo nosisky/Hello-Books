@@ -17,11 +17,12 @@ import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
 import './public/css/style.scss';
 import firebase from 'firebase';
-import FirebaseConfig from './utils/FirebaseConfig';
+import firebaseConfig from './utils/FirebaseConfig';
 
 const store = configureStore();
 
-firebase.initializeApp(config);
+//Initalize firebase
+firebase.initializeApp(firebaseConfig);
 
 const token = localStorage.token;
 const key = process.env.secretKey;
