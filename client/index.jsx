@@ -31,7 +31,6 @@ if (token) {
 	jwt.verify(token, key, (error) => {
 		if (error) {
 			logoutAction();
-			this.props.history.push('/');
 		}
 	})
 	setAuthorizationToken(localStorage.token);

@@ -39,7 +39,6 @@ export default function (ComposedComponent) {
 					}
 				});
 			}
-
 			if (!this.props.authenticated) {
 				this.props.history.push('/');
 			}
@@ -96,7 +95,7 @@ export default function (ComposedComponent) {
 	}
 
 	/**
-	 *@description -  Maps dispatch to the component
+	 * @description -  Maps dispatch to the component
 	 * 
 	 * @param {Object} - Whole application state 
 	 * 
