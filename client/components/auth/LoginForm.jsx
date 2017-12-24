@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from './GoogleLogin';
-import { checkEmailExist, reMap } from '../../utils/Validation';
+import { checkEmailExist, reMap } from '../../utils/validation';
 import { registerUserAction, 
 	getUserByEmailAction } from '../../actions/AuthActions';
 import { connect } from 'react-redux';

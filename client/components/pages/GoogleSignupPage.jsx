@@ -6,7 +6,7 @@ import { decode } from 'jsonwebtoken';
 import Footer from '../includes/Footer';
 import { registerUserAction } from '../../actions/AuthActions';
 import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+	checkEmailExist, reMap } from '../../utils/validation';
 
 /**
  * 

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Validation from '../middleware/Validation';
+import Validation from '../middleware/validation';
 import UserController from '../controllers/User';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/Book';

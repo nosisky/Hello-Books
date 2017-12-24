@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { checkUserExist, 
-  checkEmailExist, reMap } from '../../utils/Validation';
+  checkEmailExist, reMap } from '../../utils/validation';
   
 /**
  * @description - Edit profile modal component

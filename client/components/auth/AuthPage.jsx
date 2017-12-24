@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import LoginForm from './LoginForm';
 import RegisterationForm from './RegisterationForm';
 import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+	checkEmailExist, reMap } from '../../utils/validation';
 
 const AuthPage = ({ registerUserAction, loginAction, message }) => {
 	return (

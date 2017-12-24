@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { editProfileAction } from '../../actions/AuthActions';
 import DashboardFooter from '../includes/DashboardFooter';
 import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+	checkEmailExist, reMap } from '../../utils/validation';
 import EditProfileModal from '../includes/EditProfileModal';
 
 /**
