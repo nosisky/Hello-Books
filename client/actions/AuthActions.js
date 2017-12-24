@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Materialize from 'materialize-css';
 
-import { setAuthorizationToken } from '../utils/Authorization';
+import { setAuthorizationToken } from '../utils/authorization';
 
 import { SET_CURRENT_USER, UNAUTH_USER, EDIT_PROFILE } from './types';
 
