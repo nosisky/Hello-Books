@@ -13,6 +13,7 @@ import { logoutAction } from '../../actions/AuthActions';
  * @returns {Void} - nothing
  */
 export default function(ComposedComponent) {
+
 	/**
 	 * 
 	 * 
@@ -65,7 +66,7 @@ export default function(ComposedComponent) {
 			return <ComposedComponent {...this.props} />;
 		}
 	}
-	
+
 	/**
 	 * @description - Maps dispatch to the application action creators
 	 * 

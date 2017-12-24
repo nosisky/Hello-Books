@@ -42,6 +42,7 @@ export class Header extends Component {
 	 * @memberOf Header
 	 */
 	componentDidMount() {
+		const self = this;
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
 			edge: 'left', // Choose the horizontal origin
@@ -53,8 +54,10 @@ export class Header extends Component {
 		document.getElementById("search_book")
     .addEventListener("keyup", function(event) {
 		event.preventDefault();
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && self.state.search.length > 0) {
 				document.getElementById("submit_search").click();
+		} else {
+			Materialize.toast('Type in something', 2000, 'red');
 		}
 		
 });
@@ -246,7 +249,7 @@ export class Header extends Component {
 												type="text"
 												name="search"
 												onChange={this.onChange}
-												className="validate"
+												className="validate" 
 												required
 											/>
 											<label htmlFor="isbn">What do you want?</label>

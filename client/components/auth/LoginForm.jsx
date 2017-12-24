@@ -35,7 +35,6 @@ export default class LoginForm extends Component {
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	/**
@@ -64,7 +63,7 @@ export default class LoginForm extends Component {
 	}
 
 	/**
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @returns 
 	 * 
