@@ -4,7 +4,7 @@ import AdminHeader from '../includes/AdminHeader';
 import AdminSideBar from '../includes/AdminSideBar';
 import DashboardFooter from '../../includes/DashboardFooter';
 import Notification from '../includes/Notification';
-import Notifications from '../../../utils/Notifications';
+import notifications from '../../../utils/notifications';
 
 /**
  * 
@@ -35,7 +35,7 @@ class NotificationPage extends Component {
 	 * @memberOf NotificationPage
 	 */
 	componentDidMount() {
-		Notifications()
+		notifications()
 			.then((data) => {
 				this.setState({
 					data
@@ -58,7 +58,9 @@ class NotificationPage extends Component {
 				<AdminHeader />
 				<div className="row">
 					<div className="col l3">
-						<AdminSideBar />
+						<AdminSideBar 
+						fullname={this.props.user.fullName} 
+        		isAdmin={this.props.user.isAdmin}/>
 					</div>
 					<div className="col l9 m12 s12">
 						{this.state.data.map((response) => {
@@ -80,4 +82,8 @@ class NotificationPage extends Component {
 	}
 }
 
-export default NotificationPage;
+function mapStateToProps(state){
+	user: state.auth.user
+}
+
+export default connect(mapStateToProps)(NotificationPage);

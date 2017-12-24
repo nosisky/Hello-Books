@@ -42,7 +42,6 @@ export class Header extends Component {
 	 * @memberOf Header
 	 */
 	componentDidMount() {
-		const self = this;
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
 			edge: 'left', // Choose the horizontal origin
@@ -52,16 +51,17 @@ export class Header extends Component {
 		$(".dropdown-button").dropdown();
 		$('.modal').modal();
 		document.getElementById("search_book")
-    .addEventListener("keyup", function(event) {
+    .addEventListener("keyup", (event) => {
 		event.preventDefault();
-    if (event.keyCode === 13 && self.state.search.length > 0) {
+    if (event.keyCode === 13 && this.state.search.length > 0) {
 				document.getElementById("submit_search").click();
-		} else {
-			Materialize.toast('Type in something', 2000, 'red');
+		} 
+		else if(event.keyCode === 13 && this.state.search.length < 1) {
+			Materialize.toast('Please type in your search query', 2000, 'red');
+			$('.modal').modal('close');
 		}
-		
-});
-	}
+	});
+}
 
 	/**
 	 * @description - Logs the user out of the application
@@ -116,7 +116,7 @@ export class Header extends Component {
 					$('#plan').modal('close');
 				}
 			})
-			.catch((error) => {});
+			.catch((error) => Materialize.toast(error, 1000, 'red'));
 	}
 
 	/**

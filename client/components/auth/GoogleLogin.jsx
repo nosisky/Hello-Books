@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { getUserData, registerGoogleUser } from '../../utils/Authorization';
+import { getUserData, registerGoogleUser } from '../../utils/authorization';
 
 dotenv.load();
 
