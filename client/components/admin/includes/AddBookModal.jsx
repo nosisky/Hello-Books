@@ -242,14 +242,10 @@ export class AddBook extends Component {
 	 * @memberOf AddBook
 	 */
 	handleSubmit(event) {
-		if (this.state.cover.length < 5) {
-			Materialize.toast('Please upload book cover', 4000, '#15b39d');
-			event.preventDefault();
-			return false;
-		}
 		event.preventDefault();
 		this.props.actions
 			.addBookAction(this.state)
+		document.getElementById("book_form").reset();
 	}
 
 	/**
@@ -275,6 +271,7 @@ export class AddBook extends Component {
 								Add Book
 				</h4>
 					<form name="add_book"
+					id="book_form"
 					onSubmit={this.handleSubmit}>
 						<div className="add-book">
 							<div className="row">
@@ -379,7 +376,7 @@ export class AddBook extends Component {
 									<div className="red-text">{this.state.descError}</div>
 								</div>
 							</div>
-							<span>Upload Cover</span>
+							<span>Upload Cover (Default cover will be used if omitted)</span>
 							<br />
 							<br />
 							{this.state.isUploading &&

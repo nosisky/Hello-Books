@@ -63,6 +63,7 @@ export class AdminSideBar extends Component {
 		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
+			document.getElementById("category_form").reset();
 	}
 
 	/**
@@ -188,7 +189,10 @@ export class AdminSideBar extends Component {
 								Add Category
 							</h4>
 							<div className="row">
-								<form name="edit_book" className="col s12" 
+								<form 
+								id="category_form"
+								name="edit_book" 
+								className="col s12" 
 								onSubmit={this.handleFormSubmit}>
 									<div className="add-book">
 										<div className="row">
@@ -218,7 +222,7 @@ export class AdminSideBar extends Component {
 									</div>
 									<button
 										style={style.button}
-										className="btn waves-effect waves-light"
+										className="btn waves-effect"
 										type="submit"
 										name="submit"
 									>
