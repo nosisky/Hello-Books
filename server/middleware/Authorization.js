@@ -5,12 +5,16 @@ import omit from 'lodash/omit';
 import database from '../models/';
 
 dotenv.load();
+
 const key = process.env.secretKey;
 const { User } = database;
 const { RentedBook } = database;
 
-export default {
-  /** Validates users login information
+const Authorization =  {
+
+  /** 
+   * @description - Validates users login information
+   * 
    * @param  {Object} req - request
    *
    * @param  {Object} res - response
@@ -40,7 +44,9 @@ export default {
     });
   },
 
-  /** Get all users in the database
+  /** 
+   * @description - fetches all users from the database
+   * 
    * @param  {Object} request 
    * 
    * @param  {Object} response
@@ -52,7 +58,9 @@ export default {
       .catch(error => res.status(404).send(error));
   },
 
-  /** Checks if logged in user has valid AUTH token
+  /** 
+   * @description - Checks if logged in user has valid AUTH token
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -89,7 +97,9 @@ export default {
       });
     }
   },
-  /** Checks if currently logged in user is an admin
+  /** 
+   * @description - Checks if currently logged in user is an admin
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -113,7 +123,9 @@ export default {
     }
   },
 
-  /** Checks if user has rented a book before
+  /** 
+   * @description - Checks if user has rented a book before
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -142,7 +154,8 @@ export default {
 
   /**
    * 
-   * Gets user data from the database
+   * @description - Gets user data from the database
+   * 
    * @param {Object} req - request
    *
    * @param {Object} res - response
@@ -168,8 +181,8 @@ export default {
   },
 
   /**
+   * @description - Check the rentedbook limit limit
    * 
-   *  Check the rentedbook limit limit
    * @param {Object} req - request
    *
    * @param {Object} res - response
@@ -223,8 +236,8 @@ export default {
   },
 
   /**
+   * @description -  Get users by email address
    * 
-   *  Get users by email address
    * @param {Object} req - request
    *
    * @param {Object} res - response
@@ -254,3 +267,5 @@ export default {
       .catch(error => res.status(404).send(error));
   }
 };
+
+export default Authorization;

@@ -3,7 +3,10 @@ import database from '../models';
 const { RentedBook, Book, Category, Notification } = database;
 
 const bookController = {
-  /** Admin add new book
+
+  /** 
+   * @description - Admin add new book
+   * 
    * @param  {object} req request
    * 
    * @param  {object} res response
@@ -22,6 +25,17 @@ const bookController = {
       .catch(error => res.status(500).send(error));
   },
 
+  /**
+   * @description - Notified the admin on any transaction
+   * 
+   * @param {number} userId - User ID
+   * 
+   * @param {String} username 
+   * 
+   * @param {String} bookTitle 
+   * 
+   * @param {String} type 
+   */
   createNotification(userId, username, bookTitle, type) {
     Notification.create({
       userId,
@@ -29,13 +43,16 @@ const bookController = {
     });
   },
 
-  /** User rent book
+  /** 
+   * @description - User rent book
+   * 
    * @param  {object} req - request
    * 
    * @param  {object} res - response
    * 
-   * ROUTE: POST: /users/:userId/books
    * @return {Object} - Success message
+   * 
+   * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
     const cur = new Date(),
@@ -79,12 +96,13 @@ const bookController = {
   },
 
   /**
-   * Retrieves all recent notifications from the database
+   * @description - Retrieves all recent notifications from the database
+   * 
    * @param {Object} req - request
    * 
    * @param {Object} res - response
    * 
-   * @return {Array} - data
+   * @return {Array} - Lists of notifications
    */
   getNotification(req, res) {
     const limit = 10,
@@ -102,13 +120,16 @@ const bookController = {
       });
   },
 
-  /** displays all books
-   * @param  {object} req request
+  /** 
+   * @description - displays all books
    * 
-   * @param  {object} res response
+   * @param  {object} req - request
+   * 
+   * @param  {object} res - response
+   * 
+   * @return {Object} - Book details
    * 
    *  Route: GET: /api/books
-   * @return {Object} - Book details
    */
   getBooks(req, res) {
     const pageNum = Number(req.query.page);
@@ -138,10 +159,12 @@ const bookController = {
       .catch(error => res.status(500).send(error));
   },
 
-  /** Adds a new category
-   * @param  {object} req request
+  /** 
+   * @description - Adds a new category
    * 
-   * @param  {Object} res response
+   * @param  {object} req - request
+   * 
+   * @param  {Object} res - response
    * 
    * @return {Object} - return lists of category
    */
@@ -161,13 +184,16 @@ const bookController = {
         })
       );
   },
-  /** Dislay users rented books
+  /** 
+   * @description - Dislay users rented books
+   * 
    * @param  {object} req - request
    * 
    * @param  {Object} res - response
    * 
-   * Route: GET: //api/users/:UserId/books?returned=false
    * @return {Object} - Status code and book data
+   * 
+   * Route: GET: //api/users/:UserId/books?returned=false
    */
   rentedBooks(req, res) {
     return RentedBook.findAll({
@@ -188,13 +214,14 @@ const bookController = {
       .catch(error => res.status(500).send(error));
   },
 
-  /** Admin modify book details
+  /** 
+   * @description - Admin modify book details
+   * 
    * @param  {object} req - request
    * 
-   * @param  {object}  res -resonse
+   * @param  {object}  res - resonse
    * 
-   * Route: GET: /
-   * @return {Object} - Success message
+   * @return {Object} - Newly modified book
    */
   modifyBook(req, res) {
     return Book.update(req.body, {
@@ -212,13 +239,17 @@ const bookController = {
       })
       .catch(error => res.status(500).send(error));
   },
-  /** User get a specific book
+  /** 
+   * @description - User get a specific book
+   * 
    * @param  {Object} req - request
    * 
    * @param  {Object} res - response
    * 
-   * Route: GET: /books/:bookId 
    * @returns {Object} - status code and book details
+   * 
+   * Route: GET: /books/:bookId 
+   * 
    */
   getOneBook(req, res) {
     return Book.findAll({
@@ -231,13 +262,18 @@ const bookController = {
       })
       .catch(error => res.status(500).send(error));
   },
-  /** Admin delete a book
+
+  /** 
+   * @description - Admin delete a book
+   * 
    * @param  {Object} req - request
    * 
    * @param  {Object} res - reponse
    * 
-   * ROute: DELETE: /books/delete/:bookId
    * @returns {Object} - returns success message
+   * 
+   * Route: DELETE: /books/delete/:bookId
+   * 
    */
   deleteBook(req, res) {
     return Book.destroy({
@@ -253,13 +289,17 @@ const bookController = {
       })
       .catch(error => res.status(500).send(error));
   },
-  /** Get rented books by a specific user
+
+  /** 
+   * @description - Get rented books by a specific user
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
    * 
-   * Route: GET: /books/logs/:userId
    * @returns {Object} - return lists of rented book by a user
+   *
+   * Route: GET: /books/logs/:userId
    */
   rentedBookByUser(req, res) {
     return RentedBook.findAll({
@@ -278,13 +318,18 @@ const bookController = {
       })
       .catch(error => res.status(500).send({ message: error }));
   },
-  /** User return rented book
+
+  /** 
+   * @description - User return rented book
+   * 
    * @param  {object} req - request
    * 
    * @param  {object} res - response
    * 
-   * Route: PUT: /users/:userId/books
    * @return {Object} - return list of rented books
+   * 
+   * Route: PUT: /users/:userId/books
+   * 
    */
   returnBook(req, res) {
     const querier = req.body.bookId || req.params.bookId;
@@ -329,13 +374,17 @@ const bookController = {
       .catch(error => res.status(500).send(error));
   },
 
-  /** Gets the list of category from database
+  /** 
+   * @description - Gets the list of category from database
+   * 
    * @param  {object} req - request
    * 
    * @param  {object} res - response
    * 
-   * Route: PUT: /books/category
    * @return {Object} - Return category from database
+   * 
+   * Route: PUT: /books/category
+   * 
    */
   getCategory(req, res) {
     return Category.findAll({})
@@ -347,7 +396,8 @@ const bookController = {
 
   /**
    * 
-   * Book search controller
+   * @description - Book search controller
+   * 
    * @param {Object} req - request
    * 
    * @param {Object} res - response

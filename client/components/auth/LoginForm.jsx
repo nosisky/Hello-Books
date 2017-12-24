@@ -9,7 +9,7 @@ import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
 /**
- * 
+ * @description - Login form component
  * 
  * @export {Object} Login component
  * 
@@ -17,7 +17,15 @@ import jwt from 'jsonwebtoken';
  * 
  * @extends {Component}
  */
-export default class Login extends Component {
+export default class LoginForm extends Component {
+
+	/**
+	 * @description - Creates an instance of Login.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf Login
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -31,7 +39,7 @@ export default class Login extends Component {
 	}
 
 	/**
-	 * Handles the input value changes
+	 * @description - Handles the input value changes
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -44,20 +52,7 @@ export default class Login extends Component {
 	}
 
 	/**
-	 * Submits forgot user password submission
-	 * 
-	 * @param {Object} event 
-	 * 
-	 * @memberOf Login
-	 */
-	handleFormSubmit(event) {
-		event.preventDefault();
-		getUserByEmailAction({ email: event.target.value })
-		.then((res) => {});
-	}
-
-	/**
-	 * Submits the login information
+	 * @description - Submits the login information
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -85,49 +80,6 @@ export default class Login extends Component {
 		};
 		return (
 			<div id="login" className="col s12">
-				<div id="forgot_password" className="modal">
-					<div className="modal-content">
-						<h4
-							style={{
-								alignContent: 'center'
-							}}
-						>
-							Request For a new password
-						</h4>
-						<div className="row">
-							<form
-								name="forgot_pass"
-								action="/search"
-								className="col s12"
-								onSubmit={this.handleFormSubmit}
-							>
-								<div className="add-book">
-									<div className="row">
-										<div className="input-field col s12">
-											<input
-												id="name"
-												type="email"
-												name="text"
-												onChange={this.onChange}
-												className="validate"
-												required
-											/>
-											<label htmlFor="isbn">Enter your Email</label>
-										</div>
-									</div>
-								</div>
-								<button
-									style={style.button}
-									className="btn waves-effect waves-light"
-									type="submit"
-									name="submit"
-								>
-									Search
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
 				<div className="red-text center">{this.state.loginError}</div>
 				<form className="col s12" onSubmit={this.handleSubmit}>
 					<div className="form-container">

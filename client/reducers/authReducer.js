@@ -13,7 +13,8 @@ const INITIAL_STATE = {
   authenticated: false };
 
 /**
- *
+ * @description - User authentication reducer
+ * 
  * @param {Object} state - Default application state
  * 
  * @param {Object} action - Response from the API

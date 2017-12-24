@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_URL = '/api/v1/users';
 
 /**
- * setAuthorizationToken - set token to request headers
+ * @description - setAuthorizationToken - set token to request headers
  * 
  * @param  {string} token Authorization token
  * 
@@ -18,7 +18,8 @@ export function setAuthorizationToken(token) {
 }
 
 /**
- *
+ * @description - Retrieves user data from database
+ * 
  * @param {Object} email - Object containing email
  * 
  * @returns {Object} - Object containing user data

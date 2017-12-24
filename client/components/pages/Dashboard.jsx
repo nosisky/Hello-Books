@@ -13,13 +13,23 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- * 
+ * @description User dashboard component
  * 
  * @export {Object}
+ * 
  * @class Dashboard
+ * 
  * @extends {Component}
  */
 export class Dashboard extends Component {
+
+	/**
+	 * @description Creates an instance of Dashboard.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
@@ -29,7 +39,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Fetches all books in the database
+	 * @description Fetches all books in the database
 	 * 
 	 * 
 	 * @memberOf Dashboard
@@ -39,7 +49,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Toggles book lists 
+	 * @description Toggles book lists 
 	 * 
 	 * @param {Object} page 
 	 * 
@@ -50,9 +60,10 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Displays pagination
+	 * @description Displays pagination
 	 * 
 	 * @param {Number} count 
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf Dashboard
@@ -78,7 +89,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * 
+	 * @description Handles book renting
 	 * 
 	 * @param {Number} id 
 	 * 
@@ -107,7 +118,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Displays the books
+	 * @description Displays the books
 	 * 
 	 * @returns {void}
 	 * 
@@ -178,7 +189,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Dsiplays the component
+	 * @description Dsiplays the component
 	 * 
 	 * @returns 
 	 * 
@@ -202,7 +213,7 @@ Dashboard.PropTypes = {
 };
 
 /**
- * 
+ * @description Maps the application state to component props
  * 
  * @param {Object} state - Application state
  *  
@@ -218,7 +229,8 @@ function mapStateToProps(state) {
 
 /**
  * 
- * Maps the state to component Props
+ * @description Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions

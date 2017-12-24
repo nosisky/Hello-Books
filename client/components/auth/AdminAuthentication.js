@@ -11,19 +11,19 @@ dotenv.load();
 
 /**
  * 
- * Higher order component for admin authentication
+ * @description - Higher order component for admin authentication
+ * 
  * @export {Object}
  * 
  * @param {Object} ComposedComponent 
  * 
  * @returns {Object}
  */
-export default function(ComposedComponent) {
+export default function (ComposedComponent) {
 	class AdminAuthentication extends Component {
 
 		/**
-		 * 
-		 * 
+		 * @description - Validates the user authentication data
 		 * 
 		 * @memberOf AdminAuthentication
 		 */
@@ -50,7 +50,7 @@ export default function(ComposedComponent) {
 		}
 
 		/**
-		 * Executes before component is updated 
+		 * @description - Executes before component is updated 
 		 * 
 		 * @param {Object} nextProps 
 		 * 
@@ -63,9 +63,9 @@ export default function(ComposedComponent) {
 		}
 
 		/**
-		 * Renders the component
+		 * @description - Renders the component
 		 * 
-		 * @returns 
+		 * @returns { Object }
 		 * 
 		 * @memberOf AdminAuthentication
 		 */
@@ -78,7 +78,7 @@ export default function(ComposedComponent) {
 	};
 
 	/**
-	 * Maps dispatch to the application action creators
+	 * @description - Maps dispatch to the application action creators
 	 * 
 	 * @param {Function} dispatch 
 	 * 
@@ -96,9 +96,9 @@ export default function(ComposedComponent) {
 	}
 
 	/**
+	 *@description -  Maps dispatch to the component
 	 * 
-	 * 
-	 * @param {Function} state 
+	 * @param {Object} - Whole application state 
 	 * 
 	 * @returns {Object} - Object containing application state
 	 */

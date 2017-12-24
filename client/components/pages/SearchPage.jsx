@@ -12,9 +12,10 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- * SearchPage component
+ *  @description SearchPage component
  * 
  * @class SearchPage
+ * 
  * @extends {Component}
  */
 class SearchPage extends Component {
@@ -25,7 +26,7 @@ class SearchPage extends Component {
 	}
 
 	/**
-	 * Displays search result
+	 * @description Displays search result
 	 * 
 	 * 
 	 * @memberOf SearchPage
@@ -46,7 +47,7 @@ class SearchPage extends Component {
 	}
 
 	/**
-	 * Handles renting of books
+	 * @description Handles renting of books
 	 * 
 	 * @param {String} id 
 	 * 
@@ -75,9 +76,9 @@ class SearchPage extends Component {
 	}
 
 	/**
-	 * Displays books that matches search query
+	 * @description Displays books that matches search query
 	 * 
-	 * @returns 
+	 * @returns {void}
 	 * 
 	 * @memberOf SearchPage
 	 */
@@ -124,7 +125,7 @@ class SearchPage extends Component {
 	}
 
 	/**
-	 * Displays the component
+	 * @description Displays the component
 	 * 
 	 * @returns 
 	 * 

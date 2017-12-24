@@ -25,6 +25,8 @@ const INITIAL_STATE = {
 };
 
 /**
+ * @description - Book reducer
+ * 
  * @param {Object} state - Object containing the defaul state
  * 
  * @param {Object} action - Object containing displatched data

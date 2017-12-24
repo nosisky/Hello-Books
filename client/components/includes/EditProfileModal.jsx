@@ -2,7 +2,21 @@ import React, { Component } from 'react';
 import { checkUserExist, 
   checkEmailExist, reMap } from '../../utils/Validation';
   
+/**
+ * @description - Edit profile modal component
+ * 
+ * @class EditProfileModal
+ * 
+ * @extends {Component}
+ */
 class EditProfileModal extends Component {
+	/**
+	 * @description - Creates an instance of EditProfileModal.
+	 * 
+	 * @param {Object} props - Component properties
+	 * 
+	 * @memberOf EditProfileModal
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,7 +37,8 @@ class EditProfileModal extends Component {
    * Validates the user input
    * 
    * @param {Object} event 
-   * @returns 
+	 * 
+   * @returns {Object}
    * 
    * @memberOf Profile
    */
@@ -57,7 +72,7 @@ class EditProfileModal extends Component {
 	}
 
 	/**
-   * 
+   * @description - Clears error from application local state
    * 
    * @param {Object} event 
    * 
@@ -78,9 +93,9 @@ class EditProfileModal extends Component {
   }
   
   	/**
-   * Submits user input
+   * @description - Submits user input
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf EditProfileModal
    */
@@ -91,9 +106,9 @@ class EditProfileModal extends Component {
 
 
 	/**
-   * set user input to state
+   * @description - set user input to state
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf Profile
    */

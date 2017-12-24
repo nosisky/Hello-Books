@@ -9,16 +9,17 @@ const secret = process.env.secretKey;
 
 const { User } = database;
 export default {
-  /** Adds a new use to the database
+
+  /** 
+   * @description - Adds a new use to the database
    * 
    * @param  {object} req request object
    * 
    * @param  {object} res response object
    * 
-   * Route: POST: /users/signup
-   * 
    * @return {Object} - Object containing user detail
-   * s
+   * 
+   * Route: POST: /users/signup
    */
   create(req, res) {
     return User.create(req.userInput)
@@ -40,13 +41,16 @@ export default {
       .catch(error => res.status(500).send(error));
   },
 
-  /** Authenticates user login information
+  /** 
+   * @description - Authenticates user login information
+   * 
    * @param  {object} req - request
    * 
    * @param  {object} res - response 
    * 
-   * Route: POST: /users/signin
    * @return {Object} - Object containing user details
+   * 
+   * Route: POST: /users/signin
    */
   login(req, res) {
     if (!req.body.username || !req.body.password) {
@@ -84,7 +88,8 @@ export default {
 
   /**
    * 
-   * Edit profile controller
+   * @description - Edit profile controller
+   * 
    * @param {Object} req - request
    * 
    * @param {Object} res - response

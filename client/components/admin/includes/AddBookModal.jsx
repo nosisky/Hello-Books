@@ -7,8 +7,24 @@ import { addBookAction } from '../../../actions/BookActions';
 import firebase from 'firebase';
 import ImageUploader from 'react-firebase-image-uploader';
 
+/**
+ * @description - Add book component
+ * 
+ * @export
+ * 
+ * @class AddBook
+ * 
+ * @extends {Component}
+ */
 export class AddBook extends Component {
 
+	/**
+	 * Creates an instance of AddBook.
+	 * 
+	 * @param {Object} props - Componnet props data
+	 * 
+	 * @memberOf AddBook
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -41,7 +57,8 @@ export class AddBook extends Component {
 	}
 
 	/**
-	 * Starts the book cover upload
+	 * @description - Starts the book cover upload
+	 * 
 	 * @memberOf AddBook
 	 */
 	handleUploadStart() {
@@ -50,7 +67,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Displays progress of book upload
+	 * @description - Displays progress of book upload
+	 * 
 	 * @param {Object} progress 
 	 * 
 	 * @memberOf AddBook
@@ -61,8 +79,9 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Displays error if any during file upload
-	 * @param {Object} error 
+	 * @description - Displays error if any during file upload
+	 * 
+	 * @param {Object} error when book upload fails
 	 * 
 	 * @memberOf AddBook
 	 */
@@ -72,7 +91,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Completes the file upload and set the state to cover url
+	 * @description - Completes the file upload and set the state to cover url
+	 * 
 	 * @param {String} filename - Link to uploaded file
 	 * 
 	 * @memberOf AddBook
@@ -86,7 +106,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Executes after component is mounted
+	 * @description - Executes after component is mounted
+	 * 
 	 * @memberOf AddBook
 	 */
 	componentDidMount() {
@@ -94,14 +115,15 @@ export class AddBook extends Component {
 	}
 
 	/**
-	 * Executes when text is typed in input box
+	 * @description - Executes when text is typed in input box
+	 * 
 	 * @param {Object} event - Object
 	 * 
 	 * @memberOf AddBook
 	 */
 	onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({
 			[event.target.name]: event.target.value
 		});
@@ -109,14 +131,15 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Executes when the input box is clicked
+	 * @description - Clear off error messgae from local state
+	 * 
 	 * @param {Object} event - Object
 	 * 
 	 * @memberOf AddBook
 	 */
 	onFocus(event) {
-		const value = event.target.value,
-			name = event.target.name;
+		const value = event.target.value;
+		const	name = event.target.name;
 
 		switch (name) {
 			case 'title':
@@ -139,7 +162,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Executes when the input box lost focus
+	 * @description - Validates user inputs and sets appropriate error message
+	 * 
 	 * @param {Object} event - Object
 	 * 
 	 * @returns 
@@ -147,8 +171,8 @@ export class AddBook extends Component {
 	 * @memberOf AddBook
 	 */
 	onBlur(event) {
-		const value = event.target.value,
-			name = event.target.name;
+		const value = event.target.value;
+		const	name = event.target.name;
 
 		switch (name) {
 			case 'title':
@@ -186,7 +210,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Displays the list of category
+	 * @description - Displays the list of category
+	 * 
 	 * @returns {Array} - Array of category
 	 * 
 	 * @memberOf AddBook
@@ -208,9 +233,10 @@ export class AddBook extends Component {
 	}
 
 	/**
-	 * 
+	 * @description - Submit user input
 	 * 
 	 * @param {Object} event - Submits the form
+	 * 
 	 * @returns 
 	 * 
 	 * @memberOf AddBook
@@ -228,7 +254,8 @@ export class AddBook extends Component {
 
 	/**
 	 * 
-	 * Renders the component
+	 * @description - Renders the component
+	 * 
 	 * @returns {Object} - Object
 	 * 
 	 * @memberOf AddBook
@@ -419,7 +446,8 @@ export class AddBook extends Component {
 
 /**
  * 
- * Maps the state to component Props
+ * @description - Maps the dispatch to component props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
@@ -437,7 +465,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 /**
- * 
+ * @description - Maps the redux state to the component props
  * 
  * @param {Object} state - Application state
  *  

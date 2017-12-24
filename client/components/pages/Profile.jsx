@@ -10,7 +10,24 @@ import { checkUserExist,
 	checkEmailExist, reMap } from '../../utils/Validation';
 import EditProfileModal from '../includes/EditProfileModal';
 
-export class Profile extends React.Component {
+/**
+ * 
+ * 
+ * @export {Object}
+ * 
+ * @class Profile
+ * 
+ * @extends {React.Component}
+ */
+export class Profile extends Component {
+
+	/**
+	 * @description Creates an instance of Profile.
+	 * 
+	 * @param {any} props 
+	 * 
+	 * @memberOf Profile
+	 */
 	constructor(props){
 		super(props);
 		this.state = {
@@ -28,9 +45,10 @@ export class Profile extends React.Component {
   }
   
 	/**
-   * Validates the user input
+   * @description Validates the user input
    * 
    * @param {Object} event 
+	 * 
    * @returns 
    * 
    * @memberOf Profile
@@ -65,7 +83,7 @@ export class Profile extends React.Component {
   }
 
   /**
-   * 
+   * @description Clears off error message from component state
    * 
    * @param {Object} event 
    * 
@@ -87,15 +105,15 @@ export class Profile extends React.Component {
   
   
 	/**
-   * set user input to state
+   * @description set user input to state
    * 
    * @param {Object} event 
    * 
    * @memberOf Profile
    */
   onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({ [name]: value });
 	}
 
@@ -110,7 +128,7 @@ export class Profile extends React.Component {
 	}
 
 	/**
-   * Submits user input
+   * @description Submits user input
    * 
    * @param {Object} event 
    * 
@@ -123,7 +141,7 @@ export class Profile extends React.Component {
 	}
 
 	/**
-   * Renders the component
+   * @description Renders the component
    * 
    * @returns {Object}
    * 
@@ -210,7 +228,8 @@ export class Profile extends React.Component {
 
 /**
  * 
- * Maps the state to component Props
+ * @description Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions

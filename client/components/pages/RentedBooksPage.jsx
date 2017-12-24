@@ -11,10 +11,12 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- * RentedBooks component
+ * @description RentedBooks component
  * 
  * @export {Object}
+ * 
  * @class RentedBooksPage
+ * 
  * @extends {Component}
  */
 export class RentedBooksPage extends Component {
@@ -25,7 +27,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Fetches the list of rented books by a user
+	 * @description Fetches the list of rented books by a user
 	 * 
 	 * @param {Object} props 
 	 * 
@@ -37,7 +39,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Handles book return
+	 * @description Handles book return
 	 * 
 	 * @param {String} id 
 	 * 
@@ -58,7 +60,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Displays lists of rented books
+	 * @description Displays lists of rented books
 	 * 
 	 * @returns 
 	 * 
@@ -109,7 +111,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Renders the component
+	 * @description Renders the component
 	 * 
 	 * @returns 
 	 * 
@@ -148,6 +150,7 @@ function mapStateToProps(state) {
 /**
  * 
  * Maps the state to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions

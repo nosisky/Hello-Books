@@ -7,16 +7,18 @@ import AdminSideBar from '../includes/AdminSideBar';
 import { addBookAction } from '../../../actions/BookActions';
 
 /**
- * 
+ * @description - Add a new book class
  * 
  * @class AddANewBook
+ * 
  * @extends {Component} extends React.Component
  */
 export class AddANewBook extends Component {
 
 	/**
 	 * 
-	 * Renders the application
+	 * @description - Renders the application
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf AddANewBook
@@ -37,7 +39,7 @@ export class AddANewBook extends Component {
 }
 
 /**
- * 
+ * @description - Maps application state to the component props 
  * 
  * @param {Object} state 
  * 

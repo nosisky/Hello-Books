@@ -6,7 +6,24 @@ import { addCategoryAction } from '../../../actions/BookActions';
 import AddBookModal from '../includes/AddBookModal';
 
 
+/**
+ * 
+ * 
+ * @export {  Object } export class
+ * 
+ * @class AdminSideBar
+ * 
+ * @extends {Component}
+ */
 export class AdminSideBar extends Component {
+
+	/**
+	 * Creates an instance of AdminSideBar.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf AdminSideBar
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -21,6 +38,7 @@ export class AdminSideBar extends Component {
 	/**
 	 * 
 	 * Executes after component is mounted
+	 * 
 	 * @memberOf AdminSideBar
 	 */
 	componentDidMount() {
@@ -35,9 +53,9 @@ export class AdminSideBar extends Component {
 
 
 	/**
+	 * Submits the user input
 	 * 
-	 * 
-	 * @param {Object} event 
+	 * @param {Object} event - form data object
 	 * 
 	 * @memberOf AdminSideBar
 	 */
@@ -48,9 +66,9 @@ export class AdminSideBar extends Component {
 	}
 
 	/**
+	 * Sets the user input in the local state
 	 * 
-	 * 
-	 * @param {Object} event 
+	 * @param {Object} event - form data object
 	 * 
 	 * @memberOf AdminSideBar
 	 */
@@ -59,6 +77,14 @@ export class AdminSideBar extends Component {
 			[event.target.name]: event.target.value
 		});
 	}
+
+	/**
+	 * Renders the component
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf AdminSideBar
+	 */
 	render() {
 		const style = {
 			account: {
@@ -209,11 +235,11 @@ export class AdminSideBar extends Component {
 }
 
 /**
- * 
+ * Maps dispatch to component props
  * 
  * @param {Function} dispatch 
  * 
- * @returns 
+ * @returns { Object } - Object containing async actions creators
  */
 function mapDispatchToProps(dispatch) {
 	return {

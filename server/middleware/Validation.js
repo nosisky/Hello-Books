@@ -5,11 +5,12 @@ import database from '../models/index';
 
 const { Book, User } = database;
 
-export default {
+const Validation =  {
 
   /**
    * 
-   * Validates User Input
+   * @description - Validates User Input
+   * 
    * @param {Object} req - request
    * 
    * @param {Object} res - response
@@ -95,7 +96,8 @@ export default {
 
   /**
    * 
-   * Validates User Input when adding book
+   * @description - Validates User Input when adding book 
+   * 
    * @param {Object} req - request
    * 
    * @param {Object} res - response
@@ -168,7 +170,9 @@ export default {
     next();
   },
 
-  /** Check quantity of book in the DB
+  /** 
+   * @description - Check quantity of book in the DB
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -193,7 +197,9 @@ export default {
     });
   },
 
-  /** Check if a user is valid
+  /** 
+   * @description - Check if a user is valid
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -225,7 +231,9 @@ export default {
     }
   },
 
-  /** Checks if a user alreday exist
+  /** 
+   * @description - Checks if a user alreday exist
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -256,7 +264,9 @@ export default {
   },
 
 
-  /** Checks if an email address already exist
+  /** 
+   * @description - Checks if an email address already exist
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -293,7 +303,9 @@ export default {
       .catch(error => res.status(404).send({ error }));
   },
 
-  /** Checks for validity of book
+  /** 
+   * @description - Checks for validity of book
+   * 
    * @param  {Object} req - request
    * 
    * @param  {object} res - response
@@ -325,3 +337,5 @@ export default {
     }
   }
 };
+
+export default Validation;

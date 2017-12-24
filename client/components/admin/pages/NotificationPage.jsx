@@ -10,17 +10,28 @@ import Notifications from '../../../utils/Notifications';
  * 
  * 
  * @class NotificationPage
+ * 
  * @extends {Component} extends React.Component
  */
 class NotificationPage extends Component {
+
+	/**
+	 * @description - Creates an instance of NotificationPage.
+	 * 
+	 * @param {Object} props - Properties of the component
+	 * 
+	 * @memberOf NotificationPage
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: []
 		};
 	}
+	
 	/**
-	 * ComponentDidMount - Executes when the component successfully renders
+	 * @description - Sets all notifications in application local state
+	 * 
 	 * @memberOf NotificationPage
 	 */
 	componentDidMount() {
@@ -35,7 +46,8 @@ class NotificationPage extends Component {
 
 	/**
 	 * 
-	 * Displays the component
+	 * @description - Displays the component
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf NotificationPage

@@ -7,10 +7,12 @@ import { browserHistory } from 'react-router-dom';
  * 
  * 
  * @export {Object} - Regiser component
+ * 
  * @class Register
+ * 
  * @extends {Component}
  */
-export default class Register extends Component {
+export default class RegisterationForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -33,7 +35,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * Handles the input value changes
+	 * @description - Handles the input value changes
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -48,7 +50,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * Submits the ulogi information
+	 * @description - Submits the ulogi information
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -61,7 +63,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * Clears out error on input box
+	 * @description - Clears out error on input box
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -85,7 +87,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * 
+	 * @description - Validates user inputs
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -143,7 +145,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * Displays the component
+	 * @description - Displays the component
 	 * 
 	 * @returns {Object}
 	 * 

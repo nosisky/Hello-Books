@@ -20,6 +20,7 @@ const API_URL = '/api/v1/books',
 
 /**
  * Add new book action
+ * 
  * @param {Object} bookDetails - Object containing book data
  * 
  * @returns { Object } - Redux action to be dispatched to the store
@@ -41,6 +42,7 @@ export function addBookAction(bookDetails) {
 
 /**
  * Get all books action
+ * 
  * @param { Number } page - current Page number  
  *
  * @returns { Object } - Object containing book data
@@ -59,6 +61,7 @@ export function getAllBooksAction(page) {
 
 /**
  * Delete book action
+ * 
  * @param {Number} bookId - Book ID
  *
  * @returns { String } - string containing API message
@@ -77,6 +80,7 @@ export function deleteBookAction(bookId) {
 
 /**
  * Modify book action
+ * 
  * @param {Object} bookData - Object containing Book Data
  * 
  * @param {bookId} bookId - ID of book to be modified
@@ -118,6 +122,7 @@ export function addCategoryAction(data) {
 
 /**
  * Rent book action
+ * 
  * @param { Number } userId - User Id
  * 
  * @param { Number } bookId - Book ID
@@ -139,6 +144,7 @@ export function rentBookAction(userId, bookId) {
 
 /**
  * Get rented books action
+ * 
  * @param {  Number } userId - User ID
  * 
  * @returns { Object } - Object containing rented books
@@ -157,6 +163,7 @@ export function getRentedBooksAction(userId) {
 
 /**
  * Return rented book action
+ * 
  * @param {Number} userId - User ID
  * 
  * @param {Number}  bookId - Book ID
@@ -182,6 +189,7 @@ export function returnBook(userId, bookId) {
 
 /**
  * Get specific book
+ * 
  * @param {Number} bookId - Book ID
  *
  * @returns { Object } - Object containg Book details
@@ -200,6 +208,7 @@ export function getSpecificBook(bookId) {
 
 /**
  * Get all category action
+ * 
  * @returns { Object } - Object containg all categories
  */
 export function getCategoryAction() {
@@ -215,6 +224,7 @@ export function getCategoryAction() {
 
 /**
  * Search for a book action
+ * 
  * @param {Object} query - Object containg search query
  *
  * @returns { Object } - response that mateches the serach criteria

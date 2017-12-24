@@ -15,6 +15,14 @@ import { registerUserAction, loginAction } from '../../actions/AuthActions';
  * @extends {Component}
  */
 export class HomePage extends Component {
+
+	/**
+	 * Renders the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf HomePage
+	 */
 	render() {
 		if (localStorage.getItem('token')) {
 			this.props.history.push('/dashboard');

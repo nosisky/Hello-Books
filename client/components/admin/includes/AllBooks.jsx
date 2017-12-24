@@ -6,7 +6,24 @@ import { bindActionCreators } from 'redux';
 import { deleteBookAction, 
 	modifyBookAction } from '../../../actions/BookActions';
 
+/**
+ * AllBooks component
+ * 
+ * @export { Object }
+ * 
+ * @class AllBooks
+ * 
+ * @extends {Component}
+ */
 export class AllBooks extends Component {
+
+	/**
+	 * Creates an instance of AllBooks.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf AllBooks
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -29,7 +46,7 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Handles the delete book actioon
+	 * Handles the delete book action
 	 * 
 	 * @memberOf AllBooks
 	 */
@@ -53,7 +70,6 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * 
 	 * Toggles the application display
 	 * 
 	 * @memberOf AllBooks
@@ -66,8 +82,7 @@ export class AllBooks extends Component {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
 	 * Toggles the application display
 	 * 
 	 * @memberOf AllBooks
@@ -95,7 +110,8 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Executes when the input box value changes
+	 * Sets user input in component local sttae
+	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf AllBooks
@@ -108,7 +124,8 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Displays the component
+	 * Renders the component
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf AllBooks
@@ -239,8 +256,10 @@ export class AllBooks extends Component {
 /**
  * 
  * Maps dispatch to the component props
+ * 
  * @param {Object} dispatch 
- * @returns {Object}
+ * 
+ * @returns { Object } - Object containing async actions creators
  */
 function mapDispatchToProps(dispatch) {
 	return {

@@ -17,7 +17,7 @@ import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
 import './public/css/style.scss';
 import firebase from 'firebase';
-import config from './utils/FirebaseConfig';
+import FirebaseConfig from './utils/FirebaseConfig';
 
 const store = configureStore();
 

@@ -12,6 +12,7 @@ const SEARCH_API_URL = '/api/v1/search';
 
 /**
  * Sec current user
+ * 
  * @param {Object} decoded - Decoded JWT Token 
  * 
  * @returns {Object} - redux action to be dispatched
@@ -27,6 +28,7 @@ export function setCurrentUser(decoded) {
 /**
  * 
  * Register user action
+ * 
  * @param {Object} userDetails - Object containing user details
  * 
  * @returns { Object } - Dispatches user object to the store
@@ -52,6 +54,7 @@ export function registerUserAction(userDetails) {
 
 
 /** Login action 
+ * 
  * @param {Object} userDetails - Object containing user details
  * 
  * @returns { Object } - Dispatches user object to the store
@@ -77,6 +80,7 @@ export function loginAction(userDetails) {
 }
 
 /** Unauthenticates a user
+ * 
  * @returns { Object } - Dispatches user object to the store
  */
 export function logoutAction() {
@@ -93,6 +97,7 @@ export function logoutAction() {
 }
 
 /** Edit profile action
+ * 
  * @param {Number} userId - User ID
  * 
  * @param {Object} userData - User data object
@@ -118,6 +123,7 @@ export function editProfileAction(userId, userData) {
 
 /**
  *  Get users by email action
+ * 
  * @param { object } email - object containing user email
  * 
  * @returns { String } - JWT Token

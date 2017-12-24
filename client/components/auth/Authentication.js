@@ -5,6 +5,13 @@ import jwt from 'jsonwebtoken';
 import { bindActionCreators } from 'redux';
 import { logoutAction } from '../../actions/AuthActions';
 
+/**
+ * @description - Higher order component for user authentication
+ * 
+ * @param {Object} ComposedComponent 
+ * 
+ * @returns {Void} - nothing
+ */
 export default function(ComposedComponent) {
 	/**
 	 * 
@@ -35,7 +42,7 @@ export default function(ComposedComponent) {
 		}
 
 		/**
-		 * Executes before component is updated
+		 * @description - Executes before component is updated
 		 * 
 		 * @param {Object} nextProps 
 		 * 
@@ -48,7 +55,7 @@ export default function(ComposedComponent) {
 		}
 
 		/**
-		 * Renders the component
+		 * @description - Renders the component
 		 * 
 		 * @returns 
 		 * 
@@ -60,7 +67,7 @@ export default function(ComposedComponent) {
 	}
 	
 	/**
-	 * Maps dispatch to the application action creators
+	 * @description - Maps dispatch to the application action creators
 	 * 
 	 * @param {Function} dispatch 
 	 * 
@@ -78,11 +85,12 @@ export default function(ComposedComponent) {
 	}
 
 	Authentication.PropTypes = {
-		router: PropTypes.object
+		user: PropTypes.object.isRequired,
+		authenticated: PropTypes.bool.isRequired
 	};
 
 	/**
-	 * 
+	 * Maps the application state to the component props
 	 * 
 	 * @param {Function} state 
 	 * 

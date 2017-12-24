@@ -7,11 +7,21 @@ import { connect } from 'react-redux';
 import { addCategoryAction } from '../../../actions/BookActions';
 import { logoutAction } from '../../../actions/AuthActions';
 
+/**
+ * 
+ * 
+ * @export { Object }
+ * 
+ * @class AdminHeader
+ * 
+ * @extends {Component}
+ */
 export class AdminHeader extends Component {
 
 	/**
 	 * 
-	 * Executes after component is mounted
+	 * @description - Executes after component is mounted
+	 * 
 	 * @memberOf AdminHeader
 	 */
 	componentDidMount() {
@@ -37,6 +47,7 @@ export class AdminHeader extends Component {
 	/**
 	 * 
 	 * Renders the component
+	 * 
 	 * @memberOf AdminHeader
 	 * 
 	 * @return {Object}
@@ -119,7 +130,8 @@ AdminHeader.PropTypes = {
 
 /**
  * 
- * Maps the state to component Props
+ * @description - Maps dispatch to component props 
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
@@ -136,7 +148,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 /**
- * 
+ * @description -  Maps the redux state to component props
  * 
  * @param {Object} state - Application state
  *  

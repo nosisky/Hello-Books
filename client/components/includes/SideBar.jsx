@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * 
+ * @description - User side bar component
  * 
  * @class SideBar
+ * 
  * @extends {Component}
  */
 export class SideBar extends Component {
 
 	/**
-	 * Executes after the component has rendered
+	 * @description - Executes after the component has rendered
 	 * 
 	 * 
 	 * @memberOf SideBar
@@ -27,7 +28,7 @@ export class SideBar extends Component {
 	}
 
 	/**
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @returns {Object}
 	 * 

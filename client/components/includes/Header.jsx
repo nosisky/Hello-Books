@@ -9,12 +9,21 @@ import { logoutAction, editProfileAction } from '../../actions/AuthActions';
 import mailSender from '../../utils/mailSender';
 
 /**
- * 
+ * @description - User page header component
  * 
  * @class Header
+ * 
  * @extends {Component}
  */
 export class Header extends Component {
+
+	/**
+	 * @description - Creates an instance of Header.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf Header
+	 */
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);
@@ -28,8 +37,7 @@ export class Header extends Component {
 	}
 
 	/**
-	 * Executes after the component has rendered
-	 * 
+	 * @description - Executes after the component has rendered
 	 * 
 	 * @memberOf Header
 	 */
@@ -53,7 +61,7 @@ export class Header extends Component {
 	}
 
 	/**
-	 * Logs the user out of the application
+	 * @description - Logs the user out of the application
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -68,14 +76,13 @@ export class Header extends Component {
 	}
 
 	/**
-	 * 
+	 * @description - Sets user input to applocation local state
 	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf Header
 	 */
 	onChange(event) {
-		console.log(this.state, '===>')
 		const name = event.target.name;
 		const value = event.target.value;
 
@@ -85,7 +92,7 @@ export class Header extends Component {
 	}
 
 	/**
-	 * Handles form submit
+	 * @description - Handles form submit
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -110,7 +117,7 @@ export class Header extends Component {
 	}
 
 	/**
-	 * 
+	 * @description - Displays the component
 	 * 
 	 * @returns {Object}
 	 * 
@@ -269,7 +276,7 @@ Header.PropTypes = {
 };
 
 /**
- * 
+ * Maps the application state to component props
  * 
  * @param {Object} state - Application state
  *  
@@ -281,7 +288,8 @@ function mapStateToProps(state) {
 
 /**
  * 
- * Maps the state to component Props
+ * Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions

@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 dotenv.load();
 
 /**
- * Mail sender
+ * @description - Mail sender
+ * 
  * @param {Object} req - Object
  * 
  * @param {Object} res - Object

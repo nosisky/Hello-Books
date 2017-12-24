@@ -17,9 +17,18 @@ import AdminSideBar from './includes/AdminSideBar';
  * 
  * 
  * @class AdminHome
+ * 
  * @extends {Component} - Extends React.Component
  */
 export class AdminHome extends Component {
+
+	/**
+	 * @description - Creates an instance of AdminHome.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf AdminHome
+	 */
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
@@ -29,7 +38,8 @@ export class AdminHome extends Component {
 	}
 
 	/**
-	 * ComponentDidMount - executes after component is successfully rendered
+	 * @description - Fetches all books from the database
+	 * 
 	 * @memberOf AdminHome
 	 */
 	componentDidMount() {
@@ -38,7 +48,8 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Logs the user off the application
+	 * @description - Logs the user off the application
+	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf AdminHome
@@ -51,7 +62,8 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Toggles component view
+	 * @description - Toggles component view
+	 * 
 	 * @param {Object} page 
 	 * 
 	 * @memberOf AdminHome
@@ -62,10 +74,11 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Displays pagination
+	 * @description - Displays pagination
+	 * 
 	 * @param {Number} count
 	 * 
-	 * @returns 
+	 * @returns { Object } - Pagination data
 	 * 
 	 * @memberOf AdminHome
 	 */
@@ -91,7 +104,8 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Handles book delete
+	 * @description - Handles book delete
+	 * 
 	 * @param {Number} bookId 
 	 * 
 	 * @memberOf AdminHome
@@ -116,7 +130,8 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Displays book
+	 * @description - Displays book
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf AdminHome
@@ -165,7 +180,8 @@ export class AdminHome extends Component {
 
 	/**
 	 * 
-	 * Renders the component
+	 * @description - Renders the component
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf AdminHome
@@ -185,11 +201,11 @@ export class AdminHome extends Component {
 }
 
 /**
- * 
+ * @description - Maps the redux state to component props
  * 
  * @param {Object} state 
  *
- * @returns Object containing selected application state
+ * @returns {Object} - Object containing selected application state
  */
 function mapStateToProps(state) {
 	return {
@@ -201,11 +217,12 @@ function mapStateToProps(state) {
 
 AdminHome.PropTypes = {
 	books: PropTypes.object.isRequired,
-	user: PropTypes.object.isRequired
+	user: PropTypes.object.isRequired,
+	count: PropTypes.number.isRequired
 };
 
 /**
- * 
+ * @description - Maps dispatch to component props
  * 
  * @param {Function} dispatch
  * 
