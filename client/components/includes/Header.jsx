@@ -257,14 +257,14 @@ export class Header extends Component {
 									</div>
 								</div>
 							</div>
-							<Link
+							{ this.state.search.length > 0 && <Link
 									id="submit_search"
 									to={`search?text=${this.state.search}`}
 									style={style.button}
 									className="btn waves-effect"
 								>
 									Search
-								</Link>
+								</Link>}
 						</div>
 					</div>
 				</div>
