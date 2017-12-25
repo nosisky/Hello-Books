@@ -31,11 +31,7 @@ class SearchPage extends Component {
 	 * @memberOf SearchPage
 	 */
 	componentDidMount() {
-		const	elements = document.getElementsByClassName('modal-overlay');	
-		if(elements[0]) {
-			elements[0].style.opacity=0;
-		}
-
+		$('div').removeClass('modal-overlay');
 		if (!location.search) {
 			window.location = '/dashboard';
 		}
@@ -43,7 +39,6 @@ class SearchPage extends Component {
 		const result = page.split('&')[0];
 		if(result.length > 1){
 		this.props.actions.searchAction({ search: result });
-		
 		}
 	}
 
