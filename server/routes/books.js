@@ -51,6 +51,18 @@ const app = express.Router();
  *      }
  */
 
+ /**
+ * @swagger
+ * definitions:
+ *   RentBook:
+ *     properties:
+ *       bookId:
+ *         type: integer
+ *     example: {
+ *      bookId: 13
+ *      }
+ */
+
 /**
  * @swagger
  * /books:
@@ -107,6 +119,7 @@ app.route('/books')
  *         in: body
  *         required: true
  *         schema:
+ *           $ref: '#/definitions/RentBook'
  *           type: object
  *           required:
  *             - bookId
@@ -122,7 +135,7 @@ app.route('/books')
  *         required: true
  *         type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Book Successfully borrowed
  *       400:
  *         description: All fields are required
@@ -156,6 +169,7 @@ app.route('/users/:userId/books')
  *         in: body
  *         required: true
  *         schema:
+ *           $ref: '#/definitions/Book'
  *           type: object
  *           required:
  *             - bookId
@@ -163,7 +177,7 @@ app.route('/users/:userId/books')
  *             bookId:
  *               type: integer
  *           example: {
- *             "bookId": 4
+ *              bookId: 12
  *           }
  *       - name: x-access-token
  *         in: header
@@ -174,9 +188,9 @@ app.route('/users/:userId/books')
  *       200:
  *         description: Book Successfully returned
  *       400:
- *         description: All fields are required
+ *         description: All fields are required / Invalid input
  *       404:
- *         description: Book not found
+ *         description: Book not found 
  */
 app.route('/users/:userId/books')
   .put(Authorization.isLoggedIn,
@@ -245,8 +259,8 @@ app.route('/:userId/books')
  *         required: true
  *         type: string
  *     responses:
- *       201:
- *         description: Successfully created
+ *       200:
+ *         description: Book Successfully modified
  *         schema:
  *           $ref: '#/definitions/Book'
  *       400:
@@ -350,6 +364,8 @@ app.route('/books/delete/:bookId')
  *     responses:
  *       200:
  *         description: Returns An array of books
+ *       404:
+ *         description: Book not found
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
@@ -358,36 +374,6 @@ app.route('/books/logs/:userId')
     Validation.validUser,
     BookController.rentedBookByUser);
 
-
-/**
- * @swagger
- * /books/category:
- *   get:
- *     tags:
- *       - Book Operations
- *     description: Returns all Category in the database
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Returns An array of Categories
- *         schema:
- *           $ref: '#/definitions/Category'
- */
-app.route('/books/category')
-  .get(Authorization.isLoggedIn,
-    Validation.validUser,
-    BookController.rentedBookByUser);
-
-app.route('/books/category')
-  .get(Authorization.isAdmin,
-    BookController.rentedBookByUser);
 
 app.route('/books/email')
   .post(Authorization.isLoggedIn,

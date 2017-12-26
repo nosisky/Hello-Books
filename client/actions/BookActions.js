@@ -19,7 +19,7 @@ const API_URL = '/api/v1/books',
   USER_API_URL = '/api/v1/users';
 
 /**
- * Add new book action
+ * @description - Add new book action
  * 
  * @param {Object} bookDetails - Object containing book data
  * 
@@ -27,11 +27,11 @@ const API_URL = '/api/v1/books',
  */
 export function addBookAction(bookDetails) {
   return dispatch => axios.post(API_URL, bookDetails)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: ADD_BOOK,
-        message: res.data.message,
-        book: res.data.book
+        message: response.data.message,
+        book: response.data.book
       });
       Materialize.toast('Book added Successfully', 1000, '#15b39d', () => {
         $('.modal').modal('close');
@@ -41,7 +41,7 @@ export function addBookAction(bookDetails) {
 }
 
 /**
- * Get all books action
+ * @description - Get all books action
  * 
  * @param { Number } page - current Page number  
  *
@@ -49,18 +49,18 @@ export function addBookAction(bookDetails) {
  */
 export function getAllBooksAction(page) {
   return dispatch => axios.get(`${API_URL}/?page=${page}`)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: GET_ALL_BOOKS,
-        books: res.data
+        books: response.data
       });
-      return res.data;
+      return response.data;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
- * Delete book action
+ * @description - Delete book action
  * 
  * @param {Number} bookId - Book ID
  *
@@ -68,18 +68,18 @@ export function getAllBooksAction(page) {
  */
 export function deleteBookAction(bookId) {
   return dispatch => axios.delete(`${API_URL}/delete/${bookId}`)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: DELETE_BOOK,
-        data: Number(res.data.id)
+        data: Number(response.data.id)
       });
-      return res.data.message;
+      return response.data.message;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
- * Modify book action
+ * @description - Modify book action
  * 
  * @param {Object} bookData - Object containing Book Data
  * 
@@ -89,10 +89,10 @@ export function deleteBookAction(bookId) {
  */
 export function modifyBookAction(bookData, bookId) {
   return dispatch => axios.put(`${API_URL}/${bookId}`, bookData)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: EDIT_BOOK,
-        data: res.data.book
+        data: response.data.book
       });
       Materialize.toast('Book modified successfully', 1000, 'blue', () => {
         this.setState({ displayBook: true, edit: false });
@@ -102,6 +102,7 @@ export function modifyBookAction(bookData, bookId) {
 }
 
 /**
+ * @description - Add category action
  * 
  * @param { Object } data - New category data
  * 
@@ -109,19 +110,21 @@ export function modifyBookAction(bookData, bookId) {
  */
 export function addCategoryAction(data) {
   return dispatch => axios.post(`${API_URL}/cat`, data)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: ADD_CATEGORY,
-        data: res.data.category
+        data: response.data.category
       });
       Materialize.toast('Category added successfully', 2000, 'blue');
       $('.modal').modal('close');
     })
-    .catch(error => Materialize.toast(error.response.data.message, 1000));
+    .catch(error => {
+      Materialize.toast(error.response.data.message, 1000)
+    });
 }
 
 /**
- * Rent book action
+ * @description - Rent book action
  * 
  * @param { Number } userId - User Id
  * 
@@ -143,7 +146,7 @@ export function rentBookAction(userId, bookId) {
 }
 
 /**
- * Get rented books action
+ * @description - Get rented books action
  * 
  * @param {  Number } userId - User ID
  * 
@@ -151,18 +154,18 @@ export function rentBookAction(userId, bookId) {
  */
 export function getRentedBooksAction(userId) {
   return dispatch => axios.get(`${API_URL}/logs/${userId}`)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: GET_RENTED_BOOKS,
-        data: res.data
+        data: response.data
       });
-      return res.data;
+      return response.data;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
- * Return rented book action
+ * @description - Return rented book action
  * 
  * @param {Number} userId - User ID
  * 
@@ -188,7 +191,7 @@ export function returnBook(userId, bookId) {
 }
 
 /**
- * Get specific book
+ * @description - Get specific book
  * 
  * @param {Number} bookId - Book ID
  *
@@ -196,34 +199,34 @@ export function returnBook(userId, bookId) {
  */
 export function getSpecificBook(bookId) {
   return dispatch => axios.get(`${API_URL}/${bookId}`)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: GET_ONE_BOOK,
-        data: res.data
+        data: response.data
       });
-      return res.data;
+      return response.data;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
- * Get all category action
+ * @description - Get all category action
  * 
  * @returns { Object } - Object containg all categories
  */
 export function getCategoryAction() {
   return dispatch => axios.get('/api/v1/category')
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: GET_CATEGORY,
-        data: res.data
+        data: response.data
       });
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }
 
 /**
- * Search for a book action
+ * @description - Search for a book action
  * 
  * @param {Object} query - Object containg search query
  *
@@ -231,12 +234,12 @@ export function getCategoryAction() {
  */
 export function searchAction(query) {
   return dispatch => axios.post(SEARCH_API_URL, query)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: SEARCH_BOOK,
-        data: res.data
+        data: response.data
       });
-      return res.data;
+      return response.data;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }

@@ -96,11 +96,11 @@ export class Dashboard extends Component {
 	 * @memberOf Dashboard
 	 */
 	handleClick(id) {
-		const cur = new Date(),
-			after30days = cur.setDate(cur.getDate() + 20),
-			finalDate = new Date(after30days);
-		const newTime = moment(finalDate)
-		.format('MMMM Do YYYY, h:mm a');
+		const currentDate = new Date();
+		const	after20days = currentDate.setDate(currentDate.getDate() + 20);
+		const	finalDate = new Date(after20days);
+		const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
+
 		swal({
 			title: 'Are you sure?',
 			text: `You will be mandated to return this 

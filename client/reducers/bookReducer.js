@@ -8,7 +8,8 @@ import {
   DELETE_BOOK,
   GET_ONE_BOOK,
   SET_OFFSET,
-  RETURN_RENTED_BOOK
+  RETURN_RENTED_BOOK,
+  ADD_CATEGORY
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -49,6 +50,10 @@ function bookReducer(state = INITIAL_STATE, action) {
         allRentedBooks: action.data };
     case GET_CATEGORY:
       return { ...state, category: action.data };
+    case ADD_CATEGORY: {
+      const newCategory = [action.data].concat(state.category);
+      return { ...state, category: newCategory };
+    }
     case SEARCH_BOOK:
       return { ...state, data: action.data };
     case SET_OFFSET:

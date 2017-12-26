@@ -55,8 +55,8 @@ const bookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
-    const cur = new Date(),
-      after30days = cur.setDate(cur.getDate() + 30);
+    const currentDate = new Date();
+    const after20days = currentDate.setDate(currentDate.getDate() + 20);
     Book.findById(req.body.bookId)
       .then((book) => {
         if (book.total > 1) {
@@ -66,7 +66,7 @@ const bookController = {
             title: book.title,
             userId: req.params.userId,
             cover: book.cover,
-            toReturnDate: after30days
+            toReturnDate: after20days
           })
             .then(() => {
               Book.update(

@@ -11,7 +11,7 @@ const API_URL = '/api/v1/users';
 const SEARCH_API_URL = '/api/v1/search';
 
 /**
- * Sec current user
+ * @description - Set current user
  * 
  * @param {Object} decoded - Decoded JWT Token 
  * 
@@ -27,7 +27,7 @@ export function setCurrentUser(decoded) {
 
 /**
  * 
- * Register user action
+ * @description - Register user action
  * 
  * @param {Object} userDetails - Object containing user details
  * 
@@ -35,13 +35,13 @@ export function setCurrentUser(decoded) {
  */
 export function registerUserAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signup`, userDetails)
-    .then((res) => {
-      const token = res.data.token;
+    .then((response) => {
+      const token = response.data.token;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
       dispatch({
         type: SET_CURRENT_USER,
-        user: jwt.decode(res.data.token),
+        user: jwt.decode(response.data.token),
         authenticated: true
       });
       Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4',
@@ -53,7 +53,7 @@ export function registerUserAction(userDetails) {
 }
 
 
-/** Login action 
+/** @description - Login action 
  * 
  * @param {Object} userDetails - Object containing user details
  * 
@@ -61,11 +61,11 @@ export function registerUserAction(userDetails) {
  */
 export function loginAction(userDetails) {
   return dispatch => axios.post(`${API_URL}/signin`, userDetails)
-    .then((res) => {
-      const token = res.data.token;
+    .then((response) => {
+      const token = response.data.token;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
-      const decoded = jwt.decode(res.data.token);
+      const decoded = jwt.decode(response.data.token);
       dispatch(setCurrentUser(decoded));
 
       Materialize.toast('Logged In Successfully', 2000,
@@ -79,7 +79,8 @@ export function loginAction(userDetails) {
       'red'));
 }
 
-/** Unauthenticates a user
+/** 
+ * @description - Unauthenticates a user
  * 
  * @returns { Object } - Dispatches user object to the store
  */
@@ -96,7 +97,8 @@ export function logoutAction() {
   };
 }
 
-/** Edit profile action
+/** 
+ * @description - Edit profile action
  * 
  * @param {Number} userId - User ID
  * 
@@ -122,7 +124,7 @@ export function editProfileAction(userId, userData) {
 }
 
 /**
- *  Get users by email action
+ *  @description - Get users by email action
  * 
  * @param { object } email - object containing user email
  * 
@@ -130,6 +132,6 @@ export function editProfileAction(userId, userData) {
  */
 export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
-    .then(res => res.data.token)
+    .then(response => response.data.token)
     .catch(error => Materialize.toast(error.response.data.message));
 }

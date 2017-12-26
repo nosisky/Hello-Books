@@ -35,9 +35,8 @@ const app = express.Router();
  *     example: {
  *        "fullName": Abdulrasaq Nasirudeen,
  *       "email": dealwap@dealwap.com,
- *       "plan": gold,
- *       "isAdmin": 1,
- *       "username": dealwap
+ *       "username": dealwap,
+ *       "password": dealwap123 
  *      }
  */
 
@@ -243,7 +242,42 @@ app.route('/get')
 app.route('/getemail')
   .post(Validation.emailExist);
 
-// Edit user profile
+/**
+ * @swagger
+ * /books/{bookId}:
+ *   put:
+ *     tags:
+ *       - Book Operations
+ *     description: Modify an already added Book's information
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: bookId
+ *         description: ID of the Book
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: book
+ *         description: Book object with updated information
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ *       - name: x-access-token
+ *         in: header
+ *         description: an authentication header
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Book Successfully modified
+ *         schema:
+ *           $ref: '#/definitions/Book'
+ *       400:
+ *         description: All fields are required
+ *       404:
+ *         description: Book not found
+ */
 app.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
     Validation.validUser,
@@ -267,6 +301,8 @@ app.route('/edit/:userId')
  *     responses:
  *       200:
  *         description: A user object
+ *       404:
+ *         description: User not found
  *         schema:
  *           $ref: '#/definitions/Register'
  */

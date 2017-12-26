@@ -201,10 +201,9 @@ const Authorization =  {
         message: 'Invalid book id supplied!!!'
       });
     }
-    const message =
-   'You are not permitted to ' +
-   'borrow more books, please return the ones you have ' +
-   'borrowed or upgrade your plan';
+    const message = `You are not permitted to 
+   borrow more books, please return the ones you have 
+   borrowed or upgrade your plan.`;
 
     RentedBook.findAndCount({
       where: {

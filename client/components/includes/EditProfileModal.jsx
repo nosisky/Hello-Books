@@ -113,8 +113,8 @@ class EditProfileModal extends Component {
    * @memberOf Profile
    */
 	onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({ [name]: value });
 	}
 	render() {
