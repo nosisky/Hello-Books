@@ -209,31 +209,6 @@ app.route('/signup')
 app.route('/signin')
   .post(UserController.login);
 
-/**
- * @swagger
- * /users:
- *   get:
- *     tags:
- *       - Users & Authentication
- *     description: Returns all Users
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: An array of Users
- *         schema:
- *           $ref: '#/definitions/UserList'
- */
-
-app.route('/all')
-  .get(Authorization.isLoggedIn, Authorization.isAdmin, Authorization.getUsers);
-
 // User Exist
 app.route('/get')
   .post(Validation.UserExist);

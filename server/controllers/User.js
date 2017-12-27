@@ -97,7 +97,11 @@ export default {
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
-    return User.update(req.body, {
+    const userData = {
+      email: req.body.email,
+      fullName: req.body.fullName
+    }
+    return User.update(userData, {
       where: {
         id: req.params.userId
       }

@@ -232,7 +232,7 @@ const Validation =  {
   },
 
   /** 
-   * @description - Checks if a user alreday exist
+   * @description - Checks if a user already exist
    * 
    * @param  {Object} req - request
    * 

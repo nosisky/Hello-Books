@@ -45,20 +45,6 @@ const Authorization =  {
   },
 
   /** 
-   * @description - fetches all users from the database
-   * 
-   * @param  {Object} request 
-   * 
-   * @param  {Object} response
-   */
-
-  getUsers(req, res) {
-    return User.findAll({})
-      .then(users => res.status(200).send(users))
-      .catch(error => res.status(404).send(error));
-  },
-
-  /** 
    * @description - Checks if logged in user has valid AUTH token
    * 
    * @param  {Object} req - request
@@ -211,26 +197,22 @@ const Authorization =  {
         returned: false
       }
     }).then((rented) => {
-      User.findById(req.params.userId).then((user) => {
-        if (user.plan === 'Silver' && rented.count === 5) {
+      const { plan } = req.decoded.currentUser;
+        if (plan === 'Silver' && rented.count === 5) {
           res.status(403).send({
             message
           });
-        } else if (user.plan === 'Diamond' && rented.count === 20) {
+        } else if (plan === 'Diamond' && rented.count === 20) {
           res.status(403).send({
             message
           });
-        } else if (user.plan === 'Gold' && rented.count === 20) {
+        } else if (plan === 'Gold' && rented.count === 50) {
           res.status(403).send({
             message: 'Book limit reached, return previously borrowed'
           });
         } else {
           next();
         }
-      });
-    })
-      .catch((error) => {
-        res.status(500).send(error);
       });
   },
 
