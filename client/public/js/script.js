@@ -8,6 +8,6 @@ $(document).ready(() => {
   $(".dropdown-button").dropdown();
   $('.modal').modal();
 
-  $('select').material_select();
+  $('select').material_select();  
   
 });

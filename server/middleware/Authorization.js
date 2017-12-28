@@ -149,6 +149,11 @@ const Authorization =  {
    * @returns {String} JWT Token
    */
   getOneUser(req, res) {
+    if (/[\D]/g.test(req.params.userId)) {
+      return res.status(400).send({
+        message: 'Invalid user id supplied!!!'
+      });
+    }
     return User.findById(req.params.userId)
       .then((user) => {
         const currentUser = omit(user.dataValues,

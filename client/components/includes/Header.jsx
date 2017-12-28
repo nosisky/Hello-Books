@@ -57,6 +57,7 @@ export class Header extends Component {
 		event.preventDefault();
     if (event.keyCode === 13 && this.state.search.length > 0) {
 				document.getElementById("submit_search").click();
+			$('.modal').modal('close');				
 		} 
 		else if(event.keyCode === 13 && this.state.search.length < 1) {
 			Materialize.toast('Please type in your search query', 2000, 'red');
@@ -105,7 +106,7 @@ export class Header extends Component {
 	 */
 	onSubmit(event) {
 		event.preventDefault();
-		$('.modal').modal('close');
+		Materialize.toast('Transaction is in process...', 2000, 'green');
 		const data = {
 			message: `${this.props.user.username} wants an account
        upgrade to ${this.state.plan}`,

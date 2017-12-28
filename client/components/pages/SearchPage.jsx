@@ -31,7 +31,7 @@ class SearchPage extends Component {
 	 * @memberOf SearchPage
 	 */
 	componentDidMount() {
-		$('div').removeClass('modal-overlay');
+		$('#search_book').modal('close');		
 		if (!location.search) {
 			window.location = '/dashboard';
 		}
@@ -50,9 +50,9 @@ class SearchPage extends Component {
 	 * @memberOf SearchPage
 	 */
 	handleClick(id) {
-		const cur = new Date(),
-			after30days = cur.setDate(cur.getDate() + 20),
-			finalDate = new Date(after30days);
+		const currentDate = new Date();
+		const	after20days = currentDate.setDate(currentDate.getDate() + 20);
+		const	finalDate = new Date(after20days);
 		const newTime = moment(finalDate)
 		.format('MMMM Do YYYY, h:mm a');
 		swal({
@@ -68,7 +68,7 @@ class SearchPage extends Component {
 				rentBookAction(userId, 
 					{ bookId: id })
 			} else {
-				$('div').removeClass('swal-overlay');
+				swal.close();
 			}
 		});
 	}
@@ -85,7 +85,8 @@ class SearchPage extends Component {
 		if (!allbooks || allbooks.length < 1) {
 			return (
 				<div>
-					<SideBar />
+					<SideBar fullname={this.props.user.fullName} 
+				isAdmin={this.props.user.isAdmin}/>
 					<div className="empty-notifier">
 						<h4>Your query did not match any book in our database</h4>
 					</div>

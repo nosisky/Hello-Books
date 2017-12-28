@@ -90,9 +90,9 @@ const UserController = {
       .catch(error => res.status(500).send(error));
   },
 
-  checkValidUser(userData){    
-        if(userData.userId !== userData.newId) {
-          res.status(400).send({
+  checkValidUser(res, userData){    
+        if(Number(userData.userId) !== Number(userData.newId)) {
+          return res.status(400).send({
             message: 'Invalid user id supplied'
           })
         }
@@ -109,9 +109,9 @@ const UserController = {
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
-    const { userId } = req.decoded.currentUser;
-    const userDetails = { userId, newId: req.body.userId }
-    UserController.checkValidUser(userDetails)
+    const { userId, id } = req.decoded.currentUser;
+    const userDetails = { userId: userId || id, newId: req.params.userId }
+    UserController.checkValidUser(res, userDetails)
 
     const userData = {
       email: req.body.email,
@@ -120,27 +120,26 @@ const UserController = {
     return User.update(userData, {
       where: {
         id: req.params.userId
-      }
+      },
+      returning: true,
+      plain: true
     })
-      .then(() => {
-        User.findById(req.params.userId)
-          .then((user) => {
-            const currentUser = omit(user.dataValues,
-              ['password', 'createdAt', 'updatedAt']);
-            const token = jwt.sign(
-              {
-                currentUser,
-                exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-              },
-              secret
-            );
-            res.status(200).send({
-              message: 'Profile updated successfully',
-              token
-            });
+      .then((result) => {
+          const currentUser = omit(result[1].dataValues,
+            ['password', 'createdAt', 'updatedAt']);
+          const token = jwt.sign(
+            {
+              currentUser,
+              exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+            },
+            secret
+          );
+          res.status(200).send({
+            message: 'Profile updated successfully',
+            token
           });
       })
-      .catch(error => res.status(500).send(error));
+      .catch(error => console.log(error));
   }
 };
 

@@ -60,10 +60,11 @@ const bookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
-    const { userId } = req.decoded.currentUser;
-    const userData = { userId, newId: req.body.userId }
+    const { userId, id } = req.decoded.currentUser;
+    const userData = { userId: userId || id, 
+      newId: req.body.userId || req.params.userId}
     
-    checkValidUser(userData)
+    checkValidUser(res, userData)
 
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
@@ -206,10 +207,12 @@ const bookController = {
    * Route: GET: //api/users/:UserId/books?returned=false
    */
   rentedBooks(req, res) {
-    const { userId } = req.decoded.currentUser;
-    const userData = { userId, newId: req.body.userId }
+    const { userId, id } = req.decoded.currentUser;
+    const userData = { 
+      userId: userId, id, newId: req.body.userId || req.params.userId
+    }
     
-    checkValidUser(userData)
+    checkValidUser(res, userData)
     return RentedBook.findAll({
       where: {
         returned: req.query.returned,
@@ -241,15 +244,15 @@ const bookController = {
     return Book.update(req.body, {
       where: {
         id: req.params.bookId
-      }
+      },
+      returning: true,
+      plain: true
     })
-      .then(() => {
-        Book.findById(req.params.bookId).then((book) => {
+      .then((result) => {
           res.status(200).send({
-            book,
+            book: result[1].dataValues,
             message: 'Book updated successfully!'
           });
-        });
       })
       .catch(error => res.status(500).send(error));
   },
@@ -316,10 +319,12 @@ const bookController = {
    * Route: GET: /books/logs/:userId
    */
   rentedBookByUser(req, res) {
-    const { userId } = req.decoded.currentUser;
-    const userData = { userId, newId: req.body.userId }
+    const { userId, id } = req.decoded.currentUser;
+    const userData = { userId: userId || id, 
+      newId: req.body.userId || req.params.userId}
     
-    checkValidUser(userData)
+    
+    checkValidUser(res, userData)
     return RentedBook.findAll({
       where: {
         userId: req.params.userId
@@ -350,10 +355,11 @@ const bookController = {
    * 
    */
   returnBook(req, res) {
-    const { userId } = req.decoded.currentUser;
-    const userData = { userId, newId: req.body.userId }
+    const { userId, id } = req.decoded.currentUser;
+    const userData = { userId: userId || id, 
+      newId: req.body.userId || req.params.userId}
     
-    checkValidUser(userData)
+    checkValidUser(res, userData)
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || /[\D]/.test(querier)) {
       return res.status(400).send({

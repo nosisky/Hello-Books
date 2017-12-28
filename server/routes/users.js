@@ -255,7 +255,6 @@ app.route('/getemail')
  */
 app.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
-    Validation.emailExist,
     UserController.editProfile);
 
 /**
