@@ -17,6 +17,7 @@ const INITIAL_STATE = {
   count: 0,
   category: [],
   error: '',
+  search: false,
   message: '',
   user: '',
   allRentedBooks: [],
@@ -55,7 +56,8 @@ function bookReducer(state = INITIAL_STATE, action) {
       return { ...state, category: newCategory };
     }
     case SEARCH_BOOK:
-      return { ...state, data: action.data };
+      return { ...state, search: true, 
+        count: action.data.count,  data: action.data.rows };
     case SET_OFFSET:
       return { offset: state.offset + action.data };
     case DELETE_BOOK: {

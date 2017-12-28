@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/UserActions';
+import { searchAction } from '../../actions/BookActions';
 import mailSender from '../../utils/mailSender';
 
 /**
@@ -16,7 +17,6 @@ import mailSender from '../../utils/mailSender';
  * @extends {Component}
  */
 export class Header extends Component {
-
 	/**
 	 * @description - Creates an instance of Header.
 	 * 
@@ -30,10 +30,13 @@ export class Header extends Component {
 
 		this.state = {
 			plan: '',
-			search: ''
+			search: '',
+			displaySearch: false
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.searchDisplay = this.searchDisplay.bind(this);
+		this.fetchResult = this.fetchResult.bind(this);
 	}
 
 	/**
@@ -48,23 +51,21 @@ export class Header extends Component {
 			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
-		$(".dropdown-button").dropdown({
+		$('.dropdown-button').dropdown({
 			hover: true
 		});
 		$('.modal').modal();
-		document.getElementById("search_book")
-    .addEventListener("keyup", (event) => {
-		event.preventDefault();
-    if (event.keyCode === 13 && this.state.search.length > 0) {
-				document.getElementById("submit_search").click();
-			$('.modal').modal('close');				
-		} 
-		else if(event.keyCode === 13 && this.state.search.length < 1) {
-			Materialize.toast('Please type in your search query', 2000, 'red');
-			$('.modal').modal('close');
-		}
-	});
-}
+		document.getElementById('search_book').addEventListener('keyup', (event) => {
+			event.preventDefault();
+			if (event.keyCode === 13 && this.state.search.length > 0) {
+				document.getElementById('submit_search').click();
+				$('.modal').modal('close');
+			} else if (event.keyCode === 13 && this.state.search.length < 1) {
+				Materialize.toast('Please type in your search query', 2000, 'red');
+				$('.modal').modal('close');
+			}
+		});
+	}
 
 	/**
 	 * @description - Logs the user out of the application
@@ -107,6 +108,7 @@ export class Header extends Component {
 	onSubmit(event) {
 		event.preventDefault();
 		Materialize.toast('Transaction is in process...', 2000, 'green');
+		$('#plan').modal('close');		
 		const data = {
 			message: `${this.props.user.username} wants an account
        upgrade to ${this.state.plan}`,
@@ -117,10 +119,19 @@ export class Header extends Component {
 			.then((status) => {
 				if (status) {
 					swal('Response recieved successfully, an Admin will get back to you.');
-					$('#plan').modal('close');
 				}
 			})
 			.catch((error) => Materialize.toast(error, 1000, 'red'));
+	}
+
+	fetchResult(event) {
+		this.props.actions.searchAction({ search: event.target.value });
+	}
+
+	searchDisplay() {
+		this.setState({
+			displaySearch: !this.state.displaySearch
+		});
 	}
 
 	/**
@@ -143,7 +154,6 @@ export class Header extends Component {
 			<div id="menu">
 				<nav>
 					<div className="nav-wrapper">
-
 						<a href="#" data-activates="slide-out" 
 						className="button-collapse hide-on-large-only left">
 							<i
@@ -156,28 +166,61 @@ export class Header extends Component {
 								menu
 							</i>
 						</a>
-								<a 
-								className="right hide-on-large-only" 
-								name="logout" onClick={this.props.actions.logoutAction} 
-								href="#!">
-									<i className="material-icons">exit_to_app</i>
-								</a>
-								<a data-target="search_book" 
-								className="modal-trigger right hide-on-large-only" 
-								href="#search_book">
+						<a
+							className="right hide-on-large-only"
+							name="logout"
+							onClick={this.props.actions.logoutAction}
+							href="#!"
+						>
+							<i className="material-icons">exit_to_app</i>
+						</a>
+
+						{ this.state.displaySearch && 
+								<a onClick={this.searchDisplay} 
+								className="right hide-on-large-only">
+								<i className="material-icons">cancel</i>
+								</a>	
+							 }
+						<div className="right hide-on-large-only">
+							{!this.state.displaySearch && (
+								<a onClick={this.searchDisplay}>
 									<i className="material-icons">search</i>
-								</a> 
+								</a>
+							)}
+
+							{this.state.displaySearch && (
+								<input 
+								onChange={this.fetchResult} 
+								type="search" name="search" placeholder="Search book..." />
+							)}
+
+						</div>
 						<ul className="right hide-on-med-and-down">
 							<li>
-								<a data-target="search_book" 
-								className="modal-trigger" 
-								href="#search_book">
-									<i className="material-icons">search</i>
-								</a>
+								{!this.state.displaySearch && (
+									<a onClick={this.searchDisplay}>
+										<i className="material-icons">search</i>
+									</a>
+								)}
+
+								{this.state.displaySearch && (
+									<input
+										onChange={this.fetchResult}
+										type="text"
+										name="search"
+										placeholder="Search book..."
+									/>
+								)}
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} 
-								href="#!">
+							{ this.state.displaySearch && 
+								<a onClick={this.searchDisplay}>
+								<i className="material-icons">cancel</i>
+								</a>	}																
+							</li>
+							<li>
+								<a name="logout" 
+								onClick={this.props.actions.logoutAction} href="#!">
 									<i className="material-icons">exit_to_app</i>
 								</a>
 							</li>
@@ -192,11 +235,10 @@ export class Header extends Component {
 								<Link to="/profile">Profile</Link>
 							</li>
 							<li>
-								<a name="logout" 
-								onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
 									Logout
 								</a>
-							</li>																				
+							</li>
 							<li>
 								<a className="modal-trigger" href="#plan">
 									Upgrade Plan
@@ -253,7 +295,7 @@ export class Header extends Component {
 												type="text"
 												name="search"
 												onChange={this.onChange}
-												className="validate" 
+												className="validate"
 												required
 											/>
 											<label htmlFor="isbn">What do you want?</label>
@@ -261,14 +303,16 @@ export class Header extends Component {
 									</div>
 								</div>
 							</div>
-							{ this.state.search.length > 0 && <Link
+							{this.state.search.length > 0 && (
+								<Link
 									id="submit_search"
 									to={`search?text=${this.state.search}`}
 									style={style.button}
 									className="btn waves-effect"
 								>
 									Search
-								</Link>}
+								</Link>
+							)}
 						</div>
 					</div>
 				</div>
@@ -306,7 +350,8 @@ function mapDispatchToProps(dispatch) {
 		actions: bindActionCreators(
 			{
 				logoutAction,
-				editProfileAction
+				editProfileAction,
+				searchAction
 			},
 			dispatch
 		)

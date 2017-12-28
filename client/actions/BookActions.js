@@ -238,7 +238,7 @@ export function searchAction(query) {
         type: SEARCH_BOOK,
         data: response.data
       });
-      return response.data;
+      return response.data.rows;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));
 }

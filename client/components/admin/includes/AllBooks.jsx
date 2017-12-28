@@ -40,7 +40,6 @@ export class AllBooks extends Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.onClick = this.onClick.bind(this);
 		this.changeView = this.changeView.bind(this);
 	}
 
@@ -69,26 +68,14 @@ export class AllBooks extends Component {
 	}
 
 	/**
-	 * 
-	 * @description - Toggles the application display
-	 * 
-	 * @memberOf AllBooks
-	 */
-	onClick() {
-		this.setState({ 
-			displayBook: false, 
-			edit: true 
-		});
-	}
-
-	/**
 	 *
 	 * @description - Toggles the application display
 	 * 
 	 * @memberOf AllBooks
 	 */
 	changeView() {
-		this.setState({ displayBook: true, edit: false });
+		this.setState({ displayBook: !this.state.displayBook, 
+			edit: !this.state.edit });
 	}
 	
 	/**
@@ -242,7 +229,7 @@ export class AllBooks extends Component {
 							<a onClick={this.handleClick} id="delete_button">
 								Delete
 							</a>
-							<a onClick={this.onClick} id="edit_button">
+							<a onClick={this.changeView} id="edit_button">
 								Edit
 							</a>
 						</div>

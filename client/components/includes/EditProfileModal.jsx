@@ -24,7 +24,8 @@ class EditProfileModal extends Component {
 			email: this.props.email,
 			edit: false,
 			emailExist: '',
-			profile: true
+			profile: true,
+			fullnameError: ''
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -196,7 +197,8 @@ class EditProfileModal extends Component {
 									className="btn waves-effect"
 									type="submit"
 									name="submit"
-								disabled={this.state.emailExist.length > 1}>
+								disabled={this.state.fullnameError.length > 1 ||
+								 this.state.emailExist.length > 1}>
 									Submit
 								</button>
 							</form>

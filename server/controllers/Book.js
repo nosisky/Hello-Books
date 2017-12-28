@@ -153,6 +153,7 @@ const bookController = {
       page = pageNum;
       offset = (page - 1) * limit;
     }
+
     return Book.findAndCountAll({
       order: [['title', 'ASC']],
       limit,
@@ -433,7 +434,9 @@ const bookController = {
    * @returns {Object} - Returns search result
    */
   search(req, res) {
-    return Book.findAll({
+    const limit = 8;
+    const offset = 0;
+    return Book.findAndCountAll({
       where: {
         $or: [
           {
@@ -442,7 +445,10 @@ const bookController = {
             }
           }
         ]
-      }
+      },
+      order: [['title', 'ASC']],
+      limit,
+      offset
     })
       .then((book) => {
         res.status(200).send(book);

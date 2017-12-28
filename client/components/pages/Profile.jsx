@@ -35,7 +35,7 @@ export class Profile extends Component {
 			email: this.props.user.email,
 			edit: false,
 			emailExist: '',
-			profile: true
+			profile: true,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
     this.displayEdit = this.displayEdit.bind(this);

@@ -147,7 +147,9 @@ export class Dashboard extends Component {
 					isAdmin={this.props.user.isAdmin} />
 
 					<div className="empty-notifier">
-						<h2>No more book in the database</h2>
+					{this.props.search ? 	<b>No book matches search query</b> :
+						<b>No more book in the database</b>
+					}
 					</div>
 					{this.renderPagination(this.props.count)}
 				</div>
@@ -156,7 +158,7 @@ export class Dashboard extends Component {
 
 		return (
 			<div>
-				<div className="card-panel teal user-book-header">
+				<div style={{fontSize: 25}} className="card-panel teal large white-text">
 					<center>Recently Added Books</center>
 				</div>
 				<div className="row">
@@ -224,6 +226,7 @@ function mapStateToProps(state) {
 	return {
 		user: state.auth.user.currentUser,
 		books: state.book.data,
+		search: state.book.search,
 		count: state.book.count
 	};
 }

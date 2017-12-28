@@ -448,6 +448,7 @@ h5 {
 	text-align: center;
 }
 
+
 .user-profile span {
 	font-family: "varela round", sans-serif;
 	color: #e3eeee;
@@ -513,12 +514,12 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 }
 
 .empty-notifier {
-	color: rgb(255, 255, 255);
+	color: white;
 	float: right;
-	margin-right: 50px;
-	background: $circular;
-	padding: 40px;
-	margin: 30px;
+	background: #065F7C;
+	margin: 20px -80px 60px 50px;
+	font-size: 50px;
+	font-weight: bold;
 }
 
 .notfound {
