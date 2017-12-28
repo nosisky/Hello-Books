@@ -162,7 +162,7 @@ export class Dashboard extends Component {
 					<center>Recently Added Books</center>
 				</div>
 				<div className="row">
-					<div className="col s12 push-l3 m9">
+					<div className="col s12 l9 push-l3 m12">
 						{allbooks.map((book) => {
 							return (
 								<AllBooks

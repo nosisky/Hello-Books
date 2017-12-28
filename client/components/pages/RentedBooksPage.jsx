@@ -83,7 +83,7 @@ export class RentedBooksPage extends Component {
 					isAdmin={this.props.user.isAdmin} />
 
 					<div className="row">
-						<div className="col s12 push-l3 m9">
+						<div className="col s12 l9 push-l3 m12">
 							{rentedBooks.map((book) => {
 								return (
 									<AllBooks
