@@ -229,7 +229,6 @@ app.route('/users/:userId/books')
  */
 app.route('/:userId/books')
   .get(Authorization.isLoggedIn,
-    Validation.validUser,
     BookController.rentedBooks);
 
 /**
@@ -371,7 +370,6 @@ app.route('/books/delete/:bookId')
  */
 app.route('/books/logs/:userId')
   .get(Authorization.isLoggedIn,
-    Validation.validUser,
     BookController.rentedBookByUser);
 
 

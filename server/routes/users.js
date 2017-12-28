@@ -215,7 +215,7 @@ app.route('/get')
 
 // Email Exist
 app.route('/getemail')
-  .post(Validation.emailExist);
+  .post(Authorization.isLoggedIn,Validation.emailExist);
 
 /**
  * @swagger
@@ -255,7 +255,7 @@ app.route('/getemail')
  */
 app.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
-    Validation.validUser,
+    Validation.emailExist,
     UserController.editProfile);
 
 /**

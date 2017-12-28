@@ -67,6 +67,8 @@ class SearchPage extends Component {
 				const userId = this.props.user.id || this.props.user.userId				
 				rentBookAction(userId, 
 					{ bookId: id })
+			} else {
+				$('div').removeClass('swal-overlay');
 			}
 		});
 	}

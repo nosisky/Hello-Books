@@ -198,40 +198,6 @@ const Validation =  {
   },
 
   /** 
-   * @description - Check if a user is valid
-   * 
-   * @param  {Object} req - request
-   * 
-   * @param  {object} res - response
-   * 
-   * @param {Object} next - Call back function
-   * 
-   * @return {Object} - Object containing message
-   */
-  validUser(req, res, next) {
-    const querier = req.params.userId;
-    if (!querier || querier.match(/[\D]/)) {
-      res.status(400).send({
-        message: 'Invalid user id supplied!!!'
-      });
-    } else {
-      User.findOne({
-        where: {
-          id: req.params.userId
-        }
-      }).then((user) => {
-        if (!user) {
-          res.status(400).send({
-            message: 'Invalid user id supplied'
-          });
-        } else {
-          next();
-        }
-      });
-    }
-  },
-
-  /** 
    * @description - Checks if a user already exist
    * 
    * @param  {Object} req - request
@@ -277,8 +243,11 @@ const Validation =  {
     const regularExpression = /\S+@\S+\.\S+/,
       emailValidate = regularExpression.test(req.body.email);
     if (!emailValidate) {
-      res.send({ message: 'Invalid email supplied' });
+      return res.send({ message: 'Invalid email supplied' });
       return;
+    }
+    else if(req.body.email === req.decoded.currentUser.email){
+      return res.status(200).send({ message: '' });
     }
     return User.findOne({
       where: {
@@ -292,12 +261,12 @@ const Validation =  {
             'createdAt',
             'updatedAt'
           ]);
-          res.status(200).send({
+          return res.status(200).send({
             message: 'Email already exist',
             user: currentUser
           });
         } else {
-          res.status(200).send({ message: '' });
+          return res.status(200).send({ message: '' });
         }
       })
       .catch(error => res.status(404).send({ error }));

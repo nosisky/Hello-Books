@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { editProfileAction } from '../../actions/UserActions';
 import DashboardFooter from '../includes/DashboardFooter';
 import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+	checkEmailExist, reMap } from '../../utils/validation';
 import EditProfileModal from '../includes/EditProfileModal';
 
 /**
@@ -24,14 +24,14 @@ export class Profile extends Component {
 	/**
 	 * @description Creates an instance of Profile.
 	 * 
-	 * @param {any} props 
+	 * @param {Object} props 
 	 * 
 	 * @memberOf Profile
 	 */
 	constructor(props){
 		super(props);
 		this.state = {
-			fullName: this.props.user.fullname,
+			fullName: this.props.user.fullname || this.props.user.fullName,
 			email: this.props.user.email,
 			edit: false,
 			emailExist: '',
@@ -156,7 +156,7 @@ export class Profile extends Component {
 				<SideBar fullname={realFullName} isAdmin={isAdmin} />
 				<EditProfileModal 
 					username={username}
-					fullName={realFullName}
+					fullname={realFullName}
 					email={email}
 					onSubmit={this.handleSubmit}
 				/>

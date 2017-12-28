@@ -67,8 +67,8 @@ export class SideBar extends Component {
 							alt="HelloBooks"
 						/>
 						<br />
-						<i className="material-icons">account_circle</i>
-						<b>{this.props.fullname}</b>
+						<i className="material-icons white-text">account_circle</i>
+						<span className="white-text"><b>{this.props.fullname}</b></span>
 					</div>
 					<br />
 				</div>
@@ -96,6 +96,12 @@ export class SideBar extends Component {
 						My Profile
 						<i className="material-icons">person</i>
 					</Link>
+				</li>
+				<li id="menu-list">
+					<a className="modal-trigger" href="#plan">
+						Upgrade Plan
+						<i className="material-icons">send</i>
+					</a>
 				</li>
 				{this.props.isAdmin === 1 && (
 					<li id="menu-list">

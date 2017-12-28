@@ -46,10 +46,13 @@ module.exports = {
       Hammer: 'hammerjs/hammer'
     }),
     new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false
+      minimize: true,
+      sourceMap: true,
+      comments: false,
+      compress: {
+        warnings: false,
+        drop_console: true
       },
-      compress: { warnings: false } 
     })
   ],
   devServer: {

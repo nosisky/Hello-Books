@@ -21,6 +21,7 @@ import firebaseConfig from './utils/firebaseConfig';
 
 const store = configureStore();
 
+
 //Initalize firebase
 firebase.initializeApp(firebaseConfig);
 

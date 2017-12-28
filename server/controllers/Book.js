@@ -1,4 +1,7 @@
 import database from '../models';
+import UserController from './User';
+
+const { checkValidUser } = UserController;
 
 const { RentedBook, Book, Category, Notification } = database;
 
@@ -7,12 +10,14 @@ const bookController = {
   /** 
    * @description - Admin add new book
    * 
-   * @param  {object} req request
+   * @param  {object} req - request
    * 
-   * @param  {object} res response
+   * @param  {object} res - response
+   * 
+   * @return {Object} - Object containing status code and success message
    * 
    * Route: POST: /books  
-   * @return {Object} - Object containing status code and success message
+   * 
    */
   create(req, res) {
     return Book.create(req.userInput)
@@ -55,6 +60,11 @@ const bookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const userData = { userId, newId: req.body.userId }
+    
+    checkValidUser(userData)
+
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
     Book.findById(req.body.bookId)
@@ -196,6 +206,10 @@ const bookController = {
    * Route: GET: //api/users/:UserId/books?returned=false
    */
   rentedBooks(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const userData = { userId, newId: req.body.userId }
+    
+    checkValidUser(userData)
     return RentedBook.findAll({
       where: {
         returned: req.query.returned,
@@ -302,6 +316,10 @@ const bookController = {
    * Route: GET: /books/logs/:userId
    */
   rentedBookByUser(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const userData = { userId, newId: req.body.userId }
+    
+    checkValidUser(userData)
     return RentedBook.findAll({
       where: {
         userId: req.params.userId
@@ -332,6 +350,10 @@ const bookController = {
    * 
    */
   returnBook(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const userData = { userId, newId: req.body.userId }
+    
+    checkValidUser(userData)
     const querier = req.body.bookId || req.params.bookId;
     if (!querier || /[\D]/.test(querier)) {
       return res.status(400).send({

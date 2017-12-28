@@ -8,7 +8,8 @@ dotenv.load();
 const secret = process.env.secretKey;
 
 const { User } = database;
-export default {
+
+const UserController = {
 
   /** 
    * @description - Adds a new use to the database
@@ -26,6 +27,9 @@ export default {
       .then((user) => {
         const currentUser = omit(user.dataValues,
           ['password', 'createdAt', 'updatedAt']);
+          if(currentUser.id){
+            currentUser.userId = currentUser.id
+          }
         const token = jwt.sign(
           {
             currentUser,
@@ -86,6 +90,14 @@ export default {
       .catch(error => res.status(500).send(error));
   },
 
+  checkValidUser(userData){    
+        if(userData.userId !== userData.newId) {
+          res.status(400).send({
+            message: 'Invalid user id supplied'
+          })
+        }
+  },
+
   /**
    * 
    * @description - Edit profile controller
@@ -97,6 +109,10 @@ export default {
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
+    const { userId } = req.decoded.currentUser;
+    const userDetails = { userId, newId: req.body.userId }
+    UserController.checkValidUser(userDetails)
+
     const userData = {
       email: req.body.email,
       fullName: req.body.fullName
@@ -127,3 +143,5 @@ export default {
       .catch(error => res.status(500).send(error));
   }
 };
+
+export default UserController;

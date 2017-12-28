@@ -35,7 +35,7 @@ export class AdminHeader extends Component {
 			inDuration: 300,
 			outDuration: 225,
 			constrainWidth: false, // Does not change width of dropdown to that of the activator
-			hover: false, // Activate on hover
+			hover: true, // Activate on hover
 			gutter: 0, // Spacing from edge
 			belowOrigin: false, // Displays dropdown below the button
 			alignment: 'left', // Displays dropdown with edge aligned to the left of button
@@ -104,7 +104,8 @@ export class AdminHeader extends Component {
 					</ul>
 					<div id="menu">
 						<div style={style.account}>
-							<a style={style.main} className="dropdown-button btn" href="#" 
+							<a style={style.main} 
+							className="dropdown-button btn hide-on-med-and-down" href="#" 
 							data-activates="dropdown1">
 								Account
 							</a>
@@ -116,6 +117,13 @@ export class AdminHeader extends Component {
 									menu
 								</i>
 							</a>
+							<a 
+								className="right hide-on-large-only white-text" 
+								name="logout" onClick={this.props.actions.logoutAction} 
+								href="#!">
+									<i style={{paddingTop: 6, fontSize: '2.5rem'}} 
+									className="small material-icons">exit_to_app</i>
+								</a>
 						</div>
 					</div>
 				</div>

@@ -162,7 +162,7 @@ class EditProfileModal extends Component {
 												onBlur={this.onBlur}
 												onChange={this.onChange}
 												onFocus={this.onFocus}
-												defaultValue={this.props.fullName}
+												defaultValue={this.props.fullname}
 												className="validate"
 												required
 											/>
@@ -196,7 +196,7 @@ class EditProfileModal extends Component {
 									className="btn waves-effect"
 									type="submit"
 									name="submit"
-								>
+								disabled={this.state.emailExist.length > 1}>
 									Submit
 								</button>
 							</form>

@@ -48,7 +48,9 @@ export class Header extends Component {
 			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
-		$(".dropdown-button").dropdown();
+		$(".dropdown-button").dropdown({
+			hover: true
+		});
 		$('.modal').modal();
 		document.getElementById("search_book")
     .addEventListener("keyup", (event) => {
@@ -103,6 +105,7 @@ export class Header extends Component {
 	 */
 	onSubmit(event) {
 		event.preventDefault();
+		$('.modal').modal('close');
 		const data = {
 			message: `${this.props.user.username} wants an account
        upgrade to ${this.state.plan}`,
