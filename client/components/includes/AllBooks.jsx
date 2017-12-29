@@ -25,19 +25,19 @@ const AllBooks = ({
 						</div>
 						<div className="card-action">
 						{rented && !isReturned && (
-								<a href="#" id="returnBook" onClick={handleClick} 
+								<a id="returnBook" onClick={handleClick} 
 								className="btn">
 									Return
 								</a>
 							)}
 							{rented && isReturned && (
-								<a href="#" id="returnBook" onClick={handleClick} 
+								<a  id="returnBook" onClick={handleClick} 
 								className="btn disabled">
 									Returned
 								</a>
 							)}
 							{!rented && (
-								<a href="#" id="borrowNow" onClick={handleClick} 
+								<a  id="borrowNow" onClick={handleClick} 
 								className="btn">
 									Borrow
 								</a>
