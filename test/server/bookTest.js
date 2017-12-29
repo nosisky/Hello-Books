@@ -16,8 +16,8 @@ before((done) => {
   });
 });
 
-describe('Adds a new book to the database', () => {
-  it('tests that only admin can add book', (done) => {
+describe('#Book Features: ', () => {
+  it('Should test that only an admin can add book', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -48,7 +48,7 @@ describe('Adds a new book to the database', () => {
       });
   });
 
-  it('adds a new book', (done) => {
+  it('Should add a new book', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -95,6 +95,7 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+
   it('tests for valid book category', (done) => {
     server
       .post('/api/v1/books')
@@ -110,6 +111,7 @@ describe('Adds a new book to the database', () => {
         done();
       });
   });
+
   it('tests for valid book Production year', (done) => {
     server
       .post('/api/v1/books')
@@ -124,6 +126,7 @@ describe('Adds a new book to the database', () => {
         res.body.message.should.equal('Production Year is required');
         done();
       });
+
   });
 
   it('tests for valid book cover', (done) => {

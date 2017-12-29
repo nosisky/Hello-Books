@@ -34,6 +34,7 @@ export function addBookAction(bookDetails) {
         book: response.data.book
       });
       Materialize.toast('Book added Successfully', 1000, '#15b39d', () => {
+        document.getElementById("book_form").reset();
         $('.modal').modal('close');
       });
     })

@@ -108,7 +108,6 @@ export function logoutAction() {
  */
 export function editProfileAction(userId, userData) {
   return dispatch => axios.put(`${API_URL}/edit/${userId}`, userData)
-    .then(() => axios.get(`${SEARCH_API_URL}/${userId}`)
       .then((response) => {
         dispatch({
           type: EDIT_PROFILE,
@@ -119,7 +118,7 @@ export function editProfileAction(userId, userData) {
           1000, 'blue darken-4', () => {
             $('.modal').modal('close');
           });
-      }))
+      })
     .catch(error => Materialize.toast(error.response.data.message));
 }
 

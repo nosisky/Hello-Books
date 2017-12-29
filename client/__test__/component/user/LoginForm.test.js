@@ -24,10 +24,10 @@ const setup = () => {
 describe('Component: LoginForm', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = setup();
-    expect(wrapper.find('div').length).toBe(13);
-    expect(wrapper.find('button').length).toBe(2);    
-    expect(wrapper.find('form').length).toBe(2);    
-    expect(wrapper.find('input').length).toBe(3);    
+    expect(wrapper.find('div').length).toBe(7);
+    expect(wrapper.find('button').length).toBe(1);    
+    expect(wrapper.find('form').length).toBe(1);    
+    expect(wrapper.find('input').length).toBe(2);    
   })
 
 

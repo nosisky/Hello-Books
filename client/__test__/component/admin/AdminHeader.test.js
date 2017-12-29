@@ -32,12 +32,12 @@ describe('Component: AdminHeader', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(4);
-    expect(wrapper.find('a').length).toBe(4);
+    expect(wrapper.find('a').length).toBe(5);
   })
   it('tests that the component received the user props', () => {
     const wrapper = setup();
     expect(wrapper.instance().props.user.fullName).toBe('test');
-    expect(wrapper.find('a').length).toBe(4);
+    expect(wrapper.find('a').length).toBe(5);
     expect(wrapper.instance().props.user.fullName).toBe('test');
     expect(wrapper.instance().props.user.plan).toBe('Silver');
     expect(wrapper.instance().props.user.isAdmin).toBe(0);

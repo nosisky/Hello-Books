@@ -245,7 +245,6 @@ export class AddBook extends Component {
 		event.preventDefault();
 		this.props.actions
 			.addBookAction(this.state)
-		document.getElementById("book_form").reset();
 	}
 
 	/**

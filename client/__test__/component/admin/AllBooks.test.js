@@ -24,12 +24,10 @@ const setup = () => {
       plan: 'Silver',
       isAdmin: 0
     },
-      actions: {
-        getAllBooksAction: jest.fn(),
-        modifyBookAction: jest.fn(),
-        deleteBookAction: jest.fn()
-      },
-      books: mockData.modifiedBook
+    getAllBooksAction: jest.fn(),
+    modifyBookAction: jest.fn(),
+    deleteBookAction: jest.fn(),
+    books: mockData.modifiedBook
   }
   return mount(<AllBooks {...props} />)
 }
@@ -56,8 +54,8 @@ describe('Component: AllBooks', () => {
   it('tests that the component received the action creator', () => {
     const wrapper = setup();
     const newState = wrapper.setState({ displayBook: true, edit: false });
-    expect(wrapper.props().actions.deleteBookAction).toBeTruthy;
-    expect(wrapper.props().actions.modifyBookAction).toBeTruthy;
+    expect(wrapper.props().deleteBookAction).toBeTruthy;
+    expect(wrapper.props().modifyBookAction).toBeTruthy;
     expect(wrapper.props().books.length).toBe(2);
     expect(wrapper.state().edit).toBeFalsy;
     expect(wrapper.state().displayBook).toBeTruthy;
@@ -81,9 +79,38 @@ it('should receive the book props', () => {
 it('should call handleClick to delete book', () => {
   const wrapper = setup();
   const action = wrapper.instance();
-  
+
   wrapper.find('#delete_button').simulate('click');
   
   expect(action.handleClick).toBeTruthy()
 });
+
+it('should call changeView to change page view', () => {
+  const wrapper = setup();
+  const action = wrapper.instance();
+  
+  wrapper.find('#edit_button').simulate('click');
+
+  const handleFormSubmit = jest.spyOn(action, 'handleFormSubmit');
+  wrapper.instance().handleFormSubmit({ preventDefault: () => 1 });
+  
+  expect(handleFormSubmit).toHaveBeenCalled()
+});
+
+it('should change username value as entered by user', () => {
+  const wrapper = setup();
+  
+  const action = wrapper.instance();
+  
+  const event = {
+    target: {
+      name: 'prodYear',
+      value: 'Test'
+    }
+  };
+  action.onChange(event);
+  expect(action.state.prodYear)
+    .toEqual('Test');
+});
+
 })

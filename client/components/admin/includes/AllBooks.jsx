@@ -58,7 +58,7 @@ export class AllBooks extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				this.props.actions.deleteBookAction(this.props.id).then((response) => {
+				this.props.deleteBookAction(this.props.id).then((response) => {
 					swal(response, { icon: 'success' });
 				});
 			} else {
@@ -88,11 +88,8 @@ export class AllBooks extends Component {
 	 */
 	handleFormSubmit(event) {
 		event.preventDefault();
-		this.props.actions.modifyBookAction(this.state, this.props.id)
-		this.setState({
-			displayBook: true, 
-			edit: false 
-		})
+		this.props.modifyBookAction(this.state, this.props.id)
+		this.changeView()
 	}
 
 	/**
@@ -240,24 +237,4 @@ export class AllBooks extends Component {
 	}
 }
 
-/**
- * 
- * @description - Maps dispatch to the component props
- * 
- * @param {Object} dispatch 
- * 
- * @returns { Object } - Object containing async actions creators
- */
-function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(
-			{
-				deleteBookAction,
-				modifyBookAction
-			},
-			dispatch
-		)
-	};
-}
-
-export default connect(null, mapDispatchToProps)(AllBooks);
+export default connect(null, { deleteBookAction, modifyBookAction })(AllBooks);

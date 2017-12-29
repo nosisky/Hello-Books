@@ -30,7 +30,7 @@ describe('#Book Features: ', () => {
     });
   });
 
-  it('adds a new book', (done) => {
+  it('Should add a new book', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -46,7 +46,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('adds a new category', (done) => {
+  it('Should add a new category', (done) => {
     server
       .post('/api/v1/books/cat')
       .set('Connection', 'keep alive')
@@ -62,7 +62,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('retrieves all category', (done) => {
+  it('Should fetch all categories', (done) => {
     server
       .get('/api/v1/category')
       .set('Connection', 'keep alive')
@@ -76,7 +76,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Searches for book', (done) => {
+  it('It searches for books', (done) => {
     server
       .post('/api/v1/search')
       .set('Connection', 'keep alive')
@@ -87,12 +87,16 @@ describe('#Book Features: ', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
-        res.body.should.have.lengthOf(1);
+        res.body.rows.should.have.lengthOf(1);
+        res.body.rows[0].title.should.equal('Think rich to grow rich')
+        res.body.rows[0].author.should.equal('Albert Einstein');
+        res.body.rows[0].description.should.equal('The book is based on education');
+        res.body.rows[0].isbn.should.equal('123-456-5858');
         done();
       });
   });
 
-  it('checks if email can be sent with invalid details', (done) => {
+  it('Should test for invalid email', (done) => {
     server
       .post('/api/v1/books/email')
       .set('Connection', 'keep alive')
@@ -107,7 +111,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests if user can rent book without logging in', (done) => {
+  it('Should test if user can rent book without logging in', (done) => {
     server
       .post('/api/v1/users/1/books')
       .set('Connection', 'keep alive')
@@ -122,7 +126,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for invalid user', (done) => {
+  it('Should tests for invalid user id', (done) => {
     server
       .post('/api/v1/users/dhdhs/books')
       .set('Connection', 'keep alive')
@@ -138,9 +142,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests if user can rent book without logging in', (done) => {
+  it('Should test if user can rent book without logging in', (done) => {
     server
-      .post('/api/v1/users/1/books')
+      .post('/api/v1/users/4/books')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
@@ -153,9 +157,25 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for invalid book id', (done) => {
+  it('Should check for invalid user ID', (done) => {
     server
-      .post('/api/v1/users/1/books')
+      .post('/api/v1/users/9/books')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)      
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .send({ bookId: 1 })
+      .expect(400)
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.message.should.equal('Invalid user id supplied');
+        done();
+      });
+  });
+
+  it('Should test for invalid book id', (done) => {
+    server
+      .post('/api/v1/users/4/books')
       .set('Connection', 'keep alive')
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')
@@ -168,9 +188,11 @@ describe('#Book Features: ', () => {
         done();
       });
   });
-  it('should display message \'No rented books by this user \' ', (done) => {
+
+  it(`Should display 'No rented books by this user
+   when user with no rent history is supplied'`, (done) => {
     server
-      .get('/api/v1/books/logs/1')
+      .get('/api/v1/books/logs/4')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -197,9 +219,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for book renting', (done) => {
+  it('Should test for book renting', (done) => {
     server
-      .post('/api/v1/users/1/books')
+      .post('/api/v1/users/4/books')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -213,9 +235,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for rented books', (done) => {
+  it('Should tests for rented books', (done) => {
     server
-      .get('/api/v1/users/1/books?returned=false')
+      .get('/api/v1/users/4/books?returned=false')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -226,9 +248,9 @@ describe('#Book Features: ', () => {
         done();
       });
   });
-  it('returns rented books', (done) => {
+  it('Should return rented books', (done) => {
     server
-      .put('/api/v1/users/1/books')
+      .put('/api/v1/users/4/books')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -242,9 +264,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('test if book is truly returned', (done) => {
+  it('Should test if book is truly returned', (done) => {
     server
-      .get('/api/v1/1/books?returned=false')
+      .get('/api/v1/4/books?returned=false')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -257,23 +279,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should display list of notifications', (done) => {
-    server
-      .get('/api/v1/notification')
-      .set('x-access-token', token)
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        done();
-      });
-  });
-
   it('should rent a new book', (done) => {
     server
-      .get('/api/v1/users/1/books?returned=false')
+      .get('/api/v1/users/4/books?returned=false')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
@@ -286,20 +294,21 @@ describe('#Book Features: ', () => {
   });
   it('should display logs of rented books', (done) => {
     server
-      .get('/api/v1/books/logs/1')
+      .get('/api/v1/books/logs/4')
       .set('x-access-token', token)
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
       .expect(200)
       .end((err, res) => {
-        res.body[0].should.have.property('toReturnDate');
-        res.body[0].should.have.property('returnDate');
-        res.body[0].should.have.property('bookId');
+        res.body[0].bookId.should.equal(1)
+        res.body[0].userId.should.equal(4)
+        res.body[0].title.should.equal('Think rich to grow rich')
+        res.body[0].cover.should.equal('albert-think.jpg')
         done();
       });
   });
-  it('get a specific book with id = 1', (done) => {
+  it('Should get a specific book with id = 1', (done) => {
     server
       .get('/api/v1/books/1')
       .set('x-access-token', token)
@@ -309,15 +318,15 @@ describe('#Book Features: ', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
-        res.body[0].should.have.property('title');
-        res.body[0].should.have.property('author');
-        res.body[0].should.have.property('description');
-        res.body[0].should.have.property('isbn');
+        res.body[0].title.should.equal('Think rich to grow rich')
+        res.body[0].author.should.equal('Albert Einstein');
+        res.body[0].description.should.equal('The book is based on education');
+        res.body[0].isbn.should.equal('123-456-5858');
         done();
       });
   });
 
-  it('test for book modification', (done) => {
+  it('Should test for book modification', (done) => {
     server
       .put('/api/v1/books/1')
       .set('x-access-token', token)
@@ -332,6 +341,7 @@ describe('#Book Features: ', () => {
         done();
       });
   });
+
   it('should return all books', (done) => {
     server
       .get('/api/v1/books?page=0')
@@ -343,15 +353,15 @@ describe('#Book Features: ', () => {
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.count.should.equal(1);
-        res.body.rows[0].should.have.property('title');
-        res.body.rows[0].should.have.property('author');
-        res.body.rows[0].should.have.property('description');
-        res.body.rows[0].should.have.property('isbn');
+        res.body.rows[0].title.should.equal('This is a new title')
+        res.body.rows[0].author.should.equal('Albert Einstein');
+        res.body.rows[0].description.should.equal('The book is based on education');
+        res.body.rows[0].isbn.should.equal('123-456-5858');
         done();
       });
   });
 
-  it('deletes a book successfully', (done) => {
+  it('Should delete a book successfully', (done) => {
     server
       .delete('/api/v1/books/delete/1')
       .set('Connection', 'keep alive')
@@ -365,6 +375,7 @@ describe('#Book Features: ', () => {
         done();
       });
   });
+
   it('should return message \'There is no book in the database\' ', (done) => {
     server
       .get('/api/v1/books?page=0')

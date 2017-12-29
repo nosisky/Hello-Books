@@ -5,13 +5,16 @@ import hammerjs, { Hammer } from 'hammerjs';
 import { checkUserExist, checkEmailExist } from '../../utils/validation';
 import { getUserData } from '../../utils/authorization';
 import mailSender from '../../utils/mailSender';
-import { getUserByEmailAction } from '../../actions/AuthActions';
+import { getUserByEmailAction } from '../../actions/UserActions';
 
+const error = { response: { data: { message: 'Invalid username supplied' } } }
 describe('Auth actions', () => {
   beforeEach(() => {
-    global.Materialize = { toast: () => {} };
     moxios.install();
+    global.Materialize = { toast: jest.fn(() => Promise.resolve(1)) };
+
   });
+
   afterEach(() => moxios.uninstall());
 
   it('Should get userData from the database', () => {
@@ -29,18 +32,6 @@ describe('Auth actions', () => {
       .catch(error => error);
   });
 
-  it('Should fail when there is invalid email', () => {
-    moxios.stubRequest('/api/v1/users/getemail', {
-      status: 500,
-      response: {}
-    });
-
-    const expectedActions = { };
-
-    getUserData('hello')
-      .then(() => { })
-      .catch(error => expect(error).toEqual(expectedActions));
-  });
 
   it('Should validate if username exists', () => {
     moxios.stubRequest('/api/v1/users/get', {
@@ -61,10 +52,10 @@ describe('Auth actions', () => {
   it('Should return empty response if there is no username', () => {
     moxios.stubRequest('/api/v1/users/get', {
       status: 404,
-      response: { }
+      response:  error
     });
 
-    const expectedActions = { };
+    const expectedActions = null
 
     checkUserExist('')
       .then(() => {})
@@ -150,18 +141,5 @@ describe('Auth actions', () => {
     getUserByEmailAction('')
       .then(data => expect(data).toEqual(expectedActions))
       .catch(error => error);
-  });
-
-  it('Should return empty response when email not found', () => {
-    moxios.stubRequest('/api/v1/search/email', {
-      status: 404,
-      response: { }
-    });
-
-    const expectedActions = { };
-
-    getUserByEmailAction({})
-      .then()
-      .catch(error => expect(error).toEqual(expectedActions));
   });
 });

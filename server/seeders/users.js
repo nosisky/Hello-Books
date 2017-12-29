@@ -6,6 +6,13 @@ const userSeeder = {
     email: 'nosisky@gmail.com'
   },
 
+  signUp2: {
+    fullName: 'Abdulrasaq Nasirudeen',
+    username: 'Dealwapb',
+    password: 'helloworld',
+    email: 'main@gmail.com'
+  },
+
   login: {
     username: 'Dealwap',
     password: 'helloworld'
@@ -15,12 +22,18 @@ const userSeeder = {
     username: 'Dealwap',
     password: 'hello'
   },
+
+  missingPassword: {
+    username: 'Dealwap',
+  },
+
   existingUsername: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Dealwap',
     password: 'helloworld',
     email: 'jamesjunior@yahoo.com'
   },
+
   existingEmail: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Bisola',

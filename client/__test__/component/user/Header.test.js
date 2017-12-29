@@ -31,8 +31,8 @@ const setup = () => {
 describe('Component: Header', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = setup();
-    expect(wrapper.find('div').length).toBe(14);
-    expect(wrapper.find('Link').length).toBe(3);    
+    expect(wrapper.find('div').length).toBe(8);
+    expect(wrapper.find('Link').length).toBe(1);    
     expect(wrapper.find('a').length).toBe(6);
   })
   it('tests that the component received the user props', () => {

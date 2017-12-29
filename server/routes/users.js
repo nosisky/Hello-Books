@@ -215,7 +215,7 @@ app.route('/get')
 
 // Email Exist
 app.route('/getemail')
-  .post(Authorization.isLoggedIn,Validation.emailExist);
+  .post(Authorization.isLoggedIn, Validation.emailExist);
 
 /**
  * @swagger
@@ -256,33 +256,5 @@ app.route('/getemail')
 app.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
     UserController.editProfile);
-
-/**
- * @swagger
- * /users/:userId:
- *   get:
- *     tags:
- *       - Users & Authentication
- *     description: Get a specific user by ID
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: A user object
- *       404:
- *         description: User not found
- *         schema:
- *           $ref: '#/definitions/Register'
- */
-app.route('/:userId')
-  .get(Authorization.isLoggedIn,
-    Validation.validBook,
-    Authorization.getOneUser);
 
 export default app;

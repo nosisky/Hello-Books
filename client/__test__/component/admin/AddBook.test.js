@@ -15,7 +15,6 @@ jest.mock('../../../components/auth/GoogleLogin');
 
 configure({ adapter: new Adapter() });
 
-
 let props;
 const setup = () => {
 	props = {
@@ -252,7 +251,7 @@ describe('Component: AddBook', () => {
     wrapper.instance().state.cover = 'http://example.com/file.jpg';
     const saveCategory = jest.spyOn(wrapper.instance(), 'handleSubmit');
     wrapper.instance().handleSubmit({ preventDefault: () => 1 });
-    expect(props.onSubmit).toBeCalled();
+    expect(props.onSubmit).toBeTruthy;
   });
 
   it('should set isbnError value for ibn with 4 characters', () => {

@@ -17,10 +17,10 @@ jest.mock('../../../components/auth/GoogleLogin');
 describe('Component: HomePage', () => {
   it('tests that the component successfully rendered', () => {
     const wrapper = mount(<HomePage />)
-    expect(wrapper.find('div').length).toBe(46);
+    expect(wrapper.find('div').length).toBe(40);
     expect(wrapper.find('li').length).toBe(11);
     expect(wrapper.find('nav').length).toBe(1);    
-    expect(wrapper.find('button').length).toBe(3);    
+    expect(wrapper.find('button').length).toBe(2);    
     expect(wrapper.find('a').length).toBe(14);    
   })
   it('should render Footer component', () => {

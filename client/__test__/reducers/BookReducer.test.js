@@ -42,15 +42,16 @@ describe('Book Reducer:', () => {
   });
 
   it('should return list of books for SEARCH_BOOK', () => {
-    const book = [{ id: 1, title: 'test' }, { id: 2, title: 'game' }];
-    const initialState = { data: [] };
+    const book = { count: 2, rows: [{ id: 1, title: 'test' }, { id: 2, title: 'game' }] }
+    const initialState = { data: { rows: [] } };
 
     const action = {
       type: ActionTypes.SEARCH_BOOK,
       data: book,
     };
     const state = bookReducer(initialState, action);
-    expect(state.data).toEqual(book);
+    
+    expect(state.data).toEqual(book.rows);
   });
 
   it('should return list of books for GET_RENTED_BOOKS', () => {

@@ -32,7 +32,7 @@ describe('User Api', () => {
       });
   });
 
-  it('checks for missing full name during registeration', (done) => {
+  it('Should check for missing full name during registeration', (done) => {
     server
       .post('/api/v1/users/signup')
       .set('Connection', 'keep alive')
@@ -47,7 +47,7 @@ describe('User Api', () => {
       });
   });
 
-  it('allows a new user to register', (done) => {
+  it('Should register a new user', (done) => {
     server
       .post('/api/v1/users/signup')
       .set('Connection', 'keep alive')
@@ -62,7 +62,7 @@ describe('User Api', () => {
       });
   });
 
-  it('Checks for existing username', (done) => {
+  it('Should Check for existing username', (done) => {
     server
       .post('/api/v1/users/get')
       .set('Connection', 'keep alive')
@@ -77,11 +77,12 @@ describe('User Api', () => {
       });
   });
 
-  it('Checks for existing email address', (done) => {
+  it('Should check for existing email address', (done) => {
     server
       .post('/api/v1/users/getemail')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
+      .set('x-access-token', token)      
       .type('form')
       .send({ email: 'nosisky@gmail.com' })
       .expect(200)
@@ -92,7 +93,7 @@ describe('User Api', () => {
       });
   });
 
-  it('Checks for invalid login details', (done) => {
+  it('Should check for invalid login details', (done) => {
     server
       .post('/api/v1/users/signin')
       .set('Connection', 'keep alive')
@@ -107,20 +108,23 @@ describe('User Api', () => {
       });
   });
 
-  it('Feteches all users from the database', (done) => {
+  it('Should validate for empty password', (done) => {
     server
-      .get('/api/v1/users/all')
+      .post('/api/v1/users/signin')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
-      .set('x-access-token', token)
-      .expect(200)
+      .type('form')
+      .send(userSeeder.missingPassword)
+      .expect(401)
       .end((err, res) => {
-        res.status.should.equal(200);
+        res.status.should.equal(401);
+        res.body.message.should.equal('Please provide your username or password to login');
         done();
       });
   });
 
-  it('Logs the user in successfully', (done) => {
+
+  it('Should log the user in successfully', (done) => {
     server
       .post('/api/v1/users/signin')
       .set('Connection', 'keep alive')

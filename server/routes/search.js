@@ -62,34 +62,7 @@ const app = express.Router();
 app.route('/')
   .post(Authorization.isLoggedIn,
     BookController.search);
-
-/**
- * @swagger
- * /search:
- *   get:
- *     tags:
- *       - Users & Authentication
- *     description: Returns an object containing user data
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Returns an object containing user data
- *       404:
- *         description: User not found
- *         schema:
- *           $ref: '#/definitions/SearchUser'
- */
-app.route('/:userId')
-  .get(Authorization.isLoggedIn,
-    Authorization.getOneUser);
-
+    
 /**
  * @swagger
  * /search/email:

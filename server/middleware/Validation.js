@@ -61,27 +61,28 @@ const Validation =  {
         });
       });
       return res.status(400).json(allErrors);
+    } else {
+      User.findOne({
+        where: {
+          username: req.body.username,
+          $or: {
+            email: req.body.email
+          }
+        }
+      }).then((user) => {
+        if (user) {
+          if (user.email === req.body.email) {
+            return res.status(409).send({
+              message: 'Email already exist'
+            });
+          } else if (user.username === req.body.username) {
+            return res.status(409).send({
+              message: 'Username already exist'
+            });
+          }
+        }
+      });
     }
-    User.findOne({
-      where: {
-        username: req.body.username,
-        $or: {
-          email: req.body.email
-        }
-      }
-    }).then((user) => {
-      if (user) {
-        if (user.email === req.body.email) {
-          return res.status(409).send({
-            message: 'Email already exist'
-          });
-        } else if (user.username === req.body.email) {
-          return res.status(409).send({
-            message: 'Username already exist'
-          });
-        }
-      }
-    });
 
     const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
     req.userInput = {

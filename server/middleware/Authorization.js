@@ -13,38 +13,6 @@ const { RentedBook } = database;
 const Authorization =  {
 
   /** 
-   * @description - Validates users login information
-   * 
-   * @param  {Object} req - request
-   *
-   * @param  {Object} res - response
-   *
-   * @param  {Object} next - calls the next method
-   *
-   * @return {Object} - Response message
-   */
-  validateLogin(req, res, next) {
-    if (!req.body.username || !req.body.password) {
-      return res.status(401).json({
-        message: 'Please provide your username or password to login'
-      });
-    }
-    User.findOne({
-      where: {
-        username: req.body.username
-      }
-    }).then((user) => {
-      if (user && bcrypt.compareSync(req.body.password, user.password)) {
-        next();
-      } else {
-        return res.status(401).json({
-          message: 'Invalid Credentials.'
-        });
-      }
-    });
-  },
-
-  /** 
    * @description - Checks if logged in user has valid AUTH token
    * 
    * @param  {Object} req - request
@@ -139,39 +107,6 @@ const Authorization =  {
   },
 
   /**
-   * 
-   * @description - Gets user data from the database
-   * 
-   * @param {Object} req - request
-   *
-   * @param {Object} res - response
-   *
-   * @returns {String} JWT Token
-   */
-  getOneUser(req, res) {
-    if (/[\D]/g.test(req.params.userId)) {
-      return res.status(400).send({
-        message: 'Invalid user id supplied!!!'
-      });
-    }
-    return User.findById(req.params.userId)
-      .then((user) => {
-        const currentUser = omit(user.dataValues,
-          ['password', 'createdAt', 'updatedAt']);
-
-        const token = jwt.sign({
-          currentUser,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
-        key);
-
-        return res.status(201).send({
-          token
-        });
-      })
-      .catch(error => res.status(404).send(error));
-  },
-
-  /**
    * @description - Check the rentedbook limit limit
    * 
    * @param {Object} req - request
@@ -247,7 +182,8 @@ const Authorization =  {
         key);
 
         return res.status(201).send({
-          token
+          token,
+          user: currentUser
         });
       })
       .catch(error => res.status(404).send(error));

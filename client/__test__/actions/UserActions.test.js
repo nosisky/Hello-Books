@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import fetchMock from 'fetch-mock';
 import mockData from '../__mocks__/mockData';
-import * as AuthActions from '../../actions/AuthActions';
+import * as AuthActions from '../../actions/UserActions';
 import * as ActionTypes from '../../actions/types';
 import localstorageMock from '../__mocks__/mockLocalStorage';
 
@@ -14,6 +14,8 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 window.localStorage = new localstorageMock();
+
+global.Materialize = { toast: jest.fn(Promise.resolve(1)) }
 
 
 describe('Auth actions', () => {
@@ -36,6 +38,7 @@ describe('Auth actions', () => {
           }
       }
     };
+
     expect(AuthActions.setCurrentUser(user).user)
       .toEqual(expectedAction.currentUser);
   });

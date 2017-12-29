@@ -40,7 +40,7 @@ describe('Component: Dashboard', () => {
     expect(wrapper.find('img').length).toBe(2);
     expect(wrapper.find('.truncate').length).toBe(2);
     expect(wrapper.find('.card').length).toBe(2);
-    expect(wrapper.find('span').length).toBe(4);
+    expect(wrapper.find('span').length).toBe(2);
   })
 
   it('tests that the component received the user props', () => {
