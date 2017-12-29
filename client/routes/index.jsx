@@ -6,7 +6,6 @@ import NotFoundPage from '../components/pages/NotFoundPage';
 import HomePage from '../components/pages/HomePage';
 import Dashboard from '../components/pages/Dashboard';  
 import AdminHome from '../components/admin/index';
-import AddNewBook from '../../client/components/admin/pages/AddANewBook';
 import RentedBooksPage from  '../components/pages/RentedBooksPage';
 import GoogleSignupPage from  '../components/pages/GoogleSignupPage';
 import Profile from '../components/pages/Profile';
@@ -19,7 +18,6 @@ export const Main = () => (
     <Route exact path="/" component={HomePage} />
     <Route exact path="/dashboard" component={Authentication(Dashboard)} />
     <Route exact path="/admin" component={AdminAuthentication(AdminHome)} />
-    <Route path="/add-book" component={AdminAuthentication(AddNewBook)} />
     <Route path="/google-signup" component={GoogleSignupPage} />
     <Route path="/notifications" component={AdminAuthentication(NotificationPage)} />
     <Route path="/rented-books" component={Authentication(RentedBooksPage)} />

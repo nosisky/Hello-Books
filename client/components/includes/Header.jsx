@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import AddNewBook from '../admin/pages/AddANewBook';
 import { logoutAction, editProfileAction } from '../../actions/UserActions';
 import { searchAction } from '../../actions/BookActions';
 import mailSender from '../../utils/mailSender';

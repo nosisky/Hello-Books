@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addCategoryAction } from '../../../actions/BookActions';
+import { addCategoryAction, addBookAction } from '../../../actions/BookActions';
 import AddBookModal from '../includes/AddBookModal';
-
+import firebase from 'firebase';
 
 /**
  * 
@@ -126,7 +126,10 @@ export class AdminSideBar extends Component {
 		};
 		return (
 			<div>
-				<AddBookModal />
+				<AddBookModal 
+				firebaseStorage={firebase.storage().ref('images')}
+				onSubmit={this.props.actions.addBookAction}
+				/>
 				<div className="col s2 m3 l3">
 					<ul id="slide-out" className="side-nav fixed show-on-large-only">
 						<div style={style.side}>
@@ -249,7 +252,8 @@ function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
-				addCategoryAction
+				addCategoryAction,
+				addBookAction
 			},
 			dispatch
 		)
