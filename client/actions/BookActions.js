@@ -38,7 +38,7 @@ export function addBookAction(bookDetails) {
         $('.modal').modal('close');
       });
     })
-    .catch(error => Materialize.toast(error.response.data.message));
+    .catch(error => Materialize.toast(error.response.data.message, 2000));
 }
 
 /**

@@ -243,8 +243,13 @@ export class AddBook extends Component {
 	 */
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.actions
-			.addBookAction(this.state)
+		this.props.actions.addBookAction(this.state)
+		.then(() => {
+			this.setState({
+				isUploading: false,
+				progress: 0
+			})
+		})
 	}
 
 	/**
@@ -400,7 +405,7 @@ export class AddBook extends Component {
 								</div>
 							)}
 							{this.state.progress === 100 && this.state.cover.length > 1 && (
-								<div>
+								<div id="image_uploaded">
 									<img
 										height="50px"
 										id="completed"
