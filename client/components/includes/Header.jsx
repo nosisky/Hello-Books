@@ -55,16 +55,6 @@ export class Header extends Component {
 			hover: true
 		});
 		$('.modal').modal();
-		document.getElementById('search_book').addEventListener('keyup', (event) => {
-			event.preventDefault();
-			if (event.keyCode === 13 && this.state.search.length > 0) {
-				document.getElementById('submit_search').click();
-				$('.modal').modal('close');
-			} else if (event.keyCode === 13 && this.state.search.length < 1) {
-				Materialize.toast('Please type in your search query', 2000, 'red');
-				$('.modal').modal('close');
-			}
-		});
 	}
 
 	/**
@@ -142,6 +132,7 @@ export class Header extends Component {
 	 * @memberOf Header
 	 */
 	render() {
+		const showSearch = window.location.pathname === '/dashboard';
 		const style = {
 			button: {
 				backgroundColor: 'rgb(37, 76, 71)',
@@ -182,13 +173,13 @@ export class Header extends Component {
 								</a>	
 							 }
 						<div className="right hide-on-large-only">
-							{!this.state.displaySearch && (
+							{showSearch && !this.state.displaySearch && (
 								<a onClick={this.searchDisplay}>
 									<i className="material-icons">search</i>
 								</a>
 							)}
 
-							{this.state.displaySearch && (
+							{showSearch && this.state.displaySearch && (
 								<input 
 								onChange={this.fetchResult} 
 								type="search" name="search" placeholder="Search book..." />
@@ -197,13 +188,13 @@ export class Header extends Component {
 						</div>
 						<ul className="right hide-on-med-and-down">
 							<li>
-								{!this.state.displaySearch && (
+								{showSearch && !this.state.displaySearch && (
 									<a onClick={this.searchDisplay}>
 										<i className="material-icons">search</i>
 									</a>
 								)}
 
-								{this.state.displaySearch && (
+								{showSearch && this.state.displaySearch && (
 									<input
 										onChange={this.fetchResult}
 										type="text"
@@ -272,47 +263,6 @@ export class Header extends Component {
 								</div>
 								<button className="btn">Submit</button>
 							</form>
-						</div>
-					</div>
-				</div>
-				{/* Search Modal */}
-				<div id="search_book" className="modal">
-					<div className="modal-content">
-						<h4
-							style={{
-								alignContent: 'center'
-							}}
-						>
-							Search for a book
-						</h4>
-						<div className="row">
-							<div className="col s12">
-								<div className="add-book">
-									<div className="row">
-										<div className="input-field col s12">
-											<input
-												id="search_book"
-												type="text"
-												name="search"
-												onChange={this.onChange}
-												className="validate"
-												required
-											/>
-											<label htmlFor="isbn">What do you want?</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							{this.state.search.length > 0 && (
-								<Link
-									id="submit_search"
-									to={`search?text=${this.state.search}`}
-									style={style.button}
-									className="btn waves-effect"
-								>
-									Search
-								</Link>
-							)}
 						</div>
 					</div>
 				</div>
