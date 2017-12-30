@@ -49,7 +49,8 @@ export function registerUserAction(userDetails) {
           window.location.href = '/dashboard';
         });
     })
-    .catch(error => Materialize.toast(error.response.data.message));
+    .catch(error => Materialize.toast(error.response.data.message, 2000,
+       'red'));
 }
 
 
@@ -91,7 +92,7 @@ export function logoutAction() {
     window.location.href = '/';    
     dispatch({
       type: UNAUTH_USER,
-      user: {},
+      user: { currentUser: {} },
       authenticated: false
     });
   };
@@ -119,7 +120,8 @@ export function editProfileAction(userId, userData) {
             $('.modal').modal('close');
           });
       })
-    .catch(error => Materialize.toast(error.response.data.message));
+    .catch(error => Materialize.toast(error.response.data.message, 2000, 
+      'red'));
 }
 
 /**
@@ -132,5 +134,6 @@ export function editProfileAction(userId, userData) {
 export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
     .then(response => response.data.token)
-    .catch(error => Materialize.toast(error.response.data.message));
+    .catch(error => Materialize.toast(error.response.data.message, 2000,
+       'red'));
 }

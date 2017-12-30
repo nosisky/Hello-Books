@@ -136,7 +136,7 @@ export function rentBookAction(userId, bookId) {
   return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
     .then((response) => {
       const message = response.data.message;
-      if (message === 'You have successfully rented the book') {
+      if (response.data.status) {
         swal(message, { icon: 'success' });
       } else {
         swal(message, { icon: 'warning' });
@@ -155,10 +155,12 @@ export function rentBookAction(userId, bookId) {
 export function getRentedBooksAction(userId) {
   return dispatch => axios.get(`${API_URL}/logs/${userId}`)
     .then((response) => {
-      dispatch({
-        type: GET_RENTED_BOOKS,
-        data: response.data
-      });
+      if(response.data.length){
+        dispatch({
+          type: GET_RENTED_BOOKS,
+          data: response.data
+        });
+      }
       return response.data;
     })
     .catch(error => Materialize.toast(error.response.data.message, 1000));

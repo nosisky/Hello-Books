@@ -38,94 +38,7 @@ export class Profile extends Component {
 			profile: true,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
-    this.displayEdit = this.displayEdit.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    
   }
-  
-	/**
-   * @description Validates the user input
-   * 
-   * @param {Object} event 
-	 * 
-   * @returns 
-   * 
-   * @memberOf Profile
-   */
-  onBlur(event) {
-		const name = event.target.name;
-		const	value = event.target.value;
-
-		switch (name) {
-      case 'fullName':
-      const validator = /[A-Za-z]/g;
-        if(!validator.test(value)){
-          this.setState({
-            fullnameError: 'Invalid input, only alphabets are allowed'
-          })
-          return false;
-        }
-        break;
-      case 'email':
-      const userId = this.props.user.userId || this.props.user.id;      
-				checkEmailExist({ email: value, userId })
-				.then((data) => {
-					if (data.length > 1) {
-            this.setState({ emailExist: data });
-						return false;
-					} else {
-						return true;
-					}
-				});
-				break;
-		}
-  }
-
-  /**
-   * @description Clears off error message from component state
-   * 
-   * @param {Object} event 
-   * 
-   * @memberOf Profile
-   */
-  onFocus(event) {
-		const name = event.target.name;
-		const	value = event.target.value;
-
-		switch (name) {
-      case 'fullName':
-        this.setState({fullnameError: ''})
-        break;
-      case 'email':
-      this.setState({emailExist: ''})
-      break;
-		}
-  }
-  
-  
-	/**
-   * @description set user input to state
-   * 
-   * @param {Object} event 
-   * 
-   * @memberOf Profile
-   */
-  onChange(event) {
-		const name = event.target.name;
-		const	value = event.target.value;
-		this.setState({ [name]: value });
-	}
-
-	/**
-   * Toggles page display
-   * 
-   * 
-   * @memberOf Profile
-   */
-  displayEdit() {
-		this.setState({ edit: true, profile: false });
-	}
 
 	/**
    * @description Submits user input
@@ -136,7 +49,6 @@ export class Profile extends Component {
    */
   handleSubmit(userData) {
 		const userId = this.props.user.userId || this.props.user.id
-
 		this.props.actions.editProfileAction(userId, userData);
 	}
 
@@ -148,7 +60,8 @@ export class Profile extends Component {
    * @memberOf Profile
    */
   render() {
-		const { username, fullname, id, email, plan, isAdmin } = this.props.user;
+		const { userId, username, fullname, 
+			id, email, plan, isAdmin } = this.props.user;
 		const realFullName = fullname || this.props.user.fullName;
 		return (
 			<div className="row">
@@ -156,6 +69,7 @@ export class Profile extends Component {
 				<SideBar fullname={realFullName} isAdmin={isAdmin} />
 				<EditProfileModal 
 					username={username}
+					userId={id || userId}
 					fullname={realFullName}
 					email={email}
 					onSubmit={this.handleSubmit}

@@ -113,8 +113,8 @@ export default class RegisterationForm extends Component {
 			case 'email':
 				this.props.EmailExist({ email: value })
 				.then((data) => {
-					if (data.length > 1) {
-						this.setState({ emailExist: data });
+					if (data.status) {
+						this.setState({ emailExist: data.message });
 						return false;
 					} else {
 						return true;
@@ -125,11 +125,13 @@ export default class RegisterationForm extends Component {
 			case 'username':
 				this.props.UserExist({ username: value })
 				.then((data) => {
-					if (data.length > 1) {
+					if(data){
+						if (data.length > 1) {
 						this.setState({ userExist: data });
 						return false
 					} else {
 						this.setState({ userExist: '' });
+					}
 					}
 				});
 				if (value.length < 4 || !value) {
@@ -152,9 +154,12 @@ export default class RegisterationForm extends Component {
 	 * @memberOf Register
 	 */
 	render() {
+		const showInfo = window.location.pathname === '/google-signup';
 		const { userExist, fullName, email } = this.props;
 		return (
 			<div id="register" className="col s12">
+			{ showInfo && 
+			<h5 className="center">Complete your sign up process</h5> }
 				<form className="col s12" id="form-validate" 
 				onSubmit={this.handleSubmit}>
 					<div className="form-container">

@@ -28,6 +28,7 @@ export function checkUserExist(detail) {
 export function checkEmailExist(detail) {
   return axios
     .post(`${API_URL}/getemail`, detail)
-    .then(response => response.data.message)
-    .catch(() => false);
+    .then(response => response.data)
+    .catch((error) => Materialize.toast(error.response.data.message, 
+      '1000', 'red'));
 }

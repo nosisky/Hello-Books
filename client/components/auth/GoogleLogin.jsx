@@ -50,12 +50,13 @@ export default class GoogleLogIn extends React.Component {
 		const responseGoogle = (response) => {
 			const key = process.env.secretKey;
 
-			if (response) {
+			if (response.Zi.id_token) {
 				const decoded = jwt.decode(response.Zi.id_token);
 				const newUserObj = this.reMap(decoded);
-				this.props.emailExist({ email: newUserObj.currentUser.email })
-				.then((user) => {
-					if (!user) {
+				this.props.emailExist({ email: newUserObj.currentUser.email, 
+					userId: false })
+				.then((response) => {
+					if (!response.status) {
 						const userObject = newUserObj.currentUser;
 						const token = jwt.sign({
 							userObject },

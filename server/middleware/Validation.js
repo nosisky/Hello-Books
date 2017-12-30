@@ -222,8 +222,10 @@ const Validation =  {
       }
     })
       .then((user) => {
-        if (user.username !== req.params.username) {
-          return res.status(409).send({ message: 'username already exist' });
+        if(user){
+          if (user.username !== req.params.username) {
+            return res.status(409).send({ message: 'username already exist' });
+          }
         }
         return res.status(404).send({ message: '' });
       })
@@ -241,36 +243,55 @@ const Validation =  {
    * @return {Object} - Object containing message
    */
   emailExist(req, res) {
-    const regularExpression = /\S+@\S+\.\S+/,
-      emailValidate = regularExpression.test(req.body.email);
+    const regularExpression = /\S+@\S+\.\S+/;
+    const emailValidate = regularExpression.test(req.body.email);
+
     if (!emailValidate) {
-      return res.send({ message: 'Invalid email supplied' });
-      return;
+      return res.status(200).send({ status: true, 
+        message: 'Invalid email supplied' });
     }
-    else if(req.body.email === req.decoded.currentUser.email){
-      return res.status(200).send({ message: '' });
-    }
+
     return User.findOne({
       where: {
         email: req.body.email
       }
     })
       .then((user) => {
-        if (user.id !== req.body.userId) {
-          const currentUser = omit(user.dataValues, [
-            'password',
-            'createdAt',
-            'updatedAt'
-          ]);
+       if(user){
+        if (req.body.userId && user.id !== req.body.userId) {
           return res.status(200).send({
-            message: 'Email already exist',
-            user: currentUser
+            status: true,
+            message: 'Email already exist'
           });
+        } else if(req.body.userId && user.id === req.body.userId){
+            const currentUser = omit(user.dataValues, [
+              'password',
+              'createdAt',
+              'updatedAt'
+            ]);
+            return res.status(200).send({
+              status: true,
+              user: currentUser,
+              message: ''
+            });
         } else {
-          return res.status(200).send({ message: '' });
+            const currentUser = omit(user.dataValues, [
+              'password',
+              'createdAt',
+              'updatedAt'
+            ]);
+            return res.status(200).send({
+              status: true,
+              message: 'Email already exist',
+              user: currentUser
+            });
         }
+       } 
+       else {
+        return res.status(200).send({ status: false, message: '' });
+       }
       })
-      .catch(error => res.status(404).send({ error }));
+      .catch(error => res.status(500).send({ error }));
   },
 
   /** 

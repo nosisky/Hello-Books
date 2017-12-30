@@ -60,17 +60,17 @@ const bookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
-    const { userId, id } = req.decoded.currentUser;
-    const userData = { userId: userId || id, 
-      newId: req.body.userId || req.params.userId}
-    
-    checkValidUser(res, userData)
-
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
     Book.findById(req.body.bookId)
       .then((book) => {
-        if (book.total > 1) {
+        if (book.total === 0)  {
+          return  res.status(200).send({
+            message: 'This book is not available for rent',
+            status: false
+          })
+        }
+      else {
           RentedBook.create({
             bookId: req.body.bookId,
             description: book.description,
@@ -79,7 +79,7 @@ const bookController = {
             cover: book.cover,
             toReturnDate: after20days
           })
-            .then(() => {
+            .then((rentedBook) => {
               Book.update(
                 {
                   total: book.total - 1
@@ -98,11 +98,12 @@ const bookController = {
             });
         }
       })
-      .then(() =>
-        res.status(201).send({
-          message: 'You have successfully rented the book'
+      .then(() =>  {
+        return res.status(201).send({
+          message: 'You have successfully rented the book',
+          status: true
         })
-      )
+      })
       .catch(error => res.status(500).send(error));
   },
 

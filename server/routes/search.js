@@ -15,7 +15,7 @@ const app = express.Router();
  *      username: James,
  *      fullname: James Adele,
  *      plan: Gold,
- *      isAdmin: 12,
+ *      isAdmin: 1,
  *      email: dealwap@gmail.com
  *      }
  */
@@ -31,7 +31,7 @@ const app = express.Router();
  *      username: James,
  *      fullname: James Adele,
  *      plan: Gold,
- *      isAdmin: 12,
+ *      isAdmin: 1,
  *      email: dealwap@gmail.com
  *      }
  */

@@ -68,7 +68,7 @@ export class RentedBooksPage extends Component {
 	 */
 	renderRentedBooks() {
 		let rentedBooks = this.props.rentedBooks.allRentedBooks;
-		if (rentedBooks.length < 1) {
+		if (!rentedBooks || rentedBooks.length < 1) {
 			return (
 				<div>
 					<SideBar fullname={this.props.user.fullname} 
@@ -80,11 +80,11 @@ export class RentedBooksPage extends Component {
 			return (
 				<div className="row">
 					<SideBar fullname={this.props.user.fullName} 
-					isAdmin={this.props.user.isAdmin} />
+						isAdmin={this.props.user.isAdmin} />
 
 					<div className="row">
 						<div className="col s12 l9 push-l3 m12">
-							{rentedBooks.map((book) => {
+							{rentedBooks.length && rentedBooks.map((book) => {
 								return (
 									<AllBooks
 									prodYear={book.prodYear}
