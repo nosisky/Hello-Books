@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router-dom';
 
 /**
  * 
- * 
  * @export {Object} - Regiser component
  * 
  * @class Register
@@ -35,7 +34,7 @@ export default class RegisterationForm extends Component {
 	}
 
 	/**
-	 * @description - Handles the input value changes
+	 * @description - Sets user input in the local state
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -50,7 +49,7 @@ export default class RegisterationForm extends Component {
 	}
 
 	/**
-	 * @description - Submits the ulogi information
+	 * @description - Submits the user information
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -113,7 +112,7 @@ export default class RegisterationForm extends Component {
 			case 'email':
 				this.props.EmailExist({ email: value })
 				.then((data) => {
-					if (data.status) {
+					if (data.emailExist) {
 						this.setState({ emailExist: data.message });
 						return false;
 					} else {
@@ -126,8 +125,8 @@ export default class RegisterationForm extends Component {
 				this.props.UserExist({ username: value })
 				.then((data) => {
 					if(data){
-						if (data.length > 1) {
-						this.setState({ userExist: data });
+						if (data.userExist) {
+						this.setState({ userExist: data.message });
 						return false
 					} else {
 						this.setState({ userExist: '' });

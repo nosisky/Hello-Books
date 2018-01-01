@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import LoginForm from './LoginForm';
 import RegisterationForm from './RegisterationForm';
+
 import { checkUserExist, 
 	checkEmailExist, reMap } from '../../utils/validation';
 
@@ -32,7 +33,7 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 				</ul>
 				<LoginForm onSubmit={loginAction} />
 				<RegisterationForm UserExist={checkUserExist} 
-				EmailExist={checkEmailExist} 
+				EmailExist={checkUserExist} 
 				onSubmit={registerUserAction} />
 			</div>
 		</div>

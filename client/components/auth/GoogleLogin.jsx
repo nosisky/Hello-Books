@@ -2,7 +2,8 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { getUserData, registerGoogleUser } from '../../utils/authorization';
+
+import {  checkUserExist } from '../../utils/validation';
 
 dotenv.load();
 
@@ -53,8 +54,7 @@ export default class GoogleLogIn extends React.Component {
 			if (response.Zi.id_token) {
 				const decoded = jwt.decode(response.Zi.id_token);
 				const newUserObj = this.reMap(decoded);
-				this.props.emailExist({ email: newUserObj.currentUser.email, 
-					userId: false })
+				this.props.emailExist({ email: newUserObj.currentUser.email })
 				.then((response) => {
 					if (!response.status) {
 						const userObject = newUserObj.currentUser;
@@ -64,8 +64,10 @@ export default class GoogleLogIn extends React.Component {
 							localStorage.setItem('userData', token);
 							window.location.href='/google-signup';
 					} else {
-						getUserData({ email: newUserObj.currentUser.email })
-						.then((currentUser) => {
+						checkUserExist({ email: newUserObj.currentUser.email,
+							 google: true })
+						.then((userDetails) => {
+							const currentUser = userDetails.user;
 							currentUser.userId = currentUser.id;
 							const token = jwt.sign({
 								currentUser,

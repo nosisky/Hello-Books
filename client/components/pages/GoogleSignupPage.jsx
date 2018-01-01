@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { decode } from 'jsonwebtoken';
 import Footer from '../includes/Footer';
 import { registerUserAction } from '../../actions/UserActions';
-import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/validation';
+import { checkUserExist, reMap } from '../../utils/validation';
 
 /**
  * 
@@ -54,7 +53,7 @@ export class GoogleSignUpPage extends Component {
 							email={email}
 							onSubmit={this.props.registerUserAction}
 							UserExist={checkUserExist}
-              EmailExist={checkEmailExist}
+              EmailExist={checkUserExist}
 						/>
 					</div>
 				</div>

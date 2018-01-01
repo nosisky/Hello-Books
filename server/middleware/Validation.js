@@ -232,6 +232,102 @@ const Validation =  {
       .catch(error => res.status(500).send({ error }));
   },
 
+  /**
+   * @description - Verify and retrieve suer details
+   * 
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   */
+  checkAndRetrieveUserDetails(req, res){
+    const userExist = 'Useername already exist';
+    const emailExist = 'Email already exist';
+
+    if(!req.body.username && !req.body.email){
+      return res.status(400).send({
+        message: 'Invalid request'
+      })
+    }
+    User.findOne({
+      where: {
+        $or: [{ username: req.body.username }, { email: req.body.email }]
+      }
+    })
+    .then((users) => {
+      if(users){
+        const currentUser = omit(users.dataValues, [
+          'password',
+          'createdAt',
+          'updatedAt'
+        ]);
+
+        if(req.body.userId){
+          if(req.body.userId === users.id){
+            if(req.body.email){
+              return res.status(200).send({
+                user: currentUser,
+                emailExist: true,
+                message: '',
+                status: true,              
+              });
+            } else {
+              return res.status(200).send({
+                user: currentUser,
+                userExist: true,
+                status: true,              
+                message: emailExist
+              });
+            }
+          } else {
+            if(req.body.email){
+              return res.status(200).send({
+                user: currentUser,
+                emailExist: true,
+                message: emailExist,
+                status: true,              
+              });
+            } else {
+              return res.status(200).send({
+                user: currentUser,
+                userExist: true,
+                status: true,              
+                message: userExist
+              });
+            }
+          }
+        } else {
+          if(req.body.google){
+            return res.status(200).send({
+              emailExist: true,
+              status: true,
+              message: userExist,
+              user: currentUser           
+            });
+          }
+          if(req.body.email){
+            return res.status(200).send({
+              emailExist: true,
+              status: true,
+              message: emailExist              
+            });
+          } else {
+            return res.status(200).send({
+              userExist: true,
+              status: true,
+              message: userExist              
+            });
+          }
+        }
+      } else {
+        return res.status(404).send({
+          message: 'User not found',
+          status: false,
+          userExist: false
+        })
+      }
+    })
+    .catch((error) => res.status(500).send(error))
+  },
 
   /** 
    * @description - Checks if an email address already exist

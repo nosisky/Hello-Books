@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from './GoogleLogin';
-import { checkEmailExist, reMap } from '../../utils/validation';
+import { checkUserExist } from '../../utils/validation';
 import { registerUserAction, 
 	getUserByEmailAction } from '../../actions/UserActions';
 import { connect } from 'react-redux';
@@ -110,7 +110,7 @@ export default class LoginForm extends Component {
 							</button>
 							<br />
 							<br />
-							<GoogleLogin emailExist={checkEmailExist} />
+							<GoogleLogin emailExist={checkUserExist} />
 						</center>
 					</div>
 				</form>

@@ -209,13 +209,6 @@ UserRouter.route('/signup')
 UserRouter.route('/signin')
   .post(UserController.login);
 
-// User Exist
-UserRouter.route('/get')
-  .post(Validation.userExist);
-
-// Email Exist
-UserRouter.route('/getemail')
-  .post(Validation.emailExist);
 
 /**
  * @swagger
@@ -256,5 +249,8 @@ UserRouter.route('/getemail')
 UserRouter.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
     UserController.editProfile);
+
+UserRouter.route('/validate')
+    .post(Validation.checkAndRetrieveUserDetails);
 
 export default UserRouter;

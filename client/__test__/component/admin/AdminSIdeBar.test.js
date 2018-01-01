@@ -6,13 +6,13 @@ import { shallow, configure, mount } from 'enzyme';
 import firebase from 'firebase';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
+
 import  { AdminSideBar } from '../../../components/admin/includes/AdminSideBar';
 import {getAllBooksAction} from '../../../actions/BookActions';
 
 configure({ adapter: new Adapter() });
 
-jest.mock('../../../components/admin/includes/AddBookModal', () => 'AddBookModal');
-jest.mock('../../', () => { storage: jest.fn() });
+firebase.default = { storage: jest.fn() }
 
 let props;
 

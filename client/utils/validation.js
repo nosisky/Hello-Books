@@ -3,7 +3,6 @@ import axios from 'axios';
 const API_URL = '/api/v1/users';
 
 /**
- * 
  * @description - Check if username exists
  * 
  * @param {object} detail - user details 
@@ -12,8 +11,8 @@ const API_URL = '/api/v1/users';
  */
 export function checkUserExist(detail) {
   return axios
-    .post(`${API_URL}/get`, detail)
-    .then(response => response.data.message)
+    .post(`${API_URL}/validate`, detail)
+    .then(response => response.data)
     .catch(error => error.response.data.message);
 }
 
