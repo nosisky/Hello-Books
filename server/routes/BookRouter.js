@@ -1,10 +1,10 @@
 import express from 'express';
 import Authorization from '../middleware/Authorization';
-import BookController from '../controllers/Book';
+import BookController from '../controllers/BookController';
 import Validation from '../middleware/Validation';
 import sendMail from '../middleware/sendMail';
 
-const app = express.Router();
+const BookRouter = express.Router();
 
 /**
  * @swagger
@@ -90,7 +90,7 @@ const app = express.Router();
  *       400:
  *         description: Bad input
  */
-app.route('/books')
+BookRouter.route('/books')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.checkBookInput,
@@ -143,7 +143,7 @@ app.route('/books')
  *         description: Book not found
  */
 
-app.route('/users/:userId/books')
+BookRouter.route('/users/:userId/books')
   .post(Authorization.isLoggedIn,
     Authorization.checkUserPlan,
     Authorization.hasRentedBefore,
@@ -192,7 +192,7 @@ app.route('/users/:userId/books')
  *       404:
  *         description: Book not found 
  */
-app.route('/users/:userId/books')
+BookRouter.route('/users/:userId/books')
   .put(Authorization.isLoggedIn,
     BookController.returnBook);
 
@@ -227,7 +227,7 @@ app.route('/users/:userId/books')
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
-app.route('/:userId/books')
+BookRouter.route('/:userId/books')
   .get(Authorization.isLoggedIn,
     BookController.rentedBooks);
 
@@ -267,7 +267,7 @@ app.route('/:userId/books')
  *       404:
  *         description: Book not found
  */
-app.route('/books/:bookId')
+BookRouter.route('/books/:bookId')
   .put(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.validBook,
@@ -300,13 +300,13 @@ app.route('/books/:bookId')
  *       400:
  *         description: Bad input supplied
  */
-app.route('/books/cat')
+BookRouter.route('/books/cat')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin,
     BookController.addCategory);
 
 // Get a specific book
-app.route('/books/:bookId')
+BookRouter.route('/books/:bookId')
   .get(Authorization.isLoggedIn,
     Validation.validBook,
     BookController.getOneBook);
@@ -339,7 +339,7 @@ app.route('/books/:bookId')
  *       404:
  *         description: Book not found
  */
-app.route('/books/delete/:bookId')
+BookRouter.route('/books/delete/:bookId')
   .delete(Authorization.isLoggedIn,
     Authorization.isAdmin,
     Validation.validBook,
@@ -368,14 +368,14 @@ app.route('/books/delete/:bookId')
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
-app.route('/books/logs/:userId')
+BookRouter.route('/books/logs/:userId')
   .get(Authorization.isLoggedIn,
     BookController.rentedBookByUser);
 
 
-app.route('/books/email')
+BookRouter.route('/books/email')
   .post(Authorization.isLoggedIn,
     Authorization.isAdmin, sendMail);
 
-export default app;
+export default BookRouter;
 

@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../../server';
-import models from '../../server/models/';
-import bookSeeder from '../../server/seeders/books';
+import app from '../server';
+import models from '../server/models/';
+import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
@@ -33,7 +33,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests that AUTH token is required to add a new book', (done) => {
+  it('Should test that AUTH token is required to add a new book', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -63,7 +63,8 @@ describe('#Book Features: ', () => {
         done();
       });
   });
-  it('tests for valid book title', (done) => {
+
+  it('Should test for valid book title', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -80,7 +81,7 @@ describe('#Book Features: ', () => {
   });
 
 
-  it('tests for valid book ISBN', (done) => {
+  it('Should test for valid book ISBN', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -96,7 +97,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for valid book category', (done) => {
+  it('Should test for valid book category', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -112,7 +113,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for valid book Production year', (done) => {
+  it('Should test for valid book Production year', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -129,7 +130,7 @@ describe('#Book Features: ', () => {
 
   });
 
-  it('tests for valid book cover', (done) => {
+  it('Should test for valid book cover', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -145,7 +146,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('tests for valid book author', (done) => {
+  it('Should test for valid book author', (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')

@@ -1,8 +1,8 @@
 import express from 'express';
 import Authorization from '../middleware/Authorization';
-import BookController from '../controllers/Book';
+import BookController from '../controllers/BookController';
 
-const app = express.Router();
+const SearchRouter = express.Router();
 
  /**
  * @swagger
@@ -59,7 +59,7 @@ const app = express.Router();
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
-app.route('/')
+SearchRouter.route('/')
   .post(Authorization.isLoggedIn,
     BookController.search);
     
@@ -86,8 +86,8 @@ app.route('/')
  *         schema:
  *           $ref: '#/definitions/SearchUserByEmail'
  */
-app.route('/email')
+SearchRouter.route('/email')
   .post(Authorization.getUserByEmail);
 
 
-export default app;
+export default SearchRouter;

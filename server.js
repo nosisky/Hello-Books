@@ -9,11 +9,11 @@ import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
 import webpackConfigDev from './webpack.config.dev';
-import UserRouter from './server/routes/users';
-import BookRouter from './server/routes/books';
-import CategoryRouter from './server/routes/category';
-import SearchRouter from './server/routes/search';
-import NotificationRouter from './server/routes/notification';
+import UserRouter from './server/routes/UserRouter';
+import BookRouter from './server/routes/BookRouter';
+import CategoryRouter from './server/routes/CategoryRouter';
+import SearchRouter from './server/routes/SearchRouter';
+import NotificationRouter from './server/routes/NotificationRouter';
 
 const app = express();
 

@@ -7,7 +7,7 @@ import database from '../models/';
 dotenv.load();
 
 const key = process.env.secretKey;
-const { User } = database;
+const { User, Books } = database;
 const { RentedBook } = database;
 
 const Authorization =  {
@@ -127,8 +127,8 @@ const Authorization =  {
         message: 'Invalid book id supplied!!!'
       });
     }
-    const message = `You are not permitted to 
-   borrow more books, please return the ones you have 
+    const message = `You are not permitted to
+   borrow more books, please return the ones you have
    borrowed or upgrade your plan.`;
 
     RentedBook.findAndCount({

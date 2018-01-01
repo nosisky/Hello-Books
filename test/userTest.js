@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../../server';
-import models from '../../server/models/';
-import userSeeder from '../../server/seeders/users';
+import app from '../server';
+import models from '../server/models/';
+import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
 let token;
@@ -36,7 +36,7 @@ describe('User Api: ', () => {
 
   it('Should edit user profile', (done) => {
     server
-      .put('/api/v1/users/edit/1')
+      .put('/api/v1/users/edit/3')
       .set('Connection', 'keep alive')
       .set('x-access-token', token)      
       .set('Content-Type', 'application/json')

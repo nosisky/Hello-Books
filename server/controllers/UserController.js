@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import omit from 'lodash/omit';
+
 import database from '../models';
 
 dotenv.load();
@@ -12,7 +13,7 @@ const { User } = database;
 const UserController = {
 
   /** 
-   * @description - Adds a new use to the database
+   * @description - Adds a new user to the database
    * 
    * @param  {object} req request object
    * 
@@ -90,6 +91,15 @@ const UserController = {
       .catch(error => res.status(500).send(error));
   },
 
+  /**
+   * Validates user data
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} userData - Object containing user information
+   * 
+   * @returns {Object}
+   */
   checkValidUser(res, userData){    
         if(Number(userData.userId) !== Number(userData.newId)) {
           return res.status(400).send({
@@ -139,7 +149,9 @@ const UserController = {
             token
           });
       })
-      .catch(error => res.status(500).send(error));
+      .catch(error => {
+        res.status(500).send(error)
+      });
   }
 };
 

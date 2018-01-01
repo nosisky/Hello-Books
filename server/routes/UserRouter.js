@@ -1,11 +1,11 @@
 import express from 'express';
 
 import Validation from '../middleware/Validation';
-import UserController from '../controllers/User';
+import UserController from '../controllers/UserController';
 import Authorization from '../middleware/Authorization';
-import BookController from '../controllers/Book';
+import BookController from '../controllers/BookController';
 
-const app = express.Router();
+const UserRouter = express.Router();
 
 /**
  * @swagger
@@ -181,7 +181,7 @@ const app = express.Router();
  *       400:
  *         description: Bad Username, Password or Email
  */
-app.route('/signup')
+UserRouter.route('/signup')
   .post(Validation.checkUserInput, UserController.create);
 
 /**
@@ -206,15 +206,15 @@ app.route('/signup')
  *       400:
  *         description: Bad Username or Password
  */
-app.route('/signin')
+UserRouter.route('/signin')
   .post(UserController.login);
 
 // User Exist
-app.route('/get')
-  .post(Validation.UserExist);
+UserRouter.route('/get')
+  .post(Validation.userExist);
 
 // Email Exist
-app.route('/getemail')
+UserRouter.route('/getemail')
   .post(Validation.emailExist);
 
 /**
@@ -253,8 +253,8 @@ app.route('/getemail')
  *       404:
  *         description: Book not found
  */
-app.route('/edit/:userId')
+UserRouter.route('/edit/:userId')
   .put(Authorization.isLoggedIn,
     UserController.editProfile);
 
-export default app;
+export default UserRouter;

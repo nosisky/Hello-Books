@@ -199,7 +199,7 @@ const Validation =  {
   },
 
   /** 
-   * @description - Checks if a user already exist
+   * @description - Checks if a user already exist using username
    * 
    * @param  {Object} req - request
    * 
@@ -207,7 +207,7 @@ const Validation =  {
    * 
    * @return {Object} - Object containing message
    */
-  UserExist(req, res) {
+  userExist(req, res) {
     const validator = /[0-9]{2,}/;
     const validator2 = /[\W]{2,}/;
     if (validator.test(req.body.username)

@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../../server';
-import models from '../../server/models/';
-import userSeeder from '../../server/seeders/users';
+import app from '../server';
+import models from '../server/models/';
+import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
@@ -16,8 +16,8 @@ before((done) => {
   });
 });
 
-describe('User Api', () => {
-  it('checks that username exceeds 4 characters', (done) => {
+describe('User Api: ', () => {
+  it('should check that username exceeds 4 characters', (done) => {
     server
       .post('/api/v1/users/signup')
       .set('Connection', 'keep alive')

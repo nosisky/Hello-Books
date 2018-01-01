@@ -1,11 +1,12 @@
 import database from '../models';
-import UserController from './User';
+import UserController from './UserController';
 
 const { checkValidUser } = UserController;
 
 const { RentedBook, Book, Category, Notification } = database;
 
-const bookController = {
+
+const BookController = {
 
   /** 
    * @description - Admin add new book
@@ -93,7 +94,7 @@ const bookController = {
             })
             .then(() => {
               const { username, id } = req.decoded.currentUser;
-              bookController.createNotification(id,
+              BookController.createNotification(id,
                 username, book.title, 'rented');
             });
         }
@@ -324,8 +325,7 @@ const bookController = {
     const { userId, id } = req.decoded.currentUser;
     const userData = { userId: userId || id, 
       newId: req.body.userId || req.params.userId}
-    
-    
+
     checkValidUser(res, userData)
     return RentedBook.findAll({
       where: {
@@ -392,7 +392,7 @@ const bookController = {
             }
           ).then(() => {
             const { username, id } = req.decoded.currentUser;
-            bookController.createNotification(id,
+            BookController.createNotification(id,
               username, book.title, 'return');
             res.status(201).send({
               message: 'Book returned successfully',
@@ -458,4 +458,4 @@ const bookController = {
   }
 };
 
-export default bookController;
+export default BookController;

@@ -1,9 +1,9 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../../server';
-import models from '../../server/models/';
-import bookSeeder from '../../server/seeders/books';
+import app from '../server';
+import models from '../server/models/';
+import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
@@ -68,7 +68,7 @@ describe('#Book Features: ', () => {
       .set('Connection', 'keep alive')
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')
-      .expect(404)
+      .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.should.have.lengthOf(1);
@@ -76,7 +76,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('It searches for books', (done) => {
+  it('should search for books', (done) => {
     server
       .post('/api/v1/search')
       .set('Connection', 'keep alive')
@@ -96,7 +96,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for invalid email', (done) => {
+  it('Should test for invalid token', (done) => {
     server
       .post('/api/v1/books/email')
       .set('Connection', 'keep alive')
@@ -107,6 +107,7 @@ describe('#Book Features: ', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
+        res.body.message.should.equal('Failed to Authenticate Token');
         done();
       });
   });
@@ -138,37 +139,6 @@ describe('#Book Features: ', () => {
       .end((err, res) => {
         res.status.should.equal(400);
         res.body.message.should.equal('Invalid user id supplied!!!');
-        done();
-      });
-  });
-
-  it('Should test if user can rent book without logging in', (done) => {
-    server
-      .post('/api/v1/users/4/books')
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send({ bookId: 1 })
-      .expect(401)
-      .end((err, res) => {
-        res.status.should.equal(401);
-        res.body.message.should.equal('Access denied, Authentication token does not exist');
-        done();
-      });
-  });
-
-  it('Should check for invalid user ID', (done) => {
-    server
-      .post('/api/v1/users/9/books')
-      .set('Connection', 'keep alive')
-      .set('x-access-token', token)      
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send({ bookId: 1 })
-      .expect(400)
-      .end((err, res) => {
-        res.status.should.equal(400);
-        res.body.message.should.equal('Invalid user id supplied');
         done();
       });
   });
@@ -205,20 +175,6 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Shoud display list of notifications', (done) => {
-    server
-      .get('/api/v1/notification')
-      .set('x-access-token', token)
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        done();
-      });
-  });
-
   it('Should test for book renting', (done) => {
     server
       .post('/api/v1/users/4/books')
@@ -235,6 +191,24 @@ describe('#Book Features: ', () => {
       });
   });
 
+  it('Shoud display list of notifications', (done) => {
+    server
+      .get('/api/v1/notification')
+      .set('x-access-token', token)
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.length.should.equal(1);
+        res.body[0].id.should.equal(1);
+        res.body[0].message.should.equal('dealwap rented Think rich to grow rich');
+        done();
+      });
+  });
+
+
   it('Should tests for rented books', (done) => {
     server
       .get('/api/v1/users/4/books?returned=false')
@@ -248,7 +222,8 @@ describe('#Book Features: ', () => {
         done();
       });
   });
-  it('Should return rented books', (done) => {
+
+  it('Should return rented book', (done) => {
     server
       .put('/api/v1/users/4/books')
       .set('x-access-token', token)
@@ -279,19 +254,6 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('should rent a new book', (done) => {
-    server
-      .get('/api/v1/users/4/books?returned=false')
-      .set('x-access-token', token)
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        done();
-      });
-  });
   it('should display logs of rented books', (done) => {
     server
       .get('/api/v1/books/logs/4')
@@ -308,7 +270,8 @@ describe('#Book Features: ', () => {
         done();
       });
   });
-  it('Should get a specific book with id = 1', (done) => {
+
+  it('Should get book details by book id', (done) => {
     server
       .get('/api/v1/books/1')
       .set('x-access-token', token)
@@ -326,7 +289,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for book modification', (done) => {
+  it('Should edit book details', (done) => {
     server
       .put('/api/v1/books/1')
       .set('x-access-token', token)
@@ -342,7 +305,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('should return all books', (done) => {
+  it('should fetch all books', (done) => {
     server
       .get('/api/v1/books?page=0')
       .set('Connection', 'keep alive')
@@ -361,7 +324,7 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should delete a book successfully', (done) => {
+  it('Should delete a book', (done) => {
     server
       .delete('/api/v1/books/delete/1')
       .set('Connection', 'keep alive')
@@ -376,7 +339,9 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('should return message \'There is no book in the database\' ', (done) => {
+  it(`should return message \'There is no book in the database\' 
+  when book list is empty
+  `, (done) => {
     server
       .get('/api/v1/books?page=0')
       .set('Connection', 'keep alive')

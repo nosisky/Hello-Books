@@ -1,8 +1,8 @@
 import express from 'express';
 import Authorization from '../middleware/Authorization';
-import BookController from '../controllers/Book';
+import BookController from '../controllers/BookController';
 
-const app = express.Router();
+const CategoryRouter = express.Router();
 
 /**
  * @swagger
@@ -25,8 +25,8 @@ const app = express.Router();
  *         schema:
  *           $ref: '#/definitions/Category'
  */
-app.route('/')
+CategoryRouter.route('/')
   .get(Authorization.isLoggedIn,
     BookController.getCategory);
 
-export default app;
+export default CategoryRouter;

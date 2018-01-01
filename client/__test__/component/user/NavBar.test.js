@@ -10,10 +10,11 @@ configure({ adapter: new Adapter() });
 
 describe('Component: NavBar', () => {
   it('tests that the component successfully rendered', () => {
-    const wrapper = mount(<NavBar />)
+    const wrapper = shallow(<NavBar />)
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find('li').length).toBe(6);
     expect(wrapper.find('nav').length).toBe(1);    
+    expect(wrapper.find('Link').length).toBe(3);    
   })
 })
 

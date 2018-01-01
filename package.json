@@ -7,8 +7,8 @@
     "start": "nodemon --watch server --exec babel-node server.js",
     "client:coverage": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --compilers js:babel-register ./server/test/**/*.spec.js --timeout 400000 --exit",
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.dev.js",
-    "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test/server ",
-    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test/server ",
+    "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
+    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "client:test": "jest --coverage cli",
     "test:watch": "npm run client:test -- --watch",
@@ -16,7 +16,7 @@
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
     "migrate:undo": "sequelize db:seed:undo",
     "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed --seed server/seeders/20171016124637-users.js",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test/server"
+    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "engines": {
     "node": "6.11.0"

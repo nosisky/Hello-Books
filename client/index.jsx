@@ -9,7 +9,7 @@ import App from './components/app';
 import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
 import { logoutAction } from './actions/UserActions';
-import configureStore from './store/index';
+import configureStore from './store/configureStore';
 import { setAuthorizationToken } from '../client/utils/authorization';
 import { SET_CURRENT_USER } from './actions/types';
 import '../node_modules/materialize-css/dist/js/materialize.min';
