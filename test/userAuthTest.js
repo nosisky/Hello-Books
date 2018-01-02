@@ -64,22 +64,22 @@ describe('User Api: ', () => {
 
   it('Should Check for existing username', (done) => {
     server
-      .post('/api/v1/users/get')
+      .post('/api/v1/users/validate')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ username: 'Dealwap' })
       .expect(409)
       .end((err, res) => {
-        res.status.should.equal(409);
-        res.body.message.should.equal('username already exist');
+        res.status.should.equal(200);
+        res.body.message.should.equal('Username already exist');
         done();
       });
   });
 
   it('Should check for existing email address', (done) => {
     server
-      .post('/api/v1/users/getemail')
+      .post('/api/v1/users/validate')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .set('x-access-token', token)      
@@ -118,7 +118,10 @@ describe('User Api: ', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.message.should.equal('Please provide your username or password to login');
+        res.
+        body.
+        message.
+        should.equal('Please provide your username or password to login');
         done();
       });
   });

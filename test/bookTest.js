@@ -28,7 +28,8 @@ describe('#Book Features: ', () => {
       .expect(403)
       .end((err, res) => {
         res.status.should.equal(403);
-        res.body.message.should.equal('You do not have permission to perform that operation');
+        res.body.
+        message.should.equal('You do not have permission to perform that operation');
         done();
       });
   });
@@ -43,7 +44,9 @@ describe('#Book Features: ', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.body.message.should.equal('Access denied, Authentication token does not exist');
+        res.body.
+        message.
+        should.equal('Access denied, Authentication token does not exist');
         done();
       });
   });

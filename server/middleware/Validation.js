@@ -19,8 +19,7 @@ const Validation = {
    * @returns {Object} - Object containing error message
    */
 	checkUserInput(req, res, next) {
-    const userNameError = `Please provide a username 
-    with atleast 4 characters.`;
+    const userNameError = 'Please provide a username with atleast 4 characters.';
 
 		req.checkBody({
 			username: {
@@ -233,7 +232,7 @@ const Validation = {
    * @param {Object} res - response
    */
 	checkAndRetrieveUserDetails(req, res) {
-		const userExist = 'Useername already exist';
+		const userExist = 'Username already exist';
 		const emailExist = 'Email already exist';
 
     Validation.checkValidDetails(req.body.email, req.body.username, res);
