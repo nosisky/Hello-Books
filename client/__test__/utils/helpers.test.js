@@ -62,7 +62,6 @@ describe('Auth actions', () => {
       .catch(error => expect(error).toEqual(expectedActions));
   });
 
-
   it('Should validate if email exists', () => {
     moxios.stubRequest('/api/v1/users/getemail', {
       status: 200,
@@ -71,13 +70,12 @@ describe('Auth actions', () => {
 
     const expectedActions = { message: 'Email already exists' };
 
-    checkEmailExist('nosisky@gmail.com')
+    checkUserExist('nosisky@gmail.com')
       .then((data) => {
         expect(data).toEqual(expectedActions);
       })
       .catch(error => error);
   });
-
 
   it('Should return false if email does not exist', () => {
     moxios.stubRequest('/api/v1/users/getemail', {
@@ -85,8 +83,7 @@ describe('Auth actions', () => {
       response: false
     });
 
-
-    checkEmailExist('hello@adele.com')
+    checkUserExist('hello@adele.com')
       .then(() => { })
       .catch(error => expect(error).toBeFalsy);
   });

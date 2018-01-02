@@ -2,6 +2,10 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/BookController';
 
+const { isLoggedIn, isAdmin } = Authorization;
+
+const { getNotification } = BookController; 
+
 const notificationRouter = express.Router();
 
  /**
@@ -11,10 +15,10 @@ const notificationRouter = express.Router();
  *     properties:
  *       userId:
  *         type: integer
- *     example: {
+ *     example: [{
  *      userId: 13,
  *      message: James rented Hello from the other side
- *      }
+ *      }]
  */
 
 /**
@@ -39,9 +43,7 @@ const notificationRouter = express.Router();
  *           $ref: '#/definitions/Notifications'
  */
 notificationRouter.route('/')
-  .get(Authorization.isLoggedIn,
-    Authorization.isAdmin,
-    BookController.getNotification);
+  .get(isLoggedIn, isAdmin, getNotification);
 
 
 export default notificationRouter;

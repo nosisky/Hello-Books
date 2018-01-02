@@ -91,7 +91,7 @@ describe('Auth actions', () => {
   });
 
   it('creates ADD_CATEGORY when category is successfully added', () => {
-    moxios.stubRequest('/api/v1/books/cat', {
+    moxios.stubRequest('/api/v1/books/category', {
       status: 201,
       response: { name: 'science', description: 'Hello world' }
     });

@@ -31,6 +31,7 @@ const BookController = {
       .catch(error => res.status(500).send(error));
   },
 
+
   /**
    * @description - Notified the admin on any transaction
    * 
@@ -61,42 +62,49 @@ const BookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
+    const { userId, id } = req.decoded.currentUser;    
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
     Book.findById(req.body.bookId)
       .then((book) => {
-        if (book.total === 0)  {
-          return  res.status(200).send({
-            message: 'This book is not available for rent',
-            status: false
-          })
-        }
-      else {
-          RentedBook.create({
-            bookId: req.body.bookId,
-            description: book.description,
-            title: book.title,
-            userId: req.params.userId,
-            cover: book.cover,
-            toReturnDate: after20days
-          })
-            .then((rentedBook) => {
-              Book.update(
-                {
-                  total: book.total - 1
-                },
-                {
-                  where: {
-                    id: req.body.bookId
-                  }
-                }
-              );
+        if(book){
+          if (book.total === 0)  {
+            return  res.status(200).send({
+              message: 'This book is not available for rent',
+              status: false
             })
-            .then(() => {
-              const { username, id } = req.decoded.currentUser;
-              BookController.createNotification(id,
-                username, book.title, 'rented');
-            });
+          }
+        else {
+            RentedBook.create({
+              bookId: req.body.bookId,
+              description: book.description,
+              title: book.title,
+              userId: userId || id,
+              cover: book.cover,
+              toReturnDate: after20days
+            })
+              .then((rentedBook) => {
+                Book.update(
+                  {
+                    total: book.total - 1
+                  },
+                  {
+                    where: {
+                      id: req.body.bookId
+                    }
+                  }
+                );
+              })
+              .then(() => {
+                const { username, id } = req.decoded.currentUser;
+                BookController.createNotification(id,
+                  username, book.title, 'rented');
+              });
+          }
+        } else {
+          res.status(404).send({
+            message: 'Book not found'
+          })
         }
       })
       .then(() =>  {
@@ -146,14 +154,18 @@ const BookController = {
    */
   getBooks(req, res) {
     const pageNum = Number(req.query.page);
-    let offset;
+    let offset = 0;
     let page;
     const limit = 8;
     if (pageNum === 0) {
       offset = 0;
-    } else {
+    } 
+    else if(pageNum > 0){
       page = pageNum;
       offset = (page - 1) * limit;
+    }
+    else {
+      offset = 0;
     }
 
     return Book.findAndCountAll({
@@ -219,7 +231,7 @@ const BookController = {
     return RentedBook.findAll({
       where: {
         returned: req.query.returned,
-        userId: req.params.userId
+        userId: userId  || id
       }
     })
       .then((books) => {
@@ -244,6 +256,8 @@ const BookController = {
    * @return {Object} - Newly modified book
    */
   modifyBook(req, res) {
+
+
     return Book.update(req.body, {
       where: {
         id: req.params.bookId
@@ -259,30 +273,6 @@ const BookController = {
       })
       .catch(error => res.status(500).send(error));
   },
-  /** 
-   * @description - User get a specific book
-   * 
-   * @param  {Object} req - request
-   * 
-   * @param  {Object} res - response
-   * 
-   * @returns {Object} - status code and book details
-   * 
-   * Route: GET: /books/:bookId 
-   * 
-   */
-  getOneBook(req, res) {
-    return Book.findAll({
-      where: {
-        id: req.params.bookId
-      }
-    })
-      .then((books) => {
-        res.status(200).send(books);
-      })
-      .catch(error => res.status(500).send(error));
-  },
-
   /** 
    * @description - Admin delete a book
    * 
@@ -329,7 +319,7 @@ const BookController = {
     checkValidUser(res, userData)
     return RentedBook.findAll({
       where: {
-        userId: req.params.userId
+        userId: userId || id
       }
     })
       .then((books) => {
@@ -362,12 +352,7 @@ const BookController = {
       newId: req.body.userId || req.params.userId}
     
     checkValidUser(res, userData)
-    const querier = req.body.bookId || req.params.bookId;
-    if (!querier || /[\D]/.test(querier)) {
-      return res.status(400).send({
-        message: 'Invalid book id supplied!!!'
-      });
-    }
+
     return RentedBook.update(
       {
         returnDate: Date.now(),

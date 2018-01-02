@@ -56,7 +56,7 @@ describe('#Book Features: ', () => {
   it(`Should display 'Category added successfully' 
       when a new category is added`, (done) => {
     server
-      .post('/api/v1/books/cat')
+      .post('/api/v1/books/category')
       .set('Connection', 'keep alive')
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')

@@ -3,6 +3,10 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/BookController';
 
+const { isLoggedIn, getUserByEmail } = Authorization;
+
+const { search } = BookController;
+
 const searchRouter = express.Router();
 
  /**
@@ -61,8 +65,7 @@ const searchRouter = express.Router();
  *           $ref: '#/definitions/BookList'
  */
 searchRouter.route('/')
-  .post(Authorization.isLoggedIn,
-    BookController.search);
+            .post(isLoggedIn, search);
     
 /**
  * @swagger
@@ -88,7 +91,7 @@ searchRouter.route('/')
  *           $ref: '#/definitions/SearchUserByEmail'
  */
 searchRouter.route('/email')
-  .post(Authorization.getUserByEmail);
+            .post(getUserByEmail);
 
 
 export default searchRouter;

@@ -119,22 +119,15 @@ const Authorization =  {
    * @return {Object} - Object
    */
   checkUserPlan(req, res, next) {
-    if (/[\D]/g.test(req.params.userId)) {
-      return res.status(400).send({
-        message: 'Invalid user id supplied!!!'
-      });
-    } else if (/[\D]/g.test(req.body.bookId)) {
-      return res.status(400).send({
-        message: 'Invalid book id supplied!!!'
-      });
-    }
+    const { userId, id } = req.decoded.currentUser;
+
     const message = `You are not permitted to
    borrow more books, please return the ones you have
    borrowed or upgrade your plan.`;
 
     RentedBook.findAndCount({
       where: {
-        userId: req.params.userId,
+        userId: userId || id,
         returned: false
       }
     }).then((rented) => {

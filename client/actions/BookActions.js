@@ -14,9 +14,9 @@ import { ADD_BOOK,
   DELETE_BOOK
 } from './types';
 
-const API_URL = '/api/v1/books',
-  SEARCH_API_URL = '/api/v1/search',
-  USER_API_URL = '/api/v1/users';
+const API_URL = '/api/v1/books';
+const SEARCH_API_URL = '/api/v1/search';
+const USER_API_URL = '/api/v1/users';
 
 /**
  * @description - Add new book action
@@ -109,7 +109,7 @@ export function modifyBookAction(bookData, bookId) {
  * @returns { String } - Message from the API
  */
 export function addCategoryAction(data) {
-  return dispatch => axios.post(`${API_URL}/cat`, data)
+  return dispatch => axios.post(`${API_URL}/category`, data)
     .then((response) => {
       dispatch({
         type: ADD_CATEGORY,

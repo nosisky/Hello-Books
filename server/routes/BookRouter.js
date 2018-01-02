@@ -4,6 +4,23 @@ import BookController from '../controllers/BookController';
 import Validation from '../middleware/Validation';
 import sendMail from '../middleware/sendMail';
 
+const { checkBookId, checkBookInput, validBook} = Validation;
+
+const { isLoggedIn, 
+        isAdmin, 
+        checkUserPlan, 
+        hasRentedBefore } = Authorization;
+
+const { create, 
+        getBooks, 
+        rentBook, 
+        returnBook, 
+        rentedBooks, 
+        modifyBook, 
+        addCategory,
+        deleteBook ,
+        rentedBookByUser } = BookController; 
+
 const bookRouter = express.Router();
 
 /**
@@ -51,6 +68,41 @@ const bookRouter = express.Router();
  *      }
  */
 
+/**
+ * @swagger
+ * definitions:
+ *   Mail:
+ *     properties:
+ *       message:
+ *         type: string
+ *       subject:
+ *         type: string
+ *     example: {
+ *      message: Nasirudeen wants account upgrade to Gold plan,
+ *      subject: Mail upgrade notification
+ *      }
+ */
+
+
+ /**
+ * @swagger
+ * definitions:
+ *   CategoryList:
+ *     properties:
+ *       name:
+ *         type: string
+ *       description:
+ *         type: string
+ *     example: [{
+ *      name: Art & Science,
+ *      description: This is sample description
+ *      },
+ *      {
+ *      name: Music,
+ *      description: This is sample description
+ *      }]
+ */
+
  /**
  * @swagger
  * definitions:
@@ -88,15 +140,15 @@ const bookRouter = express.Router();
  *       201:
  *         description: Successfully created
  *       400:
- *         description: Bad input
+ *         description: Bad input supplied
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
 bookRouter.route('/books')
-  .post(Authorization.isLoggedIn,
-    Authorization.isAdmin,
-    Validation.checkBookInput,
-    BookController.create)
-  .get(Authorization.isLoggedIn,
-    BookController.getBooks);
+          .post(isLoggedIn, isAdmin, checkBookInput, create)
+          .get(isLoggedIn, getBooks);
 
 
 /**
@@ -141,13 +193,18 @@ bookRouter.route('/books')
  *         description: All fields are required
  *       404:
  *         description: Book not found
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
 
 bookRouter.route('/users/:userId/books')
-  .post(Authorization.isLoggedIn,
-    Authorization.checkUserPlan,
-    Authorization.hasRentedBefore,
-    BookController.rentBook);
+          .post(isLoggedIn, 
+                checkUserPlan, 
+                checkBookId, 
+                hasRentedBefore, 
+                rentBook);
 
 /**
  * @swagger
@@ -190,11 +247,14 @@ bookRouter.route('/users/:userId/books')
  *       400:
  *         description: All fields are required / Invalid input
  *       404:
- *         description: Book not found 
+ *         description: Book not found
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
 bookRouter.route('/users/:userId/books')
-  .put(Authorization.isLoggedIn,
-    BookController.returnBook);
+          .put(isLoggedIn, returnBook);
 
 /**
  * @swagger
@@ -224,12 +284,15 @@ bookRouter.route('/users/:userId/books')
  *     responses:
  *       200:
  *         description: An array of Books
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/users/:userId/books')
-  .get(Authorization.isLoggedIn,
-    BookController.rentedBooks);
+          .get(isLoggedIn, rentedBooks);
 
 /**
  * @swagger
@@ -266,16 +329,17 @@ bookRouter.route('/users/:userId/books')
  *         description: All fields are required
  *       404:
  *         description: Book not found
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
 bookRouter.route('/books/:bookId')
-  .put(Authorization.isLoggedIn,
-    Authorization.isAdmin,
-    Validation.validBook,
-    BookController.modifyBook);
+          .put(isLoggedIn, isAdmin, validBook, modifyBook);
 
 /**
  * @swagger
- * /books/cat:
+ * /books/category:
  *   post:
  *     tags:
  *       - Book Operations
@@ -299,17 +363,13 @@ bookRouter.route('/books/:bookId')
  *         description: Successfully created
  *       400:
  *         description: Bad input supplied
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
-bookRouter.route('/books/cat')
-  .post(Authorization.isLoggedIn,
-    Authorization.isAdmin,
-    BookController.addCategory);
-
-// Get a specific book
-bookRouter.route('/books/:bookId')
-  .get(Authorization.isLoggedIn,
-    Validation.validBook,
-    BookController.getOneBook);
+bookRouter.route('/books/category')
+          .post(isLoggedIn, isAdmin, addCategory);
 
 /**
  * @swagger
@@ -338,12 +398,13 @@ bookRouter.route('/books/:bookId')
  *         description: Enter valid inputs!
  *       404:
  *         description: Book not found
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  */
 bookRouter.route('/books/delete/:bookId')
-  .delete(Authorization.isLoggedIn,
-    Authorization.isAdmin,
-    Validation.validBook,
-    BookController.deleteBook);
+          .delete(isLoggedIn, isAdmin, validBook, deleteBook);
 
 /**
  * @swagger
@@ -365,17 +426,41 @@ bookRouter.route('/books/delete/:bookId')
  *         description: Returns An array of books
  *       404:
  *         description: Book not found
+ *       500:
+ *         description: Internal server error
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/books/logs/:userId')
-  .get(Authorization.isLoggedIn,
-    BookController.rentedBookByUser);
+          .get(isLoggedIn, rentedBookByUser);
 
-
+/**
+ * @swagger
+ * /books/email:
+ *   post:
+ *     tags:
+ *       - Book Operations
+ *     description: Send user upgrade information to the admin
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: x-access-token
+ *         in: header
+ *         description: an authentication header
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Mail sent successfully
+ *       400:
+ *         description: Bad input supplied
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           $ref: '#/definitions/Mail'
+ */
 bookRouter.route('/books/email')
-  .post(Authorization.isLoggedIn,
-    Authorization.isAdmin, sendMail);
+          .post(isLoggedIn, isAdmin, sendMail);
 
 export default bookRouter;
 

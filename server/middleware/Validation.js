@@ -94,6 +94,19 @@ const Validation = {
 	},
 
 	/**
+	 * Checks if book id is a number
+	 * 
+	 * @param {Object} req - request
+	 * 
+	 * @param {Object} res - response
+	 * 
+	 * @returns { Object } - containing error message
+	 */
+	checkBookId(req, res){
+		console.log(req, '----')
+	},
+
+	/**
    * 
    * @description - Validates User Input when adding book 
    * 

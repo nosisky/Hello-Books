@@ -2,6 +2,11 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/BookController';
 
+
+const { isLoggedIn } = Authorization;
+
+const { getCategory } = BookController; 
+
 const categoryRouter = express.Router();
 
 /**
@@ -22,11 +27,14 @@ const categoryRouter = express.Router();
  *     responses:
  *       200:
  *         description: Returns An array of Categories
+ *       401:
+ *         description: Invalid token supplied
+ *       500:
+ *         description: Internal server error
  *         schema:
- *           $ref: '#/definitions/Category'
+ *           $ref: '#/definitions/CategoryList'
  */
 categoryRouter.route('/')
-  .get(Authorization.isLoggedIn,
-    BookController.getCategory);
+  .get(isLoggedIn, getCategory);
 
 export default categoryRouter;

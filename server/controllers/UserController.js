@@ -129,7 +129,7 @@ const UserController = {
     }
     return User.update(userData, {
       where: {
-        id: req.params.userId
+        id: userId || id
       },
       returning: true,
       plain: true
