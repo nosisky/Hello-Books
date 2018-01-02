@@ -212,7 +212,7 @@ const BookController = {
   rentedBooks(req, res) {
     const { userId, id } = req.decoded.currentUser;
     const userData = { 
-      userId: userId, id, newId: req.body.userId || req.params.userId
+      userId: userId, id, newId: req.params.userId
     }
     
     checkValidUser(res, userData)

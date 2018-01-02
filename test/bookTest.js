@@ -17,7 +17,8 @@ before((done) => {
 });
 
 describe('#Book Features: ', () => {
-  it('Should test that only an admin can add book', (done) => {
+  it(`Should display You do not have permission to perform that operation
+    when a non-admin user tries to add a book`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -29,12 +30,14 @@ describe('#Book Features: ', () => {
       .end((err, res) => {
         res.status.should.equal(403);
         res.body.
-        message.should.equal('You do not have permission to perform that operation');
+        message.
+        should.equal('You do not have permission to perform that operation');
         done();
       });
   });
 
-  it('Should test that AUTH token is required to add a new book', (done) => {
+  it(`Should display Access denied, Authentication token does not exist
+  When there is no token passed to the authenticated endpoint`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -67,7 +70,8 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for valid book title', (done) => {
+  it(`Should display 'Book title is required' when book title 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -84,7 +88,8 @@ describe('#Book Features: ', () => {
   });
 
 
-  it('Should test for valid book ISBN', (done) => {
+  it(`Should display 'ISBN is required' when book isbn 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -100,7 +105,8 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for valid book category', (done) => {
+  it(`Should display 'Please add book category' when category id 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -116,7 +122,8 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for valid book Production year', (done) => {
+  it(`Should display 'Production Year is required' when Production year 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -133,7 +140,8 @@ describe('#Book Features: ', () => {
 
   });
 
-  it('Should test for valid book cover', (done) => {
+  it(`Should display 'Please upload a valid book cover' when book cover 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')
@@ -149,7 +157,8 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should test for valid book author', (done) => {
+  it(`Should display 'Please add book author' when book author 
+  is not supplied to the Add Book route`, (done) => {
     server
       .post('/api/v1/books')
       .set('Connection', 'keep alive')

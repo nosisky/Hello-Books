@@ -1,8 +1,10 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
+import expect from 'expect';
 import app from '../server';
 import models from '../server/models/';
+import jwt from 'jsonwebtoken';
 import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
@@ -27,7 +29,10 @@ describe('User Api: ', () => {
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
-        res.body[0].error.should.equal('Please provide a username with atleast 4 characters.');
+        res.
+        body[0]
+        .error.
+        should.equal('Please provide a username with atleast 4 characters.');
         done();
       });
   });
@@ -58,6 +63,11 @@ describe('User Api: ', () => {
       .end((err, res) => {
         res.status.should.equal(201);
         res.body.message.should.equal('Signed up successfully');
+        const currentUser = jwt.decode(res.body.token);
+        expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
+        expect(currentUser.currentUser.username).toEqual('Dealwap');
+        expect(currentUser.currentUser.fullName)
+        .toEqual('Abdulrasaq Nasirudeen');
         done();
       });
   });
@@ -137,6 +147,11 @@ describe('User Api: ', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
+        const currentUser = jwt.decode(res.body.token);
+        expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
+        expect(currentUser.currentUser.username).toEqual('Dealwap');
+        expect(currentUser.currentUser.fullName)
+        .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Logged In Successfully');
         done();
       });

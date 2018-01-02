@@ -71,7 +71,7 @@ export class RentedBooksPage extends Component {
 		if (!rentedBooks || rentedBooks.length < 1) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} 
+					<SideBar fullname={this.props.user.fullName} 
 					isAdmin={this.props.user.isAdmin} />
 					<h1 className="empty-notifier">You have not rented any book</h1>
 				</div>

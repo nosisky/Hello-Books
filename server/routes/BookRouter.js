@@ -227,7 +227,7 @@ bookRouter.route('/users/:userId/books')
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
-bookRouter.route('/:userId/books')
+bookRouter.route('/users/:userId/books')
   .get(Authorization.isLoggedIn,
     BookController.rentedBooks);
 

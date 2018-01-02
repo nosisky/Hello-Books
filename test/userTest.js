@@ -1,6 +1,8 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
+import expect from 'expect';
+import jwt from 'jsonwebtoken';
 import app from '../server';
 import models from '../server/models/';
 import userSeeder from '../server/seeders/users';
@@ -27,8 +29,13 @@ describe('User Api: ', () => {
       .send(userSeeder.signUp2)
       .expect(201)
       .end((err, res) => {
-        res.status.should.equal(201);
         token = res.body.token;
+        res.status.should.equal(201);
+        const currentUser = jwt.decode(res.body.token);
+        expect(currentUser.currentUser.email).toEqual('main@gmail.com');
+        expect(currentUser.currentUser.username).toEqual('Dealwapb');
+        expect(currentUser.currentUser.fullName)
+        .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Signed up successfully');
         done();
       });
