@@ -61,7 +61,6 @@ class EditProfileModal extends Component {
 				const userId = this.props.userId;
         checkUserExist({ email: value, userId })
         .then((data) => {
-					console.log(data)
 					if (data.status) {
 						this.setState({ emailExist: data.message });
 						return false;
