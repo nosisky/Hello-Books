@@ -102,8 +102,15 @@ const Validation = {
 	 * 
 	 * @returns { Object } - containing error message
 	 */
-	checkBookId(req, res){
-		console.log(req, '----')
+	checkBookId(req, res, next){
+		const querier = req.body.bookId || req.params.bookId;		
+    if (!querier || /[\D]/.test(querier)) {
+      return res.status(400).send({
+        message: 'Invalid book id supplied!!!'
+      });
+    } else {
+			next();
+		}
 	},
 
 	/**

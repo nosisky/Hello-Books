@@ -26,6 +26,10 @@ export default function(ComposedComponent) {
 		componentWillMount() {
 			const key = process.env.secretKey;
 			const token = localStorage.getItem('token');
+
+			if(!token){
+				this.props.actions.logoutAction();
+			}
 			if (token) {
 				jwt.verify(token, key, (error) => {
 					if (error) {

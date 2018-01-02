@@ -41,7 +41,7 @@ const BookController = {
    * 
    * @param {String} bookTitle 
    * 
-   * @param {String} type 
+   * @param {String} type - type of notification
    */
   createNotification(userId, username, bookTitle, type) {
     Notification.create({
