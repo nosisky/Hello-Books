@@ -16,9 +16,8 @@ module.exports = {
       .setValue('input[name=passwordConfirm]', randomName)
       .setValue('input[name=email]', randomEmail)
       .click('#createAccount')
-      .waitForElementVisible('.dropdown-button', 5000)
-      .waitForElementVisible('[name=logout]', 5000)
-      .click('[name=logout]')
+      .waitForElementVisible('#logout_icon', 5000)
+      .click('#logout_icon')
       .assert.urlContains('http://localhost:8000')
       .setValue('input[name=username]', username)
       .setValue('input[name=password]', randomName)
@@ -47,5 +46,18 @@ module.exports = {
       .waitForElementVisible('.swal-button--confirm', 5000)
       .click('.swal-button--confirm')
       .pause(2000)
-      .end()
+      .end(),
+  'Users should be able to search for books': browser =>
+      browser
+        .url('http://localhost:8000/')
+        .waitForElementVisible('body', 5000)
+        .setValue('input[name=username]', username)
+        .setValue('input[name=password]', randomName)
+        .click('button[name=action]')
+        .waitForElementVisible('.dropdown-button', 5000)
+        .assert.urlContains('http://localhost:8000/dashboard')
+        .click('#showSearch')
+        .setValue('input[name=search]', 'This')
+        .waitForElementVisible('#borrowNow', 5000)      
+        .end()
 };

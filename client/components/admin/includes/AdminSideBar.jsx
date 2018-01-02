@@ -159,7 +159,7 @@ export class AdminSideBar extends Component {
 						</div>
 						<li className="divider" />
 						<li id="menu-list">
-						<a data-target="add_book" className="modal-trigger" 
+						<a data-target="add_book" id="add_book" className="modal-trigger" 
 						href="#addBook">
 							Add Book<i className="material-icons">add</i>
 						</a>

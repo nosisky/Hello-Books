@@ -188,7 +188,7 @@ export class Header extends Component {
 						<ul className="right hide-on-med-and-down">
 							<li>
 								{showSearch && !this.state.displaySearch && (
-									<a onClick={this.searchDisplay}>
+									<a id="showSearch" onClick={this.searchDisplay}>
 										<i className="material-icons">search</i>
 									</a>
 								)}
@@ -209,7 +209,7 @@ export class Header extends Component {
 								</a>	}																
 							</li>
 							<li>
-								<a name="logout" 
+								<a id="logout_icon" 
 								onClick={this.props.actions.logoutAction} href="#!">
 									<i className="material-icons">exit_to_app</i>
 								</a>
