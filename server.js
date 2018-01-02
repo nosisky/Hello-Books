@@ -9,11 +9,11 @@ import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
 import webpackConfigDev from './webpack.config.dev';
-import UserRouter from './server/routes/UserRouter';
-import BookRouter from './server/routes/BookRouter';
-import CategoryRouter from './server/routes/CategoryRouter';
-import SearchRouter from './server/routes/SearchRouter';
-import NotificationRouter from './server/routes/NotificationRouter';
+import userRouter from './server/routes/UserRouter';
+import bookRouter from './server/routes/BookRouter';
+import categoryRouter from './server/routes/CategoryRouter';
+import searchRouter from './server/routes/SearchRouter';
+import notificationRouter from './server/routes/NotificationRouter';
 
 const app = express();
 
@@ -58,15 +58,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 
-app.use('/api/v1', BookRouter);
+app.use('/api/v1', bookRouter);
 
-app.use('/api/v1/category', CategoryRouter);
+app.use('/api/v1/category', categoryRouter);
 
-app.use('/api/v1/users', UserRouter);
+app.use('/api/v1/users', userRouter);
 
-app.use('/api/v1/search', SearchRouter);
+app.use('/api/v1/search', searchRouter);
 
-app.use('/api/v1/notification', NotificationRouter);
+app.use('/api/v1/notification', notificationRouter);
 
 // serve swagger
 app.get('/api/docs/hellobooks.json', (req, res) => {

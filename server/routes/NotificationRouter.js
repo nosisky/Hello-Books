@@ -2,7 +2,7 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/BookController';
 
-const NotificationRouter = express.Router();
+const notificationRouter = express.Router();
 
  /**
  * @swagger
@@ -38,10 +38,10 @@ const NotificationRouter = express.Router();
  *         schema:
  *           $ref: '#/definitions/Notifications'
  */
-NotificationRouter.route('/')
+notificationRouter.route('/')
   .get(Authorization.isLoggedIn,
     Authorization.isAdmin,
     BookController.getNotification);
 
 
-export default NotificationRouter;
+export default notificationRouter;

@@ -3,7 +3,7 @@ import express from 'express';
 import Authorization from '../middleware/Authorization';
 import BookController from '../controllers/BookController';
 
-const SearchRouter = express.Router();
+const searchRouter = express.Router();
 
  /**
  * @swagger
@@ -60,7 +60,7 @@ const SearchRouter = express.Router();
  *         schema:
  *           $ref: '#/definitions/BookList'
  */
-SearchRouter.route('/')
+searchRouter.route('/')
   .post(Authorization.isLoggedIn,
     BookController.search);
     
@@ -87,8 +87,8 @@ SearchRouter.route('/')
  *         schema:
  *           $ref: '#/definitions/SearchUserByEmail'
  */
-SearchRouter.route('/email')
+searchRouter.route('/email')
   .post(Authorization.getUserByEmail);
 
 
-export default SearchRouter;
+export default searchRouter;
