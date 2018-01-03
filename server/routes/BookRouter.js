@@ -382,10 +382,20 @@ bookRouter.route('/books/category')
  *       - application/json
  *     parameters:
  *       - name: bookId
- *         description: ID of the Book
- *         in: path
+ *         description: ID of Book to delete
+ *         in: body
  *         required: true
- *         type: integer
+ *         schema:
+ *           $ref: '#/definitions/RentBook'
+ *           type: object
+ *           required:
+ *             - bookId
+ *           properties:
+ *             bookId:
+ *               type: integer
+ *           example: {
+ *             "bookId": 4
+ *           }
  *       - name: x-access-token
  *         in: header
  *         description: an authentication header
@@ -395,7 +405,7 @@ bookRouter.route('/books/category')
  *       200:
  *         description: Book successfully deleted
  *       400:
- *         description: Enter valid inputs!
+ *         description: invalid inputs!
  *       404:
  *         description: Book not found
  *       401:
@@ -452,12 +462,12 @@ bookRouter.route('/books/logs/:userId')
  *     responses:
  *       200:
  *         description: Mail sent successfully
- *       400:
- *         description: Bad input supplied
- *       500:
- *         description: Internal server error
  *         schema:
  *           $ref: '#/definitions/Mail'
+ *       400:
+ *         description: Bad  input supplied
+ *       500:
+ *         description: Internal server error
  */
 bookRouter.route('/books/email')
           .post(isLoggedIn, isAdmin, sendMail);

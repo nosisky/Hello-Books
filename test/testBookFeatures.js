@@ -146,10 +146,10 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it(`Should display 'Invalid user id supplied!!!' 
+  it.only(`Should display 'Invalid user id supplied' 
   when invalid user id is passed to get books route`, (done) => {
     server
-      .post('/api/v1/users/dhdhs/books')
+      .post('/api/v1/users/5/books')
       .set('Connection', 'keep alive')
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')
@@ -158,7 +158,7 @@ describe('#Book Features: ', () => {
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
-        res.body.message.should.equal('Invalid user id supplied!!!');
+        res.body.message.should.equal('Invalid user id supplied');
         done();
       });
   });

@@ -62,7 +62,14 @@ const BookController = {
    * ROUTE: POST: /users/:userId/books
    */
   rentBook(req, res) {
-    const { userId, id } = req.decoded.currentUser;    
+    const { userId, id } = req.decoded.currentUser;   
+
+    const userData = { 
+      userId: userId || id, newId: req.params.userId
+    }
+
+     checkValidUser(res, userData);
+    
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
     Book.findById(req.body.bookId)
@@ -224,7 +231,7 @@ const BookController = {
   rentedBooks(req, res) {
     const { userId, id } = req.decoded.currentUser;
     const userData = { 
-      userId: userId, id, newId: req.params.userId
+      userId: userId || id, newId: req.params.userId
     }
     
     checkValidUser(res, userData)

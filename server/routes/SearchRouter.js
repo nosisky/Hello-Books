@@ -59,10 +59,12 @@ const searchRouter = express.Router();
  *     responses:
  *       200:
  *         description: Returns list of books that matches search query
- *       404:
- *         description: No book matches search query
  *         schema:
  *           $ref: '#/definitions/BookList'
+ *       404:
+ *         description: No book matches search query
+ *       500:
+ *         description: Internal server error
  */
 searchRouter.route('/')
             .post(isLoggedIn, search);
@@ -85,10 +87,12 @@ searchRouter.route('/')
  *     responses:
  *       200:
  *         description: Returns an object containing user data
- *       404:
- *         description: User not found
  *         schema:
  *           $ref: '#/definitions/SearchUserByEmail'
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 searchRouter.route('/email')
             .post(getUserByEmail);

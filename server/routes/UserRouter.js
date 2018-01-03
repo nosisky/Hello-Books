@@ -187,6 +187,8 @@ const userRouter = express.Router();
  *         description: Successfully created
  *       400:
  *         description: Bad Username, Password or Email
+ *       500:
+ *         description: Internal server error
  */
 userRouter.route('/signup')
           .post(checkUserInput, create);
@@ -212,6 +214,8 @@ userRouter.route('/signup')
  *         description: Successfully Logged In
  *       400:
  *         description: Bad Username or Password
+ *       500:
+ *         description: Internal server error
  */
 userRouter.route('/signin')
           .post(login);
@@ -252,6 +256,8 @@ userRouter.route('/signin')
  *         description: All fields are required
  *       404:
  *         description: Book not found
+ *       500:
+ *         description: Internal server error
  */
 userRouter.route('/edit/:userId')
           .put(isLoggedIn, editProfile);

@@ -100,7 +100,7 @@ const UserController = {
    * 
    * @returns {Object}
    */
-  checkValidUser(res, userData){    
+  checkValidUser(res, userData){
         if(Number(userData.userId) !== Number(userData.newId)) {
           return res.status(400).send({
             message: 'Invalid user id supplied'
