@@ -89,10 +89,10 @@ export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
     setAuthorizationToken(false);
-    window.location.href = '/';    
+     window.location.href = '/';    
     dispatch({
       type: UNAUTH_USER,
-      user: { currentUser: {} },
+      user: { currentUser: { } },
       authenticated: false
     });
   };

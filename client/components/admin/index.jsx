@@ -186,7 +186,6 @@ export class AdminHome extends Component {
 	 * @memberOf AdminHome
 	 */
 	render() {
-
 		const { username, fullName, id } = this.props.user;
 		return (
 			<div>

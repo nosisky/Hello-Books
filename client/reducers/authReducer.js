@@ -26,7 +26,7 @@ function authReducer(state = INITIAL_STATE, action) {
     case UNAUTH_USER:
       return { ...state,
         error: '',
-        user: {},
+        user: { currentUser: { isadmin: 0, fullName: '', username: '' } },
         message: 'Successfully Logged Out',
         authenticated: false };
     case SET_CURRENT_USER:

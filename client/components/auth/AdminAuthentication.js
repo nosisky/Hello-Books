@@ -30,6 +30,10 @@ export default function (ComposedComponent) {
 		componentWillMount() {
 			const key = process.env.secretKey;
 
+			if (!this.props.authenticated) {
+				this.props.history.push('/');
+			}
+
 			const token = localStorage.getItem('token');
 			if (token) {
 				jwt.verify(token, key, (error) => {
@@ -38,13 +42,9 @@ export default function (ComposedComponent) {
 						this.props.history.push('/');
 					}
 				});
-			}
-			if (!this.props.authenticated) {
-				this.props.history.push('/');
-			}
-
-			if (this.props.user.isAdmin !== 1) {
-				this.props.history.push('/');
+				if (this.props.user.isAdmin !== 1) {
+					this.props.history.push('/');
+				}
 			}
 		}
 
@@ -56,8 +56,12 @@ export default function (ComposedComponent) {
 		 * @memberOf AdminAuthentication
 		 */
 		componentWillUpdate(nextProps) {
-			if (nextProps.currentUser.isAdmin !== 1) {
-				this.props.history.push('/');
+			const token = localStorage.getItem('token');
+
+			if(token){
+				if (nextProps.currentUser.isAdmin !== 1) {
+					this.props.history.push('/');
+				}
 			}
 		}
 
