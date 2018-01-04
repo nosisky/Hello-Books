@@ -34,7 +34,7 @@ const BookController = {
 
 
   /**
- * @description - Notified the admin on any transaction
+ * @description - Notifies the admin on any transaction
  *
  * @param {number} userId - User ID
  *
