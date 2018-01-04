@@ -284,7 +284,7 @@ Header.PropTypes = {
 function mapStateToProps(state) {
 	return { 
 		apiStatus: state.auth.apiStatus,
-		user: state.auth.user.currentUser 
+		user: state.auth.user 
 	};
 }
 
