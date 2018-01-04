@@ -449,7 +449,6 @@ h5 {
 	text-align: center;
 }
 
-
 .user-profile span {
 	font-family: "varela round", sans-serif;
 	color: #e3eeee;
@@ -469,11 +468,14 @@ h5 {
 	padding-top: 35px;
 }
 
-#sidenav-overlay{
-  background: none !important;
+#sidenav-overlay {
+	background: none !important;
 }
 
-nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+nav i,
+nav [class^="mdi-"],
+nav [class*="mdi-"],
+nav i.material-icons {
 	margin-left: 10px;
 	margin-right: 8px;
 }
@@ -517,10 +519,22 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 .empty-notifier {
 	color: white;
 	float: right;
-	background: #065F7C;
+	background: #065f7c;
 	margin: 50px 2px 0px 0px;
 	font-size: 50px;
 	font-weight: bold;
+}
+
+div.preloader {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	background: rgba(6, 95, 124, 0.94) url('https://loading.io/spinners/equalizer/lg.equalizer-bars-loader.gif') 
+	no-repeat center center;
 }
 
 .notfound {
@@ -528,4 +542,7 @@ nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
 	margin-right: 50px;
 	background: #8c2526;
 	padding: 80px;
+}
+a > i {
+	cursor: pointer;
 }

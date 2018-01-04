@@ -5,7 +5,7 @@ import BookController from '../controllers/BookController';
 
 const { isLoggedIn } = Authorization;
 
-const { getCategory } = BookController; 
+const { getCategory } = BookController;
 
 const categoryRouter = express.Router();
 

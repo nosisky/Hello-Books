@@ -1,4 +1,4 @@
-const firebaseConfig =  {
+const firebaseConfig = {
   apiKey: process.env.FIREBASE_APIKEY,
   authDomain: process.env.FIREABSE_DOMAIN,
   databaseURL: process.env.FIREBASE_URL,

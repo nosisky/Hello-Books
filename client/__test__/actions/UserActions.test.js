@@ -3,7 +3,6 @@ import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import fetchMock from 'fetch-mock';
 import mockData from '../__mocks__/mockData';
 import * as AuthActions from '../../actions/UserActions';
 import * as ActionTypes from '../../actions/types';
@@ -15,7 +14,7 @@ const mockStore = configureMockStore(middlewares);
 
 window.localStorage = new localstorageMock();
 
-global.Materialize = { toast: jest.fn(Promise.resolve(1)) }
+global.Materialize = { toast: jest.fn(Promise.resolve(1)) };
 
 
 describe('Auth actions', () => {
@@ -52,7 +51,8 @@ describe('Auth actions', () => {
 
     const expectedActions = {
       type: ActionTypes.SET_CURRENT_USER,
-      user: authResponse.currentUser };
+      user: authResponse.currentUser
+    };
 
     const store = mockStore({});
     store.dispatch(AuthActions.loginAction({}))
@@ -70,8 +70,10 @@ describe('Auth actions', () => {
       response: authResponse
     });
 
-    const expectedActions = { type: ActionTypes.SET_CURRENT_USER,
-      user: authResponse.currentUser };
+    const expectedActions = {
+      type: ActionTypes.SET_CURRENT_USER,
+      user: authResponse.currentUser
+    };
 
     const store = mockStore({});
     store.dispatch(AuthActions.registerUserAction({}))
@@ -93,8 +95,10 @@ describe('Auth actions', () => {
       response: authResponse
     });
 
-    const expectedActions = { type: ActionTypes.EDIT_PROFILE,
-      user: authResponse.currentUser };
+    const expectedActions = {
+      type: ActionTypes.EDIT_PROFILE,
+      user: authResponse.currentUser
+    };
 
     const store = mockStore({});
     store.dispatch(AuthActions.editProfileAction({}))

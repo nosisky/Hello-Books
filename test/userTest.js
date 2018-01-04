@@ -19,7 +19,6 @@ before((done) => {
 });
 
 describe('User Api: ', () => {
-
   it('Should register a new user', (done) => {
     server
       .post('/api/v1/users/signup')
@@ -35,7 +34,7 @@ describe('User Api: ', () => {
         expect(currentUser.currentUser.email).toEqual('main@gmail.com');
         expect(currentUser.currentUser.username).toEqual('Dealwapb');
         expect(currentUser.currentUser.fullName)
-        .toEqual('Abdulrasaq Nasirudeen');
+          .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Signed up successfully');
         done();
       });
@@ -45,7 +44,7 @@ describe('User Api: ', () => {
     server
       .put('/api/v1/users/edit/3')
       .set('Connection', 'keep alive')
-      .set('x-access-token', token)      
+      .set('x-access-token', token)
       .set('Content-Type', 'application/json')
       .type('form')
       .send({ fullName: 'bolaji Usman', email: 'bolaji@mama.com' })

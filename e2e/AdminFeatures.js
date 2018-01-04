@@ -10,7 +10,8 @@ module.exports = {
       .click('button[name=action]')
       .waitForElementVisible('.dropdown-button', 5000)
       .assert.urlContains('http://localhost:8000/admin')
-      .end(),
+      .pause(1000),
+
   'Admin should be able to add a book': browser =>
     browser
       .url('http://localhost:8000/')
@@ -32,7 +33,8 @@ module.exports = {
       .click('#addIt')
       .waitForElementVisible('#book_card', 10000)
       .assert.urlContains('http://localhost:8000/admin')
-      .end(),
+      .pause(1000),
+
   'Admin should be able to edit a book': browser =>
     browser
       .url('http://localhost:8000/')
@@ -47,7 +49,7 @@ module.exports = {
       .click('#submit_edit')
       .waitForElementVisible('#book_card', 5000)
       .assert.urlContains('http://localhost:8000/admin')
-      .end(),
+      .pause(1000),
 
   'Admin should be able to delete a book': browser =>
     browser
@@ -62,5 +64,5 @@ module.exports = {
       .click('.swal-button--confirm')
       .waitForElementVisible('#book_card', 5000)
       .assert.urlContains('http://localhost:8000/admin')
-      .end()
+      .pause(1000),
 };

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getSpecificBook, 
-	returnBook, 
-	getRentedBooksAction } from '../../actions/BookActions';
+				returnBook, 
+				getRentedBooksAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
@@ -73,7 +73,10 @@ export class RentedBooksPage extends Component {
 				<div>
 					<SideBar fullname={this.props.user.fullName} 
 					isAdmin={this.props.user.isAdmin} />
-					<h1 className="empty-notifier">You have not rented any book</h1>
+					{
+						this.props.apiStatus ? <div className="preloader"></div> : 
+						<div className="empty-notifier">You have not rented any book</div>
+					}
 				</div>
 			);
 		} else {
@@ -143,7 +146,8 @@ AllBooks.PropTypes = {
 function mapStateToProps(state) {
 	return {
 		rentedBooks: state.book,
-		user: state.auth.user.currentUser
+		user: state.auth.user,
+		apiStatus: state.auth.apiStatus
 	};
 }
 

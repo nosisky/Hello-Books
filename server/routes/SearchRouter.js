@@ -9,7 +9,7 @@ const { search } = BookController;
 
 const searchRouter = express.Router();
 
- /**
+/**
  * @swagger
  * definitions:
  *   SearchUser:
@@ -25,7 +25,7 @@ const searchRouter = express.Router();
  *      }
  */
 
-  /**
+/**
  * @swagger
  * definitions:
  *   SearchUserByEmail:
@@ -67,8 +67,8 @@ const searchRouter = express.Router();
  *         description: Internal server error
  */
 searchRouter.route('/')
-            .post(isLoggedIn, search);
-    
+  .post(isLoggedIn, search);
+
 /**
  * @swagger
  * /search/email:
@@ -95,7 +95,7 @@ searchRouter.route('/')
  *         description: Internal server error
  */
 searchRouter.route('/email')
-            .post(getUserByEmail);
+  .post(getUserByEmail);
 
 
 export default searchRouter;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 /**
  * 
@@ -11,7 +12,7 @@ import { browserHistory } from 'react-router-dom';
  * 
  * @extends {Component}
  */
-export default class RegisterationForm extends Component {
+class RegisterationForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -56,9 +57,11 @@ export default class RegisterationForm extends Component {
 	 * @memberOf Register
 	 */
 	handleSubmit(formData) {
-		this.setState({ isLoading: true });
 		formData.preventDefault();
 		this.props.onSubmit(this.state)
+		.then(() => {
+			this.props.history.push('/dashboard')
+		})
 	}
 
 	/**
@@ -188,7 +191,8 @@ export default class RegisterationForm extends Component {
 								/>
 								<label htmlFor="username">username</label>
 								<div className="red-text">{this.state.userExist}</div>
-								<div className="red-text">{this.state.usernameError}</div>
+								<div id="usernameError" className="red-text">
+									{this.state.usernameError}</div>
 							</div>
 						</div>
 						<div className="row">
@@ -245,6 +249,7 @@ export default class RegisterationForm extends Component {
 								id="createAccount"
 								type="submit"
 								name="submit"
+								disabled={this.props.apiStatus}
 							>
 								Submit
 							</button>
@@ -255,3 +260,4 @@ export default class RegisterationForm extends Component {
 		);
 	}
 }
+export default withRouter(RegisterationForm);

@@ -28,27 +28,31 @@ const INITIAL_STATE = {
 
 /**
  * @description - Book reducer
- * 
+ *
  * @param {Object} state - Object containing the defaul state
- * 
+ *
  * @param {Object} action - Object containing displatched data
- * 
+ *
  * @returns {Object} - Object containing the store data
  */
 function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BOOK:
-      return { ...state,
+      return {
+        ...state,
         message: 'Book added Successfully',
-        data: state.data.concat([action.book]) };
+        data: state.data.concat([action.book])
+      };
     case GET_ALL_BOOKS:
       return { ...state, count: action.books.count, data: action.books.rows };
     case GET_ONE_BOOK:
       return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
-      return { ...state,
+      return {
+        ...state,
         count: action.data.count,
-        allRentedBooks: action.data };
+        allRentedBooks: action.data
+      };
     case GET_CATEGORY:
       return { ...state, category: action.data };
     case ADD_CATEGORY: {
@@ -56,8 +60,12 @@ function bookReducer(state = INITIAL_STATE, action) {
       return { ...state, category: newCategory };
     }
     case SEARCH_BOOK:
-      return { ...state, search: true, 
-        count: action.data.count,  data: action.data.rows };
+      return {
+        ...state,
+        search: true,
+        count: action.data.count,
+        data: action.data.rows
+      };
     case SET_OFFSET:
       return { offset: state.offset + action.data };
     case DELETE_BOOK: {

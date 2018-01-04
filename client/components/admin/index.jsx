@@ -31,7 +31,6 @@ export class AdminHome extends Component {
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
-		this.logout = this.logout.bind(this);
 		this.handlePageChange = this.handlePageChange.bind(this);
 		this.renderPagination = this.renderPagination.bind(this);
 	}
@@ -43,20 +42,6 @@ export class AdminHome extends Component {
 	 */
 	componentDidMount() {
 		this.props.actions.getAllBooksAction(1);
-	}
-
-	/**
-	 * 
-	 * @description - Logs the user off the application
-	 * 
-	 * @param {Object} event 
-	 * 
-	 * @memberOf AdminHome
-	 */
-	logout(event) {
-		event.preventDefault();
-		this.props.actions.logoutAction();
-		this.context.router.push('/');
 	}
 
 	/**
@@ -190,7 +175,6 @@ export class AdminHome extends Component {
 		return (
 			<div>
 				<AdminHeader 
-				onClick={this.logout} 
 				fullName={fullName} 
 				username={username} /> {this.renderBooks()}
 			</div>
@@ -209,7 +193,7 @@ function mapStateToProps(state) {
 	return {
 		books: state.book.data,
 		count: state.book.count,
-		user: state.auth.user.currentUser
+		user: state.auth.user
 	};
 }
 

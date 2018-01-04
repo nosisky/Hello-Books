@@ -160,7 +160,6 @@ export class Header extends Component {
 							className="right hide-on-large-only"
 							name="logout"
 							onClick={this.props.actions.logoutAction}
-							href="#!"
 						>
 							<i className="material-icons">exit_to_app</i>
 						</a>
@@ -210,7 +209,7 @@ export class Header extends Component {
 							</li>
 							<li>
 								<a id="logout_icon" 
-								onClick={this.props.actions.logoutAction} href="#!">
+								onClick={this.props.actions.logoutAction} >
 									<i className="material-icons">exit_to_app</i>
 								</a>
 							</li>
@@ -225,7 +224,7 @@ export class Header extends Component {
 								<Link to="/profile">Profile</Link>
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" onClick={this.props.actions.logoutAction} >
 									Logout
 								</a>
 							</li>
@@ -283,7 +282,10 @@ Header.PropTypes = {
  * @returns {Object} - Selected state
  */
 function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser };
+	return { 
+		apiStatus: state.auth.apiStatus,
+		user: state.auth.user.currentUser 
+	};
 }
 
 /**

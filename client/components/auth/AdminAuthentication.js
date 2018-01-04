@@ -22,6 +22,13 @@ dotenv.load();
 export default function (ComposedComponent) {
 	class AdminAuthentication extends Component {
 
+		constructor(props) {
+			super(props);
+			this.state = {
+				valid: true
+			}
+		}
+
 		/**
 		 * @description - Validates the user authentication data
 		 * 
@@ -31,15 +38,21 @@ export default function (ComposedComponent) {
 			const key = process.env.secretKey;
 
 			if (!this.props.authenticated) {
-				this.props.history.push('/');
+				this.setState({
+					valid: false
+				}, () => this.props.history.push('/'));
 			}
 
 			const token = localStorage.getItem('token');
 			if (token) {
 				jwt.verify(token, key, (error) => {
 					if (error) {
-						this.props.actions.logoutAction();
-						this.props.history.push('/');
+						this.setState({
+							valid: false
+						}, () => {
+							this.props.actions.logoutAction();
+							this.props.history.push('/');
+						})
 					}
 				});
 				if (this.props.user.isAdmin !== 1) {
@@ -47,6 +60,17 @@ export default function (ComposedComponent) {
 				}
 			}
 		}
+
+		componentWillReceiveProps(nextProps) {
+			if(Object.keys(nextProps.user).length === 0){
+				this.setState({
+					valid: false
+				}, () => {
+					this.props.history.push('/');
+				})
+			}
+		}
+
 
 		/**
 		 * @description - Executes before component is updated 
@@ -73,7 +97,11 @@ export default function (ComposedComponent) {
 		 * @memberOf AdminAuthentication
 		 */
 		render() {
-			return <ComposedComponent {...this.props} />;
+			return (
+				<div>
+					{this.state.valid && <ComposedComponent {...this.props} />}
+				</div>
+		);
 		}
 	}
 	AdminAuthentication.PropTypes = {
@@ -108,7 +136,7 @@ export default function (ComposedComponent) {
 	function mapStateToProps(state) {
 		return { 
 			authenticated: state.auth.authenticated, 
-			user: state.auth.user.currentUser };
+			user: state.auth.user };
 	}
 
 	return connect(mapStateToProps, mapDispatchToProps)(AdminAuthentication);

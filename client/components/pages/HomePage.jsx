@@ -23,7 +23,7 @@ export class HomePage extends Component {
     closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
     draggable: true // Choose whether you can drag to open on touch screens
   });
-    $('ul.tabs').tabs();
+		$('ul.tabs').tabs();
 	}
 
 	/**
@@ -34,9 +34,6 @@ export class HomePage extends Component {
 	 * @memberOf HomePage
 	 */
 	render() {
-		if (localStorage.getItem('token')) {
-			this.props.history.push('/dashboard');
-		}
 		return (
 			<div>
 				<NavBar />
@@ -54,6 +51,7 @@ export class HomePage extends Component {
 					</div>
 					<div className="col l6 m12 s12">
 						<AuthPage
+							apiStatus={this.props.apiStatus}
 							loginAction={this.props.loginAction}
 							registerUserAction={this.props.registerUserAction}
 							userExist={this.props.userExist}
@@ -76,7 +74,8 @@ export class HomePage extends Component {
 function mapStateToProps(state) {
 	return {
 		message: state.auth.message,
-		userExist: state.userExist
+		userExist: state.userExist,
+		apiStatus: state.auth.apiStatus
 	};
 }
 

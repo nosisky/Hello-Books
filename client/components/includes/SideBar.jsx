@@ -49,7 +49,8 @@ export class SideBar extends Component {
 					<div className="row">
 						<span className="card-title">
 							<h4>
-								<Link className="white-text" to="dashboard">
+								<Link id="dashboard" 
+									className="white-text" to="dashboard">
 									Dashboard
 								</Link>
 							</h4>

@@ -4,11 +4,11 @@ import BookController from '../controllers/BookController';
 
 const { isLoggedIn, isAdmin } = Authorization;
 
-const { getNotification } = BookController; 
+const { getNotification } = BookController;
 
 const notificationRouter = express.Router();
 
- /**
+/**
  * @swagger
  * definitions:
  *   Notifications:

@@ -65,13 +65,11 @@ class NotificationPage extends Component {
 					<div className="col l9 m12 s12">
 						{this.state.data.map((response) => {
 							return (
-								<div>
 									<Notification
 										key={response.id}
 										message={response.message}
 										time={response.updatedAt}
 									/>
-								</div>
 							);
 						})}
 					</div>
@@ -84,7 +82,7 @@ class NotificationPage extends Component {
 
 function mapStateToProps(state){
 	return {
-		user: state.auth.user.currentUser
+		user: state.auth.user
 	}
 }
 

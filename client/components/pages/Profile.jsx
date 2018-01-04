@@ -167,7 +167,7 @@ function mapDispatchToProps(dispatch) {
  * @return {Object} returns state object
  */
 function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser };
+	return { user: state.auth.user };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

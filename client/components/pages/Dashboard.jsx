@@ -124,7 +124,7 @@ export class Dashboard extends Component {
 	 * 
 	 * @memberOf Dashboard
 	 */
-	renderBooks() {
+	renderBooks() {		
 		const realFullName = this.props.user.fullname || this.props.user.fullName;		
 		const allbooks = this.props.books;
 		if (!allbooks) {
@@ -140,7 +140,7 @@ export class Dashboard extends Component {
 					</div>
 				</div>
 			);
-		} else if (allbooks.length < 1) {
+		} else if (allbooks.length === 0) {
 			return (
 				<div>
 					<SideBar fullname={realFullName} 
@@ -148,7 +148,8 @@ export class Dashboard extends Component {
 
 					<div className="empty-notifier">
 					{this.props.search ? 	<b>No book matches search query</b> :
-						<b>No more book in the database</b>
+						this.props.apiStatus ? <div className="preloader"></div> :
+						 <b>No more book in the database</b>
 					}
 					</div>
 					{this.renderPagination(this.props.count)}
@@ -182,7 +183,7 @@ export class Dashboard extends Component {
 								/>
 							);
 						})}
-						{this.renderPagination(0)}
+					{this.renderPagination(0)}
 					</div>
 					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
@@ -194,7 +195,7 @@ export class Dashboard extends Component {
 	/**
 	 * @description Dsiplays the component
 	 * 
-	 * @returns 
+	 * @returns {Object}
 	 * 
 	 * @memberOf Dashboard
 	 */
@@ -224,10 +225,11 @@ Dashboard.PropTypes = {
  */
 function mapStateToProps(state) {
 	return {
-		user: state.auth.user.currentUser,
+		user: state.auth.user,
 		books: state.book.data,
 		search: state.book.search,
-		count: state.book.count
+		count: state.book.count,
+		apiStatus: state.auth.apiStatus
 	};
 }
 

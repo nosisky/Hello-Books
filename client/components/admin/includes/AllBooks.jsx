@@ -200,11 +200,13 @@ export class AllBooks extends Component {
 										</div>
 									</div>
 								</div>
-								<button id="submit_edit" style={style.edit} type="submit" name="submit">
+								<button id="submit_edit" style={style.edit} type="submit" 
+								name="submit">
 									Edit Book
 								</button>
 								<div>
-									<button style={style.cancel} onClick={this.changeView} id="edit_button">
+									<button style={style.cancel} onClick={this.changeView} 
+									id="edit_button">
 										Cancel
 									</button>
 								</div>
@@ -216,7 +218,8 @@ export class AllBooks extends Component {
 				{this.state.displayBook && (
 					<div className="card" id="book_card">
 						<div className="card-image">
-							<img height="250px" src={this.props.cover} alt="loading image..." />
+							<img height="250px" src={this.props.cover} 
+							alt="loading image..." />
 							<span className="card-title">{this.props.title}</span>
 						</div>
 						<div className="truncate card-content">

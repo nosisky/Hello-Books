@@ -1,26 +1,24 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import omit from 'lodash/omit';
 import database from '../models/';
 
 dotenv.load();
 
 const key = process.env.secretKey;
-const { User, Books } = database;
+const { User } = database;
 const { RentedBook } = database;
 
-const Authorization =  {
+const Authorization = {
 
-  /** 
+  /**
    * @description - Checks if logged in user has valid AUTH token
-   * 
+   *
    * @param  {Object} req - request
-   * 
+   *
    * @param  {object} res - response
-   * 
+   *
    * @param {Object} next - Call back function
-   * 
+   *
    * @return {null} - null
    */
   isLoggedIn(req, res, next) {
@@ -29,7 +27,7 @@ const Authorization =  {
     req.headers['x-access-token'];
 
     if (req.headers.authorization) {
-      token = req.headers.authorization.split(' ')[1];
+      [, token] = req.headers.authorization.split(' ');
     } else {
       token = tokenAvailable;
     }
@@ -52,15 +50,15 @@ const Authorization =  {
     }
   },
 
-  /** 
+  /**
    * @description - Checks if currently logged in user is an admin
-   * 
+   *
    * @param  {Object} req - request
-   * 
+   *
    * @param  {object} res - response
-   * 
+   *
    * @param {Object} next - Call back function
-   * 
+   *
    * @return {Object} - Object containing message
    */
   isAdmin(req, res, next) {
@@ -78,15 +76,15 @@ const Authorization =  {
     }
   },
 
-  /** 
+  /**
    * @description - Checks if user has rented a book before
-   * 
+   *\
    * @param  {Object} req - request
-   * 
+   *
    * @param  {object} res - response
-   * 
+   *
    * @param {Object} next - Call back function
-   * 
+   *
    * @return {Object} - Object containing message
    */
   hasRentedBefore(req, res, next) {
@@ -109,7 +107,7 @@ const Authorization =  {
 
   /**
    * @description - Check the rentedbook limit limit
-   * 
+   *
    * @param {Object} req - request
    *
    * @param {Object} res - response
@@ -132,27 +130,27 @@ const Authorization =  {
       }
     }).then((rented) => {
       const { plan } = req.decoded.currentUser;
-        if (plan === 'Silver' && rented.count === 5) {
-          res.status(403).send({
-            message
-          });
-        } else if (plan === 'Diamond' && rented.count === 20) {
-          res.status(403).send({
-            message
-          });
-        } else if (plan === 'Gold' && rented.count === 50) {
-          res.status(403).send({
-            message: 'Book limit reached, return previously borrowed'
-          });
-        } else {
-          next();
-        }
-      });
+      if (plan === 'Silver' && rented.count === 5) {
+        res.status(403).send({
+          message
+        });
+      } else if (plan === 'Diamond' && rented.count === 20) {
+        res.status(403).send({
+          message
+        });
+      } else if (plan === 'Gold' && rented.count === 50) {
+        res.status(403).send({
+          message: 'Book limit reached, return previously borrowed'
+        });
+      } else {
+        next();
+      }
+    });
   },
 
   /**
    * @description -  Get users by email address
-   * 
+   *
    * @param {Object} req - request
    *
    * @param {Object} res - response
@@ -170,10 +168,13 @@ const Authorization =  {
           userId: user.id,
           username: user.username
         };
-        const token = jwt.sign({
-          currentUser,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) },
-        key);
+        const token = jwt.sign(
+          {
+            currentUser,
+            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+          },
+          key
+        );
 
         return res.status(201).send({
           token,

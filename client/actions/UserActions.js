@@ -1,10 +1,12 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Materialize from 'materialize-css';
-
+import notifyNetworkError from './notifyNetworkError';
 import { setAuthorizationToken } from '../utils/authorization';
 
-import { SET_CURRENT_USER, UNAUTH_USER, EDIT_PROFILE } from './types';
+import { SET_CURRENT_USER,
+  SET_API_STATUS,
+  UNAUTH_USER, EDIT_PROFILE } from './types';
 
 const API_URL = '/api/v1/users';
 
@@ -12,128 +14,160 @@ const SEARCH_API_URL = '/api/v1/search';
 
 /**
  * @description - Set current user
- * 
- * @param {Object} decoded - Decoded JWT Token 
- * 
+ *
+ * @param {Object} currentUser - Decoded JWT Token
+ *
  * @returns {Object} - redux action to be dispatched
  */
-export function setCurrentUser(decoded) {
+export function setCurrentUser(currentUser) {
   return {
     type: SET_CURRENT_USER,
-    user: decoded.currentUser,
+    user: currentUser,
     authenticated: true
   };
 }
 
 /**
- * 
- * @description - Register user action
- * 
- * @param {Object} userDetails - Object containing user details
- * 
- * @returns { Object } - Dispatches user object to the store
+ * @description -  Sets API status
+ *
+ * @export { Function } - Set API Progress
+ *
+ * @param { Boolean } status - User object
+ *
+ * @returns {  Object } - Action
  */
-export function registerUserAction(userDetails) {
-  return dispatch => axios.post(`${API_URL}/signup`, userDetails)
-    .then((response) => {
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      setAuthorizationToken(token);
-      dispatch({
-        type: SET_CURRENT_USER,
-        user: jwt.decode(response.data.token),
-        authenticated: true
-      });
-      Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4',
-        () => {
-          window.location.href = '/dashboard';
-        });
-    })
-    .catch(error => Materialize.toast(error.response.data.message, 2000,
-       'red'));
+export function setApiCallProgress(status) {
+  return {
+    type: SET_API_STATUS,
+    apiStatus: status
+  };
 }
 
-
-/** @description - Login action 
- * 
+/**
+ *
+ * @description - Register user action
+ *
  * @param {Object} userDetails - Object containing user details
- * 
+ *
  * @returns { Object } - Dispatches user object to the store
  */
-export function loginAction(userDetails) {
-  return dispatch => axios.post(`${API_URL}/signin`, userDetails)
+export const registerUserAction = userDetails => (dispatch) => {
+  dispatch(setApiCallProgress(true));
+  return axios.post(`${API_URL}/signup`, userDetails)
     .then((response) => {
-      const token = response.data.token;
+      dispatch(setApiCallProgress(false));
+      const { token } = response.data;
       localStorage.setItem('token', token);
       setAuthorizationToken(token);
       const decoded = jwt.decode(response.data.token);
-      dispatch(setCurrentUser(decoded));
-
-      Materialize.toast('Logged In Successfully', 2000,
-        'blue darken-4',
-				 () => {
-          window.location.href = '/admin';
-        });
+      dispatch(setCurrentUser(decoded.currentUser));
+      Materialize.toast('Sign Up Successfully', 2000, 'blue darken-4');
     })
-    .catch(error => Materialize.toast(error.response.data.message,
-      3000,
-      'red'));
-}
+    .catch((error) => {
+      dispatch(setApiCallProgress(false));
+      notifyNetworkError(error);
+    });
+};
 
-/** 
+
+/** @description - Login action
+ *
+ * @param {Object} userDetails - Object containing user details
+ *
+ * @returns { Object } - Dispatches user object to the store
+ */
+export const loginAction = userDetails => (dispatch) => {
+  dispatch(setApiCallProgress(true));
+  return axios.post(`${API_URL}/signin`, userDetails)
+    .then((response) => {
+      dispatch(setApiCallProgress(false));
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      setAuthorizationToken(token);
+      const decoded = jwt.decode(response.data.token);
+      dispatch(setCurrentUser(decoded.currentUser));
+      Materialize.toast('Logged In Successfully', 2000, 'blue darken-4');
+    })
+    .catch((error) => {
+      dispatch(setApiCallProgress(false));
+      notifyNetworkError(error);
+    });
+};
+
+export const googleLogin = userDetails =>
+  dispatch => new Promise((resolve, reject) => {
+    const currentUser = userDetails.user;
+    currentUser.userId = currentUser.id;
+    const token = jwt.sign(
+      {
+        currentUser,
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+      },
+      process.env.secretKey
+    );
+    localStorage.setItem('token', token);
+    setAuthorizationToken(token);
+    dispatch(setCurrentUser(currentUser));
+    resolve();
+  });
+
+/**
  * @description - Unauthenticates a user
- * 
+ *
  * @returns { Object } - Dispatches user object to the store
  */
 export function logoutAction() {
   return (dispatch) => {
     localStorage.removeItem('token');
     setAuthorizationToken(false);
-     window.location.href = '/';    
     dispatch({
       type: UNAUTH_USER,
-      user: { currentUser: { } },
+      user: { },
       authenticated: false
     });
+    
+    Materialize.toast('Sucessfully logged out...', 1000, 'red');
   };
 }
 
-/** 
+
+/**
  * @description - Edit profile action
- * 
+ *
  * @param {Number} userId - User ID
- * 
+ *
  * @param {Object} userData - User data object
- * 
+ *
  * @returns { String } - JWT Token
  */
 export function editProfileAction(userId, userData) {
   return dispatch => axios.put(`${API_URL}/edit/${userId}`, userData)
-      .then((response) => {
-        dispatch({
-          type: EDIT_PROFILE,
-          user: jwt.decode(response.data.token)
-        });
-        localStorage.setItem('token', response.data.token);
-        Materialize.toast('Profile edited Successfully',
-          1000, 'blue darken-4', () => {
-            $('.modal').modal('close');
-          });
-      })
-    .catch(error => Materialize.toast(error.response.data.message, 2000, 
-      'red'));
+    .then((response) => {
+      const user = jwt.decode(response.data.token).currentUser;
+      dispatch({
+        type: EDIT_PROFILE,
+        user
+      });
+      localStorage.setItem('token', response.data.token);
+      Materialize.toast(
+        response.data.message,
+        1000, 'blue darken-4', () => {
+          $('.modal').modal('close');
+        }
+      );
+    })
+    .catch(error => notifyNetworkError(error));
 }
 
 /**
  * @description - Get users by email action
- * 
+ *
  * @param { object } email - object containing user email
- * 
+ *
  * @returns { String } - JWT Token
  */
 export function getUserByEmailAction(email) {
   return axios.post(`${SEARCH_API_URL}/email`, email)
     .then(response => response.data.token)
-    .catch(error => Materialize.toast(error.response.data.message, 2000,
-       'red'));
+    .catch(error => notifyNetworkError(error));
 }

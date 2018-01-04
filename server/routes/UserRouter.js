@@ -3,7 +3,6 @@ import express from 'express';
 import Validation from '../middleware/Validation';
 import UserController from '../controllers/UserController';
 import Authorization from '../middleware/Authorization';
-import BookController from '../controllers/BookController';
 
 const { isLoggedIn } = Authorization;
 
@@ -43,7 +42,7 @@ const userRouter = express.Router();
  *        "fullName": Abdulrasaq Nasirudeen,
  *       "email": dealwap@dealwap.com,
  *       "username": dealwap,
- *       "password": dealwap123 
+ *       "password": dealwap123
  *      }
  */
 
@@ -74,7 +73,7 @@ const userRouter = express.Router();
  *       "isAdmin": 1,
  *       "username": dealwap
  *      }
- * 
+ *
  * ]
  */
 
@@ -113,7 +112,7 @@ const userRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear: 
+ *       prodYear:
  *         type: integer
  *     example: {
  *        isbn: 123-isbn-1992,
@@ -124,7 +123,7 @@ const userRouter = express.Router();
  *       cover: http://example.com/img/cover.jpg,
  *       prodYear: 1993
  *  }
- */ 
+ */
 
 /**
  * @swagger
@@ -143,7 +142,7 @@ const userRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear: 
+ *       prodYear:
  *         type: integer
  *     example: [{
  *        isbn: 123-isbn-1992,
@@ -163,7 +162,7 @@ const userRouter = express.Router();
  *       cover: http://example.com/img/cover.jpg,
  *       prodYear: 1999
  *  }]
- */ 
+ */
 
 
 /**
@@ -191,7 +190,7 @@ const userRouter = express.Router();
  *         description: Internal server error
  */
 userRouter.route('/signup')
-          .post(checkUserInput, create);
+  .post(checkUserInput, create);
 
 /**
  * @swagger
@@ -218,7 +217,7 @@ userRouter.route('/signup')
  *         description: Internal server error
  */
 userRouter.route('/signin')
-          .post(login);
+  .post(login);
 
 
 /**
@@ -260,9 +259,9 @@ userRouter.route('/signin')
  *         description: Internal server error
  */
 userRouter.route('/edit/:userId')
-          .put(isLoggedIn, editProfile);
+  .put(isLoggedIn, editProfile);
 
 userRouter.route('/validate')
-          .post(checkAndRetrieveUserDetails);
+  .post(checkAndRetrieveUserDetails);
 
 export default userRouter;

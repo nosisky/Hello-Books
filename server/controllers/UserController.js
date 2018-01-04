@@ -12,25 +12,27 @@ const { User } = database;
 
 const UserController = {
 
-  /** 
+  /**
    * @description - Adds a new user to the database
-   * 
-   * @param  {object} req request object
-   * 
-   * @param  {object} res response object
-   * 
+   *
+   * @param  {object} req - request object
+   *
+   * @param  {object} res - response object
+   *
    * @return {Object} - Object containing user detail
-   * 
+   *
    * Route: POST: /users/signup
    */
   create(req, res) {
     return User.create(req.userInput)
       .then((user) => {
-        const currentUser = omit(user.dataValues,
-          ['password', 'createdAt', 'updatedAt']);
-          if(currentUser.id){
-            currentUser.userId = currentUser.id
-          }
+        const currentUser = omit(
+          user.dataValues,
+          ['password', 'createdAt', 'updatedAt']
+        );
+        if (currentUser.id) {
+          currentUser.userId = currentUser.id;
+        }
         const token = jwt.sign(
           {
             currentUser,
@@ -46,15 +48,15 @@ const UserController = {
       .catch(error => res.status(500).send(error));
   },
 
-  /** 
+  /**
    * @description - Authenticates user login information
-   * 
+   *
    * @param  {object} req - request
-   * 
-   * @param  {object} res - response 
-   * 
+   *
+   * @param  {object} res - response
+   *
    * @return {Object} - Object containing user details
-   * 
+   *
    * Route: POST: /users/signin
    */
   login(req, res) {
@@ -70,8 +72,10 @@ const UserController = {
     })
       .then((user) => {
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
-          const currentUser = omit(user.dataValues,
-            ['password', 'createdAt', 'updatedAt']);
+          const currentUser = omit(
+            user.dataValues,
+            ['password', 'createdAt', 'updatedAt']
+          );
           const token = jwt.sign(
             {
               currentUser,
@@ -92,41 +96,41 @@ const UserController = {
   },
 
   /**
-   * Validates user data
-   * 
-   * @param {Object} res - response
-   * 
-   * @param {Object} userData - Object containing user information
-   * 
-   * @returns {Object}
-   */
-  checkValidUser(res, userData){
-        if(Number(userData.userId) !== Number(userData.newId)) {
-          return res.status(400).send({
-            message: 'Invalid user id supplied'
-          })
-        }
+ * Validates user data
+ *
+ * @param {Object} res - response
+ *
+ * @param {Object} userData - Object containing user information
+ *
+ * @returns {Object} - Response object
+ */
+  checkValidUser(res, userData) {
+    if (Number(userData.userId) !== Number(userData.newId)) {
+      return res.status(400).send({
+        message: 'Invalid user id supplied'
+      });
+    }
   },
 
   /**
-   * 
+   *
    * @description - Edit profile controller
-   * 
+   *
    * @param {Object} req - request
-   * 
+   *
    * @param {Object} res - response
-   * 
+   *
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
     const { userId, id } = req.decoded.currentUser;
-    const userDetails = { userId: userId || id, newId: req.params.userId }
-    UserController.checkValidUser(res, userDetails)
+    const userDetails = { userId: userId || id, newId: req.params.userId };
+    UserController.checkValidUser(res, userDetails);
 
     const userData = {
       email: req.body.email,
       fullName: req.body.fullName
-    }
+    };
     return User.update(userData, {
       where: {
         id: userId || id
@@ -135,22 +139,24 @@ const UserController = {
       plain: true
     })
       .then((result) => {
-          const currentUser = omit(result[1].dataValues,
-            ['password', 'createdAt', 'updatedAt']);
-          const token = jwt.sign(
-            {
-              currentUser,
-              exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-            },
-            secret
-          );
-          res.status(200).send({
-            message: 'Profile updated successfully',
-            token
-          });
+        const currentUser = omit(
+          result[1].dataValues,
+          ['password', 'createdAt', 'updatedAt']
+        );
+        const token = jwt.sign(
+          {
+            currentUser,
+            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+          },
+          secret
+        );
+        res.status(200).send({
+          message: 'Profile updated successfully',
+          token
+        });
       })
-      .catch(error => {
-        res.status(500).send(error)
+      .catch((error) => {
+        res.status(500).send(error);
       });
   }
 };

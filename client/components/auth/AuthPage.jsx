@@ -6,7 +6,8 @@ import RegisterationForm from './RegisterationForm';
 import { checkUserExist, 
 	checkEmailExist, reMap } from '../../utils/validation';
 
-const AuthPage = ({ registerUserAction, loginAction, message }) => {
+const AuthPage = ({ apiStatus,
+	registerUserAction, loginAction, message }) => {
 	return (
 		<div>
 			<div className="container main-auth white z-depth-2">
@@ -21,7 +22,7 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 				</div>
 				<ul className="tabs teal">
 					<li className="tab col s3">
-						<a className="white-text active" href="#login">
+						<a id="login_now" className="white-text active" href="#login">
 							login
 						</a>
 					</li>
@@ -31,8 +32,13 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 						</a>
 					</li>
 				</ul>
-				<LoginForm onSubmit={loginAction} />
-				<RegisterationForm UserExist={checkUserExist} 
+				<LoginForm 
+				apiStatus={apiStatus}
+				onSubmit={loginAction} />
+
+				<RegisterationForm 
+				apiStatus={apiStatus}
+				UserExist={checkUserExist} 
 				EmailExist={checkUserExist} 
 				onSubmit={registerUserAction} />
 			</div>

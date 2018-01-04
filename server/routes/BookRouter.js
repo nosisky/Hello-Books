@@ -4,22 +4,26 @@ import BookController from '../controllers/BookController';
 import Validation from '../middleware/Validation';
 import sendMail from '../middleware/sendMail';
 
-const { checkBookId, checkBookInput, validBook} = Validation;
+const { checkBookId, checkBookInput, validBook } = Validation;
 
-const { isLoggedIn, 
-        isAdmin, 
-        checkUserPlan, 
-        hasRentedBefore } = Authorization;
+const {
+  isLoggedIn,
+  isAdmin,
+  checkUserPlan,
+  hasRentedBefore
+} = Authorization;
 
-const { create, 
-        getBooks, 
-        rentBook, 
-        returnBook, 
-        rentedBooks, 
-        modifyBook, 
-        addCategory,
-        deleteBook ,
-        rentedBookByUser } = BookController; 
+const {
+  create,
+  getBooks,
+  rentBook,
+  returnBook,
+  rentedBooks,
+  modifyBook,
+  addCategory,
+  deleteBook,
+  rentedBookByUser
+} = BookController;
 
 const bookRouter = express.Router();
 
@@ -40,7 +44,7 @@ const bookRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear: 
+ *       prodYear:
  *         type: integer
  *     example: {
  *       isbn: 123-isbn-1992,
@@ -84,7 +88,7 @@ const bookRouter = express.Router();
  */
 
 
- /**
+/**
  * @swagger
  * definitions:
  *   CategoryList:
@@ -103,7 +107,7 @@ const bookRouter = express.Router();
  *      }]
  */
 
- /**
+/**
  * @swagger
  * definitions:
  *   RentBook:
@@ -147,8 +151,8 @@ const bookRouter = express.Router();
  *         description: Internal server error
  */
 bookRouter.route('/books')
-          .post(isLoggedIn, isAdmin, checkBookInput, create)
-          .get(isLoggedIn, getBooks);
+  .post(isLoggedIn, isAdmin, checkBookInput, create)
+  .get(isLoggedIn, getBooks);
 
 
 /**
@@ -200,11 +204,13 @@ bookRouter.route('/books')
  */
 
 bookRouter.route('/users/:userId/books')
-          .post(isLoggedIn, 
-                checkUserPlan, 
-                checkBookId, 
-                hasRentedBefore, 
-                rentBook);
+  .post(
+    isLoggedIn,
+    checkUserPlan,
+    checkBookId,
+    hasRentedBefore,
+    rentBook
+  );
 
 /**
  * @swagger
@@ -254,7 +260,7 @@ bookRouter.route('/users/:userId/books')
  *         description: Internal server error
  */
 bookRouter.route('/users/:userId/books')
-          .put(isLoggedIn, returnBook);
+  .put(isLoggedIn, returnBook);
 
 /**
  * @swagger
@@ -292,7 +298,7 @@ bookRouter.route('/users/:userId/books')
  *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/users/:userId/books')
-          .get(isLoggedIn, rentedBooks);
+  .get(isLoggedIn, rentedBooks);
 
 /**
  * @swagger
@@ -335,7 +341,7 @@ bookRouter.route('/users/:userId/books')
  *         description: Internal server error
  */
 bookRouter.route('/books/:bookId')
-          .put(isLoggedIn, isAdmin, validBook, modifyBook);
+  .put(isLoggedIn, isAdmin, validBook, modifyBook);
 
 /**
  * @swagger
@@ -369,7 +375,7 @@ bookRouter.route('/books/:bookId')
  *         description: Internal server error
  */
 bookRouter.route('/books/category')
-          .post(isLoggedIn, isAdmin, addCategory);
+  .post(isLoggedIn, isAdmin, addCategory);
 
 /**
  * @swagger
@@ -414,7 +420,7 @@ bookRouter.route('/books/category')
  *         description: Internal server error
  */
 bookRouter.route('/books/delete/:bookId')
-          .delete(isLoggedIn, isAdmin, validBook, deleteBook);
+  .delete(isLoggedIn, isAdmin, validBook, deleteBook);
 
 /**
  * @swagger
@@ -442,7 +448,7 @@ bookRouter.route('/books/delete/:bookId')
  *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/books/logs/:userId')
-          .get(isLoggedIn, rentedBookByUser);
+  .get(isLoggedIn, rentedBookByUser);
 
 /**
  * @swagger
@@ -470,7 +476,7 @@ bookRouter.route('/books/logs/:userId')
  *         description: Internal server error
  */
 bookRouter.route('/books/email')
-          .post(isLoggedIn, isAdmin, sendMail);
+  .post(isLoggedIn, isAdmin, sendMail);
 
 export default bookRouter;
 

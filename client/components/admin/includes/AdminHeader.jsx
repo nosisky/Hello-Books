@@ -96,7 +96,7 @@ export class AdminHeader extends Component {
 						</li>
 						<li className="divider" />
 						<li>
-							<a onClick={this.props.actions.logoutAction} href="#">
+							<a onClick={this.props.actions.logoutAction} >
 								<i className="material-icons">exit_to_app</i>
 								Logout
 							</a>
@@ -120,7 +120,7 @@ export class AdminHeader extends Component {
 							<a 
 								className="right hide-on-large-only white-text" 
 								name="logout" onClick={this.props.actions.logoutAction} 
-								href="#!">
+								>
 									<i style={{paddingTop: 6, fontSize: '2.5rem'}} 
 									className="small material-icons">exit_to_app</i>
 								</a>
@@ -164,7 +164,7 @@ export function mapDispatchToProps(dispatch) {
  * @returns {Object} - Selected state
  */
 function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser };
+	return { user: state.auth.user };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHeader);

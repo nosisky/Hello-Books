@@ -29,10 +29,10 @@ describe('User Api: ', () => {
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
-        res.
-        body[0]
-        .error.
-        should.equal('Please provide a username with atleast 4 characters.');
+        res
+          .body[0]
+          .error
+          .should.equal('Please provide a username with atleast 4 characters.');
         done();
       });
   });
@@ -67,7 +67,7 @@ describe('User Api: ', () => {
         expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
         expect(currentUser.currentUser.username).toEqual('Dealwap');
         expect(currentUser.currentUser.fullName)
-        .toEqual('Abdulrasaq Nasirudeen');
+          .toEqual('Abdulrasaq Nasirudeen');
         done();
       });
   });
@@ -92,7 +92,7 @@ describe('User Api: ', () => {
       .post('/api/v1/users/validate')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
-      .set('x-access-token', token)      
+      .set('x-access-token', token)
       .type('form')
       .send({ email: 'nosisky@gmail.com' })
       .expect(200)
@@ -128,10 +128,10 @@ describe('User Api: ', () => {
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
-        res.
-        body.
-        message.
-        should.equal('Please provide your username or password to login');
+        res
+          .body
+          .message
+          .should.equal('Please provide your username or password to login');
         done();
       });
   });
@@ -151,7 +151,7 @@ describe('User Api: ', () => {
         expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
         expect(currentUser.currentUser.username).toEqual('Dealwap');
         expect(currentUser.currentUser.fullName)
-        .toEqual('Abdulrasaq Nasirudeen');
+          .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Logged In Successfully');
         done();
       });

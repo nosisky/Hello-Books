@@ -7,11 +7,10 @@ import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
 import App from './components/app';
 import reducers from './reducers/index';
-import { AUTH_USER } from './actions/types';
-import { logoutAction } from './actions/UserActions';
+import { AUTH_USER, SET_CURRENT_USER } from './actions/types';
+import { logoutAction, setCurrentUser } from './actions/UserActions';
 import configureStore from './store/configureStore';
 import { setAuthorizationToken } from '../client/utils/authorization';
-import { SET_CURRENT_USER } from './actions/types';
 import '../node_modules/materialize-css/dist/js/materialize.min';
 import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
@@ -25,7 +24,7 @@ const store = configureStore();
 //Initalize firebase
 firebase.initializeApp(firebaseConfig);
 
-const token = localStorage.token;
+const token = localStorage.getItem('token');
 const key = process.env.secretKey;
 
 if (token) {
@@ -34,11 +33,8 @@ if (token) {
 			logoutAction();
 		}
 	})
-	setAuthorizationToken(localStorage.token);
-	store.dispatch({
-		type: SET_CURRENT_USER,
-		user: jwt.decode(localStorage.token)
-	});
+	setAuthorizationToken(token);
+	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
 }
 
 ReactDOM.render(

@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import jwt from 'jsonwebtoken';
 import { bindActionCreators } from 'redux';
 import { logoutAction } from '../../actions/UserActions';
+import configureStore from '../../store/configureStore';
+import { setAuthorizationToken } from '../../utils/authorization';
+import { setCurrentUser } from '../../actions/UserActions';
+
 
 /**
  * @description - Higher order component for user authentication
@@ -14,6 +18,8 @@ import { logoutAction } from '../../actions/UserActions';
  */
 export default function(ComposedComponent) {
 
+	const store = configureStore();
+
 	/**
 	 * 
 	 * 
@@ -23,41 +29,56 @@ export default function(ComposedComponent) {
 	 */
 	class Authentication extends Component {
 
+		constructor(props) {
+			super(props);
+			this.state = {
+				valid: true
+			}
+		}
+
 		componentWillMount() {
 			const key = process.env.secretKey;
 			const token = localStorage.getItem('token');
 
-			if(!token){
-				this.props.actions.logoutAction();
-			}
 			if (token) {
 				jwt.verify(token, key, (error) => {
 					if (error) {
-						this.props.actions.logoutAction();
-						this.props.history.push('/');
+						this.setState({
+							valid: false
+						}, () => {
+							this.props.actions.logoutAction();
+							this.props.history.push('/');
+						})
+					} else {
+						setAuthorizationToken(token);
+						const decoded = jwt.decode(token);
 					}
 				});
+			} else {
+				this.setState({
+					valid: false
+				}, () => this.props.actions.logoutAction());
 			}
 			if (!this.props.authenticated) {
-				this.props.history.push('/');
-			}
-			if (!this.props.authenticated) {
-				this.props.history.push('/');
+				this.setState({
+					valid: false
+				}, () => {
+					this.props.actions.logoutAction();
+					this.props.history.push('/')
+				});
 			}
 		}
 
-		/**
-		 * @description - Executes before component is updated
-		 * 
-		 * @param {Object} nextProps 
-		 * 
-		 * @memberOf AdminAuthentication
-		 */
-		componentWillUpdate(nextProps) {
-			if (!nextProps.authenticated) {
-				this.props.history.push('/');
+		componentWillReceiveProps(nextProps) {
+			if(Object.keys(nextProps.user).length === 0){
+				this.setState({
+					valid: false
+				}, () => {
+					this.props.history.push('/');
+				})
 			}
 		}
+
 
 		/**
 		 * @description - Renders the component
@@ -67,7 +88,11 @@ export default function(ComposedComponent) {
 		 * @memberOf AdminAuthentication
 		 */
 		render() {
-			return <ComposedComponent {...this.props} />;
+			return (
+				<div>
+					{this.state.valid && <ComposedComponent {...this.props} />}
+				</div>
+		);
 		}
 	}
 
@@ -82,7 +107,8 @@ export default function(ComposedComponent) {
 		return {
 			actions: bindActionCreators(
 				{
-					logoutAction
+					logoutAction,
+					setCurrentUser
 				},
 				dispatch
 			)

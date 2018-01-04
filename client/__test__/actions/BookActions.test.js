@@ -3,7 +3,6 @@ import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
-import fetchMock from 'fetch-mock';
 import mockData from '../__mocks__/mockData';
 import * as BookActions from '../../actions/BookActions';
 import * as ActionTypes from '../../actions/types';
@@ -27,7 +26,8 @@ describe('Auth actions', () => {
 
     const expectedActions = [{
       type: ActionTypes.ADD_BOOK,
-      message: 'book added successfully' }];
+      message: 'book added successfully'
+    }];
 
     const store = mockStore({});
 
@@ -46,7 +46,8 @@ describe('Auth actions', () => {
 
     const expectedActions = [{
       type: ActionTypes.GET_ALL_BOOKS,
-      data: mockData.returnedBook }];
+      data: mockData.returnedBook
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.getAllBooksAction(1))
@@ -80,7 +81,8 @@ describe('Auth actions', () => {
 
     const expectedActions = [{
       type: ActionTypes.EDIT_BOOK,
-      data: mockData.modifiedBook }];
+      data: mockData.modifiedBook
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.modifyBookAction(mockData.bookData, 1))
@@ -98,11 +100,14 @@ describe('Auth actions', () => {
 
     const expectedActions = [{
       type: ActionTypes.ADD_CATEGORY,
-      data: { name: 'science', description: 'Hello world' } }];
+      data: { name: 'science', description: 'Hello world' }
+    }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.addCategoryAction({ name: 'science',
-      description: 'Hello world' }))
+    return store.dispatch(BookActions.addCategoryAction({
+      name: 'science',
+      description: 'Hello world'
+    }))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -116,8 +121,9 @@ describe('Auth actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.ADD_CATEGORY, 
-      data: mockData.returnedBook }];
+      type: ActionTypes.ADD_CATEGORY,
+      data: mockData.returnedBook
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.getRentedBooksAction(1))
@@ -135,7 +141,8 @@ describe('Auth actions', () => {
 
     const expectedActions = [{
       type: ActionTypes.RETURN_RENTED_BOOK,
-      data: mockData.returnedBook }];
+      data: mockData.returnedBook
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.returnBook(1, 3))
@@ -151,8 +158,10 @@ describe('Auth actions', () => {
       response: [{ name: 'science', description: 'Hello world' }]
     });
 
-    const expectedActions = [{ type: ActionTypes.RETURN_RENTED_BOOK,
-      data: [{ name: 'science', description: 'Hello world' }] }];
+    const expectedActions = [{
+      type: ActionTypes.RETURN_RENTED_BOOK,
+      data: [{ name: 'science', description: 'Hello world' }]
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.getCategoryAction())
@@ -168,8 +177,10 @@ describe('Auth actions', () => {
       response: mockData.modifiedBook
     });
 
-    const expectedActions = [{ type: ActionTypes.SEARCH_BOOK,
-      data: mockData.modifiedBook }];
+    const expectedActions = [{
+      type: ActionTypes.SEARCH_BOOK,
+      data: mockData.modifiedBook
+    }];
 
     const store = mockStore({});
     return store.dispatch(BookActions.searchAction('test'))

@@ -7,6 +7,7 @@ import { registerUserAction,
 import { connect } from 'react-redux';
 import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { withRouter } from 'react-router'
 
 /**
  * @description - Login form component
@@ -17,7 +18,7 @@ import jwt from 'jsonwebtoken';
  * 
  * @extends {Component}
  */
-export default class LoginForm extends Component {
+class LoginForm extends Component {
 
 	/**
 	 * @description - Creates an instance of Login.
@@ -60,12 +61,23 @@ export default class LoginForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.onSubmit(this.state)
+		.then(() => {
+			const token = localStorage.getItem('token');
+			if(token){
+				const currentUser = jwt.decode(token).currentUser;			
+				if(currentUser.isAdmin){
+					this.props.history.push('/admin');
+				} else {
+					this.props.history.push('/dashboard');
+				}
+			}
+		})
 	}
 
 	/**
 	 * @description - Renders the component
 	 * 
-	 * @returns 
+	 * @returns { Object }
 	 * 
 	 * @memberOf Login
 	 */
@@ -105,7 +117,7 @@ export default class LoginForm extends Component {
 						<br />
 						<center>
 							<button className="btn waves-effect teal" 
-							type="submit" name="action">
+							type="submit" name="action" disabled={this.props.apiStatus}>
 								Login
 							</button>
 							<br />
@@ -118,3 +130,5 @@ export default class LoginForm extends Component {
 		);
 	}
 }
+
+export default withRouter(LoginForm)

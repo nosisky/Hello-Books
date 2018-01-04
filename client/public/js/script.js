@@ -9,5 +9,9 @@ $(document).ready(() => {
   $('.modal').modal();
 
   $('select').material_select();  
-  
+  		$(window).on(function(){
+			$('.app').fadeOut('slow',
+			function(){$(this).remove();});
+    });
+    $('ul.tabs').tabs();  
 });
