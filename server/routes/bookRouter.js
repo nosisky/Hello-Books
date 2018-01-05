@@ -208,13 +208,13 @@ bookRouter.route('/books')
  *         type: string
  *     responses:
  *       201:
- *         description: Book Successfully borrowed
+ *         description: You have successfully rented the book
  *         example: {
  *           "message": "You have successfully rented the book",
  *           "status": true
  *        }
  *       400:
- *         description: All fields are required
+ *         description: All fields are required / Invalid input
  *       404:
  *         description: Book not found
  *       401:
@@ -300,7 +300,7 @@ bookRouter.route('/users/:userId/books')
 
 /**
  * @swagger
- * /users/{userId}/books:
+ * /users/{userId}/books?returned=false:
  *   get:
  *     tags:
  *       - Borrowing Operations
@@ -370,6 +370,15 @@ bookRouter.route('/users/:userId/books')
  *         required: true
  *         schema:
  *           $ref: '#/definitions/Book'
+ *           type: object
+ *           required:
+ *             - bookId
+ *           properties:
+ *             bookId:
+ *               type: integer
+ *           example: {
+ *              bookId: 12
+ *           }
  *       - name: x-access-token
  *         in: header
  *         description: an authentication header
@@ -437,7 +446,7 @@ bookRouter.route('/books/:bookId')
  *        "description": "This is a test for me",
  *        "updatedAt": "2018-01-05T16:50:49.384Z",
  *        "createdAt": "2018-01-05T16:50:49.384Z",
- *        "name": null
+ *        "name": Science & Arts
  *   }
 * }
  *       400:
@@ -483,6 +492,10 @@ bookRouter.route('/books/category')
  *     responses:
  *       200:
  *         description: Book successfully deleted
+ *         example: {
+ *           "message": "Book deleted successfully!",
+ *           "id": "1"
+ *       }
  *       400:
  *         description: invalid inputs!
  *       404:
