@@ -196,7 +196,7 @@ class EditProfileModal extends Component {
 										</div>
 									</div>
 							<div className="center red-text">
-							(Leave blank unless you want to edit your password)</div>
+							(Leave blank unless you want to change your password)</div>
 									<div className="row">
 										<div className="input-field col s6">
 											<b>Old Password</b>

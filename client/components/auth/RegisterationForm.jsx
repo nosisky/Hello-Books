@@ -27,6 +27,7 @@ export class RegisterationForm extends Component {
 			userExist: '',
 			emailExist: '',
 			isLoading: '',
+			fullNameError: '',
 			errorLength: 0
 		};
 		this.onChange = this.onChange.bind(this);
@@ -74,6 +75,11 @@ export class RegisterationForm extends Component {
 	onFocus(event) {
 		const name = event.target.name;
 		switch (name) {
+			case 'fullName':
+				this.setState({
+					fullNameError: ''
+				})
+				break;
 			case 'username':
 				this.setState({ usernameError: '',
 							userExist: '' });
@@ -103,6 +109,15 @@ export class RegisterationForm extends Component {
 		const value = event.target.value;
 		const passwordValue = document.getElementById('pword').value;
 		switch (name) {
+			case 'fullName':
+				const fullNameCheck = value.trim();
+				if(fullNameCheck.length < 4){
+					this.setState({
+						fullNameError: 'Full name must be a minimum of 4 characters'
+					})
+					return false;
+				}
+				break;
 			case 'password':
 				if (value.length < 5 || !value) {
 					this.setState({
@@ -148,6 +163,7 @@ export class RegisterationForm extends Component {
 					this.setState({
 						passwordConfirmError: 'Password does not match'
 					});
+					return false;
 				}
 				break;
 		}
@@ -166,7 +182,8 @@ export class RegisterationForm extends Component {
 		return (
 			<div id="register" className="col s12">
 				{showInfo && <h5 className="center">Complete your sign up process</h5>}
-				<form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
+				<form className="col s12" id="form-validate" 
+				onSubmit={this.handleSubmit}>
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s6">
@@ -174,6 +191,8 @@ export class RegisterationForm extends Component {
 									name="fullName"
 									type="text"
 									onChange={this.onChange}
+									onFocus={this.onFocus}
+									onBlur={this.onBlur}
 									className="validate"
 									defaultValue={fullName}
 									required

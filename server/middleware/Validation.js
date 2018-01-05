@@ -241,14 +241,12 @@ const Validation = {
    * @returns {Object} - response message
    */
   checkValidDetails(email, username, res) {
-    const validator = /[0-9]{2,}/;
-    const validator2 = /[\W]{2,}/;
+    const validator = /[\W]{2,}/;
     const regularExpression = /\S+@\S+\.\S+/;
     const emailValidate = regularExpression.test(email);
 
     if (username) {
-      if (validator.test(username)
-        || validator2.test(username)) {
+      if (validator.test(username)) {
         return res.status(400).send({
           message: 'Invalid Username supplied!'
         });
