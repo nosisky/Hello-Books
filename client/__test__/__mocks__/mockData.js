@@ -14,6 +14,9 @@ const mockData = {
     email: 'nosisky@gmail.com',
     isAdmin: 0
   },
+  notifications: [
+    { id: 1, message: 'Hello from the other side' }
+  ],
   Dashboard: {
     props: {
       user: {

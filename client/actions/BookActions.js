@@ -16,8 +16,10 @@ import { ADD_BOOK,
   SEARCH_BOOK,
   EDIT_BOOK,
   RETURN_RENTED_BOOK,
-  DELETE_BOOK
+  DELETE_BOOK,
+  GET_ALL_NOTIFICATIONS
 } from './types';
+
 
 const API_URL = '/api/v1/books';
 const SEARCH_API_URL = '/api/v1/search';
@@ -30,17 +32,38 @@ const USER_API_URL = '/api/v1/users';
  *
  * @returns { Object } - Redux action to be dispatched to the store
  */
-export function addBookAction(bookDetails) {
-  return dispatch => axios.post(API_URL, bookDetails)
+export const addBookAction = bookDetails => (dispatch) => {
+  dispatch(setApiCallProgress(true));
+  axios.post(API_URL, bookDetails)
     .then((response) => {
       dispatch({
         type: ADD_BOOK,
         message: response.data.message,
         book: response.data.book
       });
+      dispatch(setApiCallProgress(false));
       Materialize.toast('Book added Successfully', 1000, '#15b39d', () => {
         document.getElementById('book_form').reset();
         $('.modal').modal('close');
+      });
+    })
+    .catch(error => notifyNetworkError(error));
+};
+
+
+/**
+ *@description -  Get all notifications
+ *
+ * @export { Function } - Get all notification action creator
+ *
+ * @returns { Object } - Dispatched objects
+ */
+export function getAllNotifications() {
+  return dispatch => axios.get('/api/v1/notification')
+    .then((response) => {
+      dispatch({
+        type: GET_ALL_NOTIFICATIONS,
+        notifications: response.data,
       });
     })
     .catch(error => notifyNetworkError(error));
@@ -123,10 +146,11 @@ export function addCategoryAction(data) {
     .then((response) => {
       dispatch({
         type: ADD_CATEGORY,
-        data: response.data.category
+        data: response.data.newCategory
       });
       Materialize.toast('Category added successfully', 2000, 'blue');
       $('.modal').modal('close');
+      document.getElementById('category_form').reset();
     })
     .catch((error) => {
       notifyNetworkError(error);

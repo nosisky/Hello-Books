@@ -30,7 +30,8 @@ const key = process.env.secretKey;
 if (token) {
 	jwt.verify(token, key, (error) => {
 		if (error) {
-			logoutAction();
+			localStorage.removeItem('token')
+			window.location = '/'
 		}
 	})
 	setAuthorizationToken(token);

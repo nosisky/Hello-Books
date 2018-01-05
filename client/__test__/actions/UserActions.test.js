@@ -6,13 +6,12 @@ import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
 import * as AuthActions from '../../actions/UserActions';
 import * as ActionTypes from '../../actions/types';
-import localstorageMock from '../__mocks__/mockLocalStorage';
 
 const middlewares = [thunk];
 
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = new localstorageMock();
+window.localStorage = {};
 
 global.Materialize = { toast: jest.fn(Promise.resolve(1)) };
 
@@ -33,13 +32,14 @@ describe('Auth actions', () => {
         currentUser:
           {
             type: ActionTypes.SET_CURRENT_USER,
-            user
+            user,
+            authenticated: true
           }
       }
     };
 
-    expect(AuthActions.setCurrentUser(user).user)
-      .toEqual(expectedAction.currentUser);
+    expect(AuthActions.setCurrentUser(user))
+      .toEqual(expectedAction.decoded.currentUser);
   });
 
   it('creates SET_CURRENT_USER when login action is successful', () => {

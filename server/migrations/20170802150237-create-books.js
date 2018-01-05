@@ -16,7 +16,8 @@ module.exports = {
     },
     isbn: {
       type: Sequelize.TEXT,
-      required: true
+      required: true,
+      unique: true
     },
     catId: {
       type: Sequelize.INTEGER,

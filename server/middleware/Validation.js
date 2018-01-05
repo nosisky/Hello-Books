@@ -82,7 +82,6 @@ const Validation = {
       }
     });
 
-
     const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
     req.userInput = {
       username: req.body.username,
@@ -178,6 +177,18 @@ const Validation = {
         message: allErrors[0]
       });
     }
+    Book.findOne({
+      where: {
+        isbn: req.body.isbn
+      }
+    })
+      .then((book) => {
+        if (book) {
+          res.status(409).send({
+            message: 'Book with that ISBN already exist'
+          });
+        }
+      });
     req.userInput = {
       title: req.body.title,
       isbn: req.body.isbn,
@@ -218,6 +229,17 @@ const Validation = {
     });
   },
 
+  /**
+   * @description - Validates user data
+   *
+   * @param {String} email - User email
+   *
+   * @param {String} username - Username
+   *
+   * @param {Object} res - response object
+   *
+   * @returns {Object} - response message
+   */
   checkValidDetails(email, username, res) {
     const validator = /[0-9]{2,}/;
     const validator2 = /[\W]{2,}/;
@@ -326,13 +348,71 @@ const Validation = {
             message: userExist
           });
         }
-        return res.status(404).send({
+        return res.status(200).send({
           message: 'User not found',
           status: false,
           userExist: false
         });
       })
       .catch(error => res.status(500).send(error));
+  },
+
+  /**
+   * Validates user data when editing profile
+   *
+   * @param {Object} req - request object
+   *
+   * @param {Object} res - repsonse object
+   *
+   * @param {Function} next - Call back function
+   *
+   * @returns {Object} - Response object
+   */
+  validateUserEdit(req, res, next) {
+    const emailValidator = /\S+@\S+\.\S+/;
+    const usernameValidator = /[A-Za-z]/g;
+
+    if (!usernameValidator.test(req.body.username)
+    || !emailValidator.test(req.body.email)) {
+      res.status(400).send({
+        message: 'Invalid data supplied pls check and try again'
+      });
+    } else {
+      User.findOne({
+        where: {
+          email: req.body.email
+        }
+      })
+        .then((user) => {
+          if (user && user.id !== req.decoded.currentUser.id) {
+            return res.status(409).send({
+              message: 'Email already exist'
+            });
+          } else if (req.body.oldPassword &&
+            !bcrypt.compareSync(req.body.oldPassword, user.password)) {
+            res.status(400).send({
+              message: 'Old password does not match new password'
+            });
+          }
+          const password = bcrypt.hashSync(req.body.newPassword, 10);
+          let userData;
+
+          if (req.body.oldPassword) {
+            userData = {
+              email: req.body.email,
+              fullName: req.body.fullName,
+              password,
+            };
+          } else {
+            userData = {
+              email: req.body.email,
+              fullName: req.body.fullName,
+            };
+          }
+          req.newUserData = userData;
+          next();
+        });
+    }
   },
 
   /**

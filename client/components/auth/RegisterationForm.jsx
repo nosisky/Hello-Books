@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
  * 
  * @extends {Component}
  */
-class RegisterationForm extends Component {
+export class RegisterationForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -26,7 +26,8 @@ class RegisterationForm extends Component {
 			emailError: '',
 			userExist: '',
 			emailExist: '',
-			isLoading: ''
+			isLoading: '',
+			errorLength: 0
 		};
 		this.onChange = this.onChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,7 +44,7 @@ class RegisterationForm extends Component {
 	 */
 	onChange(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
+		const value = event.target.value;
 		this.setState({
 			[event.target.name]: event.target.value
 		});
@@ -58,10 +59,9 @@ class RegisterationForm extends Component {
 	 */
 	handleSubmit(formData) {
 		formData.preventDefault();
-		this.props.onSubmit(this.state)
-		.then(() => {
-			this.props.history.push('/dashboard')
-		})
+		this.props.onSubmit(this.state).then(() => {
+			this.props.history.push('/dashboard');
+		});
 	}
 
 	/**
@@ -75,16 +75,17 @@ class RegisterationForm extends Component {
 		const name = event.target.name;
 		switch (name) {
 			case 'username':
-				this.setState({ usernameError: '', userExist: '' });
+				this.setState({ usernameError: '',
+							userExist: '' });
 				break;
 			case 'password':
 				this.setState({ passwordError: '' });
 				break;
 			case 'passwordConfirm':
-				this.setState({ passwordConfirm: '' });
+				this.setState({ passwordConfirmError: '' });
 				break;
 			case 'email':
-				this.setState({ emailError: '', emailExist: '' });
+				this.setState({ emailError: '', emailExist: ''});
 		}
 	}
 
@@ -99,52 +100,56 @@ class RegisterationForm extends Component {
 	 */
 	onBlur(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
-
+		const value = event.target.value;
+		const passwordValue = document.getElementById('pword').value;
 		switch (name) {
 			case 'password':
 				if (value.length < 5 || !value) {
-					this.setState({ 
-						passwordError: 'Password must be a minimum of 8 characters' 
+					this.setState({
+						passwordError: 'Password must be a minimum of 5 characters'
 					});
 					return false;
-				} else {
-					this.setState({ passwordError: '' });
-					return true;
 				}
+				break;				
 			case 'email':
-				this.props.EmailExist({ email: value })
-				.then((data) => {
-					if (data.emailExist) {
-						this.setState({ emailExist: data.message });
-						return false;
-					} else {
-						return true;
-					}
-				});
+				const emailValidator = /\S+@\S+\.\S+/;
+				if (!emailValidator.test(value)) {
+					this.setState({ emailExist: 'Invalid email supplied!' });
+				} else {
+					this.props.EmailExist({ email: value }).then((data) => {
+						if (data.emailExist) {
+							this.setState({ emailExist: data.message});
+							return false;
+						}
+					});
+				}
 				break;
-
 			case 'username':
-				this.props.UserExist({ username: value })
-				.then((data) => {
-					if(data){
-						if (data.userExist) {
-						this.setState({ userExist: data.message });
-						return false
-					} else {
-						this.setState({ userExist: '' });
-					}
-					}
-				});
 				if (value.length < 4 || !value) {
-					this.setState({ 
-						usernameError: 'username must be a minimum of 5 characters' 
+					this.setState({
+						usernameError: 'username must be a minimum of 4 characters'
 					});
 					return false;
 				} else {
-					this.setState({ usernameError: '' });
-					return true;
+					this.props.UserExist({ username: value }).then((data) => {
+						if (data) {
+							if (data.userExist) {
+								this.setState({ userExist: data.message,
+	
+								});
+								return false;
+							}
+						}
+					});
 				}
+				break;
+			case 'passwordConfirm':
+				if (value !== passwordValue) {
+					this.setState({
+						passwordConfirmError: 'Password does not match'
+					});
+				}
+				break;
 		}
 	}
 
@@ -160,10 +165,8 @@ class RegisterationForm extends Component {
 		const { userExist, fullName, email } = this.props;
 		return (
 			<div id="register" className="col s12">
-			{ showInfo && 
-			<h5 className="center">Complete your sign up process</h5> }
-				<form className="col s12" id="form-validate" 
-				onSubmit={this.handleSubmit}>
+				{showInfo && <h5 className="center">Complete your sign up process</h5>}
+				<form className="col s12" id="form-validate" onSubmit={this.handleSubmit}>
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s6">
@@ -192,7 +195,8 @@ class RegisterationForm extends Component {
 								<label htmlFor="username">username</label>
 								<div className="red-text">{this.state.userExist}</div>
 								<div id="usernameError" className="red-text">
-									{this.state.usernameError}</div>
+									{this.state.usernameError}
+								</div>
 							</div>
 						</div>
 						<div className="row">
@@ -237,10 +241,11 @@ class RegisterationForm extends Component {
 									onFocus={this.onFocus}
 									type="password"
 									className="validate"
+									required
 								/>
 								<label htmlFor="passwordConfirm">Password Confirmation</label>
-								<div className="red-text">
-									{this.state.passwordConfirmError}</div>
+								<div 
+								className="red-text">{this.state.passwordConfirmError}</div>
 							</div>
 						</div>
 						<center>

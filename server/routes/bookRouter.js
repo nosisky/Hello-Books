@@ -476,7 +476,7 @@ bookRouter.route('/books/logs/:userId')
  *         description: Internal server error
  */
 bookRouter.route('/books/email')
-  .post(isLoggedIn, isAdmin, sendMail);
+  .post(isLoggedIn, sendMail);
 
 export default bookRouter;
 

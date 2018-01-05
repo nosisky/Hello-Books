@@ -5,9 +5,7 @@ import * as ActionTypes from '../../actions/types';
 describe('Auth Reducer', () => {
   it('should set the current user when passed with SET_CURRENT_USER', () => {
     const initialState = {
-      user: {
-        currentUser: { }
-      }
+      user: { }
     };
     const user = {
       currentUser: {
@@ -20,6 +18,7 @@ describe('Auth Reducer', () => {
     const action = {
       type: ActionTypes.SET_CURRENT_USER,
       user,
+      authenticated: true
     };
     const newState = AuthReducer(initialState, action);
     expect(newState.authenticated).toEqual(true);

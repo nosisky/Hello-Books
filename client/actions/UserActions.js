@@ -95,7 +95,7 @@ export const loginAction = userDetails => (dispatch) => {
 };
 
 export const googleLogin = userDetails =>
-  dispatch => new Promise((resolve, reject) => {
+  dispatch => new Promise((resolve) => {
     const currentUser = userDetails.user;
     currentUser.userId = currentUser.id;
     const token = jwt.sign(
@@ -125,7 +125,7 @@ export function logoutAction() {
       user: { },
       authenticated: false
     });
-    
+
     Materialize.toast('Sucessfully logged out...', 1000, 'red');
   };
 }
@@ -152,6 +152,7 @@ export function editProfileAction(userId, userData) {
       Materialize.toast(
         response.data.message,
         1000, 'blue darken-4', () => {
+          document.getElementById('edit_profile').reset();
           $('.modal').modal('close');
         }
       );

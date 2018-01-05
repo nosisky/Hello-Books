@@ -76,6 +76,7 @@ const UserController = {
             user.dataValues,
             ['password', 'createdAt', 'updatedAt']
           );
+          currentUser.userId = currentUser.id;
           const token = jwt.sign(
             {
               currentUser,
@@ -123,17 +124,13 @@ const UserController = {
    * @returns {Object} - Object containing status code and success message
    */
   editProfile(req, res) {
-    const { userId, id } = req.decoded.currentUser;
-    const userDetails = { userId: userId || id, newId: req.params.userId };
+    const { userId } = req.decoded.currentUser;
+    const userDetails = { userId, newId: req.params.userId };
     UserController.checkValidUser(res, userDetails);
 
-    const userData = {
-      email: req.body.email,
-      fullName: req.body.fullName
-    };
-    return User.update(userData, {
+    return User.update(req.newUserData, {
       where: {
-        id: userId || id
+        id: userId
       },
       returning: true,
       plain: true
@@ -143,6 +140,7 @@ const UserController = {
           result[1].dataValues,
           ['password', 'createdAt', 'updatedAt']
         );
+        currentUser.userId = currentUser.id;
         const token = jwt.sign(
           {
             currentUser,

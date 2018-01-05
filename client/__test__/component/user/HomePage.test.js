@@ -6,16 +6,14 @@ import Adapter from 'enzyme-adapter-react-15';
 import  {HomePage} from '../../../components/pages/HomePage';
 import Footer from '../../../components/includes/Footer';
 
-import localStorageMock from '../../__mocks__/mockLocalStorage';
 
-window.localStorage = new localStorageMock()
+window.localStorage = {}
 
 configure({ adapter: new Adapter() });
 
 jest.mock('../../../components/auth/GoogleLogin');
 
 jest.mock('../../../components/includes/NavBar');
-
 
 
 describe('Component: HomePage', () => {

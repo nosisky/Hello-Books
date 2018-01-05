@@ -5,8 +5,9 @@ export default (sequelize, DataTypes) => {
       allowNull: DataTypes.FALSE,
     },
     isbn: {
-      type: DataTypes.TEXT,
-      required: true,
+      type: DataTypes.STRING,
+      unique: true,
+      required: true
     },
     total: {
       type: DataTypes.INTEGER,

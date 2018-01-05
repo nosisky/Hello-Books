@@ -2,7 +2,7 @@ import moxios from 'moxios';
 import expect from 'expect';
 import hammerjs, { Hammer } from 'hammerjs';
 
-import { checkUserExist, checkEmailExist } from '../../utils/validation';
+import { checkUserExist } from '../../utils/validation';
 import { getUserData } from '../../utils/authorization';
 import mailSender from '../../utils/mailSender';
 import { getUserByEmailAction } from '../../actions/UserActions';

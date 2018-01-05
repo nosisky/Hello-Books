@@ -3,11 +3,17 @@ import expect from 'expect';
 import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import  LoginForm from '../../../components/auth/LoginForm';
+import  { LoginForm } from '../../../components/auth/LoginForm';
 import localStorageMock from '../../__mocks__/mockLocalStorage';
 
-window.localStorage = new localStorageMock()
-jest.mock('../../../components/auth/GoogleLogin');
+window.localStorage = new localStorageMock();
+
+jest.doMock('../../../components/auth/GoogleLogIn',
+  () => {
+    const GoogleLogIn = () => <div />;
+    return GoogleLogIn;
+  }
+);
 
 configure({ adapter: new Adapter() });
 

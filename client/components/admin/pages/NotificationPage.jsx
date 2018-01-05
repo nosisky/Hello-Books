@@ -4,7 +4,7 @@ import AdminHeader from '../includes/AdminHeader';
 import AdminSideBar from '../includes/AdminSideBar';
 import DashboardFooter from '../../includes/DashboardFooter';
 import Notification from '../includes/Notification';
-import notifications from '../../../utils/notifications';
+import { getAllNotifications } from '../../../actions/BookActions';
 
 /**
  * 
@@ -16,32 +16,12 @@ import notifications from '../../../utils/notifications';
 class NotificationPage extends Component {
 
 	/**
-	 * @description - Creates an instance of NotificationPage.
-	 * 
-	 * @param {Object} props - Properties of the component
-	 * 
-	 * @memberOf NotificationPage
-	 */
-	constructor(props) {
-		super(props);
-		this.state = {
-			data: []
-		};
-	}
-	
-	/**
 	 * @description - Sets all notifications in application local state
 	 * 
 	 * @memberOf NotificationPage
 	 */
 	componentDidMount() {
-		notifications()
-			.then((data) => {
-				this.setState({
-					data
-				});
-			})
-			.catch((error) => error);
+		this.props.getAllNotifications()
 	}
 
 	/**
@@ -63,7 +43,7 @@ class NotificationPage extends Component {
         		isAdmin={this.props.user.isAdmin}/>
 					</div>
 					<div className="col l9 m12 s12">
-						{this.state.data.map((response) => {
+						{this.props.notifications.map((response) => {
 							return (
 									<Notification
 										key={response.id}
@@ -82,8 +62,9 @@ class NotificationPage extends Component {
 
 function mapStateToProps(state){
 	return {
-		user: state.auth.user
+		user: state.auth.user,
+		notifications: state.book.notifications
 	}
 }
 
-export default connect(mapStateToProps)(NotificationPage);
+export default connect(mapStateToProps, {getAllNotifications})(NotificationPage);

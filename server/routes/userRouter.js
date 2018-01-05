@@ -6,7 +6,10 @@ import Authorization from '../middleware/Authorization';
 
 const { isLoggedIn } = Authorization;
 
-const { checkAndRetrieveUserDetails, checkUserInput } = Validation;
+const {
+  checkAndRetrieveUserDetails, checkUserInput,
+  validateUserEdit
+} = Validation;
 
 const { create, login, editProfile } = UserController;
 
@@ -259,7 +262,7 @@ userRouter.route('/signin')
  *         description: Internal server error
  */
 userRouter.route('/edit/:userId')
-  .put(isLoggedIn, editProfile);
+  .put(isLoggedIn, validateUserEdit, editProfile);
 
 userRouter.route('/validate')
   .post(checkAndRetrieveUserDetails);

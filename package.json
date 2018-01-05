@@ -27,15 +27,6 @@
   "bugs": {
     "url": "https://github.com/nosisky/Hello-Books/issues"
   },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "modulePathIgnorePatterns": [
-      "client/__test__/__mocks__",
-      "client/components/admin/pages/AddANewBook",
-      "client/components/auth/GoogleLogin"
-    ]
-  },
   "homepage": "https://github.com/nosisky/Hello-Books#readme",
   "dependencies": {
     "axios": "^0.16.2",

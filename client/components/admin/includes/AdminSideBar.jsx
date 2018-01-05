@@ -63,7 +63,6 @@ export class AdminSideBar extends Component {
 		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
-			document.getElementById("category_form").reset();
 	}
 
 	/**

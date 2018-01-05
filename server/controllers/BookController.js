@@ -68,7 +68,7 @@ const BookController = {
     const { userId, id, username } = req.decoded.currentUser;
 
     const userData = {
-      userId: userId || id, newId: req.params.userId
+      userId, newId: req.params.userId
     };
 
     checkValidUser(res, userData);
@@ -89,7 +89,7 @@ const BookController = {
             bookId: req.body.bookId,
             description: book.description,
             title: book.title,
-            userId: userId || id,
+            userId,
             cover: book.cover,
             toReturnDate: after20days
           })
@@ -201,19 +201,31 @@ const BookController = {
    * @return {Object} - return lists of category
    */
   addCategory(req, res) {
-    return Category.create(req.body)
+    return Category.findOne({
+      where: {
+        name: req.body.name
+      }
+    })
       .then((category) => {
         if (category) {
-          return res.status(201).send({
-            message: 'Category added successfully',
-            category
+          res.status(409).send({
+            message: 'Category with that name already exist'
           });
+        } else {
+          return Category.create(req.body)
+            .then((newCategory) => {
+              if (newCategory) {
+                return res.status(201).send({
+                  message: 'Category added successfully',
+                  newCategory
+                });
+              }
+            });
         }
       })
-      .catch(error =>
-        res.status(500).send({
-          error
-        }));
+      .catch((error) => {
+        res.status(500).send(error);
+      });
   },
   /**
    * @description - Dislay users rented books
@@ -227,16 +239,16 @@ const BookController = {
    * Route: GET: //api/users/:UserId/books?returned=false
    */
   rentedBooks(req, res) {
-    const { userId, id } = req.decoded.currentUser;
+    const { userId } = req.decoded.currentUser;
     const userData = {
-      userId: userId || id, newId: req.params.userId
+      userId, newId: req.params.userId
     };
 
     checkValidUser(res, userData);
     return RentedBook.findAll({
       where: {
         returned: req.query.returned,
-        userId: userId || id
+        userId
       }
     })
       .then((books) => {
@@ -315,16 +327,16 @@ const BookController = {
    * Route: GET: /books/logs/:userId
    */
   rentedBookByUser(req, res) {
-    const { userId, id } = req.decoded.currentUser;
+    const { userId } = req.decoded.currentUser;
     const userData = {
-      userId: userId || id,
+      userId,
       newId: req.body.userId || req.params.userId
     };
 
     checkValidUser(res, userData);
     return RentedBook.findAll({
       where: {
-        userId: userId || id
+        userId
       }
     })
       .then((books) => {
@@ -352,9 +364,9 @@ const BookController = {
    *
    */
   returnBook(req, res) {
-    const { userId, id, username } = req.decoded.currentUser;
+    const { userId, username } = req.decoded.currentUser;
     const userData = {
-      userId: userId || id,
+      userId,
       newId: req.body.userId || req.params.userId
     };
 
@@ -384,7 +396,7 @@ const BookController = {
             }
           ).then(() => {
             BookController.createNotification(
-              id,
+              userId,
               username, book.title, 'return'
             );
             res.status(201).send({

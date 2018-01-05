@@ -3,10 +3,9 @@ import expect from 'expect';
 import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import  RegisterationForm from '../../../components/auth/RegisterationForm';
-import localStorageMock from '../../__mocks__/mockLocalStorage';
+import  { RegisterationForm } from '../../../components/auth/RegisterationForm';
 
-window.localStorage = new localStorageMock()
+window.localStorage = {}
 
 configure({ adapter: new Adapter() });
 

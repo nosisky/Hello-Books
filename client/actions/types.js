@@ -16,3 +16,4 @@ export const ADD_CATEGORY = 'add_category';
 export const DELETE_BOOK = 'delete_book';
 export const EDIT_PROFILE = 'edit_profile';
 export const SET_API_STATUS = 'set_api_status';
+export const GET_ALL_NOTIFICATIONS = 'get_all_notifications';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import GoogleLogin from './GoogleLogin';
+import GoogleLogIn from './GoogleLogIn';
 import { checkUserExist } from '../../utils/validation';
 import { registerUserAction, 
 	getUserByEmailAction } from '../../actions/UserActions';
@@ -18,7 +18,7 @@ import { withRouter } from 'react-router'
  * 
  * @extends {Component}
  */
-class LoginForm extends Component {
+export class LoginForm extends Component {
 
 	/**
 	 * @description - Creates an instance of Login.
@@ -122,7 +122,7 @@ class LoginForm extends Component {
 							</button>
 							<br />
 							<br />
-							<GoogleLogin emailExist={checkUserExist} />
+							<GoogleLogIn emailExist={checkUserExist} />
 						</center>
 					</div>
 				</form>

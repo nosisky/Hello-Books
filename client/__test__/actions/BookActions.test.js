@@ -6,13 +6,12 @@ import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
 import * as BookActions from '../../actions/BookActions';
 import * as ActionTypes from '../../actions/types';
-import localstorageMock from '../__mocks__/mockLocalStorage';
 
 const middleware = [thunk];
 
 const mockStore = configureMockStore(middleware);
 
-window.localStorage = new localstorageMock();
+window.localStorage = {};
 
 describe('Auth actions', () => {
   beforeEach(() => moxios.install());
@@ -170,6 +169,29 @@ describe('Auth actions', () => {
       })
       .catch(error => error);
   });
+
+
+  it(`creates GET_ALL_NOTIFICATION 
+  when getAllNotification action is successful`, () => {
+      const { notifications } = mockData;
+      moxios.stubRequest('/api/v1/notification', {
+        status: 200,
+        response: notifications
+      });
+
+      const expectedActions = {
+        type: ActionTypes.GET_ALL_NOTIFICATIONS,
+        user: notifications
+      };
+
+      const store = mockStore({});
+      store.dispatch(BookActions.getAllNotifications())
+        .then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        })
+        .catch(error => error);
+    });
+
 
   it('creates SEARCH_BOOK when searching for books', () => {
     moxios.stubRequest('/api/v1/search', {

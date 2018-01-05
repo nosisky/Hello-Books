@@ -244,11 +244,9 @@ export class AddBook extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		this.props.actions.addBookAction(this.state)
-		.then(() => {
-			this.setState({
+			this.props.apiStatus && this.setState({
 				isUploading: false,
 				progress: 0
-			})
 		})
 	}
 
@@ -434,7 +432,7 @@ export class AddBook extends Component {
 							className="btn waves-effect"
 							type="submit"
 							name="submit"
-							disabled={this.state.isLoading}
+							disabled={this.state.apiStatus}
 						>
 							Add Book
 						</button>
@@ -473,7 +471,10 @@ export function mapDispatchToProps(dispatch) {
  * @returns {Object} - Selected state
  */
 export function mapStateToProps(state) {
-	return { category: state.book.category };
+	return { 
+		category: state.book.category,
+		apiStatus: state.apiStatus
+	};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddBook);

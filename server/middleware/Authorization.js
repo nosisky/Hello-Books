@@ -39,6 +39,7 @@ const Authorization = {
             error
           });
         } else {
+          decoded.userId = decoded.id;
           req.decoded = decoded;
           next();
         }
@@ -96,7 +97,7 @@ const Authorization = {
       }
     }).then((books) => {
       if (books) {
-        res.status(403).send({
+        res.status(409).send({
           message: 'You have rented that book before'
         });
       } else {

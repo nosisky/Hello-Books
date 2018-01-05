@@ -9,13 +9,15 @@ import {
   GET_ONE_BOOK,
   SET_OFFSET,
   RETURN_RENTED_BOOK,
-  ADD_CATEGORY
+  ADD_CATEGORY,
+  GET_ALL_NOTIFICATIONS
 } from '../actions/types';
 
 const INITIAL_STATE = {
   userExist: '',
   count: 0,
   category: [],
+  notifications: [],
   error: '',
   search: false,
   message: '',
@@ -55,6 +57,8 @@ function bookReducer(state = INITIAL_STATE, action) {
       };
     case GET_CATEGORY:
       return { ...state, category: action.data };
+    case GET_ALL_NOTIFICATIONS:
+      return { ...state, notifications: action.notifications };
     case ADD_CATEGORY: {
       const newCategory = [action.data].concat(state.category);
       return { ...state, category: newCategory };
