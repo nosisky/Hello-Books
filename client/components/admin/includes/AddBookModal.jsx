@@ -16,7 +16,7 @@ import ImageUploader from 'react-firebase-image-uploader';
  * 
  * @extends {Component}
  */
-export class AddBook extends Component {
+export class AddBookModal extends Component {
 
 	/**
 	 * @description - Creates an instance of AddBook.
@@ -477,4 +477,4 @@ export function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddBook);
+export default connect(mapStateToProps, mapDispatchToProps)(AddBookModal);
