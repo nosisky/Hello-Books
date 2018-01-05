@@ -6,7 +6,7 @@ import reduxThunk from 'redux-thunk';
 import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
 import App from './components/App';
-import reducers from './reducers/index';
+import reducers from './reducers/rootReducer';
 import { AUTH_USER, SET_CURRENT_USER } from './actions/types';
 import { logoutAction, setCurrentUser } from './actions/UserActions';
 import configureStore from './store/configureStore';

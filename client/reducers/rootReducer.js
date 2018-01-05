@@ -5,14 +5,14 @@ import bookReducer from './bookReducer';
 const appReducer = combineReducers({
   auth: authReducer,
   book: bookReducer
-})
+});
 
 const rootReducer = (state, action) => {
   if (action.type === 'unauth_user') {
-    state = undefined
+    state = undefined;
   }
 
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
 
 export default rootReducer;
