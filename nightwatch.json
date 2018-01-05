@@ -1,5 +1,5 @@
 {
-  "src_folders" : ["e2e"],
+  "src_folders" : ["e2e-test"],
   "output_folder" : "reports",
 
   "selenium" : {
