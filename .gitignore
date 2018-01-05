@@ -6,3 +6,4 @@ reports
 npm-debug.log*
 dist
 client/dist/*
+node_modules
