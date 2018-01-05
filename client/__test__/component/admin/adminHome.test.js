@@ -5,7 +5,7 @@ import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
-import  { AdminHome } from '../../../components/admin/index';
+import  { AdminHome } from '../../../components/admin/AdminHome';
 import {getAllBooksAction} from '../../../actions/BookActions';
 import DashboardFooter from '../../../components/includes/DashboardFooter';
 

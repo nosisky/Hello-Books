@@ -5,7 +5,7 @@ import App from '../components/app';
 import NotFoundPage from '../components/pages/NotFoundPage';
 import HomePage from '../components/pages/HomePage';
 import Dashboard from '../components/pages/Dashboard';  
-import AdminHome from '../components/admin/index';
+import AdminHome from '../components/admin/AdminHome';
 import RentedBooksPage from  '../components/pages/RentedBooksPage';
 import GoogleSignupPage from  '../components/pages/GoogleSignupPage';
 import Profile from '../components/pages/Profile';
