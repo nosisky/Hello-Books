@@ -38,9 +38,11 @@ const notificationRouter = express.Router();
  *         type: string
  *     responses:
  *       200:
- *         description: Returns a list of book transaction notifications
+ *         description: Successful
  *         schema:
  *           $ref: '#/definitions/Notifications'
+ *       500:
+ *          description: Internal server error
  */
 notificationRouter.route('/')
   .get(isLoggedIn, isAdmin, getNotification);

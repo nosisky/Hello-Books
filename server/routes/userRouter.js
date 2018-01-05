@@ -187,6 +187,10 @@ const userRouter = express.Router();
  *     responses:
  *       201:
  *         description: Successfully created
+ *         example: {
+ *           "message": "Signed up successfully",
+ *           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJpc0Jhbm5lZCI6MCwicGxhbiI6IlNpbHZlciIsImFjdGl2ZSI6ZmFsc2UsImlzQWRtaW4iOjAsImlkIjo1LCJ1c2VybmFtZSI6InRlc3RlciIsImZ1bGxOYW1lIjoiTmFzaXJ1IE9sYSIsImVtYWlsIjoibmFzaXJ1QGdtYWlsLmNvbSIsInVzZXJJZCI6NX0sImV4cCI6MTUxNTI1ODY4NywiaWF0IjoxNTE1MTcyMjg3fQ.1cISJjOboFY1zxqKEIZFpBJTSawG7BkMG6iGdhMxxGU"
+ *       }
  *       400:
  *         description: Bad Username, Password or Email
  *       500:
@@ -214,6 +218,10 @@ userRouter.route('/signup')
  *     responses:
  *       200:
  *         description: Successfully Logged In
+ *         example: {
+ *             "message": "Logged In Successfully",
+ *             "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJpZCI6NSwiZnVsbE5hbWUiOiJOYXNpcnUgT2xhIiwidXNlcm5hbWUiOiJ0ZXN0ZXIiLCJlbWFpbCI6Im5hc2lydUBnbWFpbC5jb20iLCJpc0Jhbm5lZCI6MCwicGxhbiI6IlNpbHZlciIsImFjdGl2ZSI6ZmFsc2UsImlzQWRtaW4iOjAsInVzZXJJZCI6NX0sImV4cCI6MTUxNTI1ODc3MSwiaWF0IjoxNTE1MTcyMzcxfQ.4Ujxzar6LrP3aIllKzZWnQliRsE5YGRZk6ZLxw85ymc"
+ *         }
  *       400:
  *         description: Bad Username or Password
  *       500:
@@ -222,45 +230,6 @@ userRouter.route('/signup')
 userRouter.route('/signin')
   .post(login);
 
-
-/**
- * @swagger
- * /books/{bookId}:
- *   put:
- *     tags:
- *       - Book Operations
- *     description: Modify an already added Book's information
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: bookId
- *         description: ID of the Book
- *         in: path
- *         required: true
- *         type: integer
- *       - name: book
- *         description: Book object with updated information
- *         in: body
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Book'
- *       - name: x-access-token
- *         in: header
- *         description: an authentication header
- *         required: true
- *         type: string
- *     responses:
- *       200:
- *         description: Book Successfully modified
- *         schema:
- *           $ref: '#/definitions/Book'
- *       400:
- *         description: All fields are required
- *       404:
- *         description: Book not found
- *       500:
- *         description: Internal server error
- */
 userRouter.route('/edit/:userId')
   .put(isLoggedIn, validateUserEdit, editProfile);
 

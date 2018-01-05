@@ -142,7 +142,23 @@ const bookRouter = express.Router();
  *         type: string
  *     responses:
  *       201:
- *         description: Successfully created
+ *         description: Book uploaded successfully
+ *         example: {
+ *               "message": "Book uploaded successfully",
+ *               "book": {
+ *               "id": 11,
+ *               "title": "This is a test",
+ *               "isbn": "test-isbn",
+ *               "prodYear": "1992",
+ *               "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
+ *               "author": "James Ibori",
+ *               "description": "This is a test for me",
+ *               "catId": 1,
+ *               "total": 1,
+ *               "updatedAt": "2018-01-05T16:07:09.885Z",
+ *               "createdAt": "2018-01-05T16:07:09.885Z"
+ *    }
+ *  }
  *       400:
  *         description: Bad input supplied
  *       401:
@@ -193,6 +209,10 @@ bookRouter.route('/books')
  *     responses:
  *       201:
  *         description: Book Successfully borrowed
+ *         example: {
+ *           "message": "You have successfully rented the book",
+ *           "status": true
+ *        }
  *       400:
  *         description: All fields are required
  *       404:
@@ -232,7 +252,7 @@ bookRouter.route('/users/:userId/books')
  *         in: body
  *         required: true
  *         schema:
- *           $ref: '#/definitions/Book'
+ *           $ref: '#/definitions/RentBook'
  *           type: object
  *           required:
  *             - bookId
@@ -250,6 +270,22 @@ bookRouter.route('/users/:userId/books')
  *     responses:
  *       200:
  *         description: Book Successfully returned
+ *         example: {
+ *           "message": "Book returned successfully",
+ *            "book": {
+ *               "id": 1,
+ *               "title": "This is a test",
+ *               "isbn": "isbn-the-book",
+ *               "total": 11,
+ *               "prodYear": "1992",
+ *               "catId": 1,
+ *               "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
+ *               "author": "dave",
+ *               "description": "This is a test",
+ *               "createdAt": "2018-01-05T13:15:00.483Z",
+ *               "updatedAt": "2018-01-05T16:59:20.863Z"
+ *           }
+ *       }
  *       400:
  *         description: All fields are required / Invalid input
  *       404:
@@ -290,12 +326,25 @@ bookRouter.route('/users/:userId/books')
  *     responses:
  *       200:
  *         description: An array of Books
+ *         example: [
+ *             {
+ *                 "id": 3,
+ *                 "bookId": 1,
+ *                 "userId": 1,
+ *                 "toReturnDate": "2018-01-25T17:06:38.232Z",
+ *                 "returnDate": null,
+ *                 "description": "This is a test",
+ *                 "title": "This is a test",
+ *                 "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
+ *                 "returned": false,
+ *                 "createdAt": "2018-01-05T17:06:38.239Z",
+ *                 "updatedAt": "2018-01-05T17:06:38.239Z"
+ *             }
+ *         ]
  *       401:
  *         description: Invalid token supplied
  *       500:
  *         description: Internal server error
- *         schema:
- *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/users/:userId/books')
   .get(isLoggedIn, rentedBooks);
@@ -329,8 +378,22 @@ bookRouter.route('/users/:userId/books')
  *     responses:
  *       200:
  *         description: Book Successfully modified
- *         schema:
- *           $ref: '#/definitions/Book'
+ *         example: {
+ *       "book": {
+ *        "id": 11,
+ *        "title": "This is a test",
+ *      "total": 1,
+ *       "isbn": "test-isbn",
+ *       "catId": 1,
+ *       "prodYear": "1992",
+ *        "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
+ *        "author": "James Ibori",
+ *        "description": "This is a test for me",
+ *        "createdAt": "2018-01-05T16:07:09.885Z",
+ *        "updatedAt": "2018-01-05T16:46:56.067Z"
+ *    },
+ *    "message": "Book updated successfully!"
+ * }
  *       400:
  *         description: All fields are required
  *       404:
@@ -366,7 +429,17 @@ bookRouter.route('/books/:bookId')
  *         type: string
  *     responses:
  *       201:
- *         description: Successfully created
+ *         description: Category added successfully
+ *         example: {
+ *          "message": "Category added successfully",
+ *        "newCategory": {
+ *        "id": 24,
+ *        "description": "This is a test for me",
+ *        "updatedAt": "2018-01-05T16:50:49.384Z",
+ *        "createdAt": "2018-01-05T16:50:49.384Z",
+ *        "name": null
+ *   }
+* }
  *       400:
  *         description: Bad input supplied
  *       401:
@@ -440,12 +513,12 @@ bookRouter.route('/books/delete/:bookId')
  *     responses:
  *       200:
  *         description: Returns An array of books
+ *         schema:
+ *           $ref: '#/definitions/BookList'
  *       404:
  *         description: Book not found
  *       500:
  *         description: Internal server error
- *         schema:
- *           $ref: '#/definitions/BookList'
  */
 bookRouter.route('/books/logs/:userId')
   .get(isLoggedIn, rentedBookByUser);
