@@ -1,7 +1,7 @@
 import React from 'react';  
 import { Route, Switch, BrowserRouter} from 'react-router-dom';
 
-import App from '../components/app';
+import App from '../components/App';
 import NotFoundPage from '../components/pages/NotFoundPage';
 import HomePage from '../components/pages/HomePage';
 import Dashboard from '../components/pages/Dashboard';  
@@ -16,7 +16,7 @@ import NotificationPage from '../components/admin/pages/NotificationPage';
 
 
 
-export const Main = () => (
+const Main = () => (
   <Switch>
     <Route exact path="/" component={GuestAuthentication(HomePage)} />
     <Route exact path="/dashboard" component={Authentication(Dashboard)} />
@@ -28,4 +28,6 @@ export const Main = () => (
     <Route path="*" component={NotFoundPage} />
   </Switch>
 );
+
+export default Main;
 

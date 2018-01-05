@@ -5,7 +5,7 @@ import { BrowserRouter, browserHistory } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
-import App from './components/app';
+import App from './components/App';
 import reducers from './reducers/index';
 import { AUTH_USER, SET_CURRENT_USER } from './actions/types';
 import { logoutAction, setCurrentUser } from './actions/UserActions';
