@@ -524,6 +524,19 @@ nav i.material-icons {
 	font-weight: bold;
 }
 
+@media screen and (max-width: 1366px) and (min-width: 1024px) {
+	#hide {
+		display: none;
+	}
+}
+
+// @media screen and (max-width: 1366px) and (min-width: 1024px) {
+// 	.hide-on-large-only {
+// 		display: block;
+// 	}
+// }
+
+
 div.preloader {
 	position: fixed;
 	left: 0;

@@ -105,6 +105,7 @@ export class AdminHeader extends Component {
 					<div id="menu">
 						<div style={style.account}>
 							<a style={style.main} 
+							id="hide"
 							className="dropdown-button btn hide-on-med-and-down" href="#" 
 							data-activates="dropdown1">
 								Account
@@ -117,7 +118,16 @@ export class AdminHeader extends Component {
 									menu
 								</i>
 							</a>
+
 							<a 
+								className="right hide-on-large-only white-text" 
+								name="logout" onClick={this.props.actions.logoutAction} 
+								>
+									<i style={{paddingTop: 6, fontSize: '2.5rem'}} 
+									className="small material-icons">exit_to_app</i>
+								</a>
+
+								<a 
 								className="right hide-on-large-only white-text" 
 								name="logout" onClick={this.props.actions.logoutAction} 
 								>

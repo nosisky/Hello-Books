@@ -214,7 +214,8 @@ export class Header extends Component {
 								</a>
 							</li>
 							<li>
-								<a className="dropdown-button" data-activates="dropdown2">
+								<a id="hide" 
+								className="dropdown-button" data-activates="dropdown2">
 									<i className="material-icons">more_vert</i>
 								</a>
 							</li>
