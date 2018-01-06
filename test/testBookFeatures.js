@@ -146,7 +146,7 @@ describe('#Book Features: ', () => {
         });
     });
 
-  it.only(`Should display 'Invalid user id supplied' 
+  it(`Should display 'Invalid user id supplied' 
   when invalid user id is passed to get books route`, (done) => {
       server
         .post('/api/v1/users/5/books')

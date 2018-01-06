@@ -53,7 +53,7 @@ export function setApiCallProgress(status) {
  */
 export const registerUserAction = userDetails => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  return axios.post(`${searchApiUrl}/signup`, userDetails)
+  return axios.post(`${apiUrl}/signup`, userDetails)
     .then((response) => {
       dispatch(setApiCallProgress(false));
       const { token } = response.data;
