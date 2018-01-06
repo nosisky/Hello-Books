@@ -10,7 +10,8 @@ import {
   SET_OFFSET,
   RETURN_RENTED_BOOK,
   ADD_CATEGORY,
-  GET_ALL_NOTIFICATIONS
+  GET_ALL_NOTIFICATIONS,
+  RENT_BOOK
 } from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
@@ -85,6 +86,10 @@ function bookReducer(state = INITIAL_STATE, action) {
         newData.push(book);
       });
       return { ...state, allRentedBooks: newData };
+    }
+    case RENT_BOOK: {
+      const newRentedBook = [action.rentedBook].concat(state.allRentedBooks);
+      return { ...state, allRentedBooks: newRentedBook };
     }
     case EDIT_BOOK: {
       const newData = [];

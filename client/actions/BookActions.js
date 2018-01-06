@@ -4,7 +4,7 @@ import Materialize from 'materialize-css';
 
 import { setApiCallProgress } from './UserActions';
 
-import notifyNetworkError from '../actions/notifyNetworkError';
+import notifyNetworkError from '../utils/notifyNetworkError';
 
 
 import { ADD_BOOK,
@@ -17,7 +17,8 @@ import { ADD_BOOK,
   EDIT_BOOK,
   RETURN_RENTED_BOOK,
   DELETE_BOOK,
-  GET_ALL_NOTIFICATIONS
+  GET_ALL_NOTIFICATIONS,
+  RENT_BOOK
 } from './ActionTypes';
 
 
@@ -167,14 +168,18 @@ export function addCategoryAction(data) {
  * @returns { String } - String
  */
 export function rentBookAction(userId, bookId) {
-  return axios.post(`${userApiUrl}/${userId}/books`, bookId)
+  return dispatch => axios.post(`${userApiUrl}/${userId}/books`, bookId)
     .then((response) => {
-      const { message } = response.data;
+      const { message, rentedBook } = response.data;
       if (response.data.status) {
         swal(message, { icon: 'success' });
       } else {
         swal(message, { icon: 'warning' });
       }
+      dispatch({
+        type: RENT_BOOK,
+        rentedBook
+      });
     })
     .catch(error => (error.response ?
       swal(error.response.data.message) :

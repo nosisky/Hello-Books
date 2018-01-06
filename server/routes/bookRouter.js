@@ -210,9 +210,22 @@ bookRouter.route('/books')
  *       201:
  *         description: You have successfully rented the book
  *         example: {
- *           "message": "You have successfully rented the book",
- *           "status": true
- *        }
+ *         "message": "You have successfully rented the book",
+ *         "status": true,
+ *         "rentedBook": {
+ *             "id": 4,
+ *             "title": "This is a test",
+ *             "isbn": "isbn-the-books",
+ *             "total": 4,
+ *             "prodYear": "1223",
+ *             "catId": 1,
+ *             "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
+ *             "author": "Dave",
+ *             "description": "This is a test",
+ *             "createdAt": "2018-01-05T13:17:54.470Z",
+ *             "updatedAt": "2018-01-06T15:09:43.832Z"
+ *         }
+ *     }
  *       400:
  *         description: All fields are required / Invalid input
  *       404:

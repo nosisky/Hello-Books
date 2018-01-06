@@ -1,5 +1,5 @@
 import axios from 'axios';
-import notifyNetworkError from '../actions/notifyNetworkError';
+import notifyNetworkError from '../utils/notifyNetworkError';
 
 const apiUrl = '/api/v1/users';
 

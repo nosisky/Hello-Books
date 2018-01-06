@@ -17,3 +17,4 @@ export const DELETE_BOOK = 'delete_book';
 export const EDIT_PROFILE = 'edit_profile';
 export const SET_API_STATUS = 'set_api_status';
 export const GET_ALL_NOTIFICATIONS = 'get_all_notifications';
+export const RENT_BOOK = 'rent_book';

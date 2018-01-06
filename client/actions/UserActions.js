@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import Materialize from 'materialize-css';
-import notifyNetworkError from './notifyNetworkError';
+import notifyNetworkError from '../utils/notifyNetworkError';
 import { setAuthorizationToken } from '../utils/authorization';
 
 import { SET_CURRENT_USER,

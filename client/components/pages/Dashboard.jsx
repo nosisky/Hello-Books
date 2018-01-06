@@ -111,7 +111,7 @@ export class Dashboard extends Component {
 		}).then((willBorrow) => {
 			if (willBorrow) {
 				const userId = this.props.user.id || this.props.user.userId				
-				rentBookAction(userId, 
+				this.props.actions.rentBookAction(userId, 
 					{ bookId: id })
 			}
 		});
@@ -245,7 +245,8 @@ function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
-				getAllBooksAction
+				getAllBooksAction,
+				rentBookAction
 			},
 			dispatch
 		)

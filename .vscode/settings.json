@@ -1,6 +1,6 @@
 {
   "files.autoSave": "afterDelay",
-  "workbench.colorTheme": "One Dark Vivid",
+  "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "material-icon-theme",
   "typescript.check.npmIsInstalled": false,
   "window.zoomLevel": 0,

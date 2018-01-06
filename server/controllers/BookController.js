@@ -7,9 +7,7 @@ const {
   RentedBook, Book, Category, Notification
 } = database;
 
-
 const BookController = {
-
   /**
    * @description - Admin add new book
    *
@@ -31,7 +29,6 @@ const BookController = {
         }))
       .catch(error => res.status(500).send(error));
   },
-
 
   /**
  * @description - Notifies the admin on any transaction
@@ -68,7 +65,8 @@ const BookController = {
     const { userId, id, username } = req.decoded.currentUser;
 
     const userData = {
-      userId, newId: req.params.userId
+      userId,
+      newId: req.params.userId
     };
 
     checkValidUser(res, userData);
@@ -106,10 +104,13 @@ const BookController = {
               );
             })
             .then(() => {
-              BookController.createNotification(
-                id,
-                username, book.title, 'rented'
-              );
+              BookController
+                .createNotification(id, username, book.title, 'rented');
+              res.status(201).send({
+                message: 'You have successfully rented the book',
+                status: true,
+                rentedBook: book
+              });
             });
         } else {
           res.status(404).send({
@@ -117,10 +118,6 @@ const BookController = {
           });
         }
       })
-      .then(() => res.status(201).send({
-        message: 'You have successfully rented the book',
-        status: true
-      }))
       .catch(error => res.status(500).send(error));
   },
 
@@ -212,15 +209,14 @@ const BookController = {
             message: 'Category with that name already exist'
           });
         } else {
-          return Category.create(req.body)
-            .then((newCategory) => {
-              if (newCategory) {
-                return res.status(201).send({
-                  message: 'Category added successfully',
-                  newCategory
-                });
-              }
-            });
+          return Category.create(req.body).then((newCategory) => {
+            if (newCategory) {
+              return res.status(201).send({
+                message: 'Category added successfully',
+                newCategory
+              });
+            }
+          });
         }
       })
       .catch((error) => {
@@ -241,7 +237,8 @@ const BookController = {
   rentedBooks(req, res) {
     const { userId } = req.decoded.currentUser;
     const userData = {
-      userId, newId: req.params.userId
+      userId,
+      newId: req.params.userId
     };
 
     checkValidUser(res, userData);
