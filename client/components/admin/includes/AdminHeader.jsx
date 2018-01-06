@@ -127,7 +127,7 @@ export class AdminHeader extends Component {
 									className="small material-icons">exit_to_app</i>
 								</a>
 
-								<a 
+								<a id="hide-pc"
 								className="right show-on-small white-text" 
 								name="logout" onClick={this.props.actions.logoutAction} 
 								>
