@@ -530,11 +530,12 @@ nav i.material-icons {
 	}
 }
 
-// @media screen and (max-width: 1366px) and (min-width: 1024px) {
-// 	.hide-on-large-only {
-// 		display: block;
-// 	}
-// }
+
+@media screen and (min-width: 1366px) {
+	#hide {
+		display: none;
+	}
+}
 
 
 div.preloader {
