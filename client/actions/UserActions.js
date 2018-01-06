@@ -141,7 +141,7 @@ export function logoutAction() {
  * @returns { String } - JWT Token
  */
 export function editProfileAction(userId, userData) {
-  return dispatch => axios.put(`${API_URL}/edit/${userId}`, userData)
+  return dispatch => axios.put(`${apiUrl}/edit/${userId}`, userData)
     .then((response) => {
       const user = jwt.decode(response.data.token).currentUser;
       dispatch({
@@ -168,7 +168,7 @@ export function editProfileAction(userId, userData) {
  * @returns { String } - JWT Token
  */
 export function getUserByEmailAction(email) {
-  return axios.post(`${SEARCH_API_URL}/email`, email)
+  return axios.post(`${searchApiUrl}/email`, email)
     .then(response => response.data.token)
     .catch(error => notifyNetworkError(error));
 }
