@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
 import * as BookActions from '../../actions/BookActions';
-import * as ActionTypes from '../../actions/types';
+import * as ActionTypes from '../../actions/ActionTypes';
 
 const middleware = [thunk];
 

@@ -18,12 +18,12 @@ import { ADD_BOOK,
   RETURN_RENTED_BOOK,
   DELETE_BOOK,
   GET_ALL_NOTIFICATIONS
-} from './types';
+} from './ActionTypes';
 
 
-const API_URL = '/api/v1/books';
-const SEARCH_API_URL = '/api/v1/search';
-const USER_API_URL = '/api/v1/users';
+const apiUrl = '/api/v1/books';
+const searchApiUrl = '/api/v1/search';
+const userApiUrl = '/api/v1/users';
 
 /**
  * @description - Add new book action
@@ -34,7 +34,7 @@ const USER_API_URL = '/api/v1/users';
  */
 export const addBookAction = bookDetails => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  axios.post(API_URL, bookDetails)
+  axios.post(apiUrl, bookDetails)
     .then((response) => {
       dispatch({
         type: ADD_BOOK,
@@ -78,7 +78,7 @@ export function getAllNotifications() {
  */
 export const getAllBooksAction = page => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  return axios.get(`${API_URL}/?page=${page}`)
+  return axios.get(`${apiUrl}/?page=${page}`)
     .then((response) => {
       dispatch({
         type: GET_ALL_BOOKS,
@@ -101,7 +101,7 @@ export const getAllBooksAction = page => (dispatch) => {
  * @returns { String } - string containing API message
  */
 export function deleteBookAction(bookId) {
-  return dispatch => axios.delete(`${API_URL}/delete/${bookId}`)
+  return dispatch => axios.delete(`${apiUrl}/delete/${bookId}`)
     .then((response) => {
       dispatch({
         type: DELETE_BOOK,
@@ -122,7 +122,7 @@ export function deleteBookAction(bookId) {
  * @returns { String } - Messge fro API
  */
 export function modifyBookAction(bookData, bookId) {
-  return dispatch => axios.put(`${API_URL}/${bookId}`, bookData)
+  return dispatch => axios.put(`${apiUrl}/${bookId}`, bookData)
     .then((response) => {
       dispatch({
         type: EDIT_BOOK,
@@ -142,7 +142,7 @@ export function modifyBookAction(bookData, bookId) {
  * @returns { String } - Message from the API
  */
 export function addCategoryAction(data) {
-  return dispatch => axios.post(`${API_URL}/category`, data)
+  return dispatch => axios.post(`${apiUrl}/category`, data)
     .then((response) => {
       dispatch({
         type: ADD_CATEGORY,
@@ -167,7 +167,7 @@ export function addCategoryAction(data) {
  * @returns { String } - String
  */
 export function rentBookAction(userId, bookId) {
-  return axios.post(`${USER_API_URL}/${userId}/books`, bookId)
+  return axios.post(`${userApiUrl}/${userId}/books`, bookId)
     .then((response) => {
       const { message } = response.data;
       if (response.data.status) {
@@ -190,7 +190,7 @@ export function rentBookAction(userId, bookId) {
  */
 export const getRentedBooksAction = userId => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  return axios.get(`${API_URL}/logs/${userId}`)
+  return axios.get(`${apiUrl}/logs/${userId}`)
     .then((response) => {
       if (response.data.length) {
         dispatch({
@@ -217,7 +217,7 @@ export const getRentedBooksAction = userId => (dispatch) => {
  * @returns { Object } - Object
  */
 export function returnBook(userId, bookId) {
-  return dispatch => axios.put(`${USER_API_URL}/${userId}/books`, bookId)
+  return dispatch => axios.put(`${userApiUrl}/${userId}/books`, bookId)
     .then((response) => {
       const { message } = response.data;
       if (response) {
@@ -243,7 +243,7 @@ export function returnBook(userId, bookId) {
  * @returns { Object } - Object containg Book details
  */
 export function getSpecificBook(bookId) {
-  return dispatch => axios.get(`${API_URL}/${bookId}`)
+  return dispatch => axios.get(`${apiUrl}/${bookId}`)
     .then((response) => {
       dispatch({
         type: GET_ONE_BOOK,
@@ -278,7 +278,7 @@ export function getCategoryAction() {
  * @returns { Object } - response that mateches the serach criteria
  */
 export function searchAction(query) {
-  return dispatch => axios.post(SEARCH_API_URL, query)
+  return dispatch => axios.post(searchApiUrl, query)
     .then((response) => {
       dispatch({
         type: SEARCH_BOOK,

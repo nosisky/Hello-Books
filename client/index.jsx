@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
 import App from './components/App';
 import reducers from './reducers/rootReducer';
-import { AUTH_USER, SET_CURRENT_USER } from './actions/types';
+import { AUTH_USER, SET_CURRENT_USER } from './actions/ActionTypes';
 import { logoutAction, setCurrentUser } from './actions/UserActions';
 import configureStore from './store/configureStore';
 import { setAuthorizationToken } from '../client/utils/authorization';

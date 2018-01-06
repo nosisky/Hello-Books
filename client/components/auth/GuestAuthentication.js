@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { logoutAction } from '../../actions/UserActions';
 import configureStore from '../../store/configureStore';
 import { setAuthorizationToken } from '../../utils/authorization';
-import { SET_CURRENT_USER } from '../../actions/types';
+import { SET_CURRENT_USER } from '../../actions/ActionTypes';
 
 
 /**

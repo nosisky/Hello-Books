@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   cache: true,
@@ -18,8 +18,8 @@ module.exports = {
     Materialize: 'Materialize'
   },
   plugins: [
-    new CleanWebpackPlugin(['client/dist']),
-    new HtmlWebpackPlugin({
+    new cleanWebpackPlugin(['client/dist']),
+    new htmlWebpackPlugin({
       title: 'Hello-Books',
       template: 'client/index.html',
       inject: 'body'

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/v1/users';
+const apiUrl = '/api/v1/users';
 
 /**
  * @description - setAuthorizationToken - set token to request headers
@@ -25,7 +25,7 @@ export function setAuthorizationToken(token) {
  * @returns {Object} - Object containing user data
  */
 export function getUserData(email) {
-  return axios.post(`${API_URL}/getemail`, email)
+  return axios.post(`${apiUrl}/getemail`, email)
     .then(response => response.data.user)
     .catch(error => error);
 }

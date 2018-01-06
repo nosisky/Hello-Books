@@ -6,11 +6,11 @@ import { setAuthorizationToken } from '../utils/authorization';
 
 import { SET_CURRENT_USER,
   SET_API_STATUS,
-  UNAUTH_USER, EDIT_PROFILE } from './types';
+  UNAUTH_USER, EDIT_PROFILE } from './ActionTypes';
 
-const API_URL = '/api/v1/users';
+const apiUrl = '/api/v1/users';
 
-const SEARCH_API_URL = '/api/v1/search';
+const searchApiUrl = '/api/v1/search';
 
 /**
  * @description - Set current user
@@ -53,7 +53,7 @@ export function setApiCallProgress(status) {
  */
 export const registerUserAction = userDetails => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  return axios.post(`${API_URL}/signup`, userDetails)
+  return axios.post(`${searchApiUrl}/signup`, userDetails)
     .then((response) => {
       dispatch(setApiCallProgress(false));
       const { token } = response.data;
@@ -78,7 +78,7 @@ export const registerUserAction = userDetails => (dispatch) => {
  */
 export const loginAction = userDetails => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  return axios.post(`${API_URL}/signin`, userDetails)
+  return axios.post(`${apiUrl}/signin`, userDetails)
     .then((response) => {
       dispatch(setApiCallProgress(false));
       const { token } = response.data;

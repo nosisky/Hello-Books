@@ -11,7 +11,7 @@ import {
   RETURN_RENTED_BOOK,
   ADD_CATEGORY,
   GET_ALL_NOTIFICATIONS
-} from '../actions/types';
+} from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
   userExist: '',

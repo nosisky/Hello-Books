@@ -1,6 +1,6 @@
 import expect from 'expect';
 import bookReducer from '../../reducers/bookReducer';
-import * as ActionTypes from '../../actions/types';
+import * as ActionTypes from '../../actions/ActionTypes';
 
 describe('Book Reducer:', () => {
   it('should return list of books for GET_ALL_BOOK', () => {

@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   cache: true,
@@ -16,7 +16,7 @@ module.exports = {
     Materialize: 'Materialize'
   },
   plugins: [
-    new CleanWebpackPlugin(['client/dist']),
+    new cleanWebpackPlugin(['client/dist']),
     new webpack.EnvironmentPlugin([
       'FIREBASE_DOMAIN',
       'FIREBASE_MESSENGERID',

@@ -1,6 +1,6 @@
 import expect from 'expect';
 import AuthReducer from '../../reducers/authReducer';
-import * as ActionTypes from '../../actions/types';
+import * as ActionTypes from '../../actions/ActionTypes';
 
 describe('Auth Reducer', () => {
   it('should set the current user when passed with SET_CURRENT_USER', () => {

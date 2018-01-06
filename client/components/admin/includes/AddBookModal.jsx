@@ -217,19 +217,19 @@ export class AddBookModal extends Component {
 	 * @memberOf AddBook
 	 */
 	renderCategory() {
-		let allCat = [];
+		let allCategory = [];
 		const category = this.props.category;
 		if (!category || category.length < 1) {
 			return '...loading';
 		}
 		category.map((cat) => {
-			allCat.push(
+			allCategory.push(
 				<option key={cat.id} value={cat.id}>
 					{cat.name}
 				</option>
 			);
 		});
-		return allCat;
+		return allCategory;
 	}
 
 	/**

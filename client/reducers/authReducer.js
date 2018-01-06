@@ -3,9 +3,9 @@ import {
   SET_CURRENT_USER,
   EDIT_PROFILE,
   SET_API_STATUS
-} from '../actions/types';
+} from '../actions/ActionTypes';
 
-const INITIAL_STATE = {
+const initialState = {
   userExist: '',
   error: '',
   apiStatus: false,
@@ -24,7 +24,7 @@ const INITIAL_STATE = {
  *
  * @returns {Object} - Object containing new state
  */
-function authReducer(state = INITIAL_STATE, action) {
+function authReducer(state = initialState, action) {
   switch (action.type) {
     case UNAUTH_USER:
       return {
