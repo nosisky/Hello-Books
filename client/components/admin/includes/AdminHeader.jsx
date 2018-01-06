@@ -119,8 +119,8 @@ export class AdminHeader extends Component {
 								</i>
 							</a>
 
-							<a 
-								className="right hide-on-large-only white-text" 
+							<a id="hide"
+								className="right hide-on-med-and-down white-text" 
 								name="logout" onClick={this.props.actions.logoutAction} 
 								>
 									<i style={{paddingTop: 6, fontSize: '2.5rem'}} 
@@ -128,7 +128,7 @@ export class AdminHeader extends Component {
 								</a>
 
 								<a 
-								className="right hide-on-large-only white-text" 
+								className="right show-on-small white-text" 
 								name="logout" onClick={this.props.actions.logoutAction} 
 								>
 									<i style={{paddingTop: 6, fontSize: '2.5rem'}} 
