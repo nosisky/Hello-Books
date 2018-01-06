@@ -393,7 +393,7 @@ const Validation = {
           } else if (req.body.oldPassword &&
             !bcrypt.compareSync(req.body.oldPassword, user.password)) {
             res.status(400).send({
-              message: 'Old password does not match new password'
+              message: 'Old password is incorrect'
             });
           }
           const password = bcrypt.hashSync(req.body.newPassword, 10);
