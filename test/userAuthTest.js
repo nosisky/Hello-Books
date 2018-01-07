@@ -87,6 +87,54 @@ describe('User Api: ', () => {
       });
   });
 
+  it(`Should return 'invalid email address supplied'
+  when invalid email address is supplied`, (done) => {
+      server
+        .post('/api/v1/users/validate')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ email: 'Dealwap' })
+        .expect(200)
+        .end((err, res) => {
+          res.status.should.equal(200);
+          res.body.message.should.equal('Invalid email supplied');
+          done();
+        });
+    });
+
+  it(`Should return 'Invalid username supplied'
+    when username with invalid characters is supplied`, (done) => {
+      server
+        .post('/api/v1/users/validate')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ username: '!!!!!!' })
+        .expect(400)
+        .end((err, res) => {
+          res.status.should.equal(400);
+          res.body.message.should.equal('Invalid Username supplied!');
+          done();
+        });
+    });
+
+  it(`Should return 'Invalid username supplied'
+    when username with invalid characters is supplied`, (done) => {
+      server
+        .post('/api/v1/users/validate')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ email: 'nosisky@gmail.com', userId: '1' })
+        .expect(200)
+        .end((err, res) => {
+          res.status.should.equal(200);
+          res.body.message.should.equal('');
+          done();
+        });
+    });
+
   it('Should check for existing email address', (done) => {
     server
       .post('/api/v1/users/validate')

@@ -3,14 +3,17 @@ const userSeeder = {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Dealwap',
     password: 'helloworld',
-    email: 'nosisky@gmail.com'
+    email: 'nosisky@gmail.com',
+    isAdmin: 1,
+    passwordConfirm: 'helloworld'
   },
 
   signUp2: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Dealwapb',
     password: 'helloworld',
-    email: 'main@gmail.com'
+    email: 'main@gmail.com',
+    passwordConfirm: 'helloworld'
   },
 
   login: {
@@ -31,30 +34,35 @@ const userSeeder = {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Dealwap',
     password: 'helloworld',
-    email: 'jamesjunior@yahoo.com'
+    email: 'jamesjunior@yahoo.com',
+    passwordConfirm: 'helloworld'
   },
 
   existingEmail: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Bisola',
     password: 'helloworld',
-    email: 'nosisky@gmail.com'
+    email: 'nosisky@gmail.com',
+    passwordConfirm: 'helloworld'
   },
   noFullName: {
     username: 'Bisola',
     password: 'helloworld',
-    email: 'nosisky@gmail.com'
+    email: 'nosisky@gmail.com',
+    passwordConfirm: 'helloworld'
   },
   noEmail: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'Bisola',
     password: 'helloworld',
+    passwordConfirm: 'helloworld'
   },
   usernameMin5: {
     fullName: 'Abdulrasaq Nasirudeen',
     username: 'ola',
     password: 'helloworld',
-    email: 'daniel@gmail.com'
+    email: 'daniel@gmail.com',
+    passwordConfirm: 'helloworld'
   }
 };
 

@@ -65,7 +65,7 @@ const Validation = {
       });
       return res.status(400).json(allErrors);
     }
-    User.findOne({
+    return User.findOne({
       where: {
         username: req.body.username,
         $or: {
@@ -83,18 +83,17 @@ const Validation = {
             message: 'Username already exist'
           });
         }
+      } else {
+        const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
+        req.userInput = {
+          username: req.body.username,
+          fullName: req.body.fullName,
+          email: req.body.email,
+          password
+        };
+        next();
       }
     });
-
-    const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
-    req.userInput = {
-      username: req.body.username,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password,
-      plan: req.body.plan
-    };
-    next();
   },
 
   /**
@@ -207,33 +206,6 @@ const Validation = {
   },
 
   /**
-   * @description - Check quantity of book in the DB
-   *
-   * @param  {Object} req - request
-   *
-   * @param  {object} res - response
-   *
-   * @param {Object} next - Call back function
-   *
-   * @return {Object} - Object containing message
-   */
-  checkTotalBook(req, res, next) {
-    Book.findOne({
-      where: {
-        id: req.body.bookId
-      }
-    }).then((book) => {
-      if (book.total < 1) {
-        res.status(200).send({
-          message: 'This book is not available for rent!'
-        });
-      } else {
-        next();
-      }
-    });
-  },
-
-  /**
    * @description - Validates user data
    *
    * @param {String} email - User email
@@ -298,7 +270,7 @@ const Validation = {
           );
 
           if (req.body.userId) {
-            if (req.body.userId === users.id) {
+            if (Number(req.body.userId) === users.id) {
               if (req.body.email) {
                 return res.status(200).send({
                   user: currentUser,
@@ -396,10 +368,11 @@ const Validation = {
               message: 'Old password is incorrect'
             });
           }
-          const password = bcrypt.hashSync(req.body.newPassword, 10);
+
           let userData;
 
           if (req.body.oldPassword) {
+            const password = bcrypt.hashSync(req.body.newPassword, 10);
             userData = {
               email: req.body.email,
               fullName: req.body.fullName,

@@ -177,7 +177,7 @@ const Authorization = {
           key
         );
 
-        return res.status(201).send({
+        return res.status(200).send({
           token,
           user: currentUser
         });

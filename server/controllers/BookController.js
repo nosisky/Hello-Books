@@ -44,7 +44,7 @@ const BookController = {
  * @return { Promise } - Returns a Promise
  */
   createNotification(userId, username, bookTitle, type) {
-    Notification.create({
+    return Notification.create({
       userId,
       message: `${username} ${type} ${bookTitle}`
     });

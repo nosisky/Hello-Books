@@ -1,14 +1,14 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
-import app from '../server';
 import expect from 'expect';
+
+import app from '../server';
 import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
 const server = supertest.agent(app);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
-
 let loggedInuser;
 
 describe('#Book Features: ', () => {
@@ -53,6 +53,21 @@ describe('#Book Features: ', () => {
       });
   });
 
+
+  it('Should fetch rented books', (done) => {
+    server
+      .get('/api/v1/books/logs/4')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        expect(res.body.message).toEqual('No rented books by this user');
+        done();
+      });
+  });
+
   it(`Should display 'Category added successfully' 
       when a new category is added`, (done) => {
       server
@@ -65,9 +80,26 @@ describe('#Book Features: ', () => {
         .expect(201)
         .end((err, res) => {
           res.status.should.equal(201);
-          expect(res.body.category.name).toEqual('Test');
-          expect(res.body.category.description).toEqual('test');
+          expect(res.body.newCategory.name).toEqual('Test');
+          expect(res.body.newCategory.description).toEqual('test');
           res.body.message.should.equal('Category added successfully');
+          done();
+        });
+    });
+
+  it(`Should display 'Category with that name already exist' 
+    when a new category is added with exsiting name`, (done) => {
+      server
+        .post('/api/v1/books/category')
+        .set('Connection', 'keep alive')
+        .set('x-access-token', token)
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ name: 'Test', description: 'test' })
+        .expect(409)
+        .end((err, res) => {
+          res.status.should.equal(409);
+          res.body.message.should.equal('Category with that name already exist');
           done();
         });
     });
@@ -180,38 +212,6 @@ describe('#Book Features: ', () => {
         });
     });
 
-  it(`Should display 'No rented books by this user'
-   when user with no rent history is supplied`, (done) => {
-      server
-        .get('/api/v1/books/logs/4')
-        .set('x-access-token', token)
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .expect(200)
-        .end((err, res) => {
-          res.status.should.equal(200);
-          res.body.message.should.equal('No rented books by this user');
-          done();
-        });
-    });
-
-  it(`Should display 'You have successfully rented the book'
-  when user rents a book`, (done) => {
-      server
-        .post('/api/v1/users/4/books')
-        .set('x-access-token', token)
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .send({ bookId: 1 })
-        .expect(201)
-        .end((err, res) => {
-          res.status.should.equal(201);
-          res.body.message.should.equal('You have successfully rented the book');
-          done();
-        });
-    });
 
   it('Shoud display list of notifications', (done) => {
     server
@@ -267,6 +267,45 @@ describe('#Book Features: ', () => {
         });
     });
 
+  it(`Should display 'You have successfully rented the book'
+    when user rents a book`, (done) => {
+      server
+        .post('/api/v1/users/4/books')
+        .set('x-access-token', token)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ bookId: 1 })
+        .expect(201)
+        .end((err, res) => {
+          res.status.should.equal(201);
+          res.body.message.should.equal('You have successfully rented the book');
+          res.body.rentedBook.id.should.equal(1);
+          res.body.rentedBook.title.should.equal('Think rich to grow rich');
+          res.body.rentedBook.cover.should.equal('albert-think.jpg');
+          res.body.rentedBook.description.should.equal('The book is based on education');
+          done();
+        });
+    });
+
+  it(`Should display 'Book returned successfully' 
+    when a user returns a book`, (done) => {
+      server
+        .put('/api/v1/users/4/books')
+        .set('x-access-token', token)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ bookId: 1 })
+        .expect(201)
+        .end((err, res) => {
+          res.status.should.equal(201);
+          res.body.message.should.equal('Book returned successfully');
+          done();
+        });
+    });
+
+
   it('Should test if book is truly returned', (done) => {
     server
       .get('/api/v1/users/4/books?returned=false')
@@ -299,24 +338,6 @@ describe('#Book Features: ', () => {
       });
   });
 
-  it('Should get book details by book id', (done) => {
-    server
-      .get('/api/v1/books/1')
-      .set('x-access-token', token)
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body[0].title.should.equal('Think rich to grow rich');
-        res.body[0].author.should.equal('Albert Einstein');
-        res.body[0].description.should.equal('The book is based on education');
-        res.body[0].isbn.should.equal('123-456-5858');
-        done();
-      });
-  });
-
   it(`Should display 'Book updated successfully!'' 
   when book data is modified`, (done) => {
       server
@@ -325,11 +346,28 @@ describe('#Book Features: ', () => {
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
-        .send({ title: 'This is a new title' })
+        .send({ total: 0 })
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
           res.body.message.should.equal('Book updated successfully!');
+          done();
+        });
+    });
+
+  it(`Should display 'This book is not available for rent'
+    when book total is 0`, (done) => {
+      server
+        .post('/api/v1/users/4/books')
+        .set('x-access-token', token)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({ bookId: 1 })
+        .expect(200)
+        .end((err, res) => {
+          res.status.should.equal(200);
+          res.body.message.should.equal('This book is not available for rent');
           done();
         });
     });
@@ -345,11 +383,26 @@ describe('#Book Features: ', () => {
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.count.should.equal(1);
-        res.body.rows[0].title.should.equal('This is a new title');
+        res.body.rows[0].title.should.equal('Think rich to grow rich');
         res.body.rows[0].author.should.equal('Albert Einstein');
         res
           .body.rows[0].description.should.equal('The book is based on education');
         res.body.rows[0].isbn.should.equal('123-456-5858');
+        done();
+      });
+  });
+
+  it('should fetch books with offset greater than 0', (done) => {
+    server
+      .get('/api/v1/books?page=2')
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .set('x-access-token', token)
+      .type('form')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.count.should.equal(1);
         done();
       });
   });

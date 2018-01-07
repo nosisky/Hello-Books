@@ -8,7 +8,7 @@
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.dev.js",
     "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
     "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
-    "coveralls": "npm run tests && NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "client:test": "jest --coverage cli",
     "test:watch": "npm run client:test -- --watch",
     "build": "webpack --progress --config ./webpack.config.prod.js",

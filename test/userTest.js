@@ -40,35 +40,39 @@ describe('User Api: ', () => {
       });
   });
 
-  it('Should edit user profile', (done) => {
-    server
-      .put('/api/v1/users/edit/3')
-      .set('Connection', 'keep alive')
-      .set('x-access-token', token)
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .send({ fullName: 'bolaji Usman', email: 'bolaji@mama.com' })
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.message.should.equal('Profile updated successfully');
-        done();
-      });
-  });
-
   it('Should retrieve user details by email address', (done) => {
     server
       .post('/api/v1/search/email')
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send({ email: 'bolaji@mama.com' })
-      .expect(201)
+      .send({ email: 'main@gmail.com' })
+      .expect(200)
       .end((err, res) => {
-        res.status.should.equal(201);
+        res.status.should.equal(200);
         res.body.user.username.should.equal('Dealwapb');
         done();
       });
   });
+
+  it(`Should display 'Profile updated successfully'' 
+  when profile is modified`, (done) => {
+      server
+        .put('/api/v1/users/edit/2')
+        .set('x-access-token', token)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send({
+          fullName: 'James Babalola',
+          email: 'james@yahoo.com'
+        })
+        .expect(200)
+        .end((err, res) => {
+          res.status.should.equal(200);
+          res.body.message.should.equal('Profile updated successfully');
+          done();
+        });
+    });
 });
 
