@@ -84,7 +84,7 @@ const Validation = {
           });
         }
       } else {
-        const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
+        const password = bcrypt.hashSync(req.body.password, 10);
         req.userInput = {
           username: req.body.username,
           fullName: req.body.fullName,
