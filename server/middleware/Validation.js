@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import omit from 'lodash/omit';
 
-import database from '../models/index';
+import database from '../models';
 
 const { Book, User } = database;
 

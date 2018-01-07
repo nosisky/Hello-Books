@@ -132,15 +132,15 @@ const Authorization = {
     }).then((rented) => {
       const { plan } = req.decoded.currentUser;
       if (plan === 'Silver' && rented.count === 5) {
-        res.status(403).send({
+        res.status(422).send({
           message
         });
       } else if (plan === 'Diamond' && rented.count === 20) {
-        res.status(403).send({
+        res.status(422).send({
           message
         });
       } else if (plan === 'Gold' && rented.count === 50) {
-        res.status(403).send({
+        res.status(422).send({
           message: 'Book limit reached, return previously borrowed'
         });
       } else {

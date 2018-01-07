@@ -176,9 +176,9 @@ export class AddBookModal extends Component {
 
 		switch (name) {
 			case 'title':
-				if (value.length < 2 || !value) {
+				if (value.length < 5 || !value) {
 					this.setState({ 
-						titleError: 'Book title must be greater than 2 characters' });
+						titleError: 'Book title must be greater than 5 characters' });
 					break;
 				}
 
@@ -315,6 +315,7 @@ export class AddBookModal extends Component {
 										type="number"
 										className="validate"
 										defaultValue="1"
+										min="1" 
 										onChange={this.onChange}
 										onFocus={this.onFocus}
 										required
@@ -327,6 +328,7 @@ export class AddBookModal extends Component {
 										id="prodYear"
 										name="prodYear"
 										type="number"
+										min="1000"
 										className="validate"
 										onChange={this.onChange}
 										onBlur={this.onBlur}

@@ -4,7 +4,7 @@ import hammerjs from 'hammerjs';
 import firebase from 'firebase';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import { AddBook, mapStateToProps,
+import { AddBookModal, mapStateToProps,
   mapDispatchToProps
  } from '../../../components/admin/includes/AddBookModal';
 
@@ -29,7 +29,7 @@ const setup = () => {
       }
     }
   };
-return mount(<AddBook {...props} />);
+return mount(<AddBookModal {...props} />);
 };
 
 describe('Component: AddBook', () => {

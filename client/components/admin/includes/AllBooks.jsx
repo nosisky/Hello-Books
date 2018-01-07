@@ -180,6 +180,7 @@ export class AllBooks extends Component {
 												id="total"
 												name="total"
 												type="number"
+												min="1"
 												className="validate"
 												onChange={this.onChange}
 												defaultValue={this.state.total}
@@ -192,6 +193,7 @@ export class AllBooks extends Component {
 												id="prodYear"
 												name="prodYear"
 												type="number"
+												min="1000"
 												defaultValue={this.state.prodYear}
 												onChange={this.onChange}
 												className="validate"

@@ -107,7 +107,8 @@ export class RegisterationForm extends Component {
 	onBlur(event) {
 		const name = event.target.name;
 		const value = event.target.value;
-		const passwordValue = document.getElementById('pword').value;
+		const passwordValue = $('#pword').val();
+
 		switch (name) {
 			case 'fullName':
 				const fullNameCheck = value.trim();

@@ -1,5 +1,7 @@
 import React from 'react';
 import expect from 'expect';
+import $ from 'jquery';
+
 import { Simulate } from 'react-dom/test-utils';
 import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
@@ -9,6 +11,8 @@ import EditProfileModal from '../../../components/includes/EditProfileModal';
 import mockData from '../../__mocks__/mockData';
 
 configure({ adapter: new Adapter() });
+
+global.$ = global.jQuery = $;
 
 jest.mock('../../../components/includes/Header');
 jest.mock('../../../components/includes/SideBar');
@@ -31,7 +35,7 @@ const setup = () => {
 describe('Component: EditProfileModal', () => {
 	it('tests that the component successfully rendered', () => {
 		const wrapper = setup();
-		expect(wrapper.find('div').length).toBe(13);
+		expect(wrapper.find('div').length).toBe(17);
 	});
 
 	it('should change email value as entered by user', () => {

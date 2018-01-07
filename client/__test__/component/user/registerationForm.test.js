@@ -82,7 +82,7 @@ describe('Component: RegisterationForm', () => {
       .toEqual('nosisky@gmail.com');
   });
 
-  it('should set passwordError value for password with 4 characters', () => {
+  it('should set passwordError value for password with 5 characters', () => {
     const wrapper = setup();
     
     const action = wrapper.instance();
@@ -95,7 +95,7 @@ describe('Component: RegisterationForm', () => {
     };
     action.onBlur(event);
     expect(action.state.passwordError)
-      .toEqual('Password must be a minimum of 8 characters');
+      .toEqual('Password must be a minimum of 5 characters');
   });
 
   it('should set usernameError value for username with 4 characters', () => {

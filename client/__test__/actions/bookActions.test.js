@@ -13,7 +13,7 @@ const mockStore = configureMockStore(middleware);
 
 window.localStorage = {};
 
-describe('Auth actions', () => {
+describe('Book actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
