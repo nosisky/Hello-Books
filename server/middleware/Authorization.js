@@ -34,6 +34,8 @@ const Authorization = {
     if (token) {
       jwt.verify(token, key, (error, decoded) => {
         if (error) {
+        console.log('I am verified')
+        
           res.status(401).send({
             message: 'Failed to Authenticate Token',
             error

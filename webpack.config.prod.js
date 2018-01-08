@@ -55,11 +55,6 @@ module.exports = {
       },
     })
   ],
-  devServer: {
-    contentBase: './client/dist'
-  },
-  target: 'web',
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {

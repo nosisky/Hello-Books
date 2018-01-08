@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
 import App from './components/App';
@@ -28,14 +29,14 @@ const token = localStorage.getItem('token');
 const { secretKey } = process.env;
 
 if (token) {
-	jwt.verify(token, secretKey, (error) => {
-		if (error) {
-			localStorage.removeItem('token')
-			window.location = '/'
+	axios.interceptors.response.use((response) => {
+	}, (error) => {
+		if (error.response.status === 401 || error.response.status === 403) {
+			logoutAction();
 		}
-	})
-	setAuthorizationToken(token);
-	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
+		setAuthorizationToken(token);
+		store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
+	});
 }
 
 ReactDOM.render(

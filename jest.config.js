@@ -4,6 +4,7 @@ module.exports = {
   },
   verbose: true,
   collectCoverage: true,
+  coverageDirectory: './clientCoverage',
   testPathIgnorePatterns: [
     './server/test',
     './node_modules/',
