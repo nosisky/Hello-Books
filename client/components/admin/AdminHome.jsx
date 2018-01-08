@@ -189,7 +189,7 @@ export class AdminHome extends Component {
  *
  * @returns {Object} - Object containing selected application state
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return {
 		books: state.book.data,
 		count: state.book.count,
@@ -210,7 +210,7 @@ AdminHome.PropTypes = {
  * 
  * @returns - Object containing action creators
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{

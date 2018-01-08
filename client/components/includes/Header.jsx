@@ -67,8 +67,6 @@ export class Header extends Component {
 		event.preventDefault();
 
 		this.props.actions.logout();
-
-		this.context.router.push('/');
 	}
 
 	/**

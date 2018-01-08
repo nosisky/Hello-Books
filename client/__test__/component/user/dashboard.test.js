@@ -54,6 +54,14 @@ describe('Component: Dashboard', () => {
 
   it('tests that the component received the action creator', () => {
     const wrapper = setup();
+
+    const handlePageChangeSpy = jest.spyOn(wrapper.instance(), 'handlePageChange');
+    const handleClickSpy = jest.spyOn(wrapper.instance(), 'handleClick');
+
+    
+    wrapper.instance().handleClick(1);    
+    wrapper.instance().handlePageChange({ page: { selected: 1 } });
+
     expect(wrapper.props().actions.getAllBooksAction).toHaveBeenCalled();
     expect(wrapper.props().books.length).toBe(2);
     expect(wrapper.props().books[0].title).toBe('This is a test');

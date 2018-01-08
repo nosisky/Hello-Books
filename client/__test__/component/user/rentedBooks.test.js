@@ -3,7 +3,9 @@ import expect from 'expect';
 import { shallow, configure, mount } from 'enzyme';
 import hammerjs from 'hammerjs';
 import Adapter from 'enzyme-adapter-react-15';
-import  { RentedBooksPage } from '../../../components/pages/RentedBooksPage';
+import  { RentedBooksPage,
+        mapDispatchToProps, 
+        mapStateToProps } from '../../../components/pages/RentedBooksPage';
 import mockData from '../../__mocks__/mockData';
 
 configure({ adapter: new Adapter() });
@@ -43,4 +45,28 @@ describe('Component: Rented Books Page', () => {
     expect(wrapper.props().actions.getRentedBooksAction).toHaveBeenCalled();
     expect(wrapper.props().user).toBeTruthy();
   })
+
+  it('Should test that the component receives the action creatora', () => {
+    const wrapper = shallow(<RentedBooksPage {...props}/>)
+    
+    const handleClickSpy = jest.spyOn(wrapper.instance(), 'handleClick');
+    wrapper.instance().handleClick();
+
+    expect(wrapper.instance().handleClick).toHaveBeenCalled;
+  })
+
+  it('should ensure mapDispatchToProps returns binded actions', () => {
+    const dispatch = jest.fn();
+    expect(mapDispatchToProps().actions.getRentedBooksAction).toBeTruthy;
+  });
+
+  it('should ensure mapStateToProps returns prop from redux store', () => {
+    const storeState = {
+      book:  [{ title: 'test book' }],
+      auth: { user: { }, apiStatus: true }
+    };
+    expect(mapStateToProps(storeState).rentedBooks).toHaveLength(1);
+  });
+  
+  
 })

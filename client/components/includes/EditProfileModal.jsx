@@ -62,7 +62,7 @@ class EditProfileModal extends Component {
 			case 'email':
 				const userId = this.props.userId;			
 				const emailValidator = /\S+@\S+\.\S+/;
-				if(!emailValidator){
+				if(!emailValidator.test(value)){
 					this.setState({ emailExist: 'Invalid email supplied!' });
 					return false;
 				} else {

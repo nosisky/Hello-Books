@@ -173,7 +173,7 @@ export function mapDispatchToProps(dispatch) {
  *  
  * @returns {Object} - Selected state
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return { user: state.auth.user };
 }
 

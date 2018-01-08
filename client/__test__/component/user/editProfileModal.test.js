@@ -84,6 +84,39 @@ describe('Component: EditProfileModal', () => {
     .toEqual('Invalid input, only alphabets are allowed');
 	});
 
+	it('should set emailExist error message for invalid email', () => {
+		const wrapper = setup();
+
+		const action = wrapper.instance();
+
+		const event = {
+			target: {
+				name: 'email',
+				value: 'djdjdj'
+			}
+		};
+		action.onBlur(event);
+    expect(action.state.emailExist)
+    .toEqual('Invalid email supplied!');
+	});
+
+	it('should check if emailExist then set error message', () => {
+		const wrapper = setup();
+
+		const action = wrapper.instance();
+
+		const event = {
+			target: {
+				name: 'email',
+				value: 'nosisky@gmail.com'
+			}
+		};
+		action.onBlur(event);
+    expect(action.state.emailExist)
+    .toEqual('');
+	});
+
+
 	it('should clear fullName error when input box is targeted', () => {
 		const wrapper = setup();
 
@@ -112,6 +145,15 @@ describe('Component: EditProfileModal', () => {
 		};
 		action.onFocus(event);
 		expect(action.state.emailExist).toEqual('');
-  });
+	});
+	
+	it('should call handleSubmit when edit profile form is submitted', () => {
+		const wrapper = setup();
+		const action = wrapper.instance();
+
+		const handleSubmit = jest.spyOn(wrapper.instance(), 'handleSubmit');
+		action.handleSubmit({ preventDefault: () => 1 });
+		expect(handleSubmit).toBeCalled();
+	});
   
 });

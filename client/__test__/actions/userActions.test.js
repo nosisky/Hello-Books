@@ -21,7 +21,7 @@ const middlewares = [thunk];
 
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = { removeItem: jest.fn() };
+window.localStorage = { removeItem: ()=> {} };
 
 global.Materialize = { toast: jest.fn(Promise.resolve(1)) };
 
@@ -136,18 +136,13 @@ describe('Auth actions', () => {
       response: authResponse
     });
 
-    moxios.stubRequest('/api/v1/search/1', {
-      status: 200,
-      response: authResponse
-    });
-
     const expectedActions = {
       type: EDIT_PROFILE,
       user: authResponse.currentUser
     };
 
     const store = mockStore({});
-    store.dispatch(editProfileAction({}))
+    store.dispatch(editProfileAction(1, {fullName: 'james'}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })

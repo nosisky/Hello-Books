@@ -143,7 +143,7 @@ AllBooks.PropTypes = {
  *
  * @return {Object} returns state object
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return {
 		rentedBooks: state.book,
 		user: state.auth.user,
@@ -159,7 +159,7 @@ function mapStateToProps(state) {
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{

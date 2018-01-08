@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogIn from './GoogleLogIn';
 import { checkUserExist } from '../../utils/validation';
-import { registerUserAction, 
-	getUserByEmailAction } from '../../actions/UserActions';
+import { registerUserAction, getUserByEmailAction } from '../../actions/UserActions';
 import { connect } from 'react-redux';
 import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 
 /**
  * @description - Login form component
@@ -19,7 +18,6 @@ import { withRouter } from 'react-router'
  * @extends {Component}
  */
 export class LoginForm extends Component {
-
 	/**
 	 * @description - Creates an instance of Login.
 	 * 
@@ -32,7 +30,7 @@ export class LoginForm extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			loginError: '',
+			loginError: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -47,7 +45,7 @@ export class LoginForm extends Component {
 	 */
 	onChange(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
+		const value = event.target.value;
 		this.setState({ [name]: value });
 	}
 
@@ -60,18 +58,17 @@ export class LoginForm extends Component {
 	 */
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.onSubmit(this.state)
-		.then(() => {
+		this.props.onSubmit(this.state).then(() => {
 			const token = localStorage.getItem('token');
-			if(token){
-				const currentUser = jwt.decode(token).currentUser;			
-				if(currentUser.isAdmin){
+			if (token) {
+				const currentUser = jwt.decode(token).currentUser;
+				if (currentUser.isAdmin) {
 					this.props.history.push('/admin');
 				} else {
 					this.props.history.push('/dashboard');
 				}
 			}
-		})
+		});
 	}
 
 	/**
@@ -96,8 +93,7 @@ export class LoginForm extends Component {
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s12">
-								<input id="username" type="text" name="username" 
-								onChange={this.onChange} required />
+								<input id="username" type="text" name="username" onChange={this.onChange} required />
 								<label htmlFor="username">Username</label>
 							</div>
 						</div>
@@ -116,8 +112,12 @@ export class LoginForm extends Component {
 						</div>
 						<br />
 						<center>
-							<button className="btn waves-effect teal" 
-							type="submit" name="action" disabled={this.props.apiStatus}>
+							<button
+								className="btn waves-effect teal"
+								type="submit"
+								name="action"
+								disabled={this.props.apiStatus}
+							>
 								Login
 							</button>
 							<br />
@@ -131,4 +131,4 @@ export class LoginForm extends Component {
 	}
 }
 
-export default withRouter(LoginForm)
+export default withRouter(connect()(LoginForm));

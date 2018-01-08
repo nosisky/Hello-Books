@@ -5,7 +5,9 @@ import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
-import  { AdminHeader } from '../../../components/admin/includes/AdminHeader';
+import  { AdminHeader, 
+  mapDispatchToProps,
+  mapStateToProps } from '../../../components/admin/includes/AdminHeader';
 import {getAllBooksAction} from '../../../actions/BookActions';
 
 configure({ adapter: new Adapter() });
@@ -43,9 +45,16 @@ describe('Component: AdminHeader', () => {
     expect(wrapper.instance().props.user.isAdmin).toBe(0);
   })
 
-  it('tests that the component received the action creator', () => {
-    const wrapper = setup();
-    expect(wrapper.instance().props.actions.logoutAction).toBeTruthy;
-  })
+  it('should ensure mapDispatchToProps returns binded actions', () => {
+    const dispatch = jest.fn();
+    expect(mapDispatchToProps().actions.logoutAction).toBeTruthy;
+  });
+
+  it('should ensure mapStateToProps returns prop from redux store', () => {
+    const storeState = {
+      auth: { user: { }, apiStatus: true }
+    };
+    expect(mapStateToProps(storeState).apiStatus).toBeTruthy;
+  });
 
 })
