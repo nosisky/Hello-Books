@@ -3,6 +3,7 @@ import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
 import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
+import Materialize from 'materialize-css';
 import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
 import { setCurrentUser,
@@ -22,9 +23,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 window.localStorage = { removeItem: ()=> {} };
-
-global.Materialize = { toast: jest.fn(Promise.resolve(1)) };
-
 
 describe('Auth actions', () => {
   beforeEach(() => moxios.install());

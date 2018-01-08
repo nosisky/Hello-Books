@@ -23,7 +23,7 @@ const store = configureStore();
  * 
  * @extends {React.Component}
  */
-class GoogleLogIn extends React.Component {
+export class GoogleLogIn extends React.Component {
 
 	constructor(props){
 		super(props);

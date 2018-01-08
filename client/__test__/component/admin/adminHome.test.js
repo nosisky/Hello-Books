@@ -55,8 +55,8 @@ describe('Component: AdminHome', () => {
 		wrapper.instance().handlePageChange({ page: { selected: 1 } });
 		wrapper.instance().handleClick(1);
 
-		expect(wrapper.instance().handleClickSpy).toHaveBeenCalled();
-		expect(wrapper.instance().handlePageChangeSpy).toHaveBeenCalled();
+		expect(wrapper.instance().handleClick).toHaveBeenCalled();
+		expect(wrapper.instance().handlePageChange).toHaveBeenCalled();
 		expect(wrapper.instance().props.actions.getAllBooksAction).toHaveBeenCalled();
 		expect(wrapper.instance().props.books[0].title).toBe('This is a test');
 		expect(wrapper.instance().props.books[0].author).toBe('dealwap');

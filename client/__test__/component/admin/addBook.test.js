@@ -270,10 +270,44 @@ describe('Component: AddBook', () => {
 			}
 		};
 		action.onBlur(event);
-		expect(action.state.authorError).toEqual('Book author name must be greater than 2 characters');
+    expect(action.state.authorError)
+    .toEqual('Book author name must be greater than 2 characters');
+  });
+  
+  it('should set descError value when description is undefined', () => {
+		const wrapper = setup();
+
+		const action = wrapper.instance();
+
+		const event = {
+			target: {
+				name: 'description',
+				value: false
+			}
+		};
+		action.onBlur(event);
+		expect(action.state.descError).toEqual('Book description is required');
+  });
+
+  it('should set titleError value when title is undefined', () => {
+		const wrapper = setup();
+
+		const action = wrapper.instance();
+
+		const event = {
+			target: {
+				name: 'title',
+				value: false
+			}
+		};
+		action.onBlur(event);
+    expect(action.state.titleError)
+    .toEqual('Book title must be greater than 5 characters');
 	});
 
+
 	it('should set descError value for description with less than 4 characters', () => {
+  
 		const wrapper = setup();
 
 		const action = wrapper.instance();
@@ -328,26 +362,33 @@ describe('Component: AddBook', () => {
 		wrapper.instance().handleUploadError({});
 
 		expect(action.state.isUploading).toBeFalsy;
-	});
+  });
+  
 
-	it('Should set upload cover when book cover upload is successful', () => {
+	it('Should set upload progress when cover upload starts', () => {
+		const wrapper = setup();
 
-    const firebase = { storage: jest.fn(() => {
-      ref: jest.fn(() => {
-        child: jest.fn(() => {
-          getDownloadURL: Promise.resolve('test')
-        })
-      })
-    }) }
+		const action = wrapper.instance();
+
+		const handleProgress = jest.spyOn(wrapper.instance(), 'handleProgress');
+
+		wrapper.instance().handleProgress(50);
+
+		expect(action.state.progress).toEqual(50);
+  });
+  
+  it('Should set isUploading to true when cover upload starts', () => {
 
 		const wrapper = setup();
 
 		const action = wrapper.instance();
 
-		const handleUploadSuccess = jest.spyOn(wrapper.instance(), 'handleUploadSuccess');
+		const handleUploadStart = jest.spyOn(wrapper.instance(), 'handleUploadStart');
 
-		wrapper.instance().handleUploadSuccess('cover');
+		wrapper.instance().handleUploadStart();
 
-		expect(action.state.cover).toEqual('test');
+    expect(action.state.isUploading).toBeTruthy;
+    expect(action.state.progress).toEqual(0);
 	});
+
 });
