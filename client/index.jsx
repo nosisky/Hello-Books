@@ -21,24 +21,22 @@ import firebaseConfig from './utils/firebaseConfig';
 
 const store = configureStore();
 
-
 //Initalize firebase
 firebase.initializeApp(firebaseConfig);
 
 const token = localStorage.getItem('token');
 
+// Add a response interceptor
+axios.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if (error.response.status === 401 || error.response.status === 403) {
+    logoutAction();
+  }
+  return Promise.reject(error);
+});
+
 if (token) {
-	axios.interceptors.response.use((response) => {
-		return response;
-	}, (error) => {
-		if (error.response.status === 401 || error.response.status === 403) {
-			store.dispatch({
-				type: 'unauth_user',
-				user: {}
-			})
-		}
-		return Promise.reject(error);		
-	});
 	setAuthorizationToken(token);
 	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
 }
