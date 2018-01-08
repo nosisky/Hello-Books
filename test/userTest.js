@@ -11,6 +11,14 @@ const server = supertest.agent(app);
 
 let token;
 
+before((done) => {
+  models.sequelize.sync({ force: true }).then(() => {
+    done(null);
+  }).catch((errors) => {
+    done(errors);
+  });
+});
+
 describe('User Api: ', () => {
   it('Should register a new user', (done) => {
     server

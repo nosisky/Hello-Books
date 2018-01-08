@@ -2,6 +2,7 @@ import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
 import dotenv from 'dotenv';
+import expect from 'expect';
 import app from '../server';
 import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
@@ -70,6 +71,11 @@ describe('#Book Features: ', () => {
       .expect(201)
       .end((err, res) => {
         res.status.should.equal(201);
+        expect(res.body.book.title).toEqual('Think rich to grow rich');
+        expect(res.body.book.isbn).toEqual('123-456-5858');
+        expect(res.body.book.prodYear).toEqual('2018');
+        expect(res.body.book.author).toEqual('Albert Einstein');
+        expect(res.body.book.description)
         res.body.message.should.equal('Book uploaded successfully');
         done();
       });

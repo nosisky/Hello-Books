@@ -13,6 +13,13 @@ dotenv.load();
 const server = supertest.agent(app);
 const token = process.env.testToken;
 
+before((done) => {
+  models.sequelize.sync({ force: true }).then(() => {
+    done(null);
+  }).catch((errors) => {
+    done(errors);
+  });
+});
 
 describe('User Api: ', () => {
   it('should check that username exceeds 4 characters', (done) => {
