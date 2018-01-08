@@ -6,16 +6,16 @@ const randomEmail = faker.internet.email();
 
 module.exports = {
   'Users should not be able to login with invalid details': browser =>
-  browser
-    .url('http://localhost:8000/')
-    .waitForElementVisible('body', 5000)
-    .setValue('input[name=username]', username)
-    .setValue('input[name=password]', randomName)
-    .click('button[name=action]')
-    .waitForElementVisible('.toast', 5000)
-    .assert.containsText('.toast', 'Invalid Credentials.')
-    .assert.urlContains('http://localhost:8000')
-    .pause(1000),
+    browser
+      .url('http://localhost:8000/')
+      .waitForElementVisible('body', 5000)
+      .setValue('input[name=username]', username)
+      .setValue('input[name=password]', randomName)
+      .click('button[name=action]')
+      .waitForElementVisible('.toast', 5000)
+      .assert.containsText('.toast', 'Invalid Credentials.')
+      .assert.urlContains('http://localhost:8000')
+      .pause(1000),
 
   'Users should be able to register, login and logout': browser =>
     browser
@@ -34,24 +34,26 @@ module.exports = {
       .setValue('input[name=username]', username)
       .setValue('input[name=password]', randomName)
       .click('button[name=action]')
-      .waitForElementVisible('.dropdown-button', 5000)
+      .waitForElementVisible('#book_card', 5000)
       .assert.urlContains('http://localhost:8000/dashboard')
-      .click('#logout_icon')      
+      .click('#logout_icon')
       .pause(1000),
 
   'Users cannot register with existing/invalid details': browser =>
-      browser
-        .url('http://localhost:8000/')
-        .waitForElementVisible('body', 5000)
-        .click('#joinus')
-        .setValue('#uname', 'tea')
-        .setValue('input[name=fullName]', randomName)
-        .waitForElementVisible('#usernameError', 5000)
-        .assert
-        .containsText('#usernameError', 
-        'username must be a minimum of 5 characters')
-        .waitForElementVisible('#usernameError', 5000)
-        .pause(1000),
+    browser
+      .url('http://localhost:8000/')
+      .waitForElementVisible('body', 5000)
+      .click('#joinus')
+      .setValue('#uname', 'tea')
+      .setValue('input[name=fullName]', randomName)
+      .waitForElementVisible('#usernameError', 5000)
+      .assert
+      .containsText(
+        '#usernameError',
+        'username must be a minimum of 4 characters'
+      )
+      .waitForElementVisible('#usernameError', 5000)
+      .pause(1000),
 
   'Users should be able to rent and return book': browser =>
     browser
@@ -59,7 +61,7 @@ module.exports = {
       .setValue('input[name=username]', username)
       .setValue('input[name=password]', randomName)
       .click('button[name=action]')
-      .waitForElementVisible('.dropdown-button', 5000)
+      .waitForElementVisible('#logout_icon', 5000)
       .assert.urlContains('http://localhost:8000/dashboard')
       .click('#borrowNow')
       .waitForElementVisible('.swal-button--confirm', 5000)
@@ -72,13 +74,18 @@ module.exports = {
       .click('#returnBook')
       .waitForElementVisible('.swal-button--confirm', 5000)
       .click('.swal-button--confirm')
-      .pause(1000),
+      .end(),
 
   'Users should be able to search for books': browser =>
-      browser
-        .click('#dashboard')
-        .click('#showSearch')
-        .setValue('input[name=search]', 'This')
-        .waitForElementVisible('#borrowNow', 5000)      
-        .pause(1000)
+    browser
+      .url('http://localhost:8000/')
+      .waitForElementVisible('body', 5000)
+      .setValue('input[name=username]', username)
+      .setValue('input[name=password]', randomName)
+      .click('button[name=action]')
+      .waitForElementVisible('#logout_icon', 5000)
+      .click('#showSearch')
+      .setValue('input[name=search]', 'This')
+      .waitForElementVisible('#borrowNow', 5000)
+      .end()
 };

@@ -86,7 +86,7 @@ export const loginAction = userDetails => (dispatch) => {
       setAuthorizationToken(token);
       const decoded = jwt.decode(response.data.token);
       dispatch(setCurrentUser(decoded.currentUser));
-      Materialize.toast('Logged In Successfully', 2000, 'blue darken-4');
+      Materialize.toast('Logged In Successfully', 1000, 'blue darken-4');
     })
     .catch((error) => {
       dispatch(setApiCallProgress(false));

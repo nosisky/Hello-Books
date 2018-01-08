@@ -164,7 +164,7 @@ export class AdminSideBar extends Component {
 						</a>
 						</li>
 						<li id="menu-list">
-							<a data-target="add_cat" className="modal-trigger" 
+							<a id="add_category" data-target="add_cat" className="modal-trigger" 
 							href="#add_cat">
 								Add Category<i className="material-icons">add</i>
 							</a>
@@ -223,6 +223,7 @@ export class AdminSideBar extends Component {
 										</div>
 									</div>
 									<button
+										id="submit_category"
 										style={style.button}
 										className="btn waves-effect"
 										type="submit"
