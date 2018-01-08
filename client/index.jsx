@@ -30,13 +30,18 @@ const { secretKey } = process.env;
 
 if (token) {
 	axios.interceptors.response.use((response) => {
+		return response;
 	}, (error) => {
 		if (error.response.status === 401 || error.response.status === 403) {
-			logoutAction();
+			store.dispatch({
+				type: 'unauth_user',
+				user: {}
+			})
 		}
-		setAuthorizationToken(token);
-		store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
+		return Promise.reject(error);		
 	});
+	setAuthorizationToken(token);
+	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
 }
 
 ReactDOM.render(
