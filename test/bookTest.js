@@ -6,6 +6,7 @@ import expect from 'expect';
 import app from '../server';
 import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
+import sendMail from '../server/middleware/sendMail';
 
 dotenv.load();
 
@@ -75,7 +76,7 @@ describe('#Book Features: ', () => {
         expect(res.body.book.isbn).toEqual('123-456-5858');
         expect(res.body.book.prodYear).toEqual('2018');
         expect(res.body.book.author).toEqual('Albert Einstein');
-        expect(res.body.book.description)
+        expect(res.body.book.description);
         res.body.message.should.equal('Book uploaded successfully');
         done();
       });
@@ -183,4 +184,18 @@ describe('#Book Features: ', () => {
           done();
         });
     });
+
+  it('Should send email', (done) => {
+    server
+      .post('/api/v1/books/email')
+      .set('Connection', 'keep alive')
+      .set('x-access-token', token)
+      .set('Content-Type', 'application/json')
+      .send({ subject: 'Hello', message: 'This is a test' })
+      .expect(200)
+      .end((err, res) => {
+        res.body.should.equal(true);
+        done();
+      });
+  });
 });
