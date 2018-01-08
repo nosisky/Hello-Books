@@ -9,14 +9,6 @@ import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
 
-before((done) => {
-  models.sequelize.sync({ force: true }).then(() => {
-    done(null);
-  }).catch((errors) => {
-    done(errors);
-  });
-});
-
 let token;
 
 describe('User Api: ', () => {

@@ -73,7 +73,7 @@ const BookController = {
 
     const currentDate = new Date();
     const after20days = currentDate.setDate(currentDate.getDate() + 20);
-    Book.findById(req.body.bookId)
+    return Book.findById(req.body.bookId)
       .then((book) => {
         if (book) {
           if (book.total === 0) {
@@ -83,7 +83,7 @@ const BookController = {
             });
           }
 
-          RentedBook.create({
+          return RentedBook.create({
             bookId: req.body.bookId,
             description: book.description,
             title: book.title,
@@ -91,32 +91,29 @@ const BookController = {
             cover: book.cover,
             toReturnDate: after20days
           })
-            .then(() => {
-              Book.update(
-                {
-                  total: book.total - 1
-                },
-                {
-                  where: {
-                    id: req.body.bookId
-                  }
+            .then(() => Book.update(
+              {
+                total: book.total - 1
+              },
+              {
+                where: {
+                  id: req.body.bookId
                 }
-              );
-            })
+              }
+            ))
             .then(() => {
               BookController
                 .createNotification(id, username, book.title, 'rented');
-              res.status(201).send({
+              return res.status(201).send({
                 message: 'You have successfully rented the book',
                 status: true,
                 rentedBook: book
               });
             });
-        } else {
-          res.status(404).send({
-            message: 'Book not found'
-          });
         }
+        return res.status(404).send({
+          message: 'Book not found'
+        });
       })
       .catch(error => res.status(500).send(error));
   },

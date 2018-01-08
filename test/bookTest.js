@@ -35,7 +35,8 @@ describe('#Book Features: ', () => {
           res.status.should.equal(403);
           res.body
             .message
-            .should.equal('You do not have permission to perform that operation');
+            .should
+            .equal('You do not have permission to perform that operation');
           done();
         });
     });
@@ -83,9 +84,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noBookTitle)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('Book title is required');
           done();
         });
@@ -101,9 +102,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noIsbn)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('ISBN is required');
           done();
         });
@@ -118,9 +119,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noCatId)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('Please add book category');
           done();
         });
@@ -135,9 +136,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noProdYear)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('Production Year is required');
           done();
         });
@@ -152,9 +153,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noCover)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('Please upload a valid book cover');
           done();
         });
@@ -169,9 +170,9 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send(bookSeeder.noAuthor)
-        .expect(409)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(409);
+          res.status.should.equal(400);
           res.body.message.should.equal('Please add book author');
           done();
         });

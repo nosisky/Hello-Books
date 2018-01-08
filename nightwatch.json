@@ -35,10 +35,10 @@
       "desiredCapabilities": {
         "browserName": "chrome",
         "javascriptEnabled": true,
-        "acceptSslCerts": true
-      },
-      "chromeOptions": {
-        "args": ["start-fullscreen"]
+        "acceptSslCerts": true,
+        "chromeOptions": {
+          "args": ["start-fullscreen"]
+        }
       }
     }
   }

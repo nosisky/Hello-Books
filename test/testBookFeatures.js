@@ -218,26 +218,6 @@ describe('#Book Features: ', () => {
         });
     });
 
-
-  it('Shoud display list of notifications', (done) => {
-    server
-      .get('/api/v1/notification')
-      .set('x-access-token', token)
-      .set('Connection', 'keep alive')
-      .set('Content-Type', 'application/json')
-      .type('form')
-      .expect(200)
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.length.should.equal(1);
-        res.body[0].id.should.equal(1);
-        res
-          .body[0].message.should.equal('dealwap rented Think rich to grow rich');
-        done();
-      });
-  });
-
-
   it('Should test for rented books', (done) => {
     server
       .get('/api/v1/users/4/books?returned=false')
@@ -326,6 +306,25 @@ describe('#Book Features: ', () => {
         done();
       });
   });
+
+  it('Should display list of notifications', (done) => {
+    server
+      .get('/api/v1/notification')
+      .set('x-access-token', token)
+      .set('Connection', 'keep alive')
+      .set('Content-Type', 'application/json')
+      .type('form')
+      .expect(200)
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.length.should.equal(4);
+        res.body[0].id.should.equal(4);
+        res
+          .body[0].message.should.equal('dealwap return Think rich to grow rich');
+        done();
+      });
+  });
+
 
   it('should display logs of rented books', (done) => {
     server

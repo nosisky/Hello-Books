@@ -176,7 +176,7 @@ const Validation = {
         const errorMessage = error.msg;
         allErrors.push(errorMessage);
       });
-      return res.status(409).json({
+      return res.status(400).json({
         message: allErrors[0]
       });
     }
@@ -187,7 +187,7 @@ const Validation = {
     })
       .then((book) => {
         if (book) {
-          res.status(409).send({
+          return res.status(409).send({
             message: 'Book with that ISBN already exist'
           });
         }
@@ -328,7 +328,9 @@ const Validation = {
           userExist: false
         });
       })
-      .catch(error => res.status(500).send(error));
+      .catch((error) => {
+        return res.status(500).send(error);
+      });
   },
 
   /**
