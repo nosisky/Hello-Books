@@ -26,7 +26,6 @@ const store = configureStore();
 firebase.initializeApp(firebaseConfig);
 
 const token = localStorage.getItem('token');
-const { secretKey } = process.env;
 
 if (token) {
 	axios.interceptors.response.use((response) => {
