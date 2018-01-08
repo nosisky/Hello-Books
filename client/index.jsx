@@ -25,10 +25,10 @@ const store = configureStore();
 firebase.initializeApp(firebaseConfig);
 
 const token = localStorage.getItem('token');
-const key = process.env.secretKey;
+const { secretKey } = process.env;
 
 if (token) {
-	jwt.verify(token, key, (error) => {
+	jwt.verify(token, secretKey, (error) => {
 		if (error) {
 			localStorage.removeItem('token')
 			window.location = '/'

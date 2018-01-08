@@ -35,7 +35,7 @@ export default function (ComposedComponent) {
 		 * @memberOf AdminAuthentication
 		 */
 		componentWillMount() {
-			const key = process.env.secretKey;
+			const { secretKey } = process.env;
 
 			if (!this.props.authenticated) {
 				this.setState({
@@ -45,7 +45,7 @@ export default function (ComposedComponent) {
 
 			const token = localStorage.getItem('token');
 			if (token) {
-				jwt.verify(token, key, (error) => {
+				jwt.verify(token, secretKey, (error) => {
 					if (error) {
 						this.setState({
 							valid: false

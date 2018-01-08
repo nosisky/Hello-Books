@@ -8,7 +8,6 @@ import models from '../server/models/';
 import userSeeder from '../server/seeders/users';
 
 const server = supertest.agent(app);
-let token;
 
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
@@ -17,6 +16,8 @@ before((done) => {
     done(errors);
   });
 });
+
+let token;
 
 describe('User Api: ', () => {
   it('Should register a new user', (done) => {
