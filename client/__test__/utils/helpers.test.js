@@ -2,17 +2,16 @@ import moxios from 'moxios';
 import expect from 'expect';
 import hammerjs, { Hammer } from 'hammerjs';
 
-import { checkUserExist } from '../../utils/validation';
+import { checkUserExist, checkEmailExist } from '../../utils/validation';
 import { getUserData } from '../../utils/authorization';
 import mailSender from '../../utils/mailSender';
 import { getUserByEmailAction } from '../../actions/UserActions';
 
-const error = { response: { data: { message: 'Invalid username supplied' } } }
+const error = { response: { data: { message: 'Invalid username supplied' } } };
 describe('Auth actions', () => {
   beforeEach(() => {
     moxios.install();
     global.Materialize = { toast: jest.fn(() => Promise.resolve(1)) };
-
   });
 
   afterEach(() => moxios.uninstall());
@@ -52,10 +51,10 @@ describe('Auth actions', () => {
   it('Should return empty response if there is no username', () => {
     moxios.stubRequest('/api/v1/users/get', {
       status: 404,
-      response:  error
+      response: error
     });
 
-    const expectedActions = null
+    const expectedActions = null;
 
     checkUserExist('')
       .then(() => {})
@@ -76,6 +75,23 @@ describe('Auth actions', () => {
       })
       .catch(error => error);
   });
+
+
+  it('Should validate if email exists', () => {
+    moxios.stubRequest('/api/v1/users/getemail', {
+      status: 200,
+      response: { message: 'Email already exists' }
+    });
+
+    const expectedActions = { message: 'Email already exists' };
+
+    checkEmailExist('nosisky@gmail.com')
+      .then((data) => {
+        expect(data).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
 
   it('Should return false if email does not exist', () => {
     moxios.stubRequest('/api/v1/users/getemail', {
@@ -122,18 +138,22 @@ describe('Auth actions', () => {
   it('Should return user data when email is supplied', () => {
     moxios.stubRequest('/api/v1/search/email', {
       status: 200,
-      response: { user: {
+      response: {
+        user: {
+          fullName: 'james o',
+          username: 'jamesjohn',
+          plan: 'silver'
+        }
+      }
+    });
+
+    const expectedActions = {
+      user: {
         fullName: 'james o',
         username: 'jamesjohn',
         plan: 'silver'
-      } }
-    });
-
-    const expectedActions = { user: {
-      fullName: 'james o',
-      username: 'jamesjohn',
-      plan: 'silver'
-    } };
+      }
+    };
 
     getUserByEmailAction('')
       .then(data => expect(data).toEqual(expectedActions))

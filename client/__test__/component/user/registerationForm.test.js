@@ -203,7 +203,7 @@ describe('Component: RegisterationForm', () => {
       }
     };
     action.onFocus(event);
-    expect(action.state.passwordConfirm)
+    expect(action.state.passwordConfirmError)
       .toEqual('');
   });
 })

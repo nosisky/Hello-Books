@@ -319,7 +319,7 @@ describe('Component: AddBook', () => {
     };
     action.onBlur(event);
     expect(action.state.titleError)
-      .toEqual('Book title must be greater than 2 characters');
+      .toEqual('Book title must be greater than 5 characters');
   });
 
   it('should set prodYearError value for title with less than 4 characters', () => {

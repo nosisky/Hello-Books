@@ -35,7 +35,7 @@ const userApiUrl = '/api/v1/users';
  */
 export const addBookAction = bookDetails => (dispatch) => {
   dispatch(setApiCallProgress(true));
-  axios.post(apiUrl, bookDetails)
+  return axios.post(apiUrl, bookDetails)
     .then((response) => {
       dispatch({
         type: ADD_BOOK,
@@ -238,25 +238,6 @@ export function returnBook(userId, bookId) {
     .catch(error => (error.response ?
       swal(error.response.data.message) :
       notifyNetworkError(error)));
-}
-
-/**
- * @description - Get specific book
- *
- * @param {Number} bookId - Book ID
- *
- * @returns { Object } - Object containg Book details
- */
-export function getSpecificBook(bookId) {
-  return dispatch => axios.get(`${apiUrl}/${bookId}`)
-    .then((response) => {
-      dispatch({
-        type: GET_ONE_BOOK,
-        data: response.data
-      });
-      return response.data;
-    })
-    .catch(error => notifyNetworkError(error));
 }
 
 /**

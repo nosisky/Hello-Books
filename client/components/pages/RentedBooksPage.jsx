@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSpecificBook, 
+import { 
 				returnBook, 
 				getRentedBooksAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';

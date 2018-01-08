@@ -4,6 +4,9 @@ const mockData = {
       username: 'dealwap',
       email: 'nosis@gmail.com',
       fullName: 'Abdulrasaq Nasirudeen'
+    },
+    data: {
+      token: 'dhjdjdkkddkdkdkdkkdkd'
     }
   },
   user: {

@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-
+import $ from 'jquery';
 /**
  * 
  * @export {Object} - Regiser component

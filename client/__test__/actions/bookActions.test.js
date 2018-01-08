@@ -14,7 +14,8 @@ import {
   getCategoryAction,
   returnBook,
   searchAction,
-  addCategoryAction
+  addCategoryAction,
+  rentBookAction
 } from '../../actions/BookActions';
 
 import { ADD_BOOK,
@@ -24,7 +25,8 @@ import { ADD_BOOK,
   GET_ALL_NOTIFICATIONS,
   SEARCH_BOOK,
   RETURN_RENTED_BOOK,
-  ADD_CATEGORY
+  ADD_CATEGORY,
+  RENT_BOOK
 } from '../../actions/ActionTypes';
 
 const middleware = [thunk];
@@ -135,7 +137,7 @@ describe('Book actions', () => {
 
   it('creates GET_RENTED_BOOKS when trying to get rented books', () => {
     moxios.stubRequest('/api/v1/books/logs/1', {
-      status: 201,
+      status: 200,
       response: mockData.returnedBook
     });
 
@@ -170,6 +172,65 @@ describe('Book actions', () => {
       })
       .catch(error => error);
   });
+
+  it(`should set response error 
+  when user tries to rent books and API call fails`, () => {
+      moxios.stubRequest('/api/v1/users/1/books', {
+        status: 400,
+        response: mockData.returnedBook
+      });
+
+      const expectedActions = [{
+        type: RETURN_RENTED_BOOK,
+        data: mockData.returnedBook
+      }];
+
+      const store = mockStore({});
+      return store.dispatch(returnBook(1, 3))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions);
+        })
+        .catch(error => error);
+    });
+
+  it('creates RENT_BOOK when returning a book', () => {
+    moxios.stubRequest('/api/v1/users/1/books', {
+      status: 201,
+      response: mockData.returnedBook
+    });
+
+    const expectedActions = [{
+      type: RENT_BOOK,
+      data: mockData.returnedBook
+    }];
+
+    const store = mockStore({});
+    return store.dispatch(rentBookAction(1, 3))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+  it(`should catch response error 
+  when api response fail and user tries to rent Book`, () => {
+      moxios.stubRequest('/api/v1/users/1/books', {
+        status: 400,
+        response: mockData.returnedBook
+      });
+
+      const expectedActions = [{
+        type: RENT_BOOK,
+        data: mockData.returnedBook
+      }];
+
+      const store = mockStore({});
+      return store.dispatch(rentBookAction(1, 3))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions);
+        })
+        .catch(error => error);
+    });
 
   it('creates GET_CATEGORY when getting all category', () => {
     moxios.stubRequest('/api/v1/category', {
@@ -231,4 +292,24 @@ describe('Book actions', () => {
       })
       .catch(error => error);
   });
+
+  it(`should catch response error 
+    when user tries to fetch books and API fails`, () => {
+      moxios.stubRequest('/api/v1/search', {
+        status: 400,
+        response: mockData.modifiedBook
+      });
+
+      const expectedActions = [{
+        type: SEARCH_BOOK,
+        data: mockData.modifiedBook
+      }];
+
+      const store = mockStore({});
+      return store.dispatch(searchAction('test'))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedActions);
+        })
+        .catch(error => error);
+    });
 });

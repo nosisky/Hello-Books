@@ -1,23 +1,27 @@
 import expect from 'expect';
 import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
+import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
 import { setCurrentUser,
   registerUserAction,
   editProfileAction,
-  loginAction
+  loginAction,
+  googleLogin,
+  logoutAction
 } from '../../actions/UserActions';
 import { SET_CURRENT_USER,
-  EDIT_PROFILE
+  EDIT_PROFILE,
+  UNAUTH_USER
 } from '../../actions/ActionTypes';
 
 const middlewares = [thunk];
 
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = {};
+window.localStorage = { removeItem: jest.fn() };
 
 global.Materialize = { toast: jest.fn(Promise.resolve(1)) };
 
@@ -62,6 +66,42 @@ describe('Auth actions', () => {
 
     const store = mockStore({});
     store.dispatch(loginAction({}))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+  it('creates SET_CURRENT_USER when Googlelogin action is successful', () => {
+    const { authResponse } = mockData;
+    moxios.stubRequest('/api/v1/users/signin', {
+      status: 200,
+      response: authResponse
+    });
+
+    const expectedActions = {
+      type: SET_CURRENT_USER,
+      user: authResponse.currentUser
+    };
+
+    const store = mockStore({});
+    store.dispatch(googleLogin({}))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+
+  it('should set UNAUTH_USER when user logs out of the application', () => {
+    const expectedActions = {
+      type: UNAUTH_USER,
+      user: { },
+      authenticated: false
+    };
+
+    const store = mockStore({});
+    store.dispatch(logoutAction({}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })
