@@ -4,8 +4,14 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
-import * as AuthActions from '../../actions/UserActions';
-import * as ActionTypes from '../../actions/ActionTypes';
+import { setCurrentUser,
+  registerUserAction,
+  editProfileAction,
+  loginAction
+} from '../../actions/UserActions';
+import { SET_CURRENT_USER,
+  EDIT_PROFILE
+} from '../../actions/ActionTypes';
 
 const middlewares = [thunk];
 
@@ -31,14 +37,14 @@ describe('Auth actions', () => {
       decoded: {
         currentUser:
           {
-            type: ActionTypes.SET_CURRENT_USER,
+            type: SET_CURRENT_USER,
             user,
             authenticated: true
           }
       }
     };
 
-    expect(AuthActions.setCurrentUser(user))
+    expect(setCurrentUser(user))
       .toEqual(expectedAction.decoded.currentUser);
   });
 
@@ -50,12 +56,12 @@ describe('Auth actions', () => {
     });
 
     const expectedActions = {
-      type: ActionTypes.SET_CURRENT_USER,
+      type: SET_CURRENT_USER,
       user: authResponse.currentUser
     };
 
     const store = mockStore({});
-    store.dispatch(AuthActions.loginAction({}))
+    store.dispatch(loginAction({}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })
@@ -71,12 +77,12 @@ describe('Auth actions', () => {
     });
 
     const expectedActions = {
-      type: ActionTypes.SET_CURRENT_USER,
+      type: SET_CURRENT_USER,
       user: authResponse.currentUser
     };
 
     const store = mockStore({});
-    store.dispatch(AuthActions.registerUserAction({}))
+    store.dispatch(registerUserAction({}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })
@@ -96,12 +102,12 @@ describe('Auth actions', () => {
     });
 
     const expectedActions = {
-      type: ActionTypes.EDIT_PROFILE,
+      type: EDIT_PROFILE,
       user: authResponse.currentUser
     };
 
     const store = mockStore({});
-    store.dispatch(AuthActions.editProfileAction({}))
+    store.dispatch(editProfileAction({}))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })

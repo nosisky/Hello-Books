@@ -1,13 +1,17 @@
 import supertest from 'supertest';
 import should from 'should';
 import mocha from 'mocha';
+import dotenv from 'dotenv';
 import app from '../server';
 import models from '../server/models/';
 import bookSeeder from '../server/seeders/books';
 
+dotenv.load();
+
 const server = supertest.agent(app);
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoiZGVhbHdhcCIsImZ1bGxuYW1lIjoiZHNoY2p2c2R2bmoiLCJhY3RpdmUiOnRydWUsImlzQWRtaW4iOjEsImVtYWlsIjoiZGVhbHdhcEBkZWFsd2FwLmNvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4ODM1NTYwfQ.AUm0CjxQ_zjn5OVAQg1ntXlNP0W2IcROAygrJQ5j75Y';
-const notAdmin = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXJyZW50VXNlciI6eyJ1c2VySWQiOjQsInVzZXJuYW1lIjoic2VydmVyIiwiZnVsbG5hbWUiOiJ0ZXN0IHNlcnZlciIsImFjdGl2ZSI6dHJ1ZSwiaXNBZG1pbiI6MCwiZW1haWwiOiJzZXJ2ZXJAeWFocG8uY3BvbSIsInBsYW4iOiJzaWx2ZXIifSwiaWF0IjoxNTA4NjU5MDg2fQ.fyUymW7PzkMoxYVK-ErTPpshLZMUj_JNXS7fniLqlHQ';
+const token = process.env.testToken;
+const { notAdmin } = process.env;
+
 before((done) => {
   models.sequelize.sync({ force: true }).then(() => {
     done(null);

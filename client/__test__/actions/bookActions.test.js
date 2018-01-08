@@ -4,8 +4,28 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import mockData from '../__mocks__/mockData';
-import * as BookActions from '../../actions/BookActions';
-import * as ActionTypes from '../../actions/ActionTypes';
+import {
+  addBookAction,
+  getAllBooksAction,
+  deleteBookAction,
+  modifyBookAction,
+  getRentedBooksAction,
+  getAllNotifications,
+  getCategoryAction,
+  returnBook,
+  searchAction,
+  addCategoryAction
+} from '../../actions/BookActions';
+
+import { ADD_BOOK,
+  GET_ALL_BOOKS,
+  DELETE_BOOK,
+  EDIT_BOOK,
+  GET_ALL_NOTIFICATIONS,
+  SEARCH_BOOK,
+  RETURN_RENTED_BOOK,
+  ADD_CATEGORY
+} from '../../actions/ActionTypes';
 
 const middleware = [thunk];
 
@@ -24,13 +44,13 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.ADD_BOOK,
+      type: ADD_BOOK,
       message: 'book added successfully'
     }];
 
     const store = mockStore({});
 
-    return store.dispatch(BookActions.addBookAction(mockData.bookData))
+    return store.dispatch(addBookAction(mockData.bookData))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -44,12 +64,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.GET_ALL_BOOKS,
+      type: GET_ALL_BOOKS,
       data: mockData.returnedBook
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.getAllBooksAction(1))
+    return store.dispatch(getAllBooksAction(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -62,10 +82,10 @@ describe('Book actions', () => {
       response: 1
     });
 
-    const expectedActions = [{ type: ActionTypes.DELETE_BOOK, data: 1 }];
+    const expectedActions = [{ type: DELETE_BOOK, data: 1 }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.deleteBookAction(1))
+    return store.dispatch(deleteBookAction(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -79,12 +99,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.EDIT_BOOK,
+      type: EDIT_BOOK,
       data: mockData.modifiedBook
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.modifyBookAction(mockData.bookData, 1))
+    return store.dispatch(modifyBookAction(mockData.bookData, 1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -98,12 +118,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.ADD_CATEGORY,
+      type: ADD_CATEGORY,
       data: { name: 'science', description: 'Hello world' }
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.addCategoryAction({
+    return store.dispatch(addCategoryAction({
       name: 'science',
       description: 'Hello world'
     }))
@@ -120,12 +140,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.ADD_CATEGORY,
+      type: ADD_CATEGORY,
       data: mockData.returnedBook
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.getRentedBooksAction(1))
+    return store.dispatch(getRentedBooksAction(1))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -139,12 +159,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.RETURN_RENTED_BOOK,
+      type: RETURN_RENTED_BOOK,
       data: mockData.returnedBook
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.returnBook(1, 3))
+    return store.dispatch(returnBook(1, 3))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -158,12 +178,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.RETURN_RENTED_BOOK,
+      type: RETURN_RENTED_BOOK,
       data: [{ name: 'science', description: 'Hello world' }]
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.getCategoryAction())
+    return store.dispatch(getCategoryAction())
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })
@@ -180,12 +200,12 @@ describe('Book actions', () => {
       });
 
       const expectedActions = {
-        type: ActionTypes.GET_ALL_NOTIFICATIONS,
+        type: GET_ALL_NOTIFICATIONS,
         user: notifications
       };
 
       const store = mockStore({});
-      store.dispatch(BookActions.getAllNotifications())
+      store.dispatch(getAllNotifications())
         .then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         })
@@ -200,12 +220,12 @@ describe('Book actions', () => {
     });
 
     const expectedActions = [{
-      type: ActionTypes.SEARCH_BOOK,
+      type: SEARCH_BOOK,
       data: mockData.modifiedBook
     }];
 
     const store = mockStore({});
-    return store.dispatch(BookActions.searchAction('test'))
+    return store.dispatch(searchAction('test'))
       .then(() => {
         expect(store.getActions()).to.eql(expectedActions);
       })

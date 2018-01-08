@@ -1,6 +1,8 @@
 import expect from 'expect';
 import AuthReducer from '../../reducers/authReducer';
-import * as ActionTypes from '../../actions/ActionTypes';
+import { SET_CURRENT_USER,
+  UNAUTH_USER,
+} from '../../actions/ActionTypes';
 
 describe('Auth Reducer', () => {
   it('should set the current user when passed with SET_CURRENT_USER', () => {
@@ -16,7 +18,7 @@ describe('Auth Reducer', () => {
       }
     };
     const action = {
-      type: ActionTypes.SET_CURRENT_USER,
+      type: SET_CURRENT_USER,
       user,
       authenticated: true
     };
@@ -56,7 +58,7 @@ describe('Auth Reducer', () => {
       message: '',
     };
     const action = {
-      type: ActionTypes.UNAUTH_USER,
+      type: UNAUTH_USER,
       user: {},
       authenticated: false
     };

@@ -69,8 +69,11 @@ describe('User Api: ', () => {
         })
         .expect(200)
         .end((err, res) => {
+          const updatedData = jwt.decode(res.body.token);
           res.status.should.equal(200);
           res.body.message.should.equal('Profile updated successfully');
+          updatedData.currentUser.fullName.should.equal('James Babalola');
+          updatedData.currentUser.email.should.equal('james@yahoo.com');
           done();
         });
     });

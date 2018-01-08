@@ -1,6 +1,13 @@
 import expect from 'expect';
 import bookReducer from '../../reducers/bookReducer';
-import * as ActionTypes from '../../actions/ActionTypes';
+import { GET_ALL_BOOKS,
+  DELETE_BOOK,
+  SEARCH_BOOK,
+  ADD_BOOK,
+  GET_RENTED_BOOKS,
+  EDIT_BOOK,
+  RETURN_RENTED_BOOK
+} from '../../actions/ActionTypes';
 
 describe('Book Reducer:', () => {
   it('should return list of books for GET_ALL_BOOK', () => {
@@ -9,7 +16,7 @@ describe('Book Reducer:', () => {
     };
     const books = { count: 4, rows: [{ title: 'test' }, { title: 'game' }] };
     const action = {
-      type: ActionTypes.GET_ALL_BOOKS,
+      type: GET_ALL_BOOKS,
       books,
     };
     const newState = bookReducer(initialState, action);
@@ -22,7 +29,7 @@ describe('Book Reducer:', () => {
     const initialState = { data: book };
 
     const action = {
-      type: ActionTypes.DELETE_BOOK,
+      type: DELETE_BOOK,
       data: book[0].id,
     };
     const deleteState = bookReducer(initialState, action);
@@ -34,7 +41,7 @@ describe('Book Reducer:', () => {
     const initialState = { data: book };
 
     const action = {
-      type: ActionTypes.ADD_BOOK,
+      type: ADD_BOOK,
       message: 'Book added successfully',
     };
     const state = bookReducer(initialState, action);
@@ -42,15 +49,15 @@ describe('Book Reducer:', () => {
   });
 
   it('should return list of books for SEARCH_BOOK', () => {
-    const book = { count: 2, rows: [{ id: 1, title: 'test' }, { id: 2, title: 'game' }] }
+    const book = { count: 2, rows: [{ id: 1, title: 'test' }, { id: 2, title: 'game' }] };
     const initialState = { data: { rows: [] } };
 
     const action = {
-      type: ActionTypes.SEARCH_BOOK,
+      type: SEARCH_BOOK,
       data: book,
     };
     const state = bookReducer(initialState, action);
-    
+
     expect(state.data).toEqual(book.rows);
   });
 
@@ -59,7 +66,7 @@ describe('Book Reducer:', () => {
     const initialState = { data: [] };
 
     const action = {
-      type: ActionTypes.GET_RENTED_BOOKS,
+      type: GET_RENTED_BOOKS,
       data: book,
     };
     const state = bookReducer(initialState, action);
@@ -74,7 +81,7 @@ describe('Book Reducer:', () => {
     const returnedBook = { id: 1, title: 'test', returned: true };
 
     const action = {
-      type: ActionTypes.RETURN_RENTED_BOOK,
+      type: RETURN_RENTED_BOOK,
       data: returnedBook,
     };
     const state = bookReducer(initialState, action);
@@ -90,7 +97,7 @@ describe('Book Reducer:', () => {
     const editedBook = { id: 1, title: 'test me' };
 
     const action = {
-      type: ActionTypes.EDIT_BOOK,
+      type: EDIT_BOOK,
       data: editedBook,
     };
     const state = bookReducer(initialState, action);
