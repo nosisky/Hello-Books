@@ -5,7 +5,7 @@ import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import { LoginForm } from '../../../components/auth/LoginForm';
 
-window.localStorage = {};
+window.localStorage = { getItem: () => process.env.testToken };
 
 jest.doMock('../../../components/auth/GoogleLogIn', () => {
 	const GoogleLogIn = () => <div />;
@@ -66,9 +66,9 @@ describe('Component: LoginForm', () => {
 	it('should login user when form is submitted', () => {
 		const wrapper = setup();
 		const action = wrapper.instance();
-
 		const signUp = jest.spyOn(wrapper.instance(), 'handleSubmit');
 		action.handleSubmit({ preventDefault: () => 1 });
 		expect(signUp).toBeCalled();
-	});
+  });
+  
 });

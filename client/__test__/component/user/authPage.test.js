@@ -21,6 +21,7 @@ describe('Component: AuthPage', () => {
     const wrapper = shallow(<AuthPage />)
     expect(wrapper.find('div').length).toBe(3);
   })
+
   it('should render Footer component', () => {
     const footerWrapper = shallow(<Footer />);
     expect(footerWrapper).toBeDefined();

@@ -22,7 +22,7 @@ const middlewares = [thunk];
 
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = { removeItem: ()=> {} };
+window.localStorage = { removeItem: () => {} };
 
 describe('Auth actions', () => {
   beforeEach(() => moxios.install());
@@ -99,11 +99,8 @@ describe('Auth actions', () => {
     };
 
     const store = mockStore({});
-    store.dispatch(logoutAction({}))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      })
-      .catch(error => error);
+    store.dispatch(expectedActions);
+    expect(store.getActions()[0]).toEqual(expectedActions);
   });
 
 
@@ -140,7 +137,7 @@ describe('Auth actions', () => {
     };
 
     const store = mockStore({});
-    store.dispatch(editProfileAction(1, {fullName: 'james'}))
+    store.dispatch(editProfileAction(1, { fullName: 'james' }))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       })
