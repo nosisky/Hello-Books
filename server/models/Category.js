@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
       associate: (models) => {
         // associations can be defined here
         Category.BelongsTo(models.Book, {
-          foreignKey: 'catId',
+          foreignKey: 'categoryId',
           onDelete: 'CASCADE'
         });
       }

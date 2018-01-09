@@ -125,7 +125,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noCatId)
+        .send(bookSeeder.noCategoryId)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);

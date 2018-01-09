@@ -163,7 +163,7 @@ const Validation = {
         notEmpty: true,
         errorMessage: 'Please add total book'
       },
-      catId: {
+      categoryId: {
         notEmpty: true,
         errorMessage: 'Please add book category'
       }
@@ -198,7 +198,7 @@ const Validation = {
       cover: req.body.cover,
       author: req.body.author,
       description: req.body.description,
-      catId: req.body.catId,
+      categoryId: req.body.categoryId,
       total: req.body.total
     };
     next();
@@ -327,9 +327,7 @@ const Validation = {
           userExist: false
         });
       })
-      .catch((error) => {
-        return res.status(500).send(error);
-      });
+      .catch((error) => res.status(500).send(error));
   },
 
   /**
@@ -409,19 +407,7 @@ const Validation = {
         message: 'Invalid book id supplied!!!'
       });
     } else {
-      Book.findOne({
-        where: {
-          id: req.params.bookId || req.body.bookId
-        }
-      }).then((book) => {
-        if (!book) {
-          res.status(400).send({
-            message: 'Book id is not valid'
-          });
-        } else {
-          next();
-        }
-      });
+      next();
     }
   }
 };

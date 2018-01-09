@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
       required: true
     },
     productionYear: DataTypes.STRING,
-    catId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER,
     cover: DataTypes.STRING,
     author: DataTypes.STRING,
     description: DataTypes.TEXT
@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
           foreignKey: 'bookId'
         });
         Books.hasOne(models.Category, {
-          foreignKey: 'catId',
+          foreignKey: 'categoryId',
           onDelete: 'CASCADE'
         });
       }

@@ -37,7 +37,7 @@ const mockData = {
     productionYear: 1992,
     cover: 'hello.jpg',
     descriptions: 'Hello world',
-    catId: 1,
+    categoryId: 1,
   },
   modifiedBook: [{
     id: 1,
@@ -47,7 +47,7 @@ const mockData = {
     productionYear: 1992,
     cover: 'hello.jpg',
     descriptions: 'Hello world',
-    catId: 1,
+    categoryId: 1,
   },
   {
     id: 2,
@@ -57,7 +57,7 @@ const mockData = {
     productionYear: 1992,
     cover: 'hello.jpg',
     descriptions: 'Hello world',
-    catId: 1,
+    categoryId: 1,
   }],
   returnedBook: {
     count: 5,
@@ -68,7 +68,7 @@ const mockData = {
       productionYear: 1992,
       cover: 'hello.jpg',
       descriptions: 'Hello world',
-      catId: 1,
+      categoryId: 1,
     },
     {
       title: 'This is a test',
@@ -77,7 +77,7 @@ const mockData = {
       productionYear: 1992,
       cover: 'hello.jpg',
       descriptions: 'Hello world',
-      catId: 1,
+      categoryId: 1,
     }]
   },
   deletedBook: [{
@@ -87,7 +87,7 @@ const mockData = {
     productionYear: 1992,
     cover: 'hello.jpg',
     descriptions: 'Hello world',
-    catId: 1,
+    categoryId: 1,
   }]
 };
 

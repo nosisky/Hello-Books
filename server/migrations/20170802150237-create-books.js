@@ -19,7 +19,7 @@ module.exports = {
       required: true,
       unique: true
     },
-    catId: {
+    categoryId: {
       type: Sequelize.INTEGER,
       required: true
     },

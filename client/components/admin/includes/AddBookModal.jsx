@@ -32,13 +32,13 @@ export class AddBookModal extends Component {
 			authorError: '',
 			productionYearError: '',
 			isbnError: '',
-			descError: '',
+			descriptionError: '',
 			title: '',
 			isbn: '',
 			description: '',
 			cover: 'https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2',
 			author: '',
-			catId: '',
+			categoryId: '',
 			total: 5,
 			productionYear: '',
 			isLoading: '',
@@ -152,7 +152,7 @@ export class AddBookModal extends Component {
 				this.setState({ productionYearError: '' });
 				break;
 			case 'description':
-				this.setState({ descError: '' });
+				this.setState({ descriptionError: '' });
 				break;
 			case 'isbn':
 				this.setState({ isbnError: '' });
@@ -196,7 +196,7 @@ export class AddBookModal extends Component {
 				}
 			case 'description':
 				if (value.length < 5 || !value) {
-					this.setState({ descError: 'Book description is required' });
+					this.setState({ descriptionError: 'Book description is required' });
 					break;
 				}
 			case 'isbn':
@@ -342,8 +342,8 @@ export class AddBookModal extends Component {
 							<div className="row">
 								<div className="col s6">
 									<select
-										id="catId"
-										name="catId"
+										id="categoryId"
+										name="categoryId"
 										onChange={this.onChange}
 										className="browser-default"
 									>
@@ -377,7 +377,7 @@ export class AddBookModal extends Component {
 										onFocus={this.onFocus}
 									/>
 									<label htmlFor="description">Description</label>
-									<div className="red-text">{this.state.descError}</div>
+									<div className="red-text">{this.state.descriptionError}</div>
 								</div>
 							</div>
 							<span>Upload Cover (Default cover will be used if omitted)</span>
