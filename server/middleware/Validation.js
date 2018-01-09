@@ -87,7 +87,7 @@ const Validation = {
       } else {
         const password = bcrypt.hashSync(req.body.password, 10);
         req.userInput = {
-          username: req.body.username,
+          username,
           fullName: req.body.fullName,
           email: req.body.email,
           password
