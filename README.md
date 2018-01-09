@@ -126,7 +126,7 @@ Contributions to this project are welcomed, If you need to contribute to this pr
 
 ## License
 This project is authored by **Abdulrasaq Nasirudeen** (nosisky@gmail.com) and is licensed for your use, modification and distribution under the **MIT** license.
-[MIT][license] © [nosisky][author]
+[MIT][license]
 <!-- Definitions -->
 [license]: LICENSE
 [author]: Abdulrasaq Nasirudeen
