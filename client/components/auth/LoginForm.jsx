@@ -1,35 +1,43 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import GoogleLogin from './GoogleLogin';
-import { checkEmailExist, reMap } from '../../utils/Validation';
-import { registerUserAction, 
-	getUserByEmailAction } from '../../actions/AuthActions';
+import GoogleLogIn from './GoogleLogIn';
+import { checkUserExist } from '../../utils/validation';
+import { registerUserAction, getUserByEmailAction } from '../../actions/UserActions';
 import { connect } from 'react-redux';
 import { redirect } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { withRouter } from 'react-router';
 
 /**
- * 
+ * @description - Login form component
  * 
  * @export {Object} Login component
+ * 
  * @class Login
+ * 
  * @extends {Component}
  */
-export default class Login extends Component {
+export class LoginForm extends Component {
+	/**
+	 * @description - Creates an instance of Login.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf Login
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
 			username: '',
 			password: '',
-			loginError: '',
+			loginError: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 	}
 
 	/**
-	 * Handles the input value changes
+	 * @description - Handles the input value changes
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -37,39 +45,36 @@ export default class Login extends Component {
 	 */
 	onChange(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
+		const value = event.target.value;
 		this.setState({ [name]: value });
 	}
 
 	/**
-	 * Submits forgot user password submission
+	 * @description - Submits the login information
 	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf Login
 	 */
-	handleFormSubmit(event) {
-		event.preventDefault();
-		getUserByEmailAction({ email: event.target.value })
-		.then((res) => {});
-	}
-
-	/**
-	 * Submits the login information
-	 * 
-	 * @param {any} event 
-	 * 
-	 * @memberOf Login
-	 */
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.onSubmit(this.state)
+		this.props.onSubmit(this.state).then(() => {
+			const token = localStorage.getItem('token');
+			if (token) {
+				const currentUser = jwt.decode(token).currentUser;
+				if (currentUser.isAdmin) {
+					this.props.history.push('/admin');
+				} else {
+					this.props.history.push('/dashboard');
+				}
+			}
+		});
 	}
 
 	/**
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
-	 * @returns 
+	 * @returns { Object }
 	 * 
 	 * @memberOf Login
 	 */
@@ -83,56 +88,12 @@ export default class Login extends Component {
 		};
 		return (
 			<div id="login" className="col s12">
-				<div id="forgot_password" className="modal">
-					<div className="modal-content">
-						<h4
-							style={{
-								alignContent: 'center'
-							}}
-						>
-							Request For a new password
-						</h4>
-						<div className="row">
-							<form
-								name="forgot_pass"
-								action="/search"
-								className="col s12"
-								onSubmit={this.handleFormSubmit}
-							>
-								<div className="add-book">
-									<div className="row">
-										<div className="input-field col s12">
-											<input
-												id="name"
-												type="email"
-												name="text"
-												onChange={this.onChange}
-												className="validate"
-												required
-											/>
-											<label htmlFor="isbn">Enter your Email</label>
-										</div>
-									</div>
-								</div>
-								<button
-									style={style.button}
-									className="btn waves-effect waves-light"
-									type="submit"
-									name="submit"
-								>
-									Search
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
 				<div className="red-text center">{this.state.loginError}</div>
 				<form className="col s12" onSubmit={this.handleSubmit}>
 					<div className="form-container">
 						<div className="row">
 							<div className="input-field col s12">
-								<input id="username" type="text" name="username" 
-								onChange={this.onChange} required />
+								<input id="username" type="text" name="username" onChange={this.onChange} required />
 								<label htmlFor="username">Username</label>
 							</div>
 						</div>
@@ -151,13 +112,17 @@ export default class Login extends Component {
 						</div>
 						<br />
 						<center>
-							<button className="btn waves-effect teal" 
-							type="submit" name="action">
+							<button
+								className="btn waves-effect teal"
+								type="submit"
+								name="action"
+								disabled={this.props.apiStatus}
+							>
 								Login
 							</button>
 							<br />
 							<br />
-							<GoogleLogin emailExist={checkEmailExist} />
+							<GoogleLogIn emailExist={checkUserExist} />
 						</center>
 					</div>
 				</form>
@@ -165,3 +130,5 @@ export default class Login extends Component {
 		);
 	}
 }
+
+export default withRouter(connect()(LoginForm));

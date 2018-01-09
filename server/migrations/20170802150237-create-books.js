@@ -16,13 +16,14 @@ module.exports = {
     },
     isbn: {
       type: Sequelize.TEXT,
-      required: true
+      required: true,
+      unique: true
     },
-    catId: {
+    categoryId: {
       type: Sequelize.INTEGER,
       required: true
     },
-    prodYear: {
+    productionYear: {
       type: Sequelize.STRING
     },
     cover: {

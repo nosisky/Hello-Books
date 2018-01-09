@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   cache: true,
@@ -10,7 +10,7 @@ module.exports = {
     './client/index.jsx'
   ],
   output: {
-    path: path.join(__dirname, 'client/dist/'),
+    path: path.join(__dirname, './client/dist/'),
     publicPath: '/client/index.js',
     filename: 'bundle.js'
   },
@@ -18,14 +18,14 @@ module.exports = {
     Materialize: 'Materialize'
   },
   plugins: [
-    new CleanWebpackPlugin(['client/dist']),
-    new HtmlWebpackPlugin({
+    new cleanWebpackPlugin(['client/dist']),
+    new htmlWebpackPlugin({
       title: 'Hello-Books',
       template: 'client/index.html',
       inject: 'body'
     }),
     new webpack.EnvironmentPlugin([
-      'FIREABSE_DOMAIN',
+      'FIREBASE_DOMAIN',
       'FIREBASE_MESSENGERID',
       'FIREBASE_APIKEY',
       'FIREBASE_URL',

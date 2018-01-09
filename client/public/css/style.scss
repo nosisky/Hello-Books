@@ -270,6 +270,7 @@ h5 {
 	width: 100%;
 	text-align: center;
 	font-size: 17px;
+	min-height: 70px;
 }
 
 .card .card-image {
@@ -429,6 +430,10 @@ h5 {
 .description {
 	margin-top: 50px;
 }
+
+#addBook {
+	padding: 25px;
+}
 .user-profile ul.data {
 	margin: 2em auto;
 	height: 4.70em;
@@ -455,6 +460,24 @@ h5 {
 .collection .collection-item {
 	font-weight: bold;
 	margin: 33px !important;
+}
+
+.collection .collection-item.avatar .secondary-content {
+	font-size: 9px;
+	font-weight: normal;
+	padding-top: 35px;
+}
+
+#sidenav-overlay {
+	background: none !important;
+}
+
+nav i,
+nav [class^="mdi-"],
+nav [class*="mdi-"],
+nav i.material-icons {
+	margin-left: 10px;
+	margin-right: 8px;
 }
 
 .tag-name {
@@ -494,12 +517,37 @@ h5 {
 }
 
 .empty-notifier {
-	color: rgb(255, 255, 255);
+	color: white;
 	float: right;
-	margin-right: 50px;
-	background: $circular;
-	padding: 40px;
-	margin: 30px;
+	margin: 50px 80px 0px 0px;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 1366px) and (min-width: 1024px) {
+	#hide {
+		display: none;
+	}
+}
+
+
+@media screen and (min-width: 1366px) {
+	#hide-pc {
+		display: none;
+	}
+}
+
+
+div.preloader {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	background: rgba(6, 95, 124, 0.94) url('https://loading.io/spinners/equalizer/lg.equalizer-bars-loader.gif') 
+	no-repeat center center;
 }
 
 .notfound {
@@ -507,4 +555,7 @@ h5 {
 	margin-right: 50px;
 	background: #8c2526;
 	padding: 80px;
+}
+a > i {
+	cursor: pointer;
 }

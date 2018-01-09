@@ -6,7 +6,24 @@ import { bindActionCreators } from 'redux';
 import { deleteBookAction, 
 	modifyBookAction } from '../../../actions/BookActions';
 
+/**
+ * AllBooks component
+ * 
+ * @export { Object }
+ * 
+ * @class AllBooks
+ * 
+ * @extends {Component}
+ */
 export class AllBooks extends Component {
+
+	/**
+	 * @description - Creates an instance of AllBooks.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf AllBooks
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -14,7 +31,7 @@ export class AllBooks extends Component {
 			description: this.props.description,
 			isbn: this.props.isbn,
 			author: this.props.author,
-			prodYear: this.props.prodYear,
+			productionYear: this.props.productionYear,
 			total: this.props.total,
 			currentBook: {},
 			edit: false,
@@ -23,13 +40,12 @@ export class AllBooks extends Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
-		this.onClick = this.onClick.bind(this);
 		this.changeView = this.changeView.bind(this);
 	}
 
 	/**
 	 * 
-	 * Handles the delete book actioon
+	 * @description - Handles the delete book action
 	 * 
 	 * @memberOf AllBooks
 	 */
@@ -42,7 +58,7 @@ export class AllBooks extends Component {
 			dangerMode: true
 		}).then((willDelete) => {
 			if (willDelete) {
-				this.props.actions.deleteBookAction(this.props.id).then((response) => {
+				this.props.deleteBookAction(this.props.id).then((response) => {
 					swal(response, { icon: 'success' });
 				});
 			} else {
@@ -52,33 +68,19 @@ export class AllBooks extends Component {
 	}
 
 	/**
-	 * 
-	 * 
-	 * Toggles the application display
-	 * 
-	 * @memberOf AllBooks
-	 */
-	onClick() {
-		this.setState({ 
-			displayBook: false, 
-			edit: true 
-		});
-	}
-
-	/**
-	 * 
-	 * 
-	 * Toggles the application display
+	 *
+	 * @description - Toggles the application display
 	 * 
 	 * @memberOf AllBooks
 	 */
 	changeView() {
-		this.setState({ displayBook: true, edit: false });
+		this.setState({ displayBook: !this.state.displayBook, 
+			edit: !this.state.edit });
 	}
 	
 	/**
 	 * 
-	 * Submits the form data
+	 * @description - Submits the form data
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -86,17 +88,14 @@ export class AllBooks extends Component {
 	 */
 	handleFormSubmit(event) {
 		event.preventDefault();
-		this.props.actions.modifyBookAction(this.state, this.props.id)
-		.then((response) => {
-			Materialize.toast(response, 1000, 'blue', () => {
-				this.setState({ displayBook: true, edit: false });
-			});
-		});
+		this.props.modifyBookAction(this.state, this.props.id)
+		this.changeView()
 	}
 
 	/**
 	 * 
-	 * Executes when the input box value changes
+	 * @description - Sets user input in component local sttae
+	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf AllBooks
@@ -109,7 +108,8 @@ export class AllBooks extends Component {
 
 	/**
 	 * 
-	 * Displays the component
+	 * @description - Renders the component
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf AllBooks
@@ -180,6 +180,7 @@ export class AllBooks extends Component {
 												id="total"
 												name="total"
 												type="number"
+												min="1"
 												className="validate"
 												onChange={this.onChange}
 												defaultValue={this.state.total}
@@ -189,10 +190,11 @@ export class AllBooks extends Component {
 										<div className="input-field col s6">
 											<b>Year</b>
 											<input
-												id="prodYear"
-												name="prodYear"
+												id="productionYear"
+												name="productionYear"
 												type="number"
-												defaultValue={this.state.prodYear}
+												min="1000"
+												defaultValue={this.state.productionYear}
 												onChange={this.onChange}
 												className="validate"
 												required
@@ -200,11 +202,13 @@ export class AllBooks extends Component {
 										</div>
 									</div>
 								</div>
-								<button id="submit_edit" style={style.edit} type="submit" name="submit">
+								<button id="submit_edit" style={style.edit} type="submit" 
+								name="submit">
 									Edit Book
 								</button>
 								<div>
-									<button style={style.cancel} onClick={this.changeView} id="edit_button">
+									<button style={style.cancel} onClick={this.changeView} 
+									id="edit_button">
 										Cancel
 									</button>
 								</div>
@@ -216,7 +220,8 @@ export class AllBooks extends Component {
 				{this.state.displayBook && (
 					<div className="card" id="book_card">
 						<div className="card-image">
-							<img height="250px" src={this.props.cover} alt="loading image..." />
+							<img height="250px" src={this.props.cover} 
+							alt="loading image..." />
 							<span className="card-title">{this.props.title}</span>
 						</div>
 						<div className="truncate card-content">
@@ -226,7 +231,7 @@ export class AllBooks extends Component {
 							<a onClick={this.handleClick} id="delete_button">
 								Delete
 							</a>
-							<a onClick={this.onClick} id="edit_button">
+							<a onClick={this.changeView} id="edit_button">
 								Edit
 							</a>
 						</div>
@@ -237,22 +242,4 @@ export class AllBooks extends Component {
 	}
 }
 
-/**
- * 
- * Maps dispatch to the component props
- * @param {Object} dispatch 
- * @returns {Object}
- */
-function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(
-			{
-				deleteBookAction,
-				modifyBookAction
-			},
-			dispatch
-		)
-	};
-}
-
-export default connect(null, mapDispatchToProps)(AllBooks);
+export default connect(null, { deleteBookAction, modifyBookAction })(AllBooks);

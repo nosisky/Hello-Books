@@ -1,26 +1,29 @@
 import bcrypt from 'bcrypt';
 import omit from 'lodash/omit';
 
-import database from '../models/index';
+import database from '../models';
 
 const { Book, User } = database;
 
-export default {
-
+const Validation = {
   /**
-   * 
-   * Validates User Input
+   *
+   * @description - Validates User Input
+   *
    * @param {Object} req - request
-   * 
+   *
    * @param {Object} res - response
-   * 
+   *
    * @param {Object} next - call back function
-   * 
+   *
    * @returns {Object} - Object containing error message
    */
   checkUserInput(req, res, next) {
-    const userNameError = 'Please provide a '
-    + 'username with atleast 4 characters.';
+    let userNameError = '';
+    userNameError = 'Please provide a username with atleast 4 characters.';
+    req.assert('passwordConfirm', 'Confirm password').notEmpty().len(5, 20);
+    req.assert('passwordConfirm', 'Passwords must match')
+      .equals(req.body.password);
 
     req.checkBody({
       username: {
@@ -61,9 +64,11 @@ export default {
       });
       return res.status(400).json(allErrors);
     }
-    User.findOne({
+    const username = req.body.username.toLowerCase();
+
+    return User.findOne({
       where: {
-        username: req.body.username,
+        username,
         $or: {
           email: req.body.email
         }
@@ -74,34 +79,55 @@ export default {
           return res.status(409).send({
             message: 'Email already exist'
           });
-        } else if (user.username === req.body.email) {
+        } else if (user.username === req.body.username) {
           return res.status(409).send({
             message: 'Username already exist'
           });
         }
+      } else {
+        const password = bcrypt.hashSync(req.body.password, 10);
+        req.userInput = {
+          username: req.body.username,
+          fullName: req.body.fullName,
+          email: req.body.email,
+          password
+        };
+        next();
       }
     });
+  },
 
-    const password = bcrypt.hashSync(req.body.password, 10); // encrypt password
-    req.userInput = {
-      username: req.body.username,
-      fullName: req.body.fullName,
-      email: req.body.email,
-      password,
-      plan: req.body.plan
-    };
+  /**
+ * Checks if book id is a number
+ *
+ * @param {Object} req - request
+ *
+ * @param {Object} res - response
+ *
+ * @param {Function} next - Call back function
+ *
+ * @returns { Object } - containing error message
+ */
+  checkBookId(req, res, next) {
+    const querier = req.body.bookId || req.params.bookId;
+    if (!querier || /[\D]/.test(querier)) {
+      return res.status(400).send({
+        message: 'Invalid book id supplied!!!'
+      });
+    }
     next();
   },
 
   /**
-   * 
-   * Validates User Input when adding book
+   *
+   * @description - Validates User Input when adding book
+   *
    * @param {Object} req - request
-   * 
+   *
    * @param {Object} res - response
-   * 
+   *
    * @param {Object} next - call back function
-   * 
+   *
    * @returns {Object} - Object containing error message
    */
   checkBookInput(req, res, next) {
@@ -119,7 +145,7 @@ export default {
         notEmpty: true,
         errorMessage: 'ISBN is required'
       },
-      prodYear: {
+      productionYear: {
         notEmpty: true,
         errorMessage: 'Production Year is required'
       },
@@ -139,7 +165,7 @@ export default {
         notEmpty: true,
         errorMessage: 'Please add total book'
       },
-      catId: {
+      categoryId: {
         notEmpty: true,
         errorMessage: 'Please add book category'
       }
@@ -151,155 +177,229 @@ export default {
         const errorMessage = error.msg;
         allErrors.push(errorMessage);
       });
-      return res.status(409).json({
+      return res.status(400).json({
         message: allErrors[0]
       });
     }
+    Book.findOne({
+      where: {
+        isbn: req.body.isbn
+      }
+    })
+      .then((book) => {
+        if (book) {
+          return res.status(409).send({
+            message: 'Book with that ISBN already exist'
+          });
+        }
+      });
     req.userInput = {
       title: req.body.title,
       isbn: req.body.isbn,
-      prodYear: req.body.prodYear,
+      productionYear: req.body.productionYear,
       cover: req.body.cover,
       author: req.body.author,
       description: req.body.description,
-      catId: req.body.catId,
+      categoryId: req.body.categoryId,
       total: req.body.total
     };
     next();
   },
 
-  /** Check quantity of book in the DB
-   * @param  {Object} req - request
-   * 
-   * @param  {object} res - response
-   * 
-   * @param {Object} next - Call back function
-   * 
-   * @return {Object} - Object containing message
+  /**
+   * @description - Validates user data
+   *
+   * @param {String} email - User email
+   *
+   * @param {String} username - Username
+   *
+   * @param {Object} res - response object
+   *
+   * @returns {Object} - response message
    */
-  checkTotalBook(req, res, next) {
-    Book.findOne({
-      where: {
-        id: req.body.bookId
-      }
-    }).then((book) => {
-      if (book.total < 1) {
-        res.status(200).send({
-          message: 'This book is not available for rent!'
+  checkValidDetails(email, username, res) {
+    const validator = /[\W]{2,}/;
+    const regularExpression = /\S+@\S+\.\S+/;
+    const emailValidate = regularExpression.test(email);
+
+    if (username) {
+      if (validator.test(username)) {
+        return res.status(400).send({
+          message: 'Invalid Username supplied!'
         });
-      } else {
-        next();
       }
-    });
+    } else if (email) {
+      if (!emailValidate) {
+        return res.status(200).send({
+          status: true,
+          message: 'Invalid email supplied'
+        });
+      }
+    } else {
+      return res.status(400).send({
+        message: 'Invalid request'
+      });
+    }
   },
 
-  /** Check if a user is valid
-   * @param  {Object} req - request
-   * 
-   * @param  {object} res - response
-   * 
-   * @param {Object} next - Call back function
-   * 
-   * @return {Object} - Object containing message
+  /**
+ * @description - Verify and retrieve suer details
+ *
+ * @param {Object} req - request
+ *
+ * @param {Object} res - response
+ *
+ * @return {Object} - repsonse object
+ */
+  checkAndRetrieveUserDetails(req, res) {
+    const userExist = 'Username already exist';
+    const emailExist = 'Email already exist';
+
+    Validation.checkValidDetails(req.body.email, req.body.username, res);
+
+    User.findOne({
+      where: {
+        $or: [{ username: req.body.username },
+          { email: req.body.email }]
+      }
+    })
+      .then((users) => {
+        if (users) {
+          const currentUser = omit(
+            users.dataValues,
+            ['password', 'createdAt', 'updatedAt']
+          );
+
+          if (req.body.userId) {
+            if (Number(req.body.userId) === users.id) {
+              if (req.body.email) {
+                return res.status(200).send({
+                  user: currentUser,
+                  emailExist: true,
+                  message: '',
+                  status: true
+                });
+              }
+              return res.status(200).send({
+                user: currentUser,
+                userExist: true,
+                status: true,
+                message: emailExist
+              });
+            }
+            if (req.body.email) {
+              return res.status(200).send({
+                user: currentUser,
+                emailExist: true,
+                message: emailExist,
+                status: true
+              });
+            }
+            return res.status(200).send({
+              user: currentUser,
+              userExist: true,
+              status: true,
+              message: userExist
+            });
+          }
+          if (req.body.google) {
+            return res.status(200).send({
+              emailExist: true,
+              status: true,
+              message: userExist,
+              user: currentUser
+            });
+          }
+          if (req.body.email) {
+            return res.status(200).send({
+              emailExist: true,
+              status: true,
+              message: emailExist
+            });
+          }
+          return res.status(200).send({
+            userExist: true,
+            status: true,
+            message: userExist
+          });
+        }
+        return res.status(200).send({
+          message: 'User not found',
+          status: false,
+          userExist: false
+        });
+      })
+      .catch((error) => res.status(500).send(error));
+  },
+
+  /**
+   * Validates user data when editing profile
+   *
+   * @param {Object} req - request object
+   *
+   * @param {Object} res - repsonse object
+   *
+   * @param {Function} next - Call back function
+   *
+   * @returns {Object} - Response object
    */
-  validUser(req, res, next) {
-    const querier = req.params.userId;
-    if (!querier || querier.match(/[\D]/)) {
+  validateUserEdit(req, res, next) {
+    const emailValidator = /\S+@\S+\.\S+/;
+    const usernameValidator = /[A-Za-z]/g;
+
+    if (!usernameValidator.test(req.body.username)
+    || !emailValidator.test(req.body.email)) {
       res.status(400).send({
-        message: 'Invalid user id supplied!!!'
+        message: 'Invalid data supplied pls check and try again'
       });
     } else {
       User.findOne({
         where: {
-          id: req.params.userId
+          email: req.body.email
         }
-      }).then((user) => {
-        if (!user) {
-          res.status(400).send({
-            message: 'Invalid user id supplied'
-          });
-        } else {
+      })
+        .then((user) => {
+          if (user && user.id !== req.decoded.currentUser.id) {
+            return res.status(409).send({
+              message: 'Email already exist'
+            });
+          } else if (req.body.oldPassword &&
+            !bcrypt.compareSync(req.body.oldPassword, user.password)) {
+            res.status(400).send({
+              message: 'Old password is incorrect'
+            });
+          }
+
+          let userData;
+
+          if (req.body.oldPassword) {
+            const password = bcrypt.hashSync(req.body.newPassword, 10);
+            userData = {
+              email: req.body.email,
+              fullName: req.body.fullName,
+              password,
+            };
+          } else {
+            userData = {
+              email: req.body.email,
+              fullName: req.body.fullName,
+            };
+          }
+          req.newUserData = userData;
           next();
-        }
-      });
+        });
     }
   },
 
-  /** Checks if a user alreday exist
+  /**
+   * @description - Checks for validity of book
+   *
    * @param  {Object} req - request
-   * 
+   *
    * @param  {object} res - response
-   * 
-   * @return {Object} - Object containing message
-   */
-  UserExist(req, res) {
-    const validator = /[0-9]{2,}/;
-    const validator2 = /[\W]{2,}/;
-    if (validator.test(req.body.username)
-      || validator2.test(req.body.username)) {
-      return res.status(400).send({
-        message: 'Invalid Username supplied!'
-      });
-    }
-    return User.findOne({
-      where: {
-        username: req.body.username
-      }
-    })
-      .then((user) => {
-        if (user.username !== req.params.username) {
-          return res.status(200).send({ message: 'username already exist' });
-        }
-        return res.status(404).send({ message: '' });
-      })
-      .catch(error => res.status(500).send({ error }));
-  },
-
-
-  /** Checks if an email address already exist
-   * @param  {Object} req - request
-   * 
-   * @param  {object} res - response
-   * 
-   * @return {Object} - Object containing message
-   */
-  emailExist(req, res) {
-    const regularExpression = /\S+@\S+\.\S+/,
-      emailValidate = regularExpression.test(req.body.email);
-    if (!emailValidate) {
-      res.send({ message: 'Invalid email supplied' });
-      return;
-    }
-    return User.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
-      .then((user) => {
-        if (user.id !== req.body.userId) {
-          const currentUser = omit(user.dataValues, [
-            'password',
-            'createdAt',
-            'updatedAt'
-          ]);
-          res.status(200).send({
-            message: 'Email already exist',
-            user: currentUser
-          });
-        } else {
-          res.status(200).send({ message: '' });
-        }
-      })
-      .catch(error => res.status(404).send({ error }));
-  },
-
-  /** Checks for validity of book
-   * @param  {Object} req - request
-   * 
-   * @param  {object} res - response
-   * 
+   *
    * @param {Object} next - Call back function
-   * 
+   *
    * @return {Object} - Object containing message
    */
   validBook(req, res, next) {
@@ -309,19 +409,9 @@ export default {
         message: 'Invalid book id supplied!!!'
       });
     } else {
-      Book.findOne({
-        where: {
-          id: req.params.bookId || req.body.bookId
-        }
-      }).then((book) => {
-        if (!book) {
-          res.status(400).send({
-            message: 'Book id is not valid'
-          });
-        } else {
-          next();
-        }
-      });
+      next();
     }
   }
 };
+
+export default Validation;

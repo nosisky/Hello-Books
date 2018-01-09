@@ -5,18 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node server.js",
-    "client:coverage": "NODE_ENV=test ./node_modules/.bin/nyc --reporter=html --reporter=text mocha --reporter spec --compilers js:babel-register ./server/test/**/*.spec.js --timeout 400000 --exit",
     "webpack": "webpack-dev-server --progress --colors --hot --config ./webpack.config.dev.js",
-    "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test/server ",
-    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test/server ",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "test": "NODE_ENV=test&& mocha --timeout 40000 --compilers js:babel-core/register test ",
+    "tests": "NODE_ENV=test mocha --timeout 1000000 --compilers js:babel-core/register test ",
+    "coveralls": "NODE_ENV=test nyc report --reporter=text-lcov | coveralls",
     "client:test": "jest --coverage cli",
     "test:watch": "npm run client:test -- --watch",
     "build": "webpack --progress --config ./webpack.config.prod.js",
     "heroku-postbuild": "NODE_ENV=production &&npm run build",
     "migrate:undo": "sequelize db:seed:undo",
     "db:seed": "DATABASE_URL=$DATABASE_URL sequelize db:seed --seed server/seeders/20171016124637-users.js",
-    "coverage": "./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test/server"
+    "coverage": "NODE_ENV=test &&./node_modules/.bin/nyc --reporter=lcov mocha --reporter spec --timeout 40000 --compilers js:babel-core/register test"
   },
   "engines": {
     "node": "6.11.0"
@@ -28,13 +27,7 @@
     "url": "https://github.com/nosisky/Hello-Books/issues"
   },
   "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "modulePathIgnorePatterns": [
-      "client/__test__/__mocks__",
-      "client/components/admin/pages/AddANewBook",
-      "client/components/auth/GoogleLogin"
-    ]
+    "setupFiles": ["<rootDir>/test-env.js"]
   },
   "homepage": "https://github.com/nosisky/Hello-Books#readme",
   "dependencies": {
@@ -63,6 +56,7 @@
     "eslint": "^4.3.0",
     "eslint-config": "^0.3.0",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
@@ -102,6 +96,7 @@
     "react-router-dom": "^4.2.2",
     "react-simple-dropdown": "^3.2.0",
     "redux": "^3.7.2",
+    "redux-immutable-state-invariant": "^2.1.0",
     "redux-mock-store": "^1.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
@@ -124,11 +119,13 @@
     "chai": "^4.1.2",
     "coveralls": "^2.13.1",
     "enzyme-adapter-react-15": "^1.0.5",
+    "eslint": "^4.14.0",
     "faker": "^4.1.0",
     "firebase-admin": "^5.5.1",
     "firebase-functions": "^0.7.3",
     "firebase-mock": "^1.1.13",
     "istanbul": "^0.4.5",
+    "jasmine": "^2.8.0",
     "mocha": "^3.5.0",
     "mocha-lcov-reporter": "^1.3.0",
     "moxios": "^0.4.0",

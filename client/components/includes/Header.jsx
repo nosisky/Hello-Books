@@ -4,31 +4,42 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import AddNewBook from '../admin/pages/AddANewBook';
-import { logoutAction, editProfileAction } from '../../actions/AuthActions';
+import { logoutAction, editProfileAction } from '../../actions/UserActions';
+import { searchAction } from '../../actions/BookActions';
 import mailSender from '../../utils/mailSender';
 
 /**
- * 
+ * @description - User page header component
  * 
  * @class Header
+ * 
  * @extends {Component}
  */
 export class Header extends Component {
+	/**
+	 * @description - Creates an instance of Header.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf Header
+	 */
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);
 
 		this.state = {
-			plan: ''
+			plan: '',
+			search: '',
+			displaySearch: false
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.searchDisplay = this.searchDisplay.bind(this);
+		this.fetchResult = this.fetchResult.bind(this);
 	}
 
 	/**
-	 * Executes after the component has rendered
-	 * 
+	 * @description - Executes after the component has rendered
 	 * 
 	 * @memberOf Header
 	 */
@@ -39,11 +50,14 @@ export class Header extends Component {
 			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
+		$('.dropdown-button').dropdown({
+			hover: true
+		});
 		$('.modal').modal();
 	}
 
 	/**
-	 * Logs the user out of the application
+	 * @description - Logs the user out of the application
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -53,25 +67,26 @@ export class Header extends Component {
 		event.preventDefault();
 
 		this.props.actions.logout();
-
-		this.context.router.push('/');
 	}
 
 	/**
-	 * 
+	 * @description - Sets user input to applocation local state
 	 * 
 	 * @param {Object} event 
 	 * 
 	 * @memberOf Header
 	 */
 	onChange(event) {
+		const name = event.target.name;
+		const value = event.target.value;
+
 		this.setState({
-			plan: event.target.value
+			[name]: value
 		});
 	}
 
 	/**
-	 * Handles form submit
+	 * @description - Handles form submit
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -79,6 +94,8 @@ export class Header extends Component {
 	 */
 	onSubmit(event) {
 		event.preventDefault();
+		Materialize.toast('Transaction is in process...', 2000, 'green');
+		$('#plan').modal('close');		
 		const data = {
 			message: `${this.props.user.username} wants an account
        upgrade to ${this.state.plan}`,
@@ -89,20 +106,30 @@ export class Header extends Component {
 			.then((status) => {
 				if (status) {
 					swal('Response recieved successfully, an Admin will get back to you.');
-					$('#plan').modal('close');
 				}
 			})
-			.catch((error) => {});
+			.catch((error) => Materialize.toast(error, 1000, 'red'));
+	}
+
+	fetchResult(event) {
+		this.props.actions.searchAction({ search: event.target.value });
+	}
+
+	searchDisplay() {
+		this.setState({
+			displaySearch: !this.state.displaySearch
+		});
 	}
 
 	/**
-	 * 
+	 * @description - Displays the component
 	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf Header
 	 */
 	render() {
+		const showSearch = window.location.pathname === '/dashboard';
 		const style = {
 			button: {
 				backgroundColor: 'rgb(37, 76, 71)',
@@ -115,16 +142,8 @@ export class Header extends Component {
 			<div id="menu">
 				<nav>
 					<div className="nav-wrapper">
-						<div
-							className="left"
-							style={{
-								fontSize: 'x-large'
-							}}
-						>
-							<Link to="/">HelloBooks</Link>
-						</div>
 						<a href="#" data-activates="slide-out" 
-						className="button-collapse hide-on-large-only right">
+						className="button-collapse hide-on-large-only left">
 							<i
 								style={{
 									color: '#fff',
@@ -135,22 +154,66 @@ export class Header extends Component {
 								menu
 							</i>
 						</a>
-						<ul className="right hide-on-med-and-down">
-							<li>
-								<a data-target="search_book" 
-								className="modal-trigger" 
-								href="#search_book">
+						<a
+							className="right hide-on-large-only"
+							name="logout"
+							onClick={this.props.actions.logoutAction}
+						>
+							<i className="material-icons">exit_to_app</i>
+						</a>
+
+						{ this.state.displaySearch && 
+								<a onClick={this.searchDisplay} 
+								className="right hide-on-large-only">
+								<i className="material-icons">cancel</i>
+								</a>	
+							 }
+						<div className="right hide-on-large-only">
+							{showSearch && !this.state.displaySearch && (
+								<a onClick={this.searchDisplay}>
 									<i className="material-icons">search</i>
 								</a>
+							)}
+
+							{showSearch && this.state.displaySearch && (
+								<input 
+								onChange={this.fetchResult} 
+								type="search" name="search" placeholder="Search book..." />
+							)}
+
+						</div>
+						<ul className="right hide-on-med-and-down">
+							<li>
+								{showSearch && !this.state.displaySearch && (
+									<a id="showSearch" onClick={this.searchDisplay}>
+										<i className="material-icons">search</i>
+									</a>
+								)}
+
+								{showSearch && this.state.displaySearch && (
+									<input
+										onChange={this.fetchResult}
+										type="text"
+										name="search"
+										placeholder="Search book..."
+									/>
+								)}
 							</li>
 							<li>
-								<a name="logout" onClick={this.props.actions.logoutAction} 
-								href="#!">
+							{ this.state.displaySearch && 
+								<a onClick={this.searchDisplay}>
+								<i className="material-icons">cancel</i>
+								</a>	}																
+							</li>
+							<li>
+								<a id="logout_icon" 
+								onClick={this.props.actions.logoutAction} >
 									<i className="material-icons">exit_to_app</i>
 								</a>
 							</li>
 							<li>
-								<a className="dropdown-button" data-activates="dropdown2">
+								<a id="hide" 
+								className="dropdown-button" data-activates="dropdown2">
 									<i className="material-icons">more_vert</i>
 								</a>
 							</li>
@@ -160,8 +223,7 @@ export class Header extends Component {
 								<Link to="/profile">Profile</Link>
 							</li>
 							<li>
-								<a name="logout" 
-								onClick={this.props.actions.logoutAction} href="#!">
+								<a name="logout" onClick={this.props.actions.logoutAction} >
 									Logout
 								</a>
 							</li>
@@ -201,50 +263,6 @@ export class Header extends Component {
 						</div>
 					</div>
 				</div>
-				{/* Search Modal */}
-				<div id="search_book" className="modal">
-					<div className="modal-content">
-						<h4
-							style={{
-								alignContent: 'center'
-							}}
-						>
-							Search for a book
-						</h4>
-						<div className="row">
-							<form
-								name="search_book"
-								action="/search"
-								className="col s12"
-								onSubmit={this.handleFormSubmit}
-							>
-								<div className="add-book">
-									<div className="row">
-										<div className="input-field col s12">
-											<input
-												id="name"
-												type="text"
-												name="text"
-												onChange={this.onChange}
-												className="validate"
-												required
-											/>
-											<label htmlFor="isbn">What do you want?</label>
-										</div>
-									</div>
-								</div>
-								<button
-									style={style.button}
-									className="btn waves-effect waves-light"
-									type="submit"
-									name="submit"
-								>
-									Search
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
 			</div>
 		);
 	}
@@ -256,29 +274,34 @@ Header.PropTypes = {
 };
 
 /**
- * 
+ * Maps the application state to component props
  * 
  * @param {Object} state - Application state
  *  
  * @returns {Object} - Selected state
  */
-function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser };
+export function mapStateToProps(state) {
+	return { 
+		apiStatus: state.auth.apiStatus,
+		user: state.auth.user 
+	};
 }
 
 /**
  * 
- * Maps the state to component Props
+ * Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
 				logoutAction,
-				editProfileAction
+				editProfileAction,
+				searchAction
 			},
 			dispatch
 		)

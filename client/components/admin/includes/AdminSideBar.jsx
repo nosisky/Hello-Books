@@ -2,9 +2,28 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addCategoryAction } from '../../../actions/BookActions';
+import { addCategoryAction, addBookAction } from '../../../actions/BookActions';
+import AddBookModal from '../includes/AddBookModal';
+import firebase from 'firebase';
 
+/**
+ * 
+ * 
+ * @export {  Object } export class
+ * 
+ * @class AdminSideBar
+ * 
+ * @extends {Component}
+ */
 export class AdminSideBar extends Component {
+
+	/**
+	 * @description - Creates an instance of AdminSideBar.
+	 * 
+	 * @param {Object} props - component properties
+	 * 
+	 * @memberOf AdminSideBar
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -18,14 +37,15 @@ export class AdminSideBar extends Component {
 
 	/**
 	 * 
-	 * Executes after component is mounted
+	 * @description - Executes after component is mounted
+	 * 
 	 * @memberOf AdminSideBar
 	 */
 	componentDidMount() {
 		$('.button-collapse').sideNav({
 			menuWidth: 300, // Default is 300
 			edge: 'left', // Choose the horizontal origin
-			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
 		$('.modal').modal();
@@ -33,9 +53,9 @@ export class AdminSideBar extends Component {
 
 
 	/**
+	 * @description - Submits the user input
 	 * 
-	 * 
-	 * @param {Object} event 
+	 * @param {Object} event - form data object
 	 * 
 	 * @memberOf AdminSideBar
 	 */
@@ -43,17 +63,12 @@ export class AdminSideBar extends Component {
 		event.preventDefault();
 		this.props.actions
 			.addCategoryAction(this.state)
-			.then((message) => {
-				Materialize.toast(message, 2000, 'blue');
-				$('.modal').modal('close');
-			})
-			.catch((error) => Materialize.toast(error, 2000, 'blue'));
 	}
 
 	/**
+	 * @description - Sets the user input in the local state
 	 * 
-	 * 
-	 * @param {Object} event 
+	 * @param {Object} event - form data object
 	 * 
 	 * @memberOf AdminSideBar
 	 */
@@ -62,6 +77,14 @@ export class AdminSideBar extends Component {
 			[event.target.name]: event.target.value
 		});
 	}
+
+	/**
+	 * @description - Renders the component
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf AdminSideBar
+	 */
 	render() {
 		const style = {
 			account: {
@@ -102,6 +125,10 @@ export class AdminSideBar extends Component {
 		};
 		return (
 			<div>
+				<AddBookModal 
+				firebaseStorage={firebase.storage().ref('images')}
+				onSubmit={this.props.actions.addBookAction}
+				/>
 				<div className="col s2 m3 l3">
 					<ul id="slide-out" className="side-nav fixed show-on-large-only">
 						<div style={style.side}>
@@ -131,13 +158,13 @@ export class AdminSideBar extends Component {
 						</div>
 						<li className="divider" />
 						<li id="menu-list">
-							<Link id="add-book" to="/add-book">
-								Add a book
-								<i className="material-icons">add</i>
-							</Link>
+						<a data-target="add_book" id="add_book" className="modal-trigger" 
+						href="#addBook">
+							Add Book<i className="material-icons">add</i>
+						</a>
 						</li>
 						<li id="menu-list">
-							<a data-target="add_cat" className="modal-trigger" 
+							<a id="add_category" data-target="add_cat" className="modal-trigger" 
 							href="#add_cat">
 								Add Category<i className="material-icons">add</i>
 							</a>
@@ -160,15 +187,14 @@ export class AdminSideBar extends Component {
 					</ul>
 					<div id="add_cat" className="modal">
 						<div className="modal-content">
-							<h4
-								style={{
-									alignContent: 'center'
-								}}
-							>
+							<h4 className="center-align">
 								Add Category
 							</h4>
 							<div className="row">
-								<form name="edit_book" className="col s12" 
+								<form 
+								id="category_form"
+								name="edit_book" 
+								className="col s12" 
 								onSubmit={this.handleFormSubmit}>
 									<div className="add-book">
 										<div className="row">
@@ -197,8 +223,9 @@ export class AdminSideBar extends Component {
 										</div>
 									</div>
 									<button
+										id="submit_category"
 										style={style.button}
-										className="btn waves-effect waves-light"
+										className="btn waves-effect"
 										type="submit"
 										name="submit"
 									>
@@ -215,17 +242,18 @@ export class AdminSideBar extends Component {
 }
 
 /**
- * 
+ * @description - Maps dispatch to component props
  * 
  * @param {Function} dispatch 
  * 
- * @returns 
+ * @returns { Object } - Object containing async actions creators
  */
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
-				addCategoryAction
+				addCategoryAction,
+				addBookAction
 			},
 			dispatch
 		)

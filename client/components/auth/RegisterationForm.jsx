@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
+import $ from 'jquery';
 /**
  * 
- * 
  * @export {Object} - Regiser component
+ * 
  * @class Register
+ * 
  * @extends {Component}
  */
-export default class Register extends Component {
+export class RegisterationForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -24,7 +26,9 @@ export default class Register extends Component {
 			emailError: '',
 			userExist: '',
 			emailExist: '',
-			isLoading: ''
+			isLoading: '',
+			fullNameError: '',
+			errorLength: 0
 		};
 		this.onChange = this.onChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,7 +37,7 @@ export default class Register extends Component {
 	}
 
 	/**
-	 * Handles the input value changes
+	 * @description - Sets user input in the local state
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -41,27 +45,28 @@ export default class Register extends Component {
 	 */
 	onChange(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
+		const value = event.target.value;
 		this.setState({
 			[event.target.name]: event.target.value
 		});
 	}
 
 	/**
-	 * Submits the ulogi information
+	 * @description - Submits the user information
 	 * 
-	 * @param {any} event 
+	 * @param {Object} event 
 	 * 
 	 * @memberOf Register
 	 */
 	handleSubmit(formData) {
-		this.setState({ isLoading: true });
 		formData.preventDefault();
-		this.props.onSubmit(this.state)
+		this.props.onSubmit(this.state).then(() => {
+			this.props.history.push('/dashboard');
+		});
 	}
 
 	/**
-	 * Clears out error on input box
+	 * @description - Clears out error on input box
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -70,22 +75,28 @@ export default class Register extends Component {
 	onFocus(event) {
 		const name = event.target.name;
 		switch (name) {
+			case 'fullName':
+				this.setState({
+					fullNameError: ''
+				})
+				break;
 			case 'username':
-				this.setState({ usernameError: '', userExist: '' });
+				this.setState({ usernameError: '',
+							userExist: '' });
 				break;
 			case 'password':
 				this.setState({ passwordError: '' });
 				break;
 			case 'passwordConfirm':
-				this.setState({ passwordConfirm: '' });
+				this.setState({ passwordConfirmError: '' });
 				break;
 			case 'email':
-				this.setState({ emailError: '', emailExist: '' });
+				this.setState({ emailError: '', emailExist: ''});
 		}
 	}
 
 	/**
-	 * 
+	 * @description - Validates user inputs
 	 * 
 	 * @param {Object} event 
 	 * 
@@ -95,63 +106,83 @@ export default class Register extends Component {
 	 */
 	onBlur(event) {
 		const name = event.target.name;
-		const	value = event.target.value;
+		const value = event.target.value;
+		const passwordValue = $('#pword').val();
 
 		switch (name) {
+			case 'fullName':
+				const fullNameCheck = value.trim();
+				if(fullNameCheck.length < 4){
+					this.setState({
+						fullNameError: 'Full name must be a minimum of 4 characters'
+					})
+					return false;
+				}
+				break;
 			case 'password':
 				if (value.length < 5 || !value) {
-					this.setState({ 
-						passwordError: 'Password must be a minimum of 8 characters' 
+					this.setState({
+						passwordError: 'Password must be a minimum of 5 characters'
 					});
 					return false;
-				} else {
-					this.setState({ passwordError: '' });
-					return true;
 				}
+				break;				
 			case 'email':
-				this.props.EmailExist({ email: value })
-				.then((data) => {
-					if (data.length > 1) {
-						this.setState({ emailExist: data });
-						return false;
-					} else {
-						return true;
-					}
-				});
+				const emailValidator = /\S+@\S+\.\S+/;
+				if (!emailValidator.test(value)) {
+					this.setState({ emailExist: 'Invalid email supplied!' });
+				} else {
+					this.props.EmailExist({ email: value }).then((data) => {
+						if (data.emailExist) {
+							this.setState({ emailExist: data.message});
+							return false;
+						}
+					});
+				}
 				break;
-
 			case 'username':
-				this.props.UserExist({ username: value })
-				.then((data) => {
-					if (data.length > 1) {
-						this.setState({ userExist: data });
-					} else {
-						this.setState({ userExist: '' });
-					}
-				});
 				if (value.length < 4 || !value) {
-					this.setState({ 
-						usernameError: 'username must be a minimum of 5 characters' 
+					this.setState({
+						usernameError: 'username must be a minimum of 4 characters'
 					});
 					return false;
 				} else {
-					this.setState({ usernameError: '' });
-					return true;
+					this.props.UserExist({ username: value }).then((data) => {
+						if (data) {
+							if (data.userExist) {
+								this.setState({ userExist: data.message,
+	
+								});
+								return false;
+							}
+						}
+					});
 				}
+				break;
+			case 'passwordConfirm':
+				if (value !== passwordValue) {
+					this.setState({
+						passwordConfirmError: 'Password does not match'
+					});
+					return false;
+				}
+				break;
 		}
 	}
 
 	/**
-	 * Displays the component
+	 * @description - Displays the component
 	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf Register
 	 */
 	render() {
+		const showInfo = window.location.pathname === '/google-signup';
 		const { userExist, fullName, email } = this.props;
 		return (
 			<div id="register" className="col s12">
+				{showInfo && <h5 className="center">Complete your sign up process</h5>}
 				<form className="col s12" id="form-validate" 
 				onSubmit={this.handleSubmit}>
 					<div className="form-container">
@@ -161,6 +192,8 @@ export default class Register extends Component {
 									name="fullName"
 									type="text"
 									onChange={this.onChange}
+									onFocus={this.onFocus}
+									onBlur={this.onBlur}
 									className="validate"
 									defaultValue={fullName}
 									required
@@ -181,7 +214,9 @@ export default class Register extends Component {
 								/>
 								<label htmlFor="username">username</label>
 								<div className="red-text">{this.state.userExist}</div>
-								<div className="red-text">{this.state.usernameError}</div>
+								<div id="usernameError" className="red-text">
+									{this.state.usernameError}
+								</div>
 							</div>
 						</div>
 						<div className="row">
@@ -226,18 +261,20 @@ export default class Register extends Component {
 									onFocus={this.onFocus}
 									type="password"
 									className="validate"
+									required
 								/>
 								<label htmlFor="passwordConfirm">Password Confirmation</label>
-								<div className="red-text">
-									{this.state.passwordConfirmError}</div>
+								<div 
+								className="red-text">{this.state.passwordConfirmError}</div>
 							</div>
 						</div>
 						<center>
 							<button
-								className="btn waves-effect waves-light teal"
+								className="btn waves-effect teal"
 								id="createAccount"
 								type="submit"
 								name="submit"
+								disabled={this.props.apiStatus}
 							>
 								Submit
 							</button>
@@ -248,3 +285,4 @@ export default class Register extends Component {
 		);
 	}
 }
+export default withRouter(RegisterationForm);

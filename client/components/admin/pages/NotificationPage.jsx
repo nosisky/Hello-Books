@@ -4,38 +4,30 @@ import AdminHeader from '../includes/AdminHeader';
 import AdminSideBar from '../includes/AdminSideBar';
 import DashboardFooter from '../../includes/DashboardFooter';
 import Notification from '../includes/Notification';
-import Notifications from '../../../utils/Notifications';
+import { getAllNotifications } from '../../../actions/BookActions';
 
 /**
  * 
  * 
  * @class NotificationPage
+ * 
  * @extends {Component} extends React.Component
  */
 class NotificationPage extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			data: []
-		};
-	}
+
 	/**
-	 * ComponentDidMount - Executes when the component successfully renders
+	 * @description - Sets all notifications in application local state
+	 * 
 	 * @memberOf NotificationPage
 	 */
 	componentDidMount() {
-		Notifications()
-			.then((data) => {
-				this.setState({
-					data
-				});
-			})
-			.catch((error) => error);
+		this.props.getAllNotifications()
 	}
 
 	/**
 	 * 
-	 * Displays the component
+	 * @description - Displays the component
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf NotificationPage
@@ -46,18 +38,18 @@ class NotificationPage extends Component {
 				<AdminHeader />
 				<div className="row">
 					<div className="col l3">
-						<AdminSideBar />
+						<AdminSideBar 
+						fullname={this.props.user.fullName} 
+        		isAdmin={this.props.user.isAdmin}/>
 					</div>
 					<div className="col l9 m12 s12">
-						{this.state.data.map((response) => {
+						{this.props.notifications.map((response) => {
 							return (
-								<div>
 									<Notification
 										key={response.id}
 										message={response.message}
 										time={response.updatedAt}
 									/>
-								</div>
 							);
 						})}
 					</div>
@@ -68,4 +60,11 @@ class NotificationPage extends Component {
 	}
 }
 
-export default NotificationPage;
+function mapStateToProps(state){
+	return {
+		user: state.auth.user,
+		notifications: state.book.notifications
+	}
+}
+
+export default connect(mapStateToProps, {getAllNotifications})(NotificationPage);

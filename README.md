@@ -116,18 +116,17 @@ An API route that allows users get a specific book
 > GET : ```/api/v1/books/logs/:userId```
 An API route that allows users see rented book history
 
-
 ## How to Contribute
 Contributions to this project are welcomed, If you need to contribute to this project, kindly take steps below
 * **Fork** the repository
 * Follow [Installation and Setup](#installation) as explained earlier
 * Create a branch off **master** for the feature you wish to add
 * Make neccessary changes, commit and raise a pull request against develop
-**Note** when making contributions, please endevour to follow the [Airbnb](https://github.com/airbnb/javascript) javascript style guide. check out the [wiki]
+**Note** when making contributions, please endevour to follow the [Airbnb](https://github.com/airbnb/javascript) javascript style guide. check out the [wiki](https://github.com/nosisky/Hello-Books/wiki)
 
 ## License
 This project is authored by **Abdulrasaq Nasirudeen** (nosisky@gmail.com) and is licensed for your use, modification and distribution under the **MIT** license.
-[MIT][license] © [nosisky][author]
+[MIT][license]
 <!-- Definitions -->
 [license]: LICENSE
 [author]: Abdulrasaq Nasirudeen

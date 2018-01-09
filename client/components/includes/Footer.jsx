@@ -40,7 +40,7 @@ const Footer = () => {
 			</div>
 			<div className="footer-copyright">
 				<div className="container">
-					&copy; 2017 Copyright{' '}
+					&copy; { new Date().getFullYear() } Copyright{' '}
 					<a className="grey-text text-lighten-3" 
 					href="http://github.com/nosisky">
 						<b>Abdulrasaq Nasirudeen</b>

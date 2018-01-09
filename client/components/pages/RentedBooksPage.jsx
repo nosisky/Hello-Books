@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getSpecificBook, 
-	returnBook, 
-	getRentedBooksAction } from '../../actions/BookActions';
+import { 
+				returnBook, 
+				getRentedBooksAction } from '../../actions/BookActions';
 import { bindActionCreators } from 'redux';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
@@ -11,10 +11,12 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- * RentedBooks component
+ * @description RentedBooks component
  * 
  * @export {Object}
+ * 
  * @class RentedBooksPage
+ * 
  * @extends {Component}
  */
 export class RentedBooksPage extends Component {
@@ -25,9 +27,9 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Fetches the list of rented books by a user
+	 * @description Fetches the list of rented books by a user
 	 * 
-	 * @param {any} props 
+	 * @param {Object} props 
 	 * 
 	 * @memberOf RentedBooksPage
 	 */
@@ -37,9 +39,9 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Handles book return
+	 * @description Handles book return
 	 * 
-	 * @param {any} id 
+	 * @param {String} id 
 	 * 
 	 * @memberOf RentedBooksPage
 	 */
@@ -58,7 +60,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Displays lists of rented books
+	 * @description Displays lists of rented books
 	 * 
 	 * @returns 
 	 * 
@@ -66,26 +68,29 @@ export class RentedBooksPage extends Component {
 	 */
 	renderRentedBooks() {
 		let rentedBooks = this.props.rentedBooks.allRentedBooks;
-		if (rentedBooks.length < 1) {
+		if (!rentedBooks || rentedBooks.length < 1) {
 			return (
 				<div>
-					<SideBar fullname={this.props.user.fullname} 
+					<SideBar fullname={this.props.user.fullName} 
 					isAdmin={this.props.user.isAdmin} />
-					<h1 className="empty-notifier">You have not rented any book</h1>
+					{
+						this.props.apiStatus ? <div className="preloader"></div> : 
+						<div className="empty-notifier">You have not rented any book</div>
+					}
 				</div>
 			);
 		} else {
 			return (
 				<div className="row">
 					<SideBar fullname={this.props.user.fullName} 
-					isAdmin={this.props.user.isAdmin} />
+						isAdmin={this.props.user.isAdmin} />
 
 					<div className="row">
-						<div className="col s12 push-l3 m9">
-							{rentedBooks.map((book) => {
+						<div className="col s12 l9 push-l3 m12">
+							{rentedBooks.length && rentedBooks.map((book) => {
 								return (
 									<AllBooks
-									prodYear={book.prodYear}
+									productionYear={book.productionYear}
 									total={book.total}
 									isbn={book.isbn}
 									rented={true}
@@ -109,7 +114,7 @@ export class RentedBooksPage extends Component {
 	}
 
 	/**
-	 * Renders the component
+	 * @description Renders the component
 	 * 
 	 * @returns 
 	 * 
@@ -138,21 +143,23 @@ AllBooks.PropTypes = {
  *
  * @return {Object} returns state object
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return {
 		rentedBooks: state.book,
-		user: state.auth.user.currentUser
+		user: state.auth.user,
+		apiStatus: state.auth.apiStatus
 	};
 }
 
 /**
  * 
  * Maps the state to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{

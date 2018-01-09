@@ -4,37 +4,44 @@ import { Link } from 'react-router-dom';
 import Header from '../includes/Header';
 import SideBar from '../includes/SideBar';
 import { bindActionCreators } from 'redux';
-import { editProfileAction } from '../../actions/AuthActions';
+import { editProfileAction } from '../../actions/UserActions';
 import DashboardFooter from '../includes/DashboardFooter';
 import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+	checkEmailExist, reMap } from '../../utils/validation';
 import EditProfileModal from '../includes/EditProfileModal';
 
-export class Profile extends React.Component {
+/**
+ * 
+ * 
+ * @export {Object}
+ * 
+ * @class Profile
+ * 
+ * @extends {React.Component}
+ */
+export class Profile extends Component {
+
+	/**
+	 * @description Creates an instance of Profile.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf Profile
+	 */
 	constructor(props){
 		super(props);
 		this.state = {
-			fullName: this.props.user.fullname,
+			fullName: this.props.user.fullname || this.props.user.fullName,
 			email: this.props.user.email,
 			edit: false,
 			emailExist: '',
-			profile: true
+			profile: true,
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+  }
 
 	/**
-   * Toggles page display
-   * 
-   * 
-   * @memberOf Profile
-   */
-  displayEdit() {
-		this.setState({ edit: true, profile: false });
-	}
-
-	/**
-   * Submits user input
+   * @description Submits user input
    * 
    * @param {Object} event 
    * 
@@ -42,19 +49,19 @@ export class Profile extends React.Component {
    */
   handleSubmit(userData) {
 		const userId = this.props.user.userId || this.props.user.id
-
 		this.props.actions.editProfileAction(userId, userData);
 	}
 
 	/**
-   * Renders the component
+   * @description Renders the component
    * 
    * @returns {Object}
    * 
    * @memberOf Profile
    */
   render() {
-		const { username, fullname, id, email, plan, isAdmin } = this.props.user;
+		const { userId, username, fullname, 
+			id, email, plan, isAdmin } = this.props.user;
 		const realFullName = fullname || this.props.user.fullName;
 		return (
 			<div className="row">
@@ -62,7 +69,8 @@ export class Profile extends React.Component {
 				<SideBar fullname={realFullName} isAdmin={isAdmin} />
 				<EditProfileModal 
 					username={username}
-					fullName={realFullName}
+					userId={id || userId}
+					fullname={realFullName}
 					email={email}
 					onSubmit={this.handleSubmit}
 				/>
@@ -134,7 +142,8 @@ export class Profile extends React.Component {
 
 /**
  * 
- * Maps the state to component Props
+ * @description Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
@@ -158,7 +167,7 @@ function mapDispatchToProps(dispatch) {
  * @return {Object} returns state object
  */
 function mapStateToProps(state) {
-	return { user: state.auth.user.currentUser };
+	return { user: state.auth.user };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

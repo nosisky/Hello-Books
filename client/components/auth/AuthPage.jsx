@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import LoginForm from './LoginForm';
 import RegisterationForm from './RegisterationForm';
-import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
 
-const AuthPage = ({ registerUserAction, loginAction, message }) => {
+import { checkUserExist, 
+	checkEmailExist, reMap } from '../../utils/validation';
+
+const AuthPage = ({ apiStatus,
+	registerUserAction, loginAction, message }) => {
 	return (
 		<div>
 			<div className="container main-auth white z-depth-2">
@@ -20,7 +22,7 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 				</div>
 				<ul className="tabs teal">
 					<li className="tab col s3">
-						<a className="white-text active" href="#login">
+						<a id="login_now" className="white-text active" href="#login">
 							login
 						</a>
 					</li>
@@ -30,9 +32,14 @@ const AuthPage = ({ registerUserAction, loginAction, message }) => {
 						</a>
 					</li>
 				</ul>
-				<LoginForm onSubmit={loginAction} />
-				<RegisterationForm UserExist={checkUserExist} 
-				EmailExist={checkEmailExist} 
+				<LoginForm 
+				apiStatus={apiStatus}
+				onSubmit={loginAction} />
+
+				<RegisterationForm 
+				apiStatus={apiStatus}
+				UserExist={checkUserExist} 
+				EmailExist={checkUserExist} 
 				onSubmit={registerUserAction} />
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const cleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   cache: true,
@@ -16,9 +16,9 @@ module.exports = {
     Materialize: 'Materialize'
   },
   plugins: [
-    new CleanWebpackPlugin(['client/dist']),
+    new cleanWebpackPlugin(['client/dist']),
     new webpack.EnvironmentPlugin([
-      'FIREABSE_DOMAIN',
+      'FIREBASE_DOMAIN',
       'FIREBASE_MESSENGERID',
       'FIREBASE_APIKEY',
       'FIREBASE_URL',
@@ -46,16 +46,15 @@ module.exports = {
       Hammer: 'hammerjs/hammer'
     }),
     new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false
-      }
+      minimize: true,
+      sourceMap: true,
+      comments: false,
+      compress: {
+        warnings: false,
+        drop_console: true
+      },
     })
   ],
-  devServer: {
-    contentBase: './client/dist'
-  },
-  target: 'web',
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {

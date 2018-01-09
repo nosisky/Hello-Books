@@ -8,14 +8,19 @@ import {
   DELETE_BOOK,
   GET_ONE_BOOK,
   SET_OFFSET,
-  RETURN_RENTED_BOOK
-} from '../actions/types';
+  RETURN_RENTED_BOOK,
+  ADD_CATEGORY,
+  GET_ALL_NOTIFICATIONS,
+  RENT_BOOK
+} from '../actions/ActionTypes';
 
 const INITIAL_STATE = {
   userExist: '',
   count: 0,
   category: [],
+  notifications: [],
   error: '',
+  search: false,
   message: '',
   user: '',
   allRentedBooks: [],
@@ -25,30 +30,47 @@ const INITIAL_STATE = {
 };
 
 /**
+ * @description - Book reducer
+ *
  * @param {Object} state - Object containing the defaul state
- * 
+ *
  * @param {Object} action - Object containing displatched data
- * 
+ *
  * @returns {Object} - Object containing the store data
  */
 function bookReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_BOOK:
-      return { ...state,
+      return {
+        ...state,
         message: 'Book added Successfully',
-        data: action.book };
+        data: state.data.concat([action.book])
+      };
     case GET_ALL_BOOKS:
       return { ...state, count: action.books.count, data: action.books.rows };
     case GET_ONE_BOOK:
       return { ...state, OneBook: action.data[0] };
     case GET_RENTED_BOOKS:
-      return { ...state,
+      return {
+        ...state,
         count: action.data.count,
-        allRentedBooks: action.data };
+        allRentedBooks: action.data
+      };
     case GET_CATEGORY:
       return { ...state, category: action.data };
+    case GET_ALL_NOTIFICATIONS:
+      return { ...state, notifications: action.notifications };
+    case ADD_CATEGORY: {
+      const newCategory = [action.data].concat(state.category);
+      return { ...state, category: newCategory };
+    }
     case SEARCH_BOOK:
-      return { ...state, data: action.data };
+      return {
+        ...state,
+        search: true,
+        count: action.data.count,
+        data: action.data.rows
+      };
     case SET_OFFSET:
       return { offset: state.offset + action.data };
     case DELETE_BOOK: {
@@ -56,25 +78,29 @@ function bookReducer(state = INITIAL_STATE, action) {
       return { ...state, count: state.count - 1, data: newState };
     }
     case RETURN_RENTED_BOOK: {
-      const newData = [];
+      const returnedBooks = [];
       state.allRentedBooks.map((book) => {
         if (book.bookId === action.data.id) {
           book.returned = true;
         }
-        newData.push(book);
+        returnedBooks.push(book);
       });
-      return { ...state, allRentedBooks: newData };
+      return { ...state, allRentedBooks: returnedBooks };
+    }
+    case RENT_BOOK: {
+      const newRentedBook = [action.rentedBook].concat(state.allRentedBooks);
+      return { ...state, allRentedBooks: newRentedBook };
     }
     case EDIT_BOOK: {
-      const newData = [];
+      const editedBooks = [];
       state.data.map((book) => {
         if (book.id === action.data.id) {
-          newData.push(action.data);
+          editedBooks.push(action.data);
         } else {
-          newData.push(book);
+          editedBooks.push(book);
         }
       });
-      return { ...state, data: newData };
+      return { ...state, data: editedBooks };
     }
     default:
       return state;

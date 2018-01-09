@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import { checkUserExist, 
-  checkEmailExist, reMap } from '../../utils/Validation';
+  checkEmailExist, reMap } from '../../utils/validation';
   
+/**
+ * @description - Edit profile modal component
+ * 
+ * @class EditProfileModal
+ * 
+ * @extends {Component}
+ */
 class EditProfileModal extends Component {
+	/**
+	 * @description - Creates an instance of EditProfileModal.
+	 * 
+	 * @param {Object} props - Component properties
+	 * 
+	 * @memberOf EditProfileModal
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -10,7 +24,10 @@ class EditProfileModal extends Component {
 			email: this.props.email,
 			edit: false,
 			emailExist: '',
-			profile: true
+			profile: true,
+			fullnameError: '',
+			oldPassword: '',
+			newPassword: ''
 		};
 
 		this.onChange = this.onChange.bind(this);
@@ -23,7 +40,8 @@ class EditProfileModal extends Component {
    * Validates the user input
    * 
    * @param {Object} event 
-   * @returns 
+	 * 
+   * @returns {Object}
    * 
    * @memberOf Profile
    */
@@ -42,22 +60,28 @@ class EditProfileModal extends Component {
 				}
 				break;
 			case 'email':
-				const userId = this.props.userId;
-        checkEmailExist({ email: value, userId })
-        .then((data) => {
-					if (data.length > 1) {
-						this.setState({ emailExist: data });
-						return false;
-					} else {
-						return true;
-					}
-				});
+				const userId = this.props.userId;			
+				const emailValidator = /\S+@\S+\.\S+/;
+				if(!emailValidator.test(value)){
+					this.setState({ emailExist: 'Invalid email supplied!' });
+					return false;
+				} else {
+					checkUserExist({ email: value, userId })
+					.then((data) => {
+						if (data.status) {
+							this.setState({ emailExist: data.message });
+							return false;
+						} else {
+							return true;
+						}
+					});
+				}
 				break;
 		}
 	}
 
 	/**
-   * 
+   * @description - Clears error from application local state
    * 
    * @param {Object} event 
    * 
@@ -78,9 +102,9 @@ class EditProfileModal extends Component {
   }
   
   	/**
-   * Submits user input
+   * @description - Submits user input
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf EditProfileModal
    */
@@ -89,17 +113,16 @@ class EditProfileModal extends Component {
 		this.props.onSubmit(this.state);
 	}
 
-
 	/**
-   * set user input to state
+   * @description - set user input to state
    * 
-   * @param {any} event 
+   * @param {Object} event 
    * 
    * @memberOf Profile
    */
 	onChange(event) {
-		const name = event.target.name,
-			value = event.target.value;
+		const name = event.target.name;
+		const	value = event.target.value;
 		this.setState({ [name]: value });
 	}
 	render() {
@@ -122,15 +145,16 @@ class EditProfileModal extends Component {
 							Edit Profile
 						</h4>
 						<div className="modal-content">
-							<form name="edit_profile" onSubmit={this.handleSubmit}>
+							<form name="edit_profile" id="edit_profile" 
+								onSubmit={this.handleSubmit}>
 								<div className="edit-profile">
 									<div className="row">
 										<div className="input-field col s12">
 											<b>Username</b>
 											<input
-												id="email"
+												id="username"
 												type="text"
-												name="email"
+												name="username"
 												className="validate"
 												defaultValue={this.props.username}
 												disabled
@@ -147,7 +171,7 @@ class EditProfileModal extends Component {
 												onBlur={this.onBlur}
 												onChange={this.onChange}
 												onFocus={this.onFocus}
-												defaultValue={this.props.fullName}
+												defaultValue={this.props.fullname}
 												className="validate"
 												required
 											/>
@@ -159,7 +183,7 @@ class EditProfileModal extends Component {
 											<b>Email Address</b>
 											<input
 												id="email"
-												type="text"
+												type="email"
 												name="email"
 												className="validate"
 												onBlur={this.onBlur}
@@ -169,6 +193,35 @@ class EditProfileModal extends Component {
 												required
 											/>
 											<div className="red-text">{this.state.emailExist}</div>
+										</div>
+									</div>
+							<div className="center red-text">
+							(Leave blank unless you want to change your password)</div>
+									<div className="row">
+										<div className="input-field col s6">
+											<b>Old Password</b>
+											<input
+												id="oldPassword"
+												type="password"
+												name="oldPassword"
+												className="validate"
+												onBlur={this.onBlur}
+												onFocus={this.onFocus}
+												onChange={this.onChange}
+											/>
+										</div>
+
+										<div className="input-field col s6">
+											<b>New Password</b>
+											<input
+												id="newPassword"
+												type="password"
+												name="newPassword"
+												className="validate"
+												onBlur={this.onBlur}
+												onFocus={this.onFocus}
+												onChange={this.onChange}
+											/>
 										</div>
 									</div>
 								</div>
@@ -181,7 +234,8 @@ class EditProfileModal extends Component {
 									className="btn waves-effect"
 									type="submit"
 									name="submit"
-								>
+								disabled={this.state.fullnameError.length > 1 ||
+								 this.state.emailExist.length > 1}>
 									Submit
 								</button>
 							</form>

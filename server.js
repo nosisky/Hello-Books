@@ -9,13 +9,13 @@ import winston from 'winston';
 import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
 import webpackConfigDev from './webpack.config.dev';
-import UserRouter from './server/routes/users';
-import BookRouter from './server/routes/books';
-import CategoryRouter from './server/routes/category';
-import SearchRouter from './server/routes/search';
-import NotificationRouter from './server/routes/notification';
+import userRouter from './server/routes/userRouter';
+import bookRouter from './server/routes/bookRouter';
+import categoryRouter from './server/routes/categoryRouter';
+import searchRouter from './server/routes/searchRouter';
+import notificationRouter from './server/routes/notificationRouter';
 
-const app = express();
+const server = express();
 
 dotenv.load();
 
@@ -29,7 +29,7 @@ const swaggerDefinition = {
    'An application that helps manage a library and its processes '
    + 'like stocking, tracking and renting of books.'
   },
-  host: 'andela-hellobooks.herokuapp.com',
+  host: 'andela-hellobooks.herokuserver.com',
 
   basePath: '/api/v1'
 };
@@ -45,43 +45,44 @@ const options = {
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use(logger('dev'));
-app.use(express.static('./client/')); // configure static files folder
-app.use(express.static('./client/public/')); // configure static files folder
-app.use('/api/docs/', express.static(path.join(__dirname, 'server/api-docs/')));
+server.use(logger('dev'));
+server.use(express.static('./client/')); // configure static files folder
+server.use(express.static('./client/public/')); // configure static files folder
+server
+  .use('/api/docs/', express.static(path.join(__dirname, 'server/api-docs/')));
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(webpackMiddleware(webpack(webpackConfigDev)));
+  server.use(webpackMiddleware(webpack(webpackConfigDev)));
 }
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(validator());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(validator());
 
-app.use('/api/v1', BookRouter);
+server.use('/api/v1', bookRouter);
 
-app.use('/api/v1/category', CategoryRouter);
+server.use('/api/v1/category', categoryRouter);
 
-app.use('/api/v1/users', UserRouter);
+server.use('/api/v1/users', userRouter);
 
-app.use('/api/v1/search', SearchRouter);
+server.use('/api/v1/search', searchRouter);
 
-app.use('/api/v1/notification', NotificationRouter);
+server.use('/api/v1/notification', notificationRouter);
 
 // serve swagger
-app.get('/api/docs/hellobooks.json', (req, res) => {
+server.get('/api/docs/hellobooks.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
 
-app.get('*', (req, res) => {
+server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/index.html'));
 });
 
 const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
+server.listen(port, () => {
   winston.info(`Connected on port: ${port}`);
 });
 
-export default app;
+export default server;

@@ -13,13 +13,23 @@ import AllBooks from '../includes/AllBooks';
 import DashboardFooter from '../includes/DashboardFooter';
 
 /**
- * 
+ * @description User dashboard component
  * 
  * @export {Object}
+ * 
  * @class Dashboard
+ * 
  * @extends {Component}
  */
 export class Dashboard extends Component {
+
+	/**
+	 * @description Creates an instance of Dashboard.
+	 * 
+	 * @param {Object} props 
+	 * 
+	 * @memberOf Dashboard
+	 */
 	constructor(props) {
 		super(props);
 		this.renderBooks = this.renderBooks.bind(this);
@@ -29,7 +39,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Fetches all books in the database
+	 * @description Fetches all books in the database
 	 * 
 	 * 
 	 * @memberOf Dashboard
@@ -39,7 +49,7 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Toggles book lists 
+	 * @description Toggles book lists 
 	 * 
 	 * @param {Object} page 
 	 * 
@@ -50,9 +60,10 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Displays pagination
+	 * @description Displays pagination
 	 * 
 	 * @param {Number} count 
+	 * 
 	 * @returns {Object}
 	 * 
 	 * @memberOf Dashboard
@@ -78,18 +89,18 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * 
+	 * @description Handles book renting
 	 * 
 	 * @param {Number} id 
 	 * 
 	 * @memberOf Dashboard
 	 */
 	handleClick(id) {
-		const cur = new Date(),
-			after30days = cur.setDate(cur.getDate() + 20),
-			finalDate = new Date(after30days);
-		const newTime = moment(finalDate)
-		.format('MMMM Do YYYY, h:mm a');
+		const currentDate = new Date();
+		const	after20days = currentDate.setDate(currentDate.getDate() + 20);
+		const	finalDate = new Date(after20days);
+		const newTime = moment(finalDate).format('MMMM Do YYYY, h:mm a');
+
 		swal({
 			title: 'Are you sure?',
 			text: `You will be mandated to return this 
@@ -100,20 +111,20 @@ export class Dashboard extends Component {
 		}).then((willBorrow) => {
 			if (willBorrow) {
 				const userId = this.props.user.id || this.props.user.userId				
-				rentBookAction(userId, 
+				this.props.actions.rentBookAction(userId, 
 					{ bookId: id })
 			}
 		});
 	}
 
 	/**
-	 * Displays the books
+	 * @description Displays the books
 	 * 
 	 * @returns {void}
 	 * 
 	 * @memberOf Dashboard
 	 */
-	renderBooks() {
+	renderBooks() {		
 		const realFullName = this.props.user.fullname || this.props.user.fullName;		
 		const allbooks = this.props.books;
 		if (!allbooks) {
@@ -129,30 +140,34 @@ export class Dashboard extends Component {
 					</div>
 				</div>
 			);
-		} else if (allbooks.length < 1) {
+		} else if (allbooks.length === 0) {
 			return (
 				<div>
 					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
 
 					<div className="empty-notifier">
-						<h2>No more book in the database</h2>
+					{this.props.search ? 	<b>No book matches search query</b> :
+						this.props.apiStatus ? <div className="preloader"></div> :
+						 <b>No more book in the database</b>
+					}
 					</div>
 					{this.renderPagination(this.props.count)}
 				</div>
 			);
 		}
+
 		return (
 			<div>
-				<div className="card-panel teal user-book-header">
+				<div style={{fontSize: 25}} className="card-panel teal large white-text">
 					<center>Recently Added Books</center>
 				</div>
 				<div className="row">
-					<div className="col s12 push-l3 m9">
+					<div className="col s12 l9 push-l3 m12">
 						{allbooks.map((book) => {
 							return (
 								<AllBooks
-									prodYear={book.prodYear}
+									productionYear={book.productionYear}
 									total={book.total}
 									isbn={book.isbn}
 									text='Borrow'
@@ -168,7 +183,7 @@ export class Dashboard extends Component {
 								/>
 							);
 						})}
-						{this.renderPagination(0)}
+					{this.renderPagination(0)}
 					</div>
 					<SideBar fullname={realFullName} 
 					isAdmin={this.props.user.isAdmin} />
@@ -178,9 +193,9 @@ export class Dashboard extends Component {
 	}
 
 	/**
-	 * Dsiplays the component
+	 * @description Dsiplays the component
 	 * 
-	 * @returns 
+	 * @returns {Object}
 	 * 
 	 * @memberOf Dashboard
 	 */
@@ -202,7 +217,7 @@ Dashboard.PropTypes = {
 };
 
 /**
- * 
+ * @description Maps the application state to component props
  * 
  * @param {Object} state - Application state
  *  
@@ -210,15 +225,18 @@ Dashboard.PropTypes = {
  */
 function mapStateToProps(state) {
 	return {
-		user: state.auth.user.currentUser,
+		user: state.auth.user,
 		books: state.book.data,
-		count: state.book.count
+		search: state.book.search,
+		count: state.book.count,
+		apiStatus: state.auth.apiStatus
 	};
 }
 
 /**
  * 
- * Maps the state to component Props
+ * @description Maps dispatch to component Props
+ * 
  * @param {Function} dispatch 
  *
  * @returns {Object} - Object containing functions
@@ -227,7 +245,8 @@ function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{
-				getAllBooksAction
+				getAllBooksAction,
+				rentBookAction
 			},
 			dispatch
 		)

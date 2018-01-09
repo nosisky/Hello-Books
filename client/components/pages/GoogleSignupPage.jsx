@@ -4,9 +4,9 @@ import RegisterationForm from '../auth/RegisterationForm';
 import { connect } from 'react-redux';
 import { decode } from 'jsonwebtoken';
 import Footer from '../includes/Footer';
-import { registerUserAction } from '../../actions/AuthActions';
-import { checkUserExist, 
-	checkEmailExist, reMap } from '../../utils/Validation';
+import { registerUserAction } from '../../actions/UserActions';
+import { checkUserExist, reMap } from '../../utils/validation';
+
 /**
  * 
  * 
@@ -18,6 +18,13 @@ import { checkUserExist,
  */
 export class GoogleSignUpPage extends Component {
 
+	/**
+	 * @description Renders the component
+	 * 
+	 * @returns {Object}
+	 * 
+	 * @memberOf GoogleSignUpPage
+	 */
 	render() {
 		const { fullName, 
 			email } = decode(localStorage.getItem('userData')).userObject;
@@ -46,7 +53,7 @@ export class GoogleSignUpPage extends Component {
 							email={email}
 							onSubmit={this.props.registerUserAction}
 							UserExist={checkUserExist}
-              EmailExist={checkEmailExist}
+              EmailExist={checkUserExist}
 						/>
 					</div>
 				</div>

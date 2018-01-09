@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * 
+ * @description - User side bar component
  * 
  * @class SideBar
+ * 
  * @extends {Component}
  */
 export class SideBar extends Component {
 
 	/**
-	 * Executes after the component has rendered
+	 * @description - Executes after the component has rendered
 	 * 
 	 * 
 	 * @memberOf SideBar
@@ -19,24 +20,15 @@ export class SideBar extends Component {
 		$('.button-collapse').sideNav({
 			edge: 'left', // Choose the horizontal origin
 			menuWidth: '300',
-			closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+			closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
 			draggable: true // Choose whether you can drag to open on touch screens
 		});
-		$('.dropdown-button').dropdown({
-			inDuration: 300,
-			outDuration: 225,
-			constrainWidth: false, // Does not change width of dropdown to that of the activator
-			hover: false, // Activate on hover
-			gutter: 0, // Spacing from edge
-			belowOrigin: false, // Displays dropdown below the button
-			alignment: 'left', // Displays dropdown with edge aligned to the left of button
-			stopPropagation: false // Stops event propagation
-		});
+		$(".dropdown-button").dropdown();
 		$('.modal').modal();
 	}
 
 	/**
-	 * Renders the component
+	 * @description - Renders the component
 	 * 
 	 * @returns {Object}
 	 * 
@@ -57,7 +49,8 @@ export class SideBar extends Component {
 					<div className="row">
 						<span className="card-title">
 							<h4>
-								<Link className="white-text" to="dashboard">
+								<Link id="dashboard" 
+									className="white-text" to="dashboard">
 									Dashboard
 								</Link>
 							</h4>
@@ -75,8 +68,8 @@ export class SideBar extends Component {
 							alt="HelloBooks"
 						/>
 						<br />
-						<i className="material-icons">account_circle</i>
-						<b>{this.props.fullname}</b>
+						<i className="material-icons white-text">account_circle</i>
+						<span className="white-text"><b>{this.props.fullname}</b></span>
 					</div>
 					<br />
 				</div>
@@ -104,6 +97,12 @@ export class SideBar extends Component {
 						My Profile
 						<i className="material-icons">person</i>
 					</Link>
+				</li>
+				<li id="menu-list">
+					<a className="modal-trigger" href="#plan">
+						Upgrade Plan
+						<i className="material-icons">send</i>
+					</a>
 				</li>
 				{this.props.isAdmin === 1 && (
 					<li id="menu-list">

@@ -14,8 +14,8 @@ const bookSeeder = {
   validBook: {
     title: 'Think rich to grow rich',
     isbn: '123-456-5858',
-    prodYear: 2018,
-    catId: 1,
+    productionYear: 2018,
+    categoryId: 1,
     author: 'Albert Einstein',
     description: 'The book is based on education',
     cover: 'albert-think.jpg',
@@ -25,29 +25,29 @@ const bookSeeder = {
   noBookTitle: {
     isbn: '123-456-5858',
     total: 20,
-    prodYear: 2018,
+    productionYear: 2018,
     author: 'Albert Einstein',
-    catId: 1,
+    categoryId: 1,
     description: 'The book is based on education',
     cover: 'albert-think.jpg'
   },
 
   noIsbn: {
     title: 'Think rich to grow rich',
-    prodYear: 2018,
+    productionYear: 2018,
     total: 20,
-    catId: 1,
+    categoryId: 1,
     author: 'Albert Einstein',
     description: 'The book is based on education',
     cover: 'albert-think.jpg'
   },
 
-  noProdYear: {
+  noproductionYear: {
     title: 'Think rich to grow rich',
     author: 'Albert Einstein',
     total: 20,
     isbn: '123-565-h474',
-    catId: 1,
+    categoryId: 1,
     description: 'The book is based on education',
     cover: 'albert-think.jpg'
   },
@@ -56,25 +56,25 @@ const bookSeeder = {
     title: 'Think rich to grow rich',
     isbn: '123-fgg-383v',
     total: 20,
-    prodYear: 2018,
-    catId: 1,
+    productionYear: 2018,
+    categoryId: 1,
     author: 'Albert Einstein',
     description: 'The book is based on education'
   },
 
   noAuthor: {
     title: 'Think rich to grow rich',
-    prodYear: 2018,
+    productionYear: 2018,
     cover: 'think-man.png',
     total: 20,
-    catId: 1,
+    categoryId: 1,
     isbn: '123-838h-hdh',
     description: 'The book is based on education'
   },
 
-  noCatId: {
+  noCategoryId: {
     title: 'Think rich to grow rich',
-    prodYear: 2018,
+    productionYear: 2018,
     cover: 'think-man.png',
     author: 'Albert james',
     isbn: '123-838h-hdh',

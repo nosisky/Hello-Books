@@ -1,9 +1,9 @@
 {
-  "src_folders" : ["e2e"],
+  "src_folders" : ["e2e-test"],
   "output_folder" : "reports",
 
   "selenium" : {
-    "start_process" : false,
+    "start_process" : true,
     "server_path" : "",
     "log_path" : "",
     "host" : "127.0.0.1",
@@ -35,7 +35,10 @@
       "desiredCapabilities": {
         "browserName": "chrome",
         "javascriptEnabled": true,
-        "acceptSslCerts": true
+        "acceptSslCerts": true,
+        "chromeOptions": {
+          "args": ["start-fullscreen"]
+        }
       }
     }
   }

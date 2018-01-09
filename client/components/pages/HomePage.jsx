@@ -3,7 +3,7 @@ import NavBar from '../includes/NavBar';
 import AuthPage from '../auth/AuthPage';
 import { connect } from 'react-redux';
 import Footer from '../includes/Footer';
-import { registerUserAction, loginAction } from '../../actions/AuthActions';
+import { registerUserAction, loginAction } from '../../actions/UserActions';
 
 /**
  * 
@@ -15,10 +15,25 @@ import { registerUserAction, loginAction } from '../../actions/AuthActions';
  * @extends {Component}
  */
 export class HomePage extends Component {
+
+	componentDidMount(){
+		$('.button-collapse').sideNav({
+    menuWidth: 250, // Default is 300
+    edge: 'left', // Choose the horizontal origin
+    closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    draggable: true // Choose whether you can drag to open on touch screens
+  });
+		$('ul.tabs').tabs();
+	}
+
+	/**
+	 * Renders the component
+	 * 
+	 * @returns 
+	 * 
+	 * @memberOf HomePage
+	 */
 	render() {
-		if (localStorage.getItem('token')) {
-			this.props.history.push('/dashboard');
-		}
 		return (
 			<div>
 				<NavBar />
@@ -36,6 +51,7 @@ export class HomePage extends Component {
 					</div>
 					<div className="col l6 m12 s12">
 						<AuthPage
+							apiStatus={this.props.apiStatus}
 							loginAction={this.props.loginAction}
 							registerUserAction={this.props.registerUserAction}
 							userExist={this.props.userExist}
@@ -55,10 +71,11 @@ export class HomePage extends Component {
  *
  * @return {Object} returns state object
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return {
 		message: state.auth.message,
-		userExist: state.userExist
+		userExist: state.userExist,
+		apiStatus: state.auth.apiStatus
 	};
 }
 

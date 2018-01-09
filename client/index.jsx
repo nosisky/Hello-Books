@@ -3,31 +3,42 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
+import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import loadJS from 'load-js';
-import App from './components/app';
-import reducers from './reducers/index';
-import { AUTH_USER } from './actions/types';
-import configureStore from './store/index';
-import { setAuthorizationToken } from '../client/utils/Authorization';
-import { SET_CURRENT_USER } from './actions/types';
+import App from './components/App';
+import reducers from './reducers/rootReducer';
+import { AUTH_USER, SET_CURRENT_USER } from './actions/ActionTypes';
+import { logoutAction, setCurrentUser } from './actions/UserActions';
+import configureStore from './store/configureStore';
+import { setAuthorizationToken } from '../client/utils/authorization';
 import '../node_modules/materialize-css/dist/js/materialize.min';
 import '../node_modules/materialize-css/dist/css/materialize.min.css';
 
 import './public/css/style.scss';
 import firebase from 'firebase';
-import config from './utils/FirebaseConfig';
+import firebaseConfig from './utils/firebaseConfig';
 
 const store = configureStore();
 
-firebase.initializeApp(config);
+//Initalize firebase
+firebase.initializeApp(firebaseConfig);
 
-if (localStorage.token) {
-	setAuthorizationToken(localStorage.token);
-	store.dispatch({
-		type: SET_CURRENT_USER,
-		user: jwt.decode(localStorage.token)
-	});
+const token = localStorage.getItem('token');
+
+// Add a response interceptor
+axios.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  if (error.response.status === 401 || error.response.status === 403) {
+    logoutAction();
+  }
+  return Promise.reject(error);
+});
+
+if (token) {
+	setAuthorizationToken(token);
+	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
 }
 
 ReactDOM.render(
