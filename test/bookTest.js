@@ -74,7 +74,7 @@ describe('#Book Features: ', () => {
         res.status.should.equal(201);
         expect(res.body.book.title).toEqual('Think rich to grow rich');
         expect(res.body.book.isbn).toEqual('123-456-5858');
-        expect(res.body.book.prodYear).toEqual('2018');
+        expect(res.body.book.productionYear).toEqual('2018');
         expect(res.body.book.author).toEqual('Albert Einstein');
         expect(res.body.book.description);
         res.body.message.should.equal('Book uploaded successfully');
@@ -142,7 +142,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noProdYear)
+        .send(bookSeeder.noproductionYear)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);

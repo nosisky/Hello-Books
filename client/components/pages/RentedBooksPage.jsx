@@ -90,7 +90,7 @@ export class RentedBooksPage extends Component {
 							{rentedBooks.length && rentedBooks.map((book) => {
 								return (
 									<AllBooks
-									prodYear={book.prodYear}
+									productionYear={book.productionYear}
 									total={book.total}
 									isbn={book.isbn}
 									rented={true}

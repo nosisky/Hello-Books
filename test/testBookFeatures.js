@@ -50,7 +50,7 @@ describe('#Book Features: ', () => {
         res.status.should.equal(201);
         expect(res.body.book.title).toEqual('Think rich to grow rich');
         expect(res.body.book.isbn).toEqual('123-456-5858');
-        expect(res.body.book.prodYear).toEqual('2018');
+        expect(res.body.book.productionYear).toEqual('2018');
         expect(res.body.book.author).toEqual('Albert Einstein');
         expect(res.body.book.description)
           .toEqual('The book is based on education');

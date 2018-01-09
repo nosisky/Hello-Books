@@ -104,12 +104,12 @@ it('should change username value as entered by user', () => {
   
   const event = {
     target: {
-      name: 'prodYear',
+      name: 'productionYear',
       value: 'Test'
     }
   };
   action.onChange(event);
-  expect(action.state.prodYear)
+  expect(action.state.productionYear)
     .toEqual('Test');
 });
 

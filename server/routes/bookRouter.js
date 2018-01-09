@@ -44,7 +44,7 @@ const bookRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear:
+ *       productionYear:
  *         type: integer
  *     example: {
  *       isbn: 123-isbn-1992,
@@ -53,7 +53,7 @@ const bookRouter = express.Router();
  *       description: This is a sample book description,
  *       quantity: 10,
  *       cover: http://example.com/img/cover.jpg,
- *       prodYear: 1993
+ *       productionYear: 1993
  *     }
  */
 
@@ -149,7 +149,7 @@ const bookRouter = express.Router();
  *               "id": 11,
  *               "title": "This is a test",
  *               "isbn": "test-isbn",
- *               "prodYear": "1992",
+ *               "productionYear": "1992",
  *               "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
  *               "author": "James Ibori",
  *               "description": "This is a test for me",
@@ -217,7 +217,7 @@ bookRouter.route('/books')
  *             "title": "This is a test",
  *             "isbn": "isbn-the-books",
  *             "total": 4,
- *             "prodYear": "1223",
+ *             "productionYear": "1223",
  *             "catId": 1,
  *             "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
  *             "author": "Dave",
@@ -290,7 +290,7 @@ bookRouter.route('/users/:userId/books')
  *               "title": "This is a test",
  *               "isbn": "isbn-the-book",
  *               "total": 11,
- *               "prodYear": "1992",
+ *               "productionYear": "1992",
  *               "catId": 1,
  *               "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
  *               "author": "dave",
@@ -407,7 +407,7 @@ bookRouter.route('/users/:userId/books')
  *      "total": 1,
  *       "isbn": "test-isbn",
  *       "catId": 1,
- *       "prodYear": "1992",
+ *       "productionYear": "1992",
  *        "cover": "https://firebasestorage.googleapis.com/v0/b/hellobooks-178515.appspot.com/o/images%2F3dadbd2a-dc4c-43b7-895c-5cb43bd32575.jpg?alt=media&token=b90d6a2a-3264-4772-b79f-4a4d7cebf2c2",
  *        "author": "James Ibori",
  *        "description": "This is a test for me",

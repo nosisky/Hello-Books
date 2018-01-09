@@ -78,29 +78,29 @@ function bookReducer(state = INITIAL_STATE, action) {
       return { ...state, count: state.count - 1, data: newState };
     }
     case RETURN_RENTED_BOOK: {
-      const newData = [];
+      const returnedBooks = [];
       state.allRentedBooks.map((book) => {
         if (book.bookId === action.data.id) {
           book.returned = true;
         }
-        newData.push(book);
+        returnedBooks.push(book);
       });
-      return { ...state, allRentedBooks: newData };
+      return { ...state, allRentedBooks: returnedBooks };
     }
     case RENT_BOOK: {
       const newRentedBook = [action.rentedBook].concat(state.allRentedBooks);
       return { ...state, allRentedBooks: newRentedBook };
     }
     case EDIT_BOOK: {
-      const newData = [];
+      const editedBooks = [];
       state.data.map((book) => {
         if (book.id === action.data.id) {
-          newData.push(action.data);
+          editedBooks.push(action.data);
         } else {
-          newData.push(book);
+          editedBooks.push(book);
         }
       });
-      return { ...state, data: newData };
+      return { ...state, data: editedBooks };
     }
     default:
       return state;

@@ -30,7 +30,7 @@ export class AddBookModal extends Component {
 		this.state = {
 			titleError: '',
 			authorError: '',
-			prodYearError: '',
+			productionYearError: '',
 			isbnError: '',
 			descError: '',
 			title: '',
@@ -40,7 +40,7 @@ export class AddBookModal extends Component {
 			author: '',
 			catId: '',
 			total: 5,
-			prodYear: '',
+			productionYear: '',
 			isLoading: '',
 			isUploading: '',
 			progress: 0
@@ -148,8 +148,8 @@ export class AddBookModal extends Component {
 			case 'author':
 				this.setState({ authorError: '' });
 				break;
-			case 'prodYear':
-				this.setState({ prodYearError: '' });
+			case 'productionYear':
+				this.setState({ productionYearError: '' });
 				break;
 			case 'description':
 				this.setState({ descError: '' });
@@ -188,9 +188,9 @@ export class AddBookModal extends Component {
 						authorError: 'Book author name must be greater than 2 characters' });
 					break;
 				}
-			case 'prodYear':
+			case 'productionYear':
 				if (value.length < 4 || !value) {
-					this.setState({ prodYearError: 'Production year is not valid' });
+					this.setState({ productionYearError: 'Production year is not valid' });
 					return false;
 					break;
 				}
@@ -325,8 +325,8 @@ export class AddBookModal extends Component {
 
 								<div className="input-field col s6">
 									<input
-										id="prodYear"
-										name="prodYear"
+										id="productionYear"
+										name="productionYear"
 										type="number"
 										min="1000"
 										className="validate"
@@ -335,8 +335,8 @@ export class AddBookModal extends Component {
 										onFocus={this.onFocus}
 										required
 									/>
-									<label htmlFor="prodYear">Production Year</label>
-									<div className="red-text">{this.state.prodYearError}</div>
+									<label htmlFor="productionYear">Production Year</label>
+									<div className="red-text">{this.state.productionYearError}</div>
 								</div>
 							</div>
 							<div className="row">

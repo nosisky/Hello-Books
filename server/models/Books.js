@@ -13,7 +13,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       required: true
     },
-    prodYear: DataTypes.STRING,
+    productionYear: DataTypes.STRING,
     catId: DataTypes.INTEGER,
     cover: DataTypes.STRING,
     author: DataTypes.STRING,

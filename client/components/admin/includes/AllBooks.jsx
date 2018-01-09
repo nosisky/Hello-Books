@@ -31,7 +31,7 @@ export class AllBooks extends Component {
 			description: this.props.description,
 			isbn: this.props.isbn,
 			author: this.props.author,
-			prodYear: this.props.prodYear,
+			productionYear: this.props.productionYear,
 			total: this.props.total,
 			currentBook: {},
 			edit: false,
@@ -190,11 +190,11 @@ export class AllBooks extends Component {
 										<div className="input-field col s6">
 											<b>Year</b>
 											<input
-												id="prodYear"
-												name="prodYear"
+												id="productionYear"
+												name="productionYear"
 												type="number"
 												min="1000"
-												defaultValue={this.state.prodYear}
+												defaultValue={this.state.productionYear}
 												onChange={this.onChange}
 												className="validate"
 												required

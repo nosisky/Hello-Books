@@ -115,7 +115,7 @@ const userRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear:
+ *       productionYear:
  *         type: integer
  *     example: {
  *        isbn: 123-isbn-1992,
@@ -124,7 +124,7 @@ const userRouter = express.Router();
  *       description: This is a sample book description,
  *       quantity: 10,
  *       cover: http://example.com/img/cover.jpg,
- *       prodYear: 1993
+ *       productionYear: 1993
  *  }
  */
 
@@ -145,7 +145,7 @@ const userRouter = express.Router();
  *         type: integer
  *       cover:
  *         type: string
- *       prodYear:
+ *       productionYear:
  *         type: integer
  *     example: [{
  *        isbn: 123-isbn-1992,
@@ -154,7 +154,7 @@ const userRouter = express.Router();
  *       description: This is a sample book description,
  *       quantity: 10,
  *       cover: http://example.com/img/cover.jpg,
- *       prodYear: 1993
+ *       productionYear: 1993
  *  },
  * {
  *       isbn: 345-isbn-book,
@@ -163,7 +163,7 @@ const userRouter = express.Router();
  *       description: This is a sample book description,
  *       quantity: 10,
  *       cover: http://example.com/img/cover.jpg,
- *       prodYear: 1999
+ *       productionYear: 1999
  *  }]
  */
 

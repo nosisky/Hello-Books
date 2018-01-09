@@ -42,16 +42,16 @@ export class GoogleLogIn extends React.Component {
 	 * @memberOf GoogleLogIn
 	 */
 	reMap(obj) {
-		let mainObj = {
+		let mainUserObject = {
 			currentUser: {}
 		};
 		const username = obj.name.toLowerCase().replace(/[\s]/, '_')
 		 + Math.round(Math.random(1998) * 56);
-		mainObj.currentUser.username = username;
-		mainObj.currentUser.fullName = obj.name;
-		mainObj.currentUser.password = username;
-		mainObj.currentUser.email = obj.email;
-		return mainObj;
+		mainUserObject.currentUser.username = username;
+		mainUserObject.currentUser.fullName = obj.name;
+		mainUserObject.currentUser.password = username;
+		mainUserObject.currentUser.email = obj.email;
+		return mainUserObject;
 	}
 
 	 responseGoogle(response){
@@ -59,18 +59,18 @@ export class GoogleLogIn extends React.Component {
 
 			if (response.Zi.id_token) {
 				const decoded = jwt.decode(response.Zi.id_token);
-				const newUserObj = this.reMap(decoded);
-				this.props.emailExist({ email: newUserObj.currentUser.email })
+				const newUserObject = this.reMap(decoded);
+				this.props.emailExist({ email: newUserObject.currentUser.email })
 				.then((response) => {
 					if (!response.status) {
-						const userObject = newUserObj.currentUser;
+						const userObject = newUserObject.currentUser;
 						const token = jwt.sign({
 							userObject },
 						process.env.secretKey);
 							localStorage.setItem('userData', token);
 							window.location.href='/google-signup';
 					} else {
-						checkUserExist({ email: newUserObj.currentUser.email,
+						checkUserExist({ email: newUserObject.currentUser.email,
 							 google: true })
 						.then((userDetails) => {
 							this.props.googleLogin(userDetails)

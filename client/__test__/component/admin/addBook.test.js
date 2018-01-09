@@ -159,19 +159,19 @@ describe('Component: AddBook', () => {
 		expect(action.state.authorError).toEqual('');
 	});
 
-	it('should clear prodYear value for prodYear with 2 characters and above', () => {
+	it('should clear productionYear value for productionYear exceeds is 4 characters', () => {
 		const wrapper = setup();
 
 		const action = wrapper.instance();
 
 		const event = {
 			target: {
-				name: 'prodYear',
+				name: 'productionYear',
 				value: 1992
 			}
 		};
 		action.onFocus(event);
-		expect(action.state.prodYearError).toEqual('');
+		expect(action.state.pproductionYearError).toEqual('');
 	});
 
 	it('should change isbn value as entered by user', () => {
@@ -337,19 +337,19 @@ describe('Component: AddBook', () => {
 		expect(action.state.titleError).toEqual('Book title must be greater than 5 characters');
 	});
 
-	it('should set prodYearError value for title with less than 4 characters', () => {
+	it('should set productionYearError value for title with less than 4 characters', () => {
 		const wrapper = setup();
 
 		const action = wrapper.instance();
 
 		const event = {
 			target: {
-				name: 'prodYear',
+				name: 'productionYear',
 				value: '123'
 			}
 		};
 		action.onBlur(event);
-		expect(action.state.prodYearError).toEqual('Production year is not valid');
+		expect(action.state.productionYearError).toEqual('Production year is not valid');
 	});
 
 	it('Should set upload error when book cover upload fails', () => {

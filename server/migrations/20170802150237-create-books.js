@@ -23,7 +23,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       required: true
     },
-    prodYear: {
+    productionYear: {
       type: Sequelize.STRING
     },
     cover: {

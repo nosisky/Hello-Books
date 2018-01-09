@@ -143,7 +143,7 @@ const Validation = {
         notEmpty: true,
         errorMessage: 'ISBN is required'
       },
-      prodYear: {
+      productionYear: {
         notEmpty: true,
         errorMessage: 'Production Year is required'
       },
@@ -194,7 +194,7 @@ const Validation = {
     req.userInput = {
       title: req.body.title,
       isbn: req.body.isbn,
-      prodYear: req.body.prodYear,
+      productionYear: req.body.productionYear,
       cover: req.body.cover,
       author: req.body.author,
       description: req.body.description,
