@@ -71,7 +71,7 @@ export class HomePage extends Component {
  *
  * @return {Object} returns state object
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return {
 		message: state.auth.message,
 		userExist: state.userExist,

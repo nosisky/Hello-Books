@@ -3,9 +3,8 @@ import expect from 'expect';
 import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
-import  {HomePage} from '../../../components/pages/HomePage';
+import  {HomePage, mapStateToProps} from '../../../components/pages/HomePage';
 import Footer from '../../../components/includes/Footer';
-
 
 window.localStorage = {}
 
@@ -25,6 +24,14 @@ describe('Component: HomePage', () => {
     const footerWrapper = shallow(<Footer />);
     expect(footerWrapper).toBeDefined();
     expect(footerWrapper.find('div').length).toBe(6);
+  });
+
+
+  it('should ensure mapStateToProps returns prop from redux store', () => {
+    const storeState = {
+      auth: { user: { }, apiStatus: true, message: 'Hello test' },
+    };
+    expect(mapStateToProps(storeState).message).toEqual('Hello test');
   });
 
 })

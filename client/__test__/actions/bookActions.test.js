@@ -138,12 +138,12 @@ describe('Book actions', () => {
   it('creates GET_RENTED_BOOKS when trying to get rented books', () => {
     moxios.stubRequest('/api/v1/books/logs/1', {
       status: 200,
-      response: mockData.returnedBook
+      response: mockData.returnedBook.rows
     });
 
     const expectedActions = [{
       type: ADD_CATEGORY,
-      data: mockData.returnedBook
+      data: mockData.returnedBook.rows
     }];
 
     const store = mockStore({});
@@ -157,12 +157,12 @@ describe('Book actions', () => {
   it('creates RETURN_RENTED_BOOK when returning a book', () => {
     moxios.stubRequest('/api/v1/users/1/books', {
       status: 201,
-      response: mockData.returnedBook
+      response: mockData.returnedBook.rows
     });
 
     const expectedActions = [{
       type: RETURN_RENTED_BOOK,
-      data: mockData.returnedBook
+      data: mockData.returnedBook.rows
     }];
 
     const store = mockStore({});

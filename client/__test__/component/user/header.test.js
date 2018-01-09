@@ -5,7 +5,10 @@ import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
-import { Header } from '../../../components/includes/Header';
+
+import { Header,
+   mapStateToProps, 
+   mapDispatchToProps } from '../../../components/includes/Header';
 import { getAllBooksAction } from '../../../actions/BookActions';
 
 configure({ adapter: new Adapter() });
@@ -59,5 +62,17 @@ describe('Component: Header', () => {
 		wrapper.instance().props.actions.logout();
 		expect(wrapper.instance().props.actions.editProfileAction).toBeTruthy;
 		expect(wrapper.instance().props.actions.logout).toHaveBeenCalled;
-	});
+  });
+  
+  it('should ensure mapStateToProps returns prop from redux store', () => {
+    const storeState = {
+      auth: { user: { }, apiStatus: true },
+    };
+    expect(mapStateToProps(storeState).apiStatus).toBeTruthy;
+  });
+
+  it('should ensure mapDispatchToProps returns binded actions', () => {
+    const dispatch = jest.fn();
+    expect(mapDispatchToProps().actions.searchActions).toBeTruthy;
+  });
 });

@@ -22,11 +22,12 @@ const BookController = {
    */
   create(req, res) {
     return Book.create(req.userInput)
-      .then(book =>
-        res.status(201).send({
+      .then((book) => {
+        return res.status(201).send({
           message: 'Book uploaded successfully',
           book
-        }))
+        });
+      })
       .catch(error => res.status(500).send(error));
   },
 

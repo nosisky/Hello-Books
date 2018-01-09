@@ -116,19 +116,16 @@ export const googleLogin = userDetails =>
  *
  * @returns { Object } - Dispatches user object to the store
  */
-export function logoutAction() {
-  return (dispatch) => {
-    localStorage.removeItem('token');
-    setAuthorizationToken(false);
-    dispatch({
-      type: UNAUTH_USER,
-      user: { },
-      authenticated: false
-    });
-
-    Materialize.toast('Sucessfully logged out...', 1000, 'red');
-  };
-}
+export const logoutAction = () => (dispatch) => {
+  localStorage.removeItem('token');
+  setAuthorizationToken(false);
+  dispatch({
+    type: UNAUTH_USER,
+    user: { },
+    authenticated: false
+  });
+  Materialize.toast('Sucessfully logged out...', 1000, 'red');
+};
 
 
 /**

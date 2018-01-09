@@ -3,27 +3,27 @@ import expect from 'expect';
 import { stub } from 'sinon';
 import hammerjs from 'hammerjs';
 import { shallow, configure, mount } from 'enzyme';
-// import swal from 'sweetalert';
 import Adapter from 'enzyme-adapter-react-15';
 import mockData from '../../__mocks__/mockData';
+
 import { AdminHome, 
   mapDispatchToProps,
 mapStateToProps } from '../../../components/admin/AdminHome';
 import { getAllBooksAction } from '../../../actions/BookActions';
 import DashboardFooter from '../../../components/includes/DashboardFooter';
 import { mapSeries } from 'bluebird';
+import { Promise } from 'firebase';
 
 configure({ adapter: new Adapter() });
 
 jest.mock('../../../components/admin/includes/AdminHeader');
 jest.mock('../../../components/admin/includes/AdminSideBar');
 
-// swal = jest.mock('swal', Promise.resolve(true));
-
 let props;
 
 const setup = () => {
 	props = {
+    count: 12,
 		user: {
 			fullName: 'test',
 			id: 1,
@@ -52,10 +52,14 @@ describe('Component: AdminHome', () => {
 
 		const handleClickSpy = jest.spyOn(wrapper.instance(), 'handleClick');
 
+    const renderPaginationSPy = jest.spyOn(wrapper.instance(), 'renderPagination');
+
 		wrapper.instance().handlePageChange({ page: { selected: 1 } });
+		wrapper.instance().renderPagination(2);
 		wrapper.instance().handleClick(1);
 
 		expect(wrapper.instance().handleClick).toHaveBeenCalled();
+		expect(wrapper.instance().renderPagination).toHaveBeenCalled();
 		expect(wrapper.instance().handlePageChange).toHaveBeenCalled();
 		expect(wrapper.instance().props.actions.getAllBooksAction).toHaveBeenCalled();
 		expect(wrapper.instance().props.books[0].title).toBe('This is a test');

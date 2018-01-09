@@ -6,6 +6,7 @@ import omit from 'lodash/omit';
 import database from '../models';
 
 dotenv.load();
+
 const secret = process.env.secretKey;
 
 const { User } = database;

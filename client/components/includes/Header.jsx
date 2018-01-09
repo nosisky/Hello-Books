@@ -280,7 +280,7 @@ Header.PropTypes = {
  *  
  * @returns {Object} - Selected state
  */
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
 	return { 
 		apiStatus: state.auth.apiStatus,
 		user: state.auth.user 
@@ -295,7 +295,7 @@ function mapStateToProps(state) {
  *
  * @returns {Object} - Object containing functions
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(
 			{

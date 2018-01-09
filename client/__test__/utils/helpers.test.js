@@ -61,6 +61,33 @@ describe('Auth actions', () => {
       .catch(error => expect(error).toEqual(expectedActions));
   });
 
+  it('Should catch resonse error when API call fails', () => {
+    moxios.stubRequest('/api/v1/users/validate', {
+      status: 404,
+      response: error
+    });
+
+    const expectedActions = null;
+
+    checkUserExist('')
+      .then(() => {})
+      .catch(error => expect(error).toEqual(expectedActions));
+  });
+
+  it('Should fetch response message when validation is successful', () => {
+    moxios.stubRequest('/api/v1/users/validate', {
+      status: 200,
+      response: { message: 'already exist' }
+    });
+
+    const expectedActions = { message: 'already exist' };
+
+    checkUserExist('nosisky@gmail.com')
+      .then(response => expect(response).toEqual(expectedActions))
+      .catch(error => expect(error).toEqual(expectedActions));
+  });
+
+
   it('Should validate if email exists', () => {
     moxios.stubRequest('/api/v1/users/getemail', {
       status: 200,
@@ -90,6 +117,34 @@ describe('Auth actions', () => {
         expect(data).toEqual(expectedActions);
       })
       .catch(error => error);
+  });
+
+  it('Should catch error response when API call fails', () => {
+    moxios.stubRequest('/api/v1/users/validate', {
+      status: 400,
+      response: { message: 'Invalid username supplied' }
+    });
+
+    const expectedActions = { };
+
+    getUserData('435345456')
+      .then((data) => {
+        expect(data).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+  it('Should catch error response when API call fails', () => {
+    moxios.stubRequest('/api/v1/users/getemail', {
+      status: 400,
+      response: { message: 'Invalid email supplied' }
+    });
+
+    const expectedActions = { };
+
+    checkEmailExist('hdsbjcbdajcbhjadbc')
+      .then(() => {})
+      .catch(error => expect(error).toEqual(expectedActions));
   });
 
 

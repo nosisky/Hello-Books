@@ -3,26 +3,32 @@ import hammerjs from 'hammerjs';
 import configureMockStore from 'redux-mock-store';
 import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
-import Materialize from 'materialize-css';
 import moxios from 'moxios';
+import dotenv from 'dotenv';
 import mockData from '../__mocks__/mockData';
 import { setCurrentUser,
   registerUserAction,
   editProfileAction,
   loginAction,
   googleLogin,
-  logoutAction
+  logoutAction,
+  getUserByEmailAction
 } from '../../actions/UserActions';
 import { SET_CURRENT_USER,
   EDIT_PROFILE,
   UNAUTH_USER
 } from '../../actions/ActionTypes';
 
+dotenv.load();
+
 const middlewares = [thunk];
 
 const mockStore = configureMockStore(middlewares);
 
-window.localStorage = { removeItem: () => {} };
+window.localStorage = {
+  removeItem: () => {},
+  setItem: () => {}
+};
 
 describe('Auth actions', () => {
   beforeEach(() => moxios.install());
@@ -103,7 +109,6 @@ describe('Auth actions', () => {
     expect(store.getActions()[0]).toEqual(expectedActions);
   });
 
-
   it('creates SET_CURRENT_USER when signup action is successful', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/signup', {
@@ -128,7 +133,10 @@ describe('Auth actions', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/edit/1', {
       status: 200,
-      response: authResponse
+      response: {
+        token: process.env.testToken
+      }
+
     });
 
     const expectedActions = {
@@ -142,5 +150,37 @@ describe('Auth actions', () => {
         expect(store.getActions()).toEqual(expectedActions);
       })
       .catch(error => error);
+  });
+
+  it('should fetch user details when supplied user email address', () => {
+    moxios.stubRequest('/api/v1/search/email', {
+      status: 200,
+      response: {
+        token: process.env.testToken
+      }
+
+    });
+
+    const expectedActions = process.env.testToken;
+
+    getUserByEmailAction('something@something.com')
+      .then((response) => {
+        expect(response).toEqual(expectedActions);
+      })
+      .catch(error => error);
+  });
+
+  it('should catch response error when api call fails', () => {
+    moxios.stubRequest('/api/v1/search/email', {
+      status: 404,
+      response: {
+        message: 'email not found'
+      }
+    });
+
+    getUserByEmailAction('something@something.com')
+      .then(() => {})
+      .catch(error => expect(error.response.message)
+        .toEqual('email not found'));
   });
 });
