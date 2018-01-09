@@ -66,9 +66,12 @@ const UserController = {
         message: 'Please provide your username or password to login'
       });
     }
-    User.findOne({
+
+    const username = req.body.username.toLowerCase();
+
+    return User.findOne({
       where: {
-        username: req.body.username
+        username
       }
     })
       .then((user) => {

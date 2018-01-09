@@ -64,9 +64,11 @@ const Validation = {
       });
       return res.status(400).json(allErrors);
     }
+    const username = req.body.username.toLowerCase();
+
     return User.findOne({
       where: {
-        username: req.body.username,
+        username,
         $or: {
           email: req.body.email
         }
