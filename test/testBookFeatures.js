@@ -227,7 +227,6 @@ describe('#Book Features: ', () => {
       .type('form')
       .expect(200)
       .end((err, res) => {
-        console.log(res.body)
         res.body[0].bookId.should.equal(1);
         res.body[0].userId.should.equal(4);
         res.body[0].title.should.equal('Think rich to grow rich');
