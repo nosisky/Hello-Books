@@ -132,9 +132,9 @@ export class RegisterationForm extends Component {
 				if (!emailValidator.test(value)) {
 					this.setState({ emailExist: 'Invalid email supplied!' });
 				} else {
-					this.props.EmailExist({ email: value }).then((data) => {
-						if (data.emailExist) {
-							this.setState({ emailExist: data.message});
+					this.props.EmailExist({ email: value }).then((response) => {
+						if (response.length > 1) {
+							this.setState({ emailExist: response});
 							return false;
 						}
 					});
@@ -147,11 +147,10 @@ export class RegisterationForm extends Component {
 					});
 					return false;
 				} else {
-					this.props.UserExist({ username: value }).then((data) => {
-						if (data) {
-							if (data.userExist) {
-								this.setState({ userExist: data.message,
-	
+					this.props.UserExist({ username: value }).then((response) => {
+						if (response) {
+							if (response.length > 1) {
+								this.setState({ userExist: response
 								});
 								return false;
 							}

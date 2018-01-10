@@ -62,7 +62,7 @@ export class GoogleLogIn extends React.Component {
 				const newUserObject = this.reMap(decoded);
 				this.props.emailExist({ email: newUserObject.currentUser.email })
 				.then((response) => {
-					if (!response.status) {
+					if (!response.length) {
 						const userObject = newUserObject.currentUser;
 						const token = jwt.sign({
 							userObject },
@@ -73,6 +73,7 @@ export class GoogleLogIn extends React.Component {
 						checkUserExist({ email: newUserObject.currentUser.email,
 							 google: true })
 						.then((userDetails) => {
+							console.log(userDetails,'google login')
 							this.props.googleLogin(userDetails)
 							.then(() => {
 								Materialize.toast('Login Successful', 2000, 'blue', () => {

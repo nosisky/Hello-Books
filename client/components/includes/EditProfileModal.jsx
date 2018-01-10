@@ -67,9 +67,9 @@ class EditProfileModal extends Component {
 					return false;
 				} else {
 					checkUserExist({ email: value, userId })
-					.then((data) => {
-						if (data.status) {
-							this.setState({ emailExist: data.message });
+					.then((response) => {
+						if (response.length > 1) {
+							this.setState({ emailExist: response });
 							return false;
 						} else {
 							return true;

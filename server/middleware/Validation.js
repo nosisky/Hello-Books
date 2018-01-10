@@ -230,7 +230,7 @@ const Validation = {
       }
     } else if (email) {
       if (!emailValidate) {
-        return res.status(200).send({
+        return res.status(400).send({
           status: true,
           message: 'Invalid email supplied'
         });
@@ -264,25 +264,22 @@ const Validation = {
     })
       .then((user) => {
         if (!user) {
-          return res.status(404).send({
+          return res.status(200).send({
             userExist: false,
-          });
-        } else if (req.body.userId && user) {
-          req.currentUser = omit(
-            user.dataValues,
-            ['password', 'createdAt', 'updatedAt']
-          );
-          next();
-        } else {
-          res.status(400).send({
-            userExist: false
+            message: ''
           });
         }
-      });
+        req.currentUser = omit(
+          user.dataValues,
+          ['password', 'createdAt', 'updatedAt']
+        );
+        next();
+      })
+      .catch(error => res.status(500).send(error));
   },
 
   /**
- * @description - Verify and retrieve user details
+ * @description - Retrieves user details
  *
  * @param {Object} req - request
  *
@@ -291,26 +288,27 @@ const Validation = {
  * @return {Object} - repsonse object
  */
   retrieveUserDetails(req, res) {
-    Validation.checkValidDetails(req.body.email, req.body.username, res);
+    const { userId } = req.body;
+    const existingUserId = req.currentUser.id;
+    const searchQuery = req.body.email ? 'Email' : 'Username';
 
-    User.findOne({
-      where: {
-        $or: [{ username: req.body.username },
-          { email: req.body.email }]
-      }
-    })
-      .then((user) => {
-        if (user) {
-          res.status(200).send({
-            user
-          });
-        } else {
-          res.status(404).send({
-            message: 'User not found'
-          });
-        }
-      })
-      .catch(error => res.status(error));
+    if (userId && existingUserId !== userId) {
+      return res.status(200).send({
+        message: `${searchQuery} already exist`,
+        userExist: true
+      });
+    } else if (userId && existingUserId === userId) {
+      return res.status(200).send({
+        message: ''
+      });
+    } else if (req.body.google) {
+      return res.status(200).send({
+        user: req.currentUser
+      });
+    }
+    return res.status(409).send({
+      message: `${searchQuery} already exist`
+    });
   },
 
   /**

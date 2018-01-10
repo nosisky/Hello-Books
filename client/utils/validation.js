@@ -13,7 +13,12 @@ const apiUrl = '/api/v1/users';
 export function checkUserExist(detail) {
   return axios
     .post(`${apiUrl}/validate`, detail)
-    .then(response => response.data)
+    .then((response) => {
+      if (detail.google) {
+        return response.data;
+      }
+      return response.data.message;
+    })
     .catch(error => (error.response ?
       error.response.data.message :
       notifyNetworkError(error)));
