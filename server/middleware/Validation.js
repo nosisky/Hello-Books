@@ -256,7 +256,7 @@ const Validation = {
   checkUserExist(req, res, next) {
     Validation.checkValidDetails(req.body.email, req.body.username, res);
 
-    User.findOne({
+    return User.findOne({
       where: {
         $or: [{ username: req.body.username },
           { email: req.body.email }]
@@ -275,7 +275,9 @@ const Validation = {
         );
         next();
       })
-      .catch(error => res.status(500).send(error));
+      .catch((error) => {
+        return res.status(500).send(error);
+      });
   },
 
   /**

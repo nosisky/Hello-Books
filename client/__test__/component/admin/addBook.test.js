@@ -126,7 +126,7 @@ describe('Component: AddBook', () => {
 			}
 		};
 		action.onFocus(event);
-		expect(action.state.descError).toEqual('');
+		expect(action.state.descriptionError).toEqual('');
 	});
 
 	it('should clear isbn value for isbn with 5 characters and above', () => {
@@ -171,7 +171,7 @@ describe('Component: AddBook', () => {
 			}
 		};
 		action.onFocus(event);
-		expect(action.state.pproductionYearError).toEqual('');
+		expect(action.state.productionYearError).toEqual('');
 	});
 
 	it('should change isbn value as entered by user', () => {
@@ -286,7 +286,7 @@ describe('Component: AddBook', () => {
 			}
 		};
 		action.onBlur(event);
-		expect(action.state.descError).toEqual('Book description is required');
+		expect(action.state.descriptionError).toEqual('Book description is required');
   });
 
   it('should set titleError value when title is undefined', () => {
@@ -319,7 +319,7 @@ describe('Component: AddBook', () => {
 			}
 		};
 		action.onBlur(event);
-		expect(action.state.descError).toEqual('Book description is required');
+		expect(action.state.descriptionError).toEqual('Book description is required');
 	});
 
 	it('should set titleError value for title with less than 4 characters', () => {

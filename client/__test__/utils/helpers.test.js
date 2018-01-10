@@ -83,7 +83,7 @@ describe('Auth actions', () => {
     const expectedActions = { message: 'already exist' };
 
     checkUserExist('nosisky@gmail.com')
-      .then(response => expect(response).toEqual(expectedActions))
+      .then(response => expect(response).toEqual(expectedActions.message))
       .catch(error => expect(error).toEqual(expectedActions));
   });
 
@@ -98,7 +98,7 @@ describe('Auth actions', () => {
 
     checkUserExist('nosisky@gmail.com')
       .then((data) => {
-        expect(data).toEqual(expectedActions);
+        expect(data).toEqual(expectedActions.message);
       })
       .catch(error => error);
   });
@@ -114,7 +114,7 @@ describe('Auth actions', () => {
 
     checkEmailExist('nosisky@gmail.com')
       .then((data) => {
-        expect(data).toEqual(expectedActions);
+        expect(data).toEqual(expectedActions.message);
       })
       .catch(error => error);
   });

@@ -33,7 +33,7 @@ describe('User Api: ', () => {
         res.status.should.equal(201);
         const currentUser = jwt.decode(res.body.token);
         expect(currentUser.currentUser.email).toEqual('main@gmail.com');
-        expect(currentUser.currentUser.username).toEqual('Dealwapb');
+        expect(currentUser.currentUser.username).toEqual('dealwapb');
         expect(currentUser.currentUser.fullName)
           .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Signed up successfully');
@@ -51,9 +51,8 @@ describe('User Api: ', () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
-        res.body.user.username.should.equal('Dealwapb');
-        res.body.user.fullName.should.equal('Abdulrasaq Nasirudeen');
-        res.body.user.email.should.equal('main@gmail.com');
+        res.body.user.username.should.equal('dealwapb');
+        res.body.user.userId.should.equal(2);
         done();
       });
   });

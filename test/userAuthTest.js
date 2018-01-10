@@ -7,15 +7,18 @@ import jwt from 'jsonwebtoken';
 
 import app from '../server';
 import models from '../server/models/';
-import { usernameMin5,
+import userSeeder from '../server/seeders/userSeeder';
+
+dotenv.load();
+
+const {
+  usernameMin5,
   noFullName,
   signUp,
   invalidLoginDetails,
   missingPassword,
   login
-} from '../server/seeders/userSeeder';
-
-dotenv.load();
+} = userSeeder;
 
 const server = supertest.agent(app);
 const token = process.env.testToken;
@@ -75,7 +78,7 @@ describe('User Api: ', () => {
         res.body.message.should.equal('Signed up successfully');
         const currentUser = jwt.decode(res.body.token);
         expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
-        expect(currentUser.currentUser.username).toEqual('Dealwap');
+        expect(currentUser.currentUser.username).toEqual('dealwap');
         expect(currentUser.currentUser.fullName)
           .toEqual('Abdulrasaq Nasirudeen');
         done();
@@ -88,10 +91,10 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send({ username: 'Dealwap' })
+      .send({ username: 'dealwap' })
       .expect(409)
       .end((err, res) => {
-        res.status.should.equal(200);
+        res.status.should.equal(409);
         res.body.message.should.equal('Username already exist');
         done();
       });
@@ -105,9 +108,9 @@ describe('User Api: ', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .send({ email: 'Dealwap' })
-        .expect(200)
+        .expect(400)
         .end((err, res) => {
-          res.status.should.equal(200);
+          res.status.should.equal(400);
           res.body.message.should.equal('Invalid email supplied');
           done();
         });
@@ -129,22 +132,6 @@ describe('User Api: ', () => {
         });
     });
 
-  it(`Should return 'Invalid username supplied'
-    when username with invalid characters is supplied`, (done) => {
-      server
-        .post('/api/v1/users/validate')
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .send({ email: 'nosisky@gmail.com', userId: '1' })
-        .expect(200)
-        .end((err, res) => {
-          res.status.should.equal(200);
-          res.body.message.should.equal('');
-          done();
-        });
-    });
-
   it('Should check for existing email address', (done) => {
     server
       .post('/api/v1/users/validate')
@@ -153,9 +140,9 @@ describe('User Api: ', () => {
       .set('x-access-token', token)
       .type('form')
       .send({ email: 'nosisky@gmail.com' })
-      .expect(200)
+      .expect(409)
       .end((err, res) => {
-        res.status.should.equal(200);
+        res.status.should.equal(409);
         res.body.message.should.equal('Email already exist');
         done();
       });
@@ -207,7 +194,7 @@ describe('User Api: ', () => {
         res.status.should.equal(200);
         const currentUser = jwt.decode(res.body.token);
         expect(currentUser.currentUser.email).toEqual('nosisky@gmail.com');
-        expect(currentUser.currentUser.username).toEqual('Dealwap');
+        expect(currentUser.currentUser.username).toEqual('dealwap');
         expect(currentUser.currentUser.fullName)
           .toEqual('Abdulrasaq Nasirudeen');
         res.body.message.should.equal('Logged In Successfully');

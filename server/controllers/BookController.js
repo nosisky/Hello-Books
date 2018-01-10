@@ -116,7 +116,9 @@ const BookController = {
           message: 'Book not found'
         });
       })
-      .catch(error => res.status(500).send(error));
+      .catch((error) => {
+        return res.status(500).send(error);
+      });
   },
 
   /**
@@ -304,7 +306,7 @@ const BookController = {
       .then(() => {
         res.status(200).send({
           message: 'Book deleted successfully!',
-          id: req.params.bookId
+          id: Number(req.params.bookId)
         });
       })
       .catch(error => res.status(500).send(error));
