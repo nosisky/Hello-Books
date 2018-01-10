@@ -51,6 +51,7 @@ const Authorization = {
     }
   },
 
+
   /**
    * @description - Checks if currently logged in user is an admin
    *

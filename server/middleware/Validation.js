@@ -63,7 +63,24 @@ const Validation = {
         });
       });
       return res.status(400).json(allErrors);
+    } else {
+      Validation.sendUserInput(req, res, next);
     }
+
+  },
+
+  /**
+   * Sends user input to the create account controller
+   * 
+   * @param {Object} req - request 
+   * 
+   * @param {Object} res - response
+   * 
+   * @param {Object} next - Callback function
+   * 
+   * @returns {Object} - Object containing user information
+   */
+  sendUserInput(req, res, next){
     const username = req.body.username.toLowerCase();
 
     return User.findOne({

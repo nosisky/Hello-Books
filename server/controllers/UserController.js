@@ -25,6 +25,7 @@ const UserController = {
    * Route: POST: /users/signup
    */
   create(req, res) {
+    
     return User.create(req.userInput)
       .then((user) => {
         const currentUser = omit(
