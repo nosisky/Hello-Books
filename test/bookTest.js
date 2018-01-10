@@ -195,17 +195,4 @@ describe('#Book Features: ', () => {
         });
     });
 
-  it('Should send email', (done) => {
-    server
-      .post('/api/v1/books/email')
-      .set('Connection', 'keep alive')
-      .set('x-access-token', token)
-      .set('Content-Type', 'application/json')
-      .send({ subject: 'Hello', message: 'This is a test' })
-      .expect(200)
-      .end((err, res) => {
-        res.body.should.equal(true);
-        done();
-      });
-  });
 });
