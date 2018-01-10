@@ -73,7 +73,6 @@ export class GoogleLogIn extends React.Component {
 						checkUserExist({ email: newUserObject.currentUser.email,
 							 google: true })
 						.then((userDetails) => {
-							console.log(userDetails,'google login')
 							this.props.googleLogin(userDetails)
 							.then(() => {
 								Materialize.toast('Login Successful', 2000, 'blue', () => {
