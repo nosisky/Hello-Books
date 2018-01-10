@@ -26,19 +26,25 @@ firebase.initializeApp(firebaseConfig);
 
 const token = localStorage.getItem('token');
 
+
 // Add a response interceptor
 axios.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   if (error.response.status === 401 || error.response.status === 403) {
-    logoutAction();
+		logoutAction();
   }
   return Promise.reject(error);
 });
 
 if (token) {
-	setAuthorizationToken(token);
-	store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
+	if(!jwt.decode(token)){
+		store.dispatch(logoutAction());
+		window.location='/'
+	}	else {
+		setAuthorizationToken(token);
+		store.dispatch(setCurrentUser(jwt.decode(token).currentUser));
+	}
 }
 
 ReactDOM.render(
