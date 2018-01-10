@@ -64,7 +64,7 @@ const Validation = {
       });
       return res.status(400).json(allErrors);
     }
-    Validation.sendUserInput(req, res, next);
+    next();
   },
 
   /**
@@ -194,7 +194,7 @@ const Validation = {
         message: allErrors[0]
       });
     }
-    Validation.sendBookInput(req, res, next);
+    next();
   },
 
 

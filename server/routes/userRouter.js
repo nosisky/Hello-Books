@@ -10,7 +10,8 @@ const {
   retrieveUserDetails,
   checkUserExist,
   checkUserInput,
-  validateUserEdit
+  validateUserEdit,
+  sendUserInput
 } = Validation;
 
 const { create, login, editProfile } = UserController;
@@ -199,7 +200,7 @@ const userRouter = express.Router();
  *         description: Internal server error
  */
 userRouter.route('/signup')
-  .post(checkUserInput, create);
+  .post(checkUserInput, sendUserInput, create);
 
 /**
  * @swagger
