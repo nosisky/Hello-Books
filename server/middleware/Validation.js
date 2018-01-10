@@ -63,32 +63,28 @@ const Validation = {
         });
       });
       return res.status(400).json(allErrors);
-    } else {
-      Validation.sendUserInput(req, res, next);
     }
-
+    Validation.sendUserInput(req, res, next);
   },
 
   /**
    * Sends user input to the create account controller
-   * 
-   * @param {Object} req - request 
-   * 
+   *
+   * @param {Object} req - request
+   *
    * @param {Object} res - response
-   * 
+   *
    * @param {Object} next - Callback function
-   * 
+   *
    * @returns {Object} - Object containing user information
    */
-  sendUserInput(req, res, next){
+  sendUserInput(req, res, next) {
     const username = req.body.username.toLowerCase();
 
     return User.findOne({
       where: {
-        username,
-        $or: {
-          email: req.body.email
-        }
+        $or: [{ username },
+          { email: req.body.email }]
       }
     }).then((user) => {
       if (user) {
@@ -198,6 +194,22 @@ const Validation = {
         message: allErrors[0]
       });
     }
+    Validation.sendBookInput(req, res, next);
+  },
+
+
+  /**
+   * Sends user input to the add book controller
+   *
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @param {Object} next - Callback function
+   *
+   * @returns {Object} - Object containing book inout
+   */
+  sendBookInput(req, res, next) {
     Book.findOne({
       where: {
         isbn: req.body.isbn
@@ -292,9 +304,7 @@ const Validation = {
         );
         next();
       })
-      .catch((error) => {
-        return res.status(500).send(error);
-      });
+      .catch(error => res.status(500).send(error));
   },
 
   /**
