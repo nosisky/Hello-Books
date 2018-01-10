@@ -3,10 +3,20 @@ import should from 'should';
 import mocha from 'mocha';
 import dotenv from 'dotenv';
 import expect from 'expect';
+
 import app from '../server';
 import models from '../server/models/';
-import bookSeeder from '../server/seeders/books';
-import sendMail from '../server/middleware/sendMail';
+import bookSeeder from '../server/seeders/bookSeeder';
+
+const {
+  validBook,
+  noBookTitle,
+  noIsbn,
+  noProductionYear,
+  noCover,
+  noAuthor,
+  noCategoryId
+} = bookSeeder;
 
 dotenv.load();
 
@@ -31,7 +41,7 @@ describe('#Book Features: ', () => {
         .set('Content-Type', 'application/json')
         .set('x-access-token', notAdmin)
         .type('form')
-        .send(bookSeeder.validBook)
+        .send(validBook)
         .expect(403)
         .end((err, res) => {
           res.status.should.equal(403);
@@ -50,7 +60,7 @@ describe('#Book Features: ', () => {
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.validBook)
+        .send(validBook)
         .expect(401)
         .end((err, res) => {
           res.status.should.equal(401);
@@ -68,7 +78,7 @@ describe('#Book Features: ', () => {
       .set('x-access-token', token)
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(bookSeeder.validBook)
+      .send(validBook)
       .expect(201)
       .end((err, res) => {
         res.status.should.equal(201);
@@ -90,7 +100,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noBookTitle)
+        .send(noBookTitle)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
@@ -108,7 +118,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noIsbn)
+        .send(noIsbn)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
@@ -125,7 +135,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noCategoryId)
+        .send(noCategoryId)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
@@ -142,7 +152,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noproductionYear)
+        .send(noProductionYear)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
@@ -159,7 +169,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noCover)
+        .send(noCover)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
@@ -176,7 +186,7 @@ describe('#Book Features: ', () => {
         .set('x-access-token', token)
         .set('Content-Type', 'application/json')
         .type('form')
-        .send(bookSeeder.noAuthor)
+        .send(noAuthor)
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);

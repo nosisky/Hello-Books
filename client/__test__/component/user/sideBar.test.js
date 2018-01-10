@@ -30,12 +30,12 @@ const setup = () => {
 }
 
 describe('Component: SideBar', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(2);
     expect(wrapper.find('Link').length).toBe(5);
   })
-  it('tests that the component received the user props', () => {
+  it('should receive the user props', () => {
     const wrapper = setup();
     expect(wrapper.instance().props.user.fullName).toBe('test');
     expect(wrapper.instance().props.user.plan).toBe('Silver');

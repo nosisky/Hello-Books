@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 
 
 describe('Component: NavBar', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = shallow(<NavBar />)
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find('li').length).toBe(6);

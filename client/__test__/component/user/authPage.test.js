@@ -17,7 +17,7 @@ jest.mock('../../../components/includes/NavBar');
 
 
 describe('Component: AuthPage', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = shallow(<AuthPage />)
     expect(wrapper.find('div').length).toBe(3);
   })

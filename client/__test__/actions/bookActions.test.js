@@ -39,7 +39,7 @@ describe('Book actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
-  it('creates ADD_BOOK when a new book is added', () => {
+  it('should create ADD_BOOK when a new book is added', () => {
     moxios.stubRequest('/api/v1/books', {
       status: 201,
       response: { message: 'book added successfully' }
@@ -59,7 +59,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates GET_ALL_BOOKS when trying to get all books', () => {
+  it('should create GET_ALL_BOOKS when trying to get all books', () => {
     moxios.stubRequest('/api/v1/books/?page=1', {
       status: 201,
       response: mockData.returnedBook
@@ -78,7 +78,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates DELETE_BOOK when a book is successfully deleted', () => {
+  it('should create DELETE_BOOK when a book is successfully deleted', () => {
     moxios.stubRequest('/api/v1/books/delete/1', {
       status: 201,
       response: 1
@@ -94,7 +94,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates EDIT_BOOK when a book is successfully deleted', () => {
+  it('should create EDIT_BOOK when a book is successfully deleted', () => {
     moxios.stubRequest('/api/v1/books/1', {
       status: 201,
       response: mockData.modifiedBook
@@ -113,7 +113,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates ADD_CATEGORY when category is successfully added', () => {
+  it('should create ADD_CATEGORY when category is successfully added', () => {
     moxios.stubRequest('/api/v1/books/category', {
       status: 201,
       response: { name: 'science', description: 'Hello world' }
@@ -135,7 +135,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates GET_RENTED_BOOKS when trying to get rented books', () => {
+  it('should create GET_RENTED_BOOKS when trying to get rented books', () => {
     moxios.stubRequest('/api/v1/books/logs/1', {
       status: 200,
       response: mockData.returnedBook.rows
@@ -154,7 +154,7 @@ describe('Book actions', () => {
       .catch(error => error);
   });
 
-  it('creates RETURN_RENTED_BOOK when returning a book', () => {
+  it('should create RETURN_RENTED_BOOK when returning a book', () => {
     moxios.stubRequest('/api/v1/users/1/books', {
       status: 201,
       response: mockData.returnedBook.rows
@@ -193,7 +193,7 @@ describe('Book actions', () => {
         .catch(error => error);
     });
 
-  it('creates RENT_BOOK when returning a book', () => {
+  it('should create RENT_BOOK when returning a book', () => {
     moxios.stubRequest('/api/v1/users/1/books', {
       status: 201,
       response: mockData.returnedBook
@@ -232,7 +232,7 @@ describe('Book actions', () => {
         .catch(error => error);
     });
 
-  it('creates GET_CATEGORY when getting all category', () => {
+  it('should create GET_CATEGORY when getting all category', () => {
     moxios.stubRequest('/api/v1/category', {
       status: 201,
       response: [{ name: 'science', description: 'Hello world' }]
@@ -252,7 +252,7 @@ describe('Book actions', () => {
   });
 
 
-  it(`creates GET_ALL_NOTIFICATION 
+  it(`should create GET_ALL_NOTIFICATION 
   when getAllNotification action is successful`, () => {
       const { notifications } = mockData;
       moxios.stubRequest('/api/v1/notification', {
@@ -274,7 +274,7 @@ describe('Book actions', () => {
     });
 
 
-  it('creates SEARCH_BOOK when searching for books', () => {
+  it('should create SEARCH_BOOK when searching for books', () => {
     moxios.stubRequest('/api/v1/search', {
       status: 201,
       response: mockData.modifiedBook

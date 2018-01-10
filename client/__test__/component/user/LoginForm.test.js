@@ -25,7 +25,7 @@ const setup = () => {
 };
 
 describe('Component: LoginForm', () => {
-	it('tests that the component successfully rendered', () => {
+	it('should render the component successfully', () => {
 		const wrapper = setup();
 		expect(wrapper.find('div').length).toBe(7);
 		expect(wrapper.find('button').length).toBe(1);

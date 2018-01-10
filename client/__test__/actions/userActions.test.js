@@ -56,7 +56,7 @@ describe('Auth actions', () => {
       .toEqual(expectedAction.decoded.currentUser);
   });
 
-  it('creates SET_CURRENT_USER when login action is successful', () => {
+  it('should create SET_CURRENT_USER when login action is successful', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/signin', {
       status: 200,
@@ -76,7 +76,7 @@ describe('Auth actions', () => {
       .catch(error => error);
   });
 
-  it('creates SET_CURRENT_USER when Googlelogin action is successful', () => {
+  it('should create SET_CURRENT_USER when Googlelogin action is successful', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/signin', {
       status: 200,
@@ -109,7 +109,7 @@ describe('Auth actions', () => {
     expect(store.getActions()[0]).toEqual(expectedActions);
   });
 
-  it('creates SET_CURRENT_USER when signup action is successful', () => {
+  it('should create SET_CURRENT_USER when signup action is successful', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/signup', {
       status: 200,
@@ -129,7 +129,7 @@ describe('Auth actions', () => {
       .catch(error => error);
   });
 
-  it('creates EDIT_PROFILE when user edit profile', () => {
+  it('should create EDIT_PROFILE when user edit profile', () => {
     const { authResponse } = mockData;
     moxios.stubRequest('/api/v1/users/edit/1', {
       status: 200,

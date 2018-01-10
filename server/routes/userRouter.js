@@ -7,7 +7,9 @@ import Authorization from '../middleware/Authorization';
 const { isLoggedIn } = Authorization;
 
 const {
-  checkAndRetrieveUserDetails, checkUserInput,
+  retrieveUserDetails,
+  checkUserExist,
+  checkUserInput,
   validateUserEdit
 } = Validation;
 
@@ -234,6 +236,6 @@ userRouter.route('/edit/:userId')
   .put(isLoggedIn, validateUserEdit, editProfile);
 
 userRouter.route('/validate')
-  .post(checkAndRetrieveUserDetails);
+  .post(checkUserExist, retrieveUserDetails);
 
 export default userRouter;

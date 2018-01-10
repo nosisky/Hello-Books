@@ -5,7 +5,7 @@ import expect from 'expect';
 import jwt from 'jsonwebtoken';
 import app from '../server';
 import models from '../server/models/';
-import userSeeder from '../server/seeders/users';
+import userSeeder from '../server/seeders/userSeeder';
 
 const server = supertest.agent(app);
 
@@ -29,7 +29,7 @@ describe('User Api: ', () => {
       .send(userSeeder.signUp2)
       .expect(201)
       .end((err, res) => {
-        token = res.body.token;
+        ({ token } = res.body);
         res.status.should.equal(201);
         const currentUser = jwt.decode(res.body.token);
         expect(currentUser.currentUser.email).toEqual('main@gmail.com');
@@ -52,6 +52,8 @@ describe('User Api: ', () => {
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.user.username.should.equal('Dealwapb');
+        res.body.user.fullName.should.equal('Abdulrasaq Nasirudeen');
+        res.body.user.email.should.equal('main@gmail.com');
         done();
       });
   });

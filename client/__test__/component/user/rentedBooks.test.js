@@ -28,25 +28,25 @@ const props = {
 }
 
 describe('Component: Rented Books Page', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = mount(<RentedBooksPage {...props}/>)
     expect(wrapper.find('div').length).toBe(16);
   })
 
-  it('tests that the component received props', () => {
+  it('should receive props', () => {
     const wrapper = mount(<RentedBooksPage {...props}/>)
     expect(wrapper.props().user.fullName).toBe('Test');
     expect(wrapper.props().user.plan).toBe('Silver');
     expect(wrapper.props().user.isAdmin).toBe(0);
   })
 
-  it('tests that the component called getRentedBooksAction', () => {
+  it('should called getRentedBooksAction when component is rendered', () => {
     const wrapper = mount(<RentedBooksPage {...props}/>)
     expect(wrapper.props().actions.getRentedBooksAction).toHaveBeenCalled();
     expect(wrapper.props().user).toBeTruthy();
   })
 
-  it('Should test that the component receives the action creatora', () => {
+  it('Should receive the action creators', () => {
     const wrapper = shallow(<RentedBooksPage {...props}/>)
     
     const handleClickSpy = jest.spyOn(wrapper.instance(), 'handleClick');

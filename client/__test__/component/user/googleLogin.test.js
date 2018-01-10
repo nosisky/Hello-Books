@@ -20,7 +20,7 @@ const props = {
 }
 
 describe('Component: GoogleLogIn', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = shallow(<GoogleLogIn {...props}/>)
     wrapper.instance().reMap({ name: 'Thsh jddj',
     email: 'dealwap@test.com'
@@ -29,7 +29,7 @@ describe('Component: GoogleLogIn', () => {
   expect(wrapper.instance().reMap).toHaveBeenCalled;
   })
 
-  it('tests that the component receives the response from Google', () => {
+  it('should receive the response from Google', () => {
     const wrapper = shallow(<GoogleLogIn {...props}  />)
     
     wrapper.instance().responseGoogle({ Zi: {
@@ -40,7 +40,7 @@ describe('Component: GoogleLogIn', () => {
   })
 
 
-  it(`tests that the component redirects to a new sign up page 
+  it(`should redirect to a new sign up page 
     when the response email from google does not exist in the database`, () => {
 
     const wrapper = shallow(<GoogleLogIn {...props}  />)

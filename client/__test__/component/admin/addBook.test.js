@@ -30,7 +30,7 @@ const setup = () => {
 };
 
 describe('Component: AddBook', () => {
-	it('tests that the component successfully rendered', () => {
+	it('should render the component successfully', () => {
 		const wrapper = setup();
 		const action = wrapper.instance();
 
@@ -159,7 +159,7 @@ describe('Component: AddBook', () => {
 		expect(action.state.authorError).toEqual('');
 	});
 
-	it('should clear productionYear value for productionYear exceeds is 4 characters', () => {
+	it('should clear productionYearError when productionYear is 4 characters', () => {
 		const wrapper = setup();
 
 		const action = wrapper.instance();
@@ -274,7 +274,7 @@ describe('Component: AddBook', () => {
     .toEqual('Book author name must be greater than 2 characters');
   });
   
-  it('should set descError value when description is undefined', () => {
+  it('should set description error value when description is undefined', () => {
 		const wrapper = setup();
 
 		const action = wrapper.instance();
@@ -306,7 +306,7 @@ describe('Component: AddBook', () => {
 	});
 
 
-	it('should set descError value for description with less than 4 characters', () => {
+	it('should set descriptionError value for description with less than 4 characters', () => {
   
 		const wrapper = setup();
 

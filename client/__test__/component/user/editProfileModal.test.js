@@ -33,7 +33,7 @@ const setup = () => {
 };
 
 describe('Component: EditProfileModal', () => {
-	it('tests that the component successfully rendered', () => {
+	it('should render the component successfully', () => {
 		const wrapper = setup();
 		expect(wrapper.find('div').length).toBe(17);
 	});

@@ -3,10 +3,17 @@ import should from 'should';
 import mocha from 'mocha';
 import dotenv from 'dotenv';
 import expect from 'expect';
+import jwt from 'jsonwebtoken';
+
 import app from '../server';
 import models from '../server/models/';
-import jwt from 'jsonwebtoken';
-import userSeeder from '../server/seeders/users';
+import { usernameMin5,
+  noFullName,
+  signUp,
+  invalidLoginDetails,
+  missingPassword,
+  login
+} from '../server/seeders/userSeeder';
 
 dotenv.load();
 
@@ -28,7 +35,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.usernameMin5)
+      .send(usernameMin5)
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
@@ -46,7 +53,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.noFullName)
+      .send(noFullName)
       .expect(400)
       .end((err, res) => {
         res.status.should.equal(400);
@@ -61,7 +68,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.signUp)
+      .send(signUp)
       .expect(201)
       .end((err, res) => {
         res.status.should.equal(201);
@@ -160,7 +167,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.invalidLoginDetails)
+      .send(invalidLoginDetails)
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
@@ -175,7 +182,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.missingPassword)
+      .send(missingPassword)
       .expect(401)
       .end((err, res) => {
         res.status.should.equal(401);
@@ -194,7 +201,7 @@ describe('User Api: ', () => {
       .set('Connection', 'keep alive')
       .set('Content-Type', 'application/json')
       .type('form')
-      .send(userSeeder.login)
+      .send(login)
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);

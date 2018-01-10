@@ -39,14 +39,14 @@ const setup = () => {
 };
 
 describe('Component: AdminHome', () => {
-	it('tests that the component received the user props', () => {
+	it('should render the component successfully', () => {
 		const wrapper = setup();
 		expect(wrapper.instance().props.user.fullName).toBe('test');
 		expect(wrapper.instance().props.user.plan).toBe('Silver');
 		expect(wrapper.instance().props.user.isAdmin).toBe(0);
 	});
 
-	it('tests that the component received the action creator', () => {
+	it('should receive the action creators', () => {
 		const wrapper = setup();
 		const handlePageChangeSpy = jest.spyOn(wrapper.instance(), 'handlePageChange');
 
