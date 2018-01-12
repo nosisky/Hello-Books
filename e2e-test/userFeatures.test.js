@@ -3,6 +3,8 @@ const faker = require('faker');
 const randomName = faker.name.findName();
 const username = faker.name.firstName();
 const randomEmail = faker.internet.email();
+const isbn = 'isbn-the-test';
+
 
 module.exports = {
   'Users should not be able to login with invalid details': browser =>
@@ -35,6 +37,10 @@ module.exports = {
       .setValue('input[name=password]', randomName)
       .click('button[name=action]')
       .waitForElementVisible('#book_card', 5000)
+      .assert
+      .containsText(`[data-isbn=${isbn}] span`, 'This is just a test')
+      .assert
+      .containsText(`[data-isbn=${isbn}] p`, 'This is just a test description')
       .assert.urlContains('http://localhost:8000/dashboard')
       .click('#logout_icon')
       .pause(1000),
@@ -74,6 +80,11 @@ module.exports = {
       .click('#returnBook')
       .waitForElementVisible('.swal-button--confirm', 5000)
       .click('.swal-button--confirm')
+      .waitForElementVisible('.disabled', 5000)
+      .assert
+      .containsText('.card-image > span', 'This is just a test')
+      .assert
+      .containsText('.card-content > p', 'This is just a test description')
       .end(),
 
   'Users should be able to search for books': browser =>
@@ -87,5 +98,9 @@ module.exports = {
       .click('#showSearch')
       .setValue('input[name=search]', 'This')
       .waitForElementVisible('#borrowNow', 5000)
+      .assert
+      .containsText(`[data-isbn=${isbn}] span`, 'This is just a test')
+      .assert
+      .containsText(`[data-isbn=${isbn}] p`, 'This is just a test description')
       .end()
 };

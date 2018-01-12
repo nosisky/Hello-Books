@@ -149,7 +149,7 @@ export class AllBooks extends Component {
 										<div className="input-field col s12">
 											<b>Title</b>
 											<input
-												id="title"
+												id="title_book"
 												type="text"
 												name="title"
 												onChange={this.onChange}
@@ -218,7 +218,7 @@ export class AllBooks extends Component {
 				)}
 
 				{this.state.displayBook && (
-					<div className="card" id="book_card">
+					<div className="card" data-isbn={this.props.isbn} id="book_card">
 						<div className="card-image">
 							<img height="250px" src={this.props.cover} 
 							alt="loading image..." />
