@@ -8,6 +8,7 @@ const AllBooks = ({
 	description, 
 	id, 
 	isReturned, 
+	isbn,
 	rented }) => {
 		
 	const handleClick = () => {
@@ -15,7 +16,7 @@ const AllBooks = ({
 	};
 	return (
 		<div className="col s12 m3 l3" style={{backgroundColor: '#fff'}} >
-		<div className="card" id="book_card">
+		<div className="card" id="book_card" data-isbn={isbn}>
 						<div className="card-image">
 							<img height="250px" src={cover} alt="loading image..." />
 							<span className="card-title">{title}</span>

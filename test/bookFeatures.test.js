@@ -247,6 +247,10 @@ describe('#Book Features: ', () => {
         .send({ bookId: 1 })
         .expect(201)
         .end((err, res) => {
+          res.body.book.id.should.equal(1);
+          res.body.book.title.should.equal('Think rich to grow rich');
+          res.body.book.cover.should.equal('albert-think.jpg');
+          res.body.book.description.should.equal('The book is based on education');
           res.status.should.equal(201);
           res.body.message.should.equal('Book returned successfully');
           done();
