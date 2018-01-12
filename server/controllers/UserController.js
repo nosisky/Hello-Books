@@ -25,6 +25,7 @@ const UserController = {
    * Route: POST: /users/signup
    */
   create(req, res) {
+    
     return User.create(req.userInput)
       .then((user) => {
         const currentUser = omit(
@@ -158,7 +159,7 @@ const UserController = {
         });
       })
       .catch((error) => {
-        res.status(500).send(error);
+        return res.status(500).send(error);
       });
   }
 };

@@ -64,14 +64,27 @@ const Validation = {
       });
       return res.status(400).json(allErrors);
     }
+    next();
+  },
+
+  /**
+   * Sends user input to the create account controller
+   *
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @param {Object} next - Callback function
+   *
+   * @returns {Object} - Object containing user information
+   */
+  sendUserInput(req, res, next) {
     const username = req.body.username.toLowerCase();
 
     return User.findOne({
       where: {
-        username,
-        $or: {
-          email: req.body.email
-        }
+        $or: [{ username },
+          { email: req.body.email }]
       }
     }).then((user) => {
       if (user) {
@@ -87,7 +100,7 @@ const Validation = {
       } else {
         const password = bcrypt.hashSync(req.body.password, 10);
         req.userInput = {
-          username: req.body.username,
+          username,
           fullName: req.body.fullName,
           email: req.body.email,
           password
@@ -181,6 +194,22 @@ const Validation = {
         message: allErrors[0]
       });
     }
+    next();
+  },
+
+
+  /**
+   * Sends user input to the add book controller
+   *
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+   *
+   * @param {Object} next - Callback function
+   *
+   * @returns {Object} - Object containing book inout
+   */
+  sendBookInput(req, res, next) {
     Book.findOne({
       where: {
         isbn: req.body.isbn
@@ -230,7 +259,7 @@ const Validation = {
       }
     } else if (email) {
       if (!emailValidate) {
-        return res.status(200).send({
+        return res.status(400).send({
           status: true,
           message: 'Invalid email supplied'
         });
@@ -243,7 +272,43 @@ const Validation = {
   },
 
   /**
- * @description - Verify and retrieve suer details
+   * @description - It checks if a user already exist
+   *
+   * @param {Object} req - request
+   *
+   * @param {Object} res - response
+
+   * @param {Function} next - Call back function
+   *
+   * @return {Object} - response object
+   */
+  checkUserExist(req, res, next) {
+    Validation.checkValidDetails(req.body.email, req.body.username, res);
+
+    return User.findOne({
+      where: {
+        $or: [{ username: req.body.username },
+          { email: req.body.email }]
+      }
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(200).send({
+            userExist: false,
+            message: ''
+          });
+        }
+        req.currentUser = omit(
+          user.dataValues,
+          ['password', 'createdAt', 'updatedAt']
+        );
+        next();
+      })
+      .catch(error => res.status(500).send(error));
+  },
+
+  /**
+ * @description - Retrieves user details
  *
  * @param {Object} req - request
  *
@@ -251,85 +316,28 @@ const Validation = {
  *
  * @return {Object} - repsonse object
  */
-  checkAndRetrieveUserDetails(req, res) {
-    const userExist = 'Username already exist';
-    const emailExist = 'Email already exist';
+  retrieveUserDetails(req, res) {
+    const { userId } = req.body;
+    const existingUserId = req.currentUser.id;
+    const searchQuery = req.body.email ? 'Email' : 'Username';
 
-    Validation.checkValidDetails(req.body.email, req.body.username, res);
-
-    User.findOne({
-      where: {
-        $or: [{ username: req.body.username },
-          { email: req.body.email }]
-      }
-    })
-      .then((users) => {
-        if (users) {
-          const currentUser = omit(
-            users.dataValues,
-            ['password', 'createdAt', 'updatedAt']
-          );
-
-          if (req.body.userId) {
-            if (Number(req.body.userId) === users.id) {
-              if (req.body.email) {
-                return res.status(200).send({
-                  user: currentUser,
-                  emailExist: true,
-                  message: '',
-                  status: true
-                });
-              }
-              return res.status(200).send({
-                user: currentUser,
-                userExist: true,
-                status: true,
-                message: emailExist
-              });
-            }
-            if (req.body.email) {
-              return res.status(200).send({
-                user: currentUser,
-                emailExist: true,
-                message: emailExist,
-                status: true
-              });
-            }
-            return res.status(200).send({
-              user: currentUser,
-              userExist: true,
-              status: true,
-              message: userExist
-            });
-          }
-          if (req.body.google) {
-            return res.status(200).send({
-              emailExist: true,
-              status: true,
-              message: userExist,
-              user: currentUser
-            });
-          }
-          if (req.body.email) {
-            return res.status(200).send({
-              emailExist: true,
-              status: true,
-              message: emailExist
-            });
-          }
-          return res.status(200).send({
-            userExist: true,
-            status: true,
-            message: userExist
-          });
-        }
-        return res.status(200).send({
-          message: 'User not found',
-          status: false,
-          userExist: false
-        });
-      })
-      .catch((error) => res.status(500).send(error));
+    if (userId && existingUserId !== userId) {
+      return res.status(200).send({
+        message: `${searchQuery} already exist`,
+        userExist: true
+      });
+    } else if (userId && existingUserId === userId) {
+      return res.status(200).send({
+        message: ''
+      });
+    } else if (req.body.google) {
+      return res.status(200).send({
+        user: req.currentUser
+      });
+    }
+    return res.status(409).send({
+      message: `${searchQuery} already exist`
+    });
   },
 
   /**

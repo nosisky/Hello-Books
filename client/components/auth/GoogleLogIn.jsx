@@ -62,7 +62,7 @@ export class GoogleLogIn extends React.Component {
 				const newUserObject = this.reMap(decoded);
 				this.props.emailExist({ email: newUserObject.currentUser.email })
 				.then((response) => {
-					if (!response.status) {
+					if (!response.length) {
 						const userObject = newUserObject.currentUser;
 						const token = jwt.sign({
 							userObject },

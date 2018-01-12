@@ -42,7 +42,7 @@ const bookSeeder = {
     cover: 'albert-think.jpg'
   },
 
-  noproductionYear: {
+  noProductionYear: {
     title: 'Think rich to grow rich',
     author: 'Albert Einstein',
     total: 20,

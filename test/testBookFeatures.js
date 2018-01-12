@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 import app from '../server';
 import models from '../server/models/';
-import bookSeeder from '../server/seeders/books';
+import bookSeeder from '../server/seeders/bookSeeder';
 
 dotenv.load();
 
@@ -218,7 +218,7 @@ describe('#Book Features: ', () => {
         });
     });
 
-  it('Should test for rented books', (done) => {
+  it('Should fetch unreturned books', (done) => {
     server
       .get('/api/v1/users/4/books?returned=false')
       .set('x-access-token', token)
@@ -287,6 +287,9 @@ describe('#Book Features: ', () => {
         .end((err, res) => {
           res.status.should.equal(201);
           res.body.message.should.equal('Book returned successfully');
+          res.body.book.title.should.equal('Think rich to grow rich');
+          res.body.book.cover.should.equal('albert-think.jpg');
+          res.body.book.description.should.equal('The book is based on education');
           done();
         });
     });
@@ -356,6 +359,9 @@ describe('#Book Features: ', () => {
         .end((err, res) => {
           res.status.should.equal(200);
           res.body.message.should.equal('Book updated successfully!');
+          res.body.book.title.should.equal('Think rich to grow rich');
+          res.body.book.cover.should.equal('albert-think.jpg');
+          res.body.book.description.should.equal('The book is based on education');
           done();
         });
     });
@@ -424,6 +430,7 @@ describe('#Book Features: ', () => {
         .end((err, res) => {
           res.status.should.equal(200);
           res.body.message.should.equal('Book deleted successfully!');
+          res.body.id.should.equal(1);
           done();
         });
     });

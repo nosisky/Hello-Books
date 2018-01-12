@@ -34,7 +34,6 @@ const Authorization = {
     if (token) {
       jwt.verify(token, key, (error, decoded) => {
         if (error) {
-        
           res.status(401).send({
             message: 'Failed to Authenticate Token',
             error
@@ -51,6 +50,7 @@ const Authorization = {
       });
     }
   },
+
 
   /**
    * @description - Checks if currently logged in user is an admin

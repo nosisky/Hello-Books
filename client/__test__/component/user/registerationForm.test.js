@@ -20,7 +20,7 @@ const setup = () => {
 }
 describe('Component: RegisterationForm', () => {
   
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(18);
     expect(wrapper.find('button').length).toBe(1);    
@@ -28,7 +28,7 @@ describe('Component: RegisterationForm', () => {
     expect(wrapper.find('input').length).toBe(5);    
   })
 
-  it('tests that the component recieved the input validators', () => {
+  it('should recieve the input validators', () => {
     const wrapper = setup();
     expect(wrapper.props().UserExist).toBeTruthy;    
     expect(wrapper.props().EmailExist).toBeTruthy;  

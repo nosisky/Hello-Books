@@ -31,12 +31,12 @@ const setup = () => {
 }
 
 describe('Component: AdminHeader', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(4);
     expect(wrapper.find('a').length).toBe(6);
   })
-  it('tests that the component received the user props', () => {
+  it('should receive the user props', () => {
     const wrapper = setup();
     expect(wrapper.instance().props.user.fullName).toBe('test');
     expect(wrapper.find('a').length).toBe(6);
@@ -45,7 +45,7 @@ describe('Component: AdminHeader', () => {
     expect(wrapper.instance().props.user.isAdmin).toBe(0);
   })
 
-  it('should ensure mapDispatchToProps returns binded actions', () => {
+  it('should ensure mapDispatchToProps returns binded actions creators', () => {
     const dispatch = jest.fn();
     expect(mapDispatchToProps().actions.logoutAction).toBeTruthy;
   });

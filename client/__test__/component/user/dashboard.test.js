@@ -34,7 +34,7 @@ const setup = () => {
 }
 
 describe('Component: Dashboard', () => {
-  it('tests that the component successfully rendered', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(17);
     expect(wrapper.find('img').length).toBe(2);
@@ -43,7 +43,7 @@ describe('Component: Dashboard', () => {
     expect(wrapper.find('span').length).toBe(2);
   })
 
-  it('tests that the component received the user props', () => {
+  it('should receive the user props', () => {
     const wrapper = setup();
     expect(wrapper.props().user.fullName).toBe('test');
     expect(wrapper.find('a').length).toBe(3);
@@ -52,7 +52,7 @@ describe('Component: Dashboard', () => {
     expect(wrapper.props().user.isAdmin).toBe(0);
   })
 
-  it('tests that the component received the action creator', () => {
+  it('should receive the action creators', () => {
     const wrapper = setup();
 
     const handlePageChangeSpy = jest.spyOn(wrapper.instance(), 'handlePageChange');

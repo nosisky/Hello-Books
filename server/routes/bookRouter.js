@@ -4,7 +4,7 @@ import BookController from '../controllers/BookController';
 import Validation from '../middleware/Validation';
 import sendMail from '../middleware/sendMail';
 
-const { checkBookId, checkBookInput, validBook } = Validation;
+const { checkBookId, sendBookInput, checkBookInput, validBook } = Validation;
 
 const {
   isLoggedIn,
@@ -167,7 +167,7 @@ const bookRouter = express.Router();
  *         description: Internal server error
  */
 bookRouter.route('/books')
-  .post(isLoggedIn, isAdmin, checkBookInput, create)
+  .post(isLoggedIn, isAdmin, checkBookInput, sendBookInput, create)
   .get(isLoggedIn, getBooks);
 
 

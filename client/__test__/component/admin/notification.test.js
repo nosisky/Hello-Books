@@ -34,14 +34,14 @@ const setup = () => {
 }
 
 describe('Component: AdminHome', () => {
-  it('tests that the component received the user props', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.instance().props.user.fullName).toBe('test');
     expect(wrapper.instance().props.user.plan).toBe('Silver');
     expect(wrapper.instance().props.user.isAdmin).toBe(0);
   })
 
-  it('tests that the component received the action creator', () => {
+  it('should receive the action creator', () => {
     const wrapper = setup();
     expect(wrapper.instance().props.actions.getAllBooksAction).toHaveBeenCalled();
     expect(wrapper.instance().props.books[0].title).toBe('This is a test');
