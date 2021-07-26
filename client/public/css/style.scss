@@ -1,0 +1,561 @@
+$color: #25758c;
+$mainUserColor: rgb(21, 179, 157);
+$adminHeader: #2891dc;
+$navbar: #1a5262;
+$navWrapper: #25758c;
+$circular: #25758c;
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.78), rgba(25, 25, 25, 0.88)), url(/img/bg.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	min-height: 900px;
+	margin: 0 0 100px;
+}
+
+.blue.darken-4 {
+	background-color: #1a5261 !important;
+}
+
+#container {
+	padding-left: 300px;
+}
+
+#content {
+	padding-bottom: 15px;
+	padding-left: 5px;
+}
+
+.row .col.s9 {
+	margin-top: 20px !important;
+}
+
+.history {
+	background-color: #fff;
+	margin: 5px;
+	float: right;
+}
+
+.main-history {
+	width: 80%;
+	float: right;
+}
+
+.dashboard-nav-wrapper {
+	padding-top: 40px !important;
+	background-color: $color;
+	color: #fff;
+}
+
+@media screen and (max-width: 699px) and (min-width: 520px) {
+	.history {
+		width: 100%;
+		margin: 10px;
+	}
+}
+
+#main-sec {
+	background-color: $color;
+}
+
+@media only screen and (max-width: 992px) {
+	#container {
+		padding-left: 0px;
+	}
+}
+
+.header-side {
+	margin-top: 0px;
+}
+
+.admin-header-side {
+	background-color: $adminHeader;
+	height: 60px;
+	margin-top: 0px;
+	padding: 5px;
+}
+
+h5 {
+	font-weight: 400;
+}
+
+.teal {
+	background-color: $color !important;
+}
+
+.container-auth {
+	margin-top: 60px;
+	width: 500px;
+	align-self: center;
+	margin-bottom: 60px;
+	margin-right: 60px;
+}
+
+@media screen and (max-width: 900px) and (min-width: 520px) {
+	.container-auth {
+		margin-top: 60px;
+		margin-bottom: 60px;
+		margin-right: 60px;
+	}
+}
+
+.nav-bar {
+	background-color: $navbar;
+}
+
+.pagination {
+	display: inline-block;
+	width: 100% !important;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.pagination li.active a {
+	background-color: #1a5260 !important;
+}
+
+@media screen and (max-width: 800px) {
+	.main-auth {
+		width: 80% !important;
+		margin-top: 40px;
+	}
+}
+
+.page-footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background-color: #1a5261;
+	left: 0;
+}
+
+.main-auth {
+	width: 90%;
+	margin-top: 80px;
+	float: right;
+	margin-right: 30px;
+}
+
+.tab {
+	width: 50% !important;
+}
+
+.tabs .indicator {
+	background-color: #00bfea;
+	height: 60px;
+	opacity: 0.3;
+}
+
+.form-container {
+	padding: 20px;
+	padding-top: 10px;
+}
+
+.confirmation-tabs-btn {
+	position: absolute;
+}
+
+.logo {
+	font-size: 50px;
+}
+
+.main-navigation li a {
+	color: #fff !important;
+	font-size: large;
+}
+
+.reg {
+	float: right !important;
+}
+
+#menu-list {
+	border-bottom: 1px solid $color;
+	background-color: #fff;
+}
+
+.main-green {
+	background-color: #2a4b63 !important;
+}
+
+#collection-item {
+	font-weight: bold;
+	margin: 10px !important;
+}
+
+.collection .collection-item.avatar .secondary-content {
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.container-fluid {
+	width: 80%;
+	margin: 20px;
+	float: right;
+}
+
+.book {
+	width: 100px;
+	box-shadow: white 4px 3px 4px 5px;
+}
+
+.history-container {
+	float: right;
+	width: 75%;
+}
+
+@media screen and (max-width: 699px) and (min-width: 520px) {
+	.admin-book-list {
+		width: 100% !important;
+	}
+}
+
+.admin-book-list {
+	float: right;
+	width: 79%;
+}
+
+.book-header {
+	background-color: $mainUserColor !important;
+	color: #fff;
+	height: 60px;
+	padding-top: -10px;
+	font-size: 30px;
+	font-family: cursive;
+	padding: 5px !important;
+	margin: 1px;
+}
+
+.user-book-header {
+	background-color: rgb(37, 117, 140) !important;
+	color: #fff;
+	height: 60px;
+	padding-top: -10px;
+	font-size: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 5px !important;
+	margin-top: 1px;
+}
+
+.card-action {
+	padding: 23px 24px !important;
+	height: 80px !important;
+}
+
+.pagination {
+	background-color: #fff !important;
+	width: 300px;
+}
+
+.card.horizontal {
+	margin-top: -20px;
+}
+
+.pagination li.active {
+	background-color: rgba(37, 96, 185, 0.92) !important;
+}
+
+.card .card-image .card-title {
+	background-color: rgba(28, 31, 30, 0.66) !important;
+	padding: 10px;
+	width: 100%;
+	text-align: center;
+	font-size: 17px;
+	min-height: 70px;
+}
+
+.card .card-image {
+	height: 250px !important;
+}
+#book_card {
+	box-shadow: 3px 3px 3px 3px;
+}
+
+#delete_button {
+	float: right;
+	height: 28px;
+	color: #fff;
+	color: #ef4a4a;
+	cursor: pointer;
+	font-size: 12px;
+	margin: 0;
+}
+#edit_button {
+	float: right;
+	height: 28px;
+	color: #59983b;
+	cursor: pointer;
+	font-size: 12px;
+}
+
+#profile_edit {
+	padding: 30px !important;
+}
+.nav-wrapper {
+	background-color: $navWrapper !important;
+}
+
+.profile-cover {
+	width: 80%;
+	float: right;
+}
+
+.p-img {
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	background-color: rgba(255, 255, 255, 0.43);
+}
+
+.profile {
+	background-color: #f4f4f4;
+	width: 300px;
+	margin: 10px 50px;
+	box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.7);
+}
+
+.profile-header {
+	overflow: hidden;
+	width: 100%;
+	max-height: 300px;
+}
+
+.profile-header img {
+	width: 100%;
+	border-radius: 50%;
+}
+
+.profile-content {
+	width: 85%;
+	margin: 35px auto;
+}
+
+.profile-content h3 {
+	font-size: 25px;
+	margin-bottom: 0;
+	color: #000;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.profile-content h4 {
+	font-size: 14px;
+	margin-top: 0;
+	color: #000;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.profile-content p {
+	color: #727272;
+	font-size: 12px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.profile-footer {
+	border-top: solid 1px #b6b6b6;
+	padding: 5px;
+}
+
+.profile-footer ul {
+	padding: 0;
+	width: 90%;
+	margin: auto;
+	text-align: center;
+}
+
+.profile-footer ul li {
+	display: inline-block;
+	list-style: none;
+	margin: 5px;
+}
+
+.profile-footer ul li i {
+	font-size: 2em;
+	color: #3f51b5;
+}
+
+.title-pen span {
+	color: #55acee;
+}
+
+.user-profile {
+	margin: auto;
+	margin-top: 5px;
+	background: #fff;
+	border-radius: .3em;
+	padding: 30px;
+}
+
+.user-profile .username {
+	margin: auto;
+	margin-top: -4.40em;
+	margin-left: 5.80em;
+	color: #658585;
+	font-size: 1.53em;
+	font-family: "Coda", sans-serif;
+	font-weight: bold;
+}
+.user-profile .bio {
+	margin: auto;
+	display: inline-block;
+	margin-left: 10.43em;
+	color: #e76043;
+	font-size: .87em;
+	font-family: "varela round", sans-serif;
+}
+.user-profile > .description {
+	margin: auto;
+	margin-top: 0.35em;
+	width: 14em;
+	color: #c0c5c5;
+	font-size: .87em;
+	font-family: "varela round", sans-serif;
+}
+.user-profile > img.avatar {
+	padding: .7em;
+	margin-left: .3em;
+	margin-top: .3em;
+	height: 6.23em;
+	width: 6.23em;
+	border-radius: 18em;
+}
+.description {
+	margin-top: 50px;
+}
+
+#addBook {
+	padding: 25px;
+}
+.user-profile ul.data {
+	margin: 2em auto;
+	height: 4.70em;
+	background: #4eb6b6;
+	text-align: center;
+	border-radius: 0 0 .3em .3em;
+}
+.user-profile li {
+	margin: 0 auto;
+	padding: 1.30em;
+	width: 33.33334%;
+	display: table-cell;
+	text-align: center;
+}
+
+.user-profile span {
+	font-family: "varela round", sans-serif;
+	color: #e3eeee;
+	white-space: nowrap;
+	font-size: 1.27em;
+	font-weight: bold;
+}
+
+.collection .collection-item {
+	font-weight: bold;
+	margin: 33px !important;
+}
+
+.collection .collection-item.avatar .secondary-content {
+	font-size: 9px;
+	font-weight: normal;
+	padding-top: 35px;
+}
+
+#sidenav-overlay {
+	background: none !important;
+}
+
+nav i,
+nav [class^="mdi-"],
+nav [class*="mdi-"],
+nav i.material-icons {
+	margin-left: 10px;
+	margin-right: 8px;
+}
+
+.tag-name {
+	float: right;
+	font-weight: initial;
+}
+
+.circular-img {
+	border: 3px solid $circular;
+	border-radius: 50%;
+}
+
+.card .card-content .card-title {
+	width: max-content;
+}
+
+@media screen and (max-width: 1366px) and (min-width: 1024px) {
+	.side-nav {
+		width: 250px !important;
+	}
+}
+
+@media screen and (min-width: 1366px) {
+	.side-nav {
+		width: 360px !important;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.side-nav {
+		width: 260px !important;
+	}
+}
+
+.card {
+	height: 420px !important;
+}
+
+.empty-notifier {
+	color: white;
+	float: right;
+	margin: 50px 80px 0px 0px;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 1366px) and (min-width: 1024px) {
+	#hide {
+		display: none;
+	}
+}
+
+
+@media screen and (min-width: 1366px) {
+	#hide-pc {
+		display: none;
+	}
+}
+
+
+div.preloader {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	background: rgba(6, 95, 124, 0.94) url('https://loading.io/spinners/equalizer/lg.equalizer-bars-loader.gif') 
+	no-repeat center center;
+}
+
+.notfound {
+	color: rgb(255, 255, 255);
+	margin-right: 50px;
+	background: #8c2526;
+	padding: 80px;
+}
+a > i {
+	cursor: pointer;
+}

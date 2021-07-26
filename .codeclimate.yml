@@ -1,0 +1,28 @@
+engines:
+  eslint:
+    enabled: true
+    checks:
+      comma-dangle:
+        enabled: false
+      no-trailing-spaces:
+        enabled: false
+  duplication:
+    enabled: false
+    config:
+      languages:
+      - javascript
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+exclude_paths:
+- test
+- client/public
+- client/test
+- client/test/__mocks__
+- e2e
+- server/models
+- server/seeders
+- server/migrations
+- server/api-docs
